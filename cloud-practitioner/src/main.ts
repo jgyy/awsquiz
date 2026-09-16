@@ -9,20 +9,30 @@ import {
   DOMAIN_LABELS,
 } from "./scoring.js";
 
-export const FULL_EXAM_SECONDS = 90 * 60;
+const FULL_EXAM_SECONDS = 90 * 60;
 
-export interface Session {
+interface Session {
   mode: Mode;
   questions: Question[];
   currentIndex: number;
   answers: Record<string, string[]>;
   timerId: number | null;
   remainingSeconds: number;
+  deadlineAt: number | null;
 }
 
-export let session: Session | null = null;
+let session: Session | null = null;
 
 const app = document.getElementById("app") as HTMLElement;
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 function renderModeSelection(): void {
   session = null;
@@ -67,6 +77,7 @@ function startFullExam(): void {
     answers: {},
     timerId: null,
     remainingSeconds: FULL_EXAM_SECONDS,
+    deadlineAt: Date.now() + FULL_EXAM_SECONDS * 1000,
   };
   startTimer();
   renderQuestionScreen();
@@ -82,6 +93,7 @@ function startPractice(domain: Domain | "all"): void {
     answers: {},
     timerId: null,
     remainingSeconds: 0,
+    deadlineAt: null,
   };
   renderQuestionScreen();
 }
@@ -90,9 +102,10 @@ function startTimer(): void {
   if (!session) return;
   session.timerId = window.setInterval(() => {
     if (!session) return;
-    session.remainingSeconds -= 1;
+    const remaining = Math.max(0, Math.ceil(((session.deadlineAt ?? Date.now()) - Date.now()) / 1000));
+    session.remainingSeconds = remaining;
     updateTimerDisplay();
-    if (session.remainingSeconds <= 0) {
+    if (remaining <= 0) {
       finishSession();
     }
   }, 1000);
@@ -128,7 +141,7 @@ function renderQuestionScreen(): void {
         ${session.mode === "full-exam" ? `<span class="timer" id="timer">--:--</span>` : ""}
       </div>
       <p class="domain-label">${DOMAIN_LABELS[question.domain]}${isMulti ? " — select two" : ""}</p>
-      <h2 class="question-text">${question.text}</h2>
+      <h2 class="question-text">${escapeHtml(question.text)}</h2>
       <form id="question-form">
         ${question.options
           .map(
@@ -136,7 +149,7 @@ function renderQuestionScreen(): void {
           <label class="option">
             <input type="${isMulti ? "checkbox" : "radio"}" name="option" value="${opt.id}"
               ${selected.includes(opt.id) ? "checked" : ""} />
-            <span>${opt.text}</span>
+            <span>${escapeHtml(opt.text)}</span>
           </label>`
           )
           .join("")}
@@ -187,7 +200,7 @@ function showFeedback(question: Question): void {
   const feedback = document.getElementById("feedback")!;
   feedback.innerHTML = `
     <p class="${correct ? "feedback-correct" : "feedback-incorrect"}">${correct ? "Correct" : "Incorrect"}</p>
-    <p class="explanation">${question.explanation}</p>
+    <p class="explanation">${escapeHtml(question.explanation)}</p>
   `;
 }
 
@@ -239,10 +252,10 @@ function renderResultsScreen(result: SessionResult): void {
           .map(
             (pq, i) => `
           <div class="review-item ${pq.isCorrect ? "review-correct" : "review-incorrect"}">
-            <p class="review-question">${i + 1}. ${pq.question.text}</p>
+            <p class="review-question">${i + 1}. ${escapeHtml(pq.question.text)}</p>
             <p>Your answer: ${describeOptions(pq.question, pq.selectedOptionIds)}</p>
             <p>Correct answer: ${describeOptions(pq.question, pq.question.correctOptionIds)}</p>
-            <p class="explanation">${pq.question.explanation}</p>
+            <p class="explanation">${escapeHtml(pq.question.explanation)}</p>
           </div>`
           )
           .join("")}
@@ -260,7 +273,7 @@ function describeOptions(question: Question, ids: string[]): string {
   if (ids.length === 0) return "(no answer)";
   return question.options
     .filter((opt) => ids.includes(opt.id))
-    .map((opt) => opt.text)
+    .map((opt) => escapeHtml(opt.text))
     .join(", ");
 }
 

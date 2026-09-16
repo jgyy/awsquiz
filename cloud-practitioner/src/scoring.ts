@@ -43,9 +43,10 @@ export function shuffleQuestionOptions(question: Question): Question {
 }
 
 export function isAnswerCorrect(question: Question, selectedOptionIds: string[]): boolean {
-  if (selectedOptionIds.length !== question.correctOptionIds.length) return false;
+  const selectedSet = new Set(selectedOptionIds);
   const correctSet = new Set(question.correctOptionIds);
-  return selectedOptionIds.every((id) => correctSet.has(id));
+  if (selectedSet.size !== correctSet.size) return false;
+  return [...selectedSet].every((id) => correctSet.has(id));
 }
 
 export function scoreSession(

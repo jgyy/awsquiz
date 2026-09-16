@@ -140,7 +140,6 @@ a:focus-visible {
   color: var(--accent);
 }
 
-.progress,
 .domain-label {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
