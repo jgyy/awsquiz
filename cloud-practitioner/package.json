@@ -5,7 +5,8 @@
   "description": "Static AWS Certified Cloud Practitioner (CLF-C02) exam simulator.",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "dev": "node scripts/dev.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.3"

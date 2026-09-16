@@ -13,6 +13,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Pay-as-you-go pricing means you pay only for what you consume, with no long-term contracts required.",
+    optionRationale: {
+      a: "Economies of scale explains why AWS's costs (and prices) fall as it grows — it's not the customer's payment model.",
+      b: "Pay-as-you-go pricing charges you only for the compute capacity you actually consume, with no upfront commitment.",
+      c: "Reserved capacity requires a commitment in exchange for a discount, the opposite of pay-as-you-go.",
+      d: "Fixed monthly billing doesn't track actual usage, so it isn't pay-as-you-go pricing.",
+    },
+    referenceUrl: "https://aws.amazon.com/pricing/",
+    referenceLabel: "AWS Pricing Overview",
   },
   {
     id: "cc2",
@@ -26,6 +34,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Elasticity is the ability to grow or shrink infrastructure resources dynamically to meet changing demand.",
+    optionRationale: {
+      a: "This is the definition of elasticity: resources scale automatically to match demand.",
+      b: "Physical durability of data centers is a facilities/resilience concept, not elasticity.",
+      c: "Running across multiple regions is about geographic reach, not scaling capacity up or down.",
+      d: "Encryption at rest is a data-protection concept, unrelated to scaling.",
+    },
+    referenceUrl: "https://aws.amazon.com/what-is-cloud-computing/",
+    referenceLabel: "What Is Cloud Computing?",
   },
   {
     id: "cc3",
@@ -39,6 +55,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Cloud computing replaces large upfront capital expenditure with variable operational expense based on actual usage.",
+    optionRationale: {
+      a: "Economies of scale is about AWS's costs falling as it grows, not about how a customer's spending is structured.",
+      b: "This directly describes trading capex for variable opex: large upfront purchases become ongoing usage-based spending.",
+      c: "Speed and agility is about how fast resources can be provisioned, not the expense model.",
+      d: "Going global in minutes describes geographic reach, not the shift from capex to opex.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics",
   },
   {
     id: "cc4",
@@ -52,6 +76,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "The Business perspective of AWS CAF focuses on ensuring IT aligns with and enables business strategy and outcomes.",
+    optionRationale: {
+      a: "The Technology perspective covers architecture and technical delivery, not business-IT alignment.",
+      b: "The Operations perspective covers running, monitoring, and managing workloads day to day.",
+      c: "The Business perspective ensures IT investments and strategy align with and enable business outcomes.",
+      d: "The Security perspective covers risk management and compliance, not business alignment.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/aws-caf/introduction.html",
+    referenceLabel: "AWS Cloud Adoption Framework",
   },
   {
     id: "cc5",
@@ -65,6 +97,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS's global footprint of Regions lets companies deploy infrastructure close to customers worldwide in minutes.",
+    optionRationale: {
+      a: "Global infrastructure complements a CDN like Amazon CloudFront; it doesn't remove the need for one.",
+      b: "AWS's global footprint of Regions lets a company stand up infrastructure near customers worldwide in minutes.",
+      c: "No infrastructure can guarantee zero latency; AWS reduces latency but doesn't eliminate it entirely.",
+      d: "Cloud applications still require network connectivity; global infrastructure doesn't remove that need.",
+    },
+    referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/",
+    referenceLabel: "AWS Global Infrastructure",
   },
   {
     id: "cc6",
@@ -78,6 +118,20 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Spreading resources across multiple, isolated Availability Zones protects applications from a single data center failure.",
+    optionRationale: {
+      a: "Multiple AZs exist for resilience, not primarily to lower data transfer costs.",
+      b: "Spreading resources across isolated AZs protects an application from a single data center or facility failure.",
+      c: "Multi-factor authentication is an identity security feature, unrelated to AZ design.",
+      d: "A global CDN is provided by edge locations and CloudFront, not by AZs within a Region.",
+    },
+    referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/",
+    referenceLabel: "AWS Regions and Availability Zones",
+    diagram:
+      "flowchart TD\n    R[AWS Region] --> AZ1[Availability Zone 1]\n    R --> AZ2[Availability Zone 2]\n    R --> AZ3[Availability Zone 3]\n    AZ1 --> DC1[Data Center]\n    AZ2 --> DC2[Data Center]\n    AZ3 --> DC3[Data Center]",
+    cliExample: {
+      description: "List the Availability Zones available in a Region",
+      command: "aws ec2 describe-availability-zones --region us-east-1",
+    },
   },
   {
     id: "cc7",
@@ -92,6 +146,17 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "The six pillars are Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability.",
+    optionRationale: {
+      a: "Operational Excellence is one of the six official Well-Architected Framework pillars.",
+      b: "Cost Optimization is one of the six official Well-Architected Framework pillars.",
+      c: "Marketing Efficiency is not a real Well-Architected pillar.",
+      d: "Vendor Lock-in Avoidance is not a named Well-Architected pillar.",
+      e: "Customer Obsession is an Amazon leadership principle, not a Well-Architected Framework pillar.",
+    },
+    referenceUrl: "https://aws.amazon.com/well-architected/",
+    referenceLabel: "AWS Well-Architected Framework",
+    diagram:
+      "flowchart TD\n    WAF[AWS Well-Architected Framework] --> P1[Operational Excellence]\n    WAF --> P2[Security]\n    WAF --> P3[Reliability]\n    WAF --> P4[Performance Efficiency]\n    WAF --> P5[Cost Optimization]\n    WAF --> P6[Sustainability]",
   },
   {
     id: "cc8",
@@ -105,6 +170,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Cloud computing removes the need to guess infrastructure capacity in advance; you can scale up or down as actual demand changes.",
+    optionRationale: {
+      a: "Patching responsibilities still exist under the shared responsibility model; AWS doesn't eliminate all patching.",
+      b: "Cloud removes the need to guess capacity ahead of time — you scale to match actual, observed demand.",
+      c: "Cost isn't guaranteed to be lower regardless of usage; it depends heavily on how resources are used and managed.",
+      d: "Data transfer is a billed dimension in AWS pricing, not unlimited and free.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics",
   },
   {
     id: "cc9",
@@ -118,6 +191,16 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Rehosting, or 'lift and shift', moves an application to the cloud as-is, without changing its code or architecture.",
+    optionRationale: {
+      a: "Refactor re-architects the application to take advantage of cloud-native features, the opposite of no changes.",
+      b: "Rehost, or 'lift and shift', moves the application to the cloud as-is with no code changes.",
+      c: "Replatform makes some targeted optimizations during the move, so it isn't strictly zero changes.",
+      d: "Retire means decommissioning an application, not migrating it.",
+    },
+    referenceUrl: "https://aws.amazon.com/blogs/enterprise-strategy/6-strategies-for-migrating-applications-to-the-cloud/",
+    referenceLabel: "6 Strategies for Migrating Applications to the Cloud",
+    diagram:
+      "flowchart LR\n    Retire --> Retain --> Repurchase --> Rehost --> Replatform --> Refactor",
   },
   {
     id: "cc10",
@@ -131,6 +214,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Replatforming makes a few targeted cloud optimizations, such as swapping a self-managed database for a managed one, without a full rearchitecture.",
+    optionRationale: {
+      a: "Rehost makes no changes at all, so it doesn't involve any cloud optimizations.",
+      b: "Replatform, or 'lift and reshape', makes small targeted optimizations without changing the core architecture.",
+      c: "Repurchase means switching to a different product entirely, not tuning the existing application.",
+      d: "Retain means keeping the application where it currently runs, not migrating and optimizing it.",
+    },
+    referenceUrl: "https://aws.amazon.com/blogs/enterprise-strategy/6-strategies-for-migrating-applications-to-the-cloud/",
+    referenceLabel: "6 Strategies for Migrating Applications to the Cloud",
   },
   {
     id: "cc11",
@@ -144,6 +235,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Repurchasing means replacing an existing application with a different product, typically a SaaS offering.",
+    optionRationale: {
+      a: "Retire means shutting the application down without a direct replacement.",
+      b: "Repurchase means replacing the existing application with a different product, commonly a SaaS offering.",
+      c: "Rehost keeps the same application and simply moves it to the cloud unchanged.",
+      d: "Refactor re-architects the existing application rather than replacing it with a different product.",
+    },
+    referenceUrl: "https://aws.amazon.com/blogs/enterprise-strategy/6-strategies-for-migrating-applications-to-the-cloud/",
+    referenceLabel: "6 Strategies for Migrating Applications to the Cloud",
   },
   {
     id: "cc12",
@@ -157,19 +256,40 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Agility describes how quickly teams can provision resources, experiment, and iterate compared to traditional infrastructure.",
+    optionRationale: {
+      a: "Agility is exactly this: the speed and ease of provisioning resources to experiment and iterate quickly.",
+      b: "Elasticity is about scaling capacity up or down with demand, not the speed of initial provisioning.",
+      c: "Durability describes long-term data resilience, unrelated to provisioning speed.",
+      d: "Compliance describes meeting regulatory requirements, unrelated to provisioning speed.",
+    },
+    referenceUrl: "https://aws.amazon.com/what-is-cloud-computing/",
+    referenceLabel: "What Is Cloud Computing?",
   },
   {
     id: "cc13",
     domain: "cloud-concepts",
     text: "What is a key characteristic that differentiates fault tolerance from high availability?",
     options: [
-      { id: "a", text: "Fault-tolerant systems continue operating with zero downtime even if a component fails, while highly available systems minimize but may not eliminate downtime" },
+      {
+        id: "a",
+        text: "Fault-tolerant systems continue operating with zero downtime even if a component fails, while highly available systems minimize but may not eliminate downtime",
+      },
       { id: "b", text: "Fault tolerance only applies to storage services" },
       { id: "c", text: "High availability requires multiple AWS accounts" },
       { id: "d", text: "Fault tolerance is only achieved through manual intervention" },
     ],
     correctOptionIds: ["a"],
     explanation: "Fault tolerance masks failures entirely with no downtime, while high availability aims to minimize downtime but may involve a brief interruption.",
+    optionRationale: {
+      a: "This is the key distinction: fault tolerance masks a failure with zero downtime, while high availability minimizes but doesn't guarantee zero downtime.",
+      b: "Fault tolerance is a design principle that applies broadly across services, not only storage.",
+      c: "High availability doesn't require multiple AWS accounts; it's typically achieved with redundancy across AZs.",
+      d: "Fault tolerance is normally achieved through automatic failover, not manual intervention.",
+    },
+    referenceUrl: "https://aws.amazon.com/well-architected/",
+    referenceLabel: "Reliability Pillar — AWS Well-Architected Framework",
+    diagram:
+      "flowchart TD\n    Goal[Minimize Downtime] --> HA[High Availability]\n    Goal --> FT[Fault Tolerance]\n    HA --> HA1[Brief interruption possible]\n    FT --> FT1[Zero downtime on component failure]",
   },
   {
     id: "cc14",
@@ -184,6 +304,17 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "The six CAF perspectives are Business, People, Governance, Platform, Security, and Operations.",
+    optionRationale: {
+      a: "Governance is one of the six official AWS CAF perspectives.",
+      b: "Platform is one of the six official AWS CAF perspectives.",
+      c: "Advertising is not one of the AWS CAF perspectives.",
+      d: "Sales Enablement is not one of the AWS CAF perspectives.",
+      e: "Human Resources is not a CAF perspective; the closest official perspective is People.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/aws-caf/introduction.html",
+    referenceLabel: "AWS Cloud Adoption Framework",
+    diagram:
+      "flowchart TD\n    CAF[AWS Cloud Adoption Framework] --> Business\n    CAF --> People\n    CAF --> Governance\n    CAF --> Platform\n    CAF --> Security\n    CAF --> Operations",
   },
   {
     id: "cc15",
@@ -197,6 +328,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "By not owning data centers, a startup avoids large upfront investments and can redirect resources toward its product.",
+    optionRationale: {
+      a: "Not owning or maintaining data centers avoids large upfront investment, letting a startup redirect funds to its product.",
+      b: "AWS does not guarantee 100% uptime, and this isn't related to minimizing upfront investment.",
+      c: "Mandatory long-term contracts would work against a startup's need for low upfront commitment.",
+      d: "Fixed hardware refresh cycles describe an on-premises constraint, not a cloud benefit.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics",
   },
   {
     id: "cc16",
@@ -210,6 +349,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Each AWS Region is a separate geographic area made up of multiple isolated Availability Zones.",
+    optionRationale: {
+      a: "Correct: an AWS Region is a geographic area made up of multiple, isolated Availability Zones.",
+      b: "This reverses the actual relationship — a Region contains AZs, not the other way around.",
+      c: "Regions and AZs are distinct concepts: a Region is the geographic area, AZs are the isolated locations within it.",
+      d: "Every Availability Zone belongs to a specific Region; none exist outside one.",
+    },
+    referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/",
+    referenceLabel: "AWS Regions and Availability Zones",
   },
   {
     id: "cc17",
@@ -223,6 +370,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Edge locations cache content near end users to reduce latency for services like Amazon CloudFront.",
+    optionRationale: {
+      a: "Edge locations aren't primary compute data centers; they're smaller sites focused on caching content.",
+      b: "Edge locations are used by services like Amazon CloudFront to cache content closer to end users, reducing latency.",
+      c: "Disaster recovery uses full AWS Regions, not edge locations.",
+      d: "Edge locations are technical infrastructure sites, not support offices.",
+    },
+    referenceUrl: "https://aws.amazon.com/cloudfront/",
+    referenceLabel: "Amazon CloudFront",
   },
   {
     id: "cc18",
@@ -236,6 +391,16 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "A hybrid deployment combines on-premises infrastructure with cloud resources, often used for cloud bursting.",
+    optionRationale: {
+      a: "All-in cloud means running entirely in the cloud, which contradicts the on-premises baseline described here.",
+      b: "On-premises only would mean never using the cloud, which contradicts the described cloud bursting.",
+      c: "Combining an on-premises baseline with cloud bursting for peak demand is the definition of a hybrid deployment.",
+      d: "Multi-cloud means using multiple cloud providers, not combining on-premises with a single cloud provider.",
+    },
+    referenceUrl: "https://aws.amazon.com/hybrid/",
+    referenceLabel: "Hybrid Cloud with AWS",
+    diagram:
+      "flowchart LR\n    OnPrem[On-premises Data Center] <--> Link[Network Connection]\n    Link <--> Cloud[AWS Cloud]",
   },
   {
     id: "cc19",
@@ -250,6 +415,15 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "Cloud computing's core benefits include trading capex for variable opex and benefiting from AWS's economies of scale.",
+    optionRationale: {
+      a: "Trading capital expense for variable expense is one of the core cloud computing benefits.",
+      b: "Benefiting from AWS's massive economies of scale is one of the core cloud computing benefits.",
+      c: "Cloud computing is not free; usage is billed based on consumption.",
+      d: "The shared responsibility model still applies in the cloud — it isn't eliminated.",
+      e: "Security controls are still required; the customer retains responsibility for security 'in' the cloud.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics",
   },
   {
     id: "cc20",
@@ -263,6 +437,14 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS's massive scale of operation drives down per-unit costs, savings that are passed on to customers through lower prices.",
+    optionRationale: {
+      a: "This is the definition: AWS's growing scale lowers its costs, and those savings are passed on as lower prices for everyone.",
+      b: "Economies of scale come from AWS's aggregate volume, not individual customer negotiations.",
+      c: "The benefit isn't limited to single-service customers; it comes from AWS's overall infrastructure scale.",
+      d: "Economies of scale apply broadly across AWS services, not only compute.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics",
   },
   {
     id: "cc21",
@@ -276,5 +458,13 @@ export const cloudConceptsQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "The Well-Architected Framework gives a consistent set of questions and best practices for reviewing cloud architectures.",
+    optionRationale: {
+      a: "The framework provides a consistent set of questions and best practices for reviewing and improving architectures.",
+      b: "The Well-Architected Framework complements, not replaces, the Shared Responsibility Model.",
+      c: "Exact billing calculations come from tools like the Pricing Calculator and Cost Explorer, not Well-Architected.",
+      d: "Well-Architected is a review framework, not an IAM automation tool.",
+    },
+    referenceUrl: "https://aws.amazon.com/well-architected/",
+    referenceLabel: "AWS Well-Architected Framework",
   },
 ];

@@ -9,6 +9,11 @@ export interface Option {
   text: string;
 }
 
+export interface CliExample {
+  description: string;
+  command: string;
+}
+
 export interface Question {
   id: string;
   domain: Domain;
@@ -16,6 +21,13 @@ export interface Question {
   options: Option[];
   correctOptionIds: string[];
   explanation: string;
+  /** Per-option explanation, keyed by Option.id, covering why each option is right or wrong. */
+  optionRationale?: Record<string, string>;
+  referenceUrl?: string;
+  referenceLabel?: string;
+  /** Mermaid diagram definition, rendered only when present. */
+  diagram?: string;
+  cliExample?: CliExample;
 }
 
 export type Mode = "full-exam" | "practice";

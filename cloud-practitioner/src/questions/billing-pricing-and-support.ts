@@ -13,6 +13,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "On-Demand Instances let you pay for compute capacity with no upfront payment or long-term commitment.",
+    optionRationale: {
+      a: "Reserved Instances require a 1- or 3-year commitment in exchange for a discount, so they don't fit 'no commitment'.",
+      b: "On-Demand Instances are billed by the second or hour with no upfront payment and no long-term contract.",
+      c: "Spot Instances also carry no commitment, but they draw on spare capacity at a discount and can be interrupted by AWS, which isn't what's described here.",
+      d: "Savings Plans trade a 1- or 3-year usage commitment for a lower rate — the opposite of what's being asked about.",
+    },
+    referenceUrl: "https://aws.amazon.com/ec2/pricing/on-demand/",
+    referenceLabel: "Amazon EC2 On-Demand Pricing",
   },
   {
     id: "bill2",
@@ -26,6 +34,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "Spot Instances use spare EC2 capacity at a discount but can be reclaimed by AWS with short notice.",
+    optionRationale: {
+      a: "On-Demand Instances aren't discounted spare capacity, and AWS never reclaims them for pricing reasons.",
+      b: "Reserved Instances require a commitment and are guaranteed for their term — the opposite of interruptible spare capacity.",
+      c: "Spot Instances let you tap spare EC2 capacity at up to 90% off, with the trade-off that AWS can reclaim them with a two-minute interruption notice.",
+      d: "Dedicated Hosts are physical servers billed for compliance or licensing needs, not discounted spare capacity.",
+    },
+    referenceUrl: "https://aws.amazon.com/ec2/spot/",
+    referenceLabel: "Amazon EC2 Spot Instances",
   },
   {
     id: "bill3",
@@ -39,6 +55,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "Reserved Instances and Savings Plans offer significant discounts in exchange for a committed usage term.",
+    optionRationale: {
+      a: "On-Demand carries no discount for a long-term commitment, so it isn't the cheapest choice for a known 3-year workload.",
+      b: "Spot Instances suit flexible, interruptible workloads, not a workload that needs a guaranteed steady 3-year presence.",
+      c: "Reserved Instances and Savings Plans both let you commit to 1 or 3 years of usage in exchange for the deepest discounts — ideal for predictable, steady workloads.",
+      d: "Free Tier only covers limited usage for new accounts and doesn't apply to a sustained production workload.",
+    },
+    referenceUrl: "https://aws.amazon.com/savingsplans/",
+    referenceLabel: "AWS Savings Plans",
   },
   {
     id: "bill4",
@@ -52,6 +76,15 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Budgets lets you set custom cost and usage thresholds and alerts when they are exceeded or forecast to be exceeded.",
+    optionRationale: {
+      a: "Cost Explorer visualizes historical and forecasted costs but doesn't let you define alert thresholds.",
+      b: "AWS Budgets lets you define custom cost, usage, RI, or Savings Plans budgets and sends alerts when actual or forecasted spend crosses your threshold.",
+      c: "Trusted Advisor offers best-practice checks, including some cost checks, but it isn't a budgeting or alerting service.",
+      d: "The Cost and Usage Report is a detailed data export, not an interactive budgeting or alerting tool.",
+    },
+    referenceUrl: "https://aws.amazon.com/aws-cost-management/aws-budgets/",
+    referenceLabel: "AWS Budgets",
+    diagram: "flowchart LR\n  Usage[AWS Usage and Billing Data] --> Explorer[AWS Cost Explorer]\n  Usage --> Budgets[AWS Budgets]\n  Budgets --> Alert[Budget Alert Notification]\n  Explorer --> Forecast[Cost Forecast]",
   },
   {
     id: "bill5",
@@ -65,6 +98,18 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Cost Explorer visualizes and analyzes historical AWS costs and usage patterns.",
+    optionRationale: {
+      a: "AWS Budgets sets thresholds and sends alerts; it isn't the visualization and analysis tool itself.",
+      b: "AWS Cost Explorer gives you a visual, filterable view of historical costs and usage trends, plus basic forecasting.",
+      c: "CloudWatch monitors operational metrics and logs, not billing and cost data.",
+      d: "AWS Organizations manages multiple accounts and consolidated billing, but Cost Explorer is the dedicated spend-visualization tool.",
+    },
+    referenceUrl: "https://aws.amazon.com/aws-cost-management/aws-cost-explorer/",
+    referenceLabel: "AWS Cost Explorer",
+    cliExample: {
+      description: "Retrieve unblended cost and usage totals for a monthly period",
+      command: "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost",
+    },
   },
   {
     id: "bill6",
@@ -78,6 +123,19 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Consolidated billing combines usage from multiple accounts into a single bill and can unlock volume discounts.",
+    optionRationale: {
+      a: "Consolidated billing rolls usage from every linked account into one bill, combining volume to reach pricing tier and Savings Plans/RI discounts sooner.",
+      b: "Consolidated billing doesn't grant cross-account root access; each account's access is still controlled independently through IAM and SCPs.",
+      c: "Consolidated billing has nothing to do with encryption; encryption is configured per resource and service.",
+      d: "The management account still needs a valid payment method — consolidated billing doesn't remove that requirement.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html",
+    referenceLabel: "AWS Organizations",
+    diagram: "flowchart TD\n  Mgmt[Management Account] --> A1[Member Account A]\n  Mgmt --> A2[Member Account B]\n  Mgmt --> A3[Member Account C]\n  A1 --> Bill[Single Consolidated Bill]\n  A2 --> Bill\n  A3 --> Bill",
+    cliExample: {
+      description: "List the member accounts included in an AWS Organization",
+      command: "aws organizations list-accounts",
+    },
   },
   {
     id: "bill7",
@@ -91,6 +149,19 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["d"],
     explanation: "Only the Enterprise Support plan includes a designated Technical Account Manager.",
+    optionRationale: {
+      a: "Basic Support is free and doesn't include a TAM or proactive guidance.",
+      b: "Developer Support adds business-hours technical support but still has no TAM.",
+      c: "Business Support adds 24/7 technical support and full Trusted Advisor checks, but a TAM is exclusive to Enterprise.",
+      d: "Enterprise Support is the only tier that includes a designated Technical Account Manager for proactive, ongoing guidance.",
+    },
+    referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
+    referenceLabel: "AWS Support Plans",
+    diagram: "flowchart BT\n  Basic[Basic Support Free] --> Developer[Developer Support]\n  Developer --> Business[Business Support]\n  Business --> Enterprise[Enterprise Support with TAM]",
+    cliExample: {
+      description: "List the case severity levels available under your support plan",
+      command: "aws support describe-severity-levels",
+    },
   },
   {
     id: "bill8",
@@ -104,6 +175,18 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Basic Support is free for all AWS customers and includes core Trusted Advisor checks and account/billing support.",
+    optionRationale: {
+      a: "Basic Support is included free with every AWS account and provides account/billing support plus the core Trusted Advisor checks.",
+      b: "Developer Support is a paid plan aimed at testing and early-stage production use, not a free tier.",
+      c: "Business Support is a paid, 24/7 plan for production workloads, well beyond a free basic offering.",
+      d: "Enterprise Support is the highest, paid tier with a TAM — not a free option.",
+    },
+    referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
+    referenceLabel: "AWS Support Plans",
+    cliExample: {
+      description: "List Trusted Advisor checks available to your account (requires a Business or Enterprise support plan)",
+      command: "aws support describe-trusted-advisor-checks --language en",
+    },
   },
   {
     id: "bill9",
@@ -117,6 +200,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Pricing Calculator estimates the cost of AWS services before you deploy them.",
+    optionRationale: {
+      a: "Cost Explorer analyzes costs you've already incurred, not a pre-deployment cost estimate.",
+      b: "AWS Pricing Calculator lets you model the cost of a planned architecture before you deploy any of it.",
+      c: "AWS Budgets tracks and alerts on spend after usage starts, not a pre-deployment estimator.",
+      d: "Trusted Advisor reviews your existing account for best practices; it doesn't estimate costs for services you haven't deployed.",
+    },
+    referenceUrl: "https://calculator.aws/",
+    referenceLabel: "AWS Pricing Calculator",
   },
   {
     id: "bill10",
@@ -131,6 +222,15 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "Matching commitment-based pricing to steady workloads and Spot to flexible ones are common cost-reduction strategies.",
+    optionRationale: {
+      a: "Matching Reserved Instances or Savings Plans to steady-state workloads locks in a lower rate in exchange for commitment, cutting cost for predictable usage.",
+      b: "Spot Instances can cut compute costs by up to 90% for workloads that tolerate interruption, such as batch jobs or fault-tolerant distributed processing.",
+      c: "Always using On-Demand regardless of workload shape means paying the highest rate even for steady usage, which increases cost rather than reducing it.",
+      d: "Ignoring Budgets alerts removes your early warning for overspend, which tends to increase costs, not reduce them.",
+      e: "Provisioning maximum capacity 'just in case' wastes money on unused resources instead of scaling to actual demand.",
+    },
+    referenceUrl: "https://aws.amazon.com/aws-cost-management/",
+    referenceLabel: "AWS Cost Management",
   },
   {
     id: "bill11",
@@ -145,5 +245,19 @@ export const billingPricingAndSupportQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "Cost allocation tags and consolidated billing under AWS Organizations both help attribute and track spend across teams.",
+    optionRationale: {
+      a: "Cost allocation tags label resources by team, project, or environment so spend can be broken down in Cost Explorer and the Cost and Usage Report.",
+      b: "AWS Organizations with consolidated billing groups accounts — for example by team or project — under one management account, making it easy to track spend per account.",
+      c: "Deleting the Cost and Usage Report removes a key source of detailed billing data, which hurts cost tracking rather than helping it.",
+      d: "Disabling Budgets removes cost alerting, making it harder, not easier, to track and control spend.",
+      e: "Sharing root account credentials is a security anti-pattern and has nothing to do with organizing or tracking costs.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html",
+    referenceLabel: "Cost Allocation Tags",
+    cliExample: {
+      description: "Retrieve cost and usage grouped by a cost allocation tag",
+      command:
+        "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost --group-by Type=TAG,Key=Project",
+    },
   },
 ];

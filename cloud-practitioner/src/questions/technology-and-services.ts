@@ -13,6 +13,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Lambda runs your code in response to events without you provisioning or managing servers, billed per use.",
+    optionRationale: {
+      a: "EC2 requires you to provision and manage virtual server instances yourself, not a serverless model.",
+      b: "Lambda runs your code without provisioning or managing servers, billed only for compute time used.",
+      c: "Lightsail hands you a pre-configured virtual private server that you still manage, not a serverless model.",
+      d: "Elastic Beanstalk deploys your app onto managed infrastructure (like EC2) that still exists as servers.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+    referenceLabel: "What Is AWS Lambda?",
+    cliExample: { description: "List your deployed Lambda functions", command: "aws lambda list-functions" },
   },
   {
     id: "tech2",
@@ -26,6 +35,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Amazon EC2 provides resizable virtual servers (instances) with full control over the guest operating system.",
+    optionRationale: {
+      a: "EC2 gives you resizable virtual server instances with full control over the guest operating system.",
+      b: "Lambda is serverless — there's no OS or instance for you to manage.",
+      c: "S3 is object storage, not a compute service with an operating system.",
+      d: "RDS is a managed database service; you don't get OS-level access to the underlying server.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
+    referenceLabel: "Amazon EC2 Concepts",
+    cliExample: { description: "List your running EC2 instances", command: "aws ec2 describe-instances" },
   },
   {
     id: "tech3",
@@ -39,6 +57,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon EC2 Auto Scaling adds or removes instances automatically to match changing demand.",
+    optionRationale: {
+      a: "ELB distributes traffic across existing targets; it doesn't add or remove instances itself.",
+      b: "EC2 Auto Scaling automatically launches or terminates instances in a group to match demand.",
+      c: "Lambda scales its own concurrency automatically, but it doesn't manage an EC2 instance group.",
+      d: "CloudFront is a content delivery network and has no role in EC2 instance counts.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+    referenceLabel: "What Is Amazon EC2 Auto Scaling?",
+    diagram: `flowchart TD
+  A[Demand Increases] --> B[Amazon EC2 Auto Scaling]
+  B --> C[Launch New Instances]
+  D[Demand Decreases] --> B
+  B --> E[Terminate Instances]`,
   },
   {
     id: "tech4",
@@ -52,6 +83,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Elastic Load Balancing distributes incoming traffic across multiple targets to improve availability and fault tolerance.",
+    optionRationale: {
+      a: "Storing static files is Amazon S3's job, not a load balancer's.",
+      b: "ELB automatically distributes incoming traffic across multiple targets like EC2 instances.",
+      c: "Encryption at rest is handled by storage/database services and KMS, not ELB.",
+      d: "A managed relational database is Amazon RDS, unrelated to traffic distribution.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+    referenceLabel: "What Is Elastic Load Balancing?",
+    diagram: `flowchart TD
+  U[Incoming Traffic] --> LB[Elastic Load Balancer]
+  LB --> I1[EC2 Instance 1]
+  LB --> I2[EC2 Instance 2]
+  LB --> I3[EC2 Instance 3]`,
   },
   {
     id: "tech5",
@@ -65,6 +109,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Fargate is a serverless compute engine for containers that removes the need to provision or manage servers.",
+    optionRationale: {
+      a: "Fargate runs ECS and EKS container workloads as a serverless compute engine, with no servers to manage.",
+      b: "EC2 requires you to provision and manage the underlying servers yourself.",
+      c: "Lambda runs individual functions; it isn't the engine that runs ECS/Kubernetes container workloads.",
+      d: "Lightsail offers simplified virtual private servers, not serverless container orchestration.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html",
+    referenceLabel: "AWS Fargate",
   },
   {
     id: "tech6",
@@ -78,6 +130,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Elastic Beanstalk automatically handles provisioning, load balancing, and scaling for deployed applications.",
+    optionRationale: {
+      a: "Elastic Beanstalk automatically provisions and configures the load balancer, instances, and scaling for you.",
+      b: "VPC defines a virtual network; it doesn't deploy or configure an application for you.",
+      c: "Direct Connect is a dedicated network link to AWS, unrelated to application deployment.",
+      d: "Route 53 handles DNS routing, not application infrastructure provisioning.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html",
+    referenceLabel: "What Is AWS Elastic Beanstalk?",
   },
   {
     id: "tech7",
@@ -91,6 +151,20 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "S3 Standard-IA offers lower storage cost for infrequently accessed data while still allowing millisecond retrieval.",
+    optionRationale: {
+      a: "S3 Standard costs more and is designed for data accessed frequently, not infrequently.",
+      b: "Standard-IA is priced for infrequent access but still offers millisecond retrieval when you need the data.",
+      c: "Glacier Deep Archive retrieval takes hours, not the rapid access this scenario requires.",
+      d: "Forcing Intelligent-Tiering to frequent access defeats its purpose and costs more than Standard-IA for this pattern.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+    referenceLabel: "Amazon S3 Storage Classes",
+    diagram: `flowchart LR
+  A[S3 Standard] --> B[S3 Standard-IA]
+  B --> C[S3 One Zone-IA]
+  C --> D[S3 Glacier Instant Retrieval]
+  D --> E[S3 Glacier Deep Archive]`,
+    cliExample: { description: "List your S3 buckets", command: "aws s3api list-buckets" },
   },
   {
     id: "tech8",
@@ -104,6 +178,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "S3 Glacier Deep Archive is the lowest-cost S3 storage class, meant for long-term archives rarely accessed.",
+    optionRationale: {
+      a: "S3 Standard is the most expensive option here and is meant for frequently accessed data.",
+      b: "One Zone-IA still offers millisecond retrieval, not the multi-hour retrieval tolerance described.",
+      c: "Glacier Deep Archive is the lowest-cost class, built for archives rarely accessed and retrieved over hours.",
+      d: "Standard-IA still offers millisecond retrieval, not built for long-term rarely accessed archives.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+    referenceLabel: "Amazon S3 Storage Classes",
   },
   {
     id: "tech9",
@@ -118,6 +200,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "c"],
     explanation: "EBS provides block storage for EC2, and volumes can be configured to persist after an instance is terminated.",
+    optionRationale: {
+      a: "EBS provides block-level storage volumes that attach to EC2 instances.",
+      b: "An EBS volume lives in a single Availability Zone; it can't span multiple AZs at once.",
+      c: "You can configure a volume to persist (skip 'delete on termination') so it survives instance termination.",
+      d: "EBS is block storage, not object storage — that's what distinguishes it from S3.",
+      e: "EBS volumes can be backed up using snapshots stored in S3.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html",
+    referenceLabel: "Amazon EBS",
   },
   {
     id: "tech10",
@@ -131,6 +222,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon EFS is a managed, elastic file system that many EC2 instances can mount and share at once.",
+    optionRationale: {
+      a: "S3 is object storage accessed via API calls, not a POSIX file system you mount on instances.",
+      b: "EFS is a managed elastic file system that many EC2 instances can mount and share concurrently.",
+      c: "A standard EBS volume attaches to one instance at a time, not shared concurrently across many.",
+      d: "Storage Gateway bridges on-premises storage with AWS; it isn't itself a shared EC2-mountable file system.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html",
+    referenceLabel: "What Is Amazon EFS?",
+    cliExample: { description: "List your EFS file systems", command: "aws efs describe-file-systems" },
   },
   {
     id: "tech11",
@@ -144,6 +244,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Storage Gateway is a hybrid cloud storage service connecting on-premises environments with AWS storage.",
+    optionRationale: {
+      a: "Storage Gateway is purpose-built to connect on-premises environments to AWS storage.",
+      b: "Transfer Acceleration speeds up uploads to S3 over the internet; it's not a hybrid storage integration.",
+      c: "Snowball is for one-off physical bulk data transfer, not ongoing hybrid storage integration.",
+      d: "FSx provides managed file systems that run in AWS, not an on-premises integration layer.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/storagegateway/latest/userguide/WhatIsStorageGateway.html",
+    referenceLabel: "What Is AWS Storage Gateway?",
   },
   {
     id: "tech12",
@@ -157,6 +265,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon RDS is a managed relational database service supporting multiple engines including MySQL and PostgreSQL.",
+    optionRationale: {
+      a: "DynamoDB is a NoSQL key-value/document database, not a relational engine like MySQL or SQL Server.",
+      b: "RDS is a managed relational database service supporting engines including MySQL, PostgreSQL, and SQL Server.",
+      c: "Redshift is a data warehouse for analytics, not a general-purpose relational database service.",
+      d: "ElastiCache is an in-memory caching service, not a relational database.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
+    referenceLabel: "What Is Amazon RDS?",
+    cliExample: { description: "List your RDS database instances", command: "aws rds describe-db-instances" },
   },
   {
     id: "tech13",
@@ -170,6 +287,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon DynamoDB is a fully managed NoSQL key-value and document database built for fast, consistent performance.",
+    optionRationale: {
+      a: "RDS is a relational database service, not a key-value/document NoSQL store.",
+      b: "DynamoDB is a fully managed NoSQL key-value/document database built for single-digit millisecond performance.",
+      c: "Redshift is a SQL data warehouse for analytics, not a low-latency NoSQL store.",
+      d: "Aurora is a relational (MySQL/PostgreSQL-compatible) database, not NoSQL.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html",
+    referenceLabel: "What Is Amazon DynamoDB?",
+    cliExample: { description: "List your DynamoDB tables", command: "aws dynamodb list-tables" },
   },
   {
     id: "tech14",
@@ -184,6 +310,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "Amazon ElastiCache supports the Redis and Memcached in-memory caching engines.",
+    optionRationale: {
+      a: "Redis is one of the two in-memory engines ElastiCache supports.",
+      b: "Memcached is the other in-memory engine ElastiCache supports.",
+      c: "MySQL is a relational database engine, not an ElastiCache caching engine.",
+      d: "PostgreSQL is a relational database engine, not an ElastiCache caching engine.",
+      e: "MongoDB is a document database, not one of ElastiCache's supported caching engines.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html",
+    referenceLabel: "What Is Amazon ElastiCache?",
   },
   {
     id: "tech15",
@@ -197,6 +332,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon Redshift is a managed data warehouse service optimized for large-scale analytic queries.",
+    optionRationale: {
+      a: "RDS is optimized for transactional (OLTP) workloads, not large-scale analytic queries.",
+      b: "Redshift is a managed data warehouse purpose-built for complex analytic queries at scale.",
+      c: "DynamoDB is a NoSQL store optimized for fast lookups, not complex analytic SQL queries.",
+      d: "Aurora is a relational database for transactional workloads, not a dedicated data warehouse.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html",
+    referenceLabel: "What Is Amazon Redshift?",
+    cliExample: { description: "List your Redshift clusters", command: "aws redshift describe-clusters" },
   },
   {
     id: "tech16",
@@ -210,6 +354,21 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Amazon VPC lets you define and control a logically isolated virtual network within AWS.",
+    optionRationale: {
+      a: "VPC lets you provision a logically isolated virtual network and define its IP ranges, subnets, and routing.",
+      b: "Route 53 is a DNS service; it doesn't provision an isolated virtual network.",
+      c: "Direct Connect is a dedicated physical link into AWS, not the virtual network itself.",
+      d: "CloudFront is a content delivery network, unrelated to defining a virtual network.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+    referenceLabel: "What Is Amazon VPC?",
+    diagram: `flowchart TD
+  V[Amazon VPC] --> PubSub[Public Subnet]
+  V --> PrivSub[Private Subnet]
+  PubSub --> IGW[Internet Gateway]
+  PrivSub --> NAT[NAT Gateway]
+  NAT --> IGW`,
+    cliExample: { description: "List your VPCs", command: "aws ec2 describe-vpcs" },
   },
   {
     id: "tech17",
@@ -223,6 +382,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon Route 53 is AWS's scalable DNS and domain registration service.",
+    optionRationale: {
+      a: "CloudFront is a content delivery network that caches content; it isn't the DNS service itself.",
+      b: "Route 53 is AWS's scalable DNS web service, used to route users to internet applications.",
+      c: "Global Accelerator improves network performance using the AWS global network, but it isn't primarily a DNS service.",
+      d: "API Gateway manages and publishes APIs; it doesn't provide general-purpose DNS routing.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html",
+    referenceLabel: "What Is Amazon Route 53?",
+    cliExample: { description: "List your Route 53 hosted zones", command: "aws route53 list-hosted-zones" },
   },
   {
     id: "tech18",
@@ -236,6 +404,21 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon CloudFront is AWS's CDN, caching content at edge locations to reduce latency for end users.",
+    optionRationale: {
+      a: "Route 53 is a DNS service; it doesn't cache content at edge locations.",
+      b: "CloudFront is AWS's CDN, caching content at edge locations for low-latency delivery.",
+      c: "Direct Connect provides a private network link to AWS, not edge caching for end users.",
+      d: "VPC defines a virtual network; it plays no role in content caching or delivery.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
+    referenceLabel: "What Is Amazon CloudFront?",
+    diagram: `flowchart LR
+  Origin[Origin Server] --> CF[CloudFront Distribution]
+  CF --> Edge1[Edge Location A]
+  CF --> Edge2[Edge Location B]
+  Edge1 --> User1[End User]
+  Edge2 --> User2[End User]`,
+    cliExample: { description: "List your CloudFront distributions", command: "aws cloudfront list-distributions" },
   },
   {
     id: "tech19",
@@ -249,6 +432,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Direct Connect establishes a dedicated private network connection between on-premises infrastructure and AWS.",
+    optionRationale: {
+      a: "AWS VPN creates encrypted tunnels over the public internet, not a dedicated private line.",
+      b: "Direct Connect establishes a dedicated private connection between on-premises infrastructure and AWS, bypassing the public internet.",
+      c: "CloudFront is a CDN and has no role in private network connectivity.",
+      d: "Transit Gateway interconnects VPCs and on-premises networks, but it doesn't itself provide the dedicated physical link.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html",
+    referenceLabel: "What Is AWS Direct Connect?",
   },
   {
     id: "tech20",
@@ -262,6 +453,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Amazon API Gateway lets you create, publish, and manage APIs, including authorization, throttling, and monitoring.",
+    optionRationale: {
+      a: "API Gateway lets you create, publish, and manage APIs, including authorization, throttling, and monitoring.",
+      b: "AppSync focuses specifically on managed GraphQL APIs, a narrower case than general API management.",
+      c: "Route 53 is a DNS service, not an API management platform.",
+      d: "Lambda can run the backend code behind an API, but it doesn't provide API publishing or throttling itself.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html",
+    referenceLabel: "What Is Amazon API Gateway?",
+    diagram: `flowchart LR
+  Client[Client App] --> APIGW[Amazon API Gateway]
+  APIGW --> Lambda[AWS Lambda Function]
+  Lambda --> DB[(Database)]`,
   },
   {
     id: "tech21",
@@ -275,6 +478,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon CloudWatch collects metrics and logs and lets you set alarms to monitor AWS resources and applications.",
+    optionRationale: {
+      a: "CloudTrail logs API activity for auditing, rather than general metrics, logs, and alarms.",
+      b: "CloudWatch collects metrics and logs and lets you configure alarms across AWS resources and applications.",
+      c: "AWS Config tracks resource configuration changes and compliance, not general performance monitoring.",
+      d: "X-Ray traces requests through distributed applications for debugging, a narrower focus than CloudWatch.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html",
+    referenceLabel: "What Is Amazon CloudWatch?",
+    cliExample: { description: "List your CloudWatch alarms", command: "aws cloudwatch describe-alarms" },
   },
   {
     id: "tech22",
@@ -288,6 +500,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS CloudFormation provisions and manages AWS resources using declarative infrastructure-as-code templates.",
+    optionRationale: {
+      a: "CloudFormation provisions and manages AWS resources from declarative infrastructure-as-code templates.",
+      b: "Systems Manager focuses on operational visibility and automation, not declarative resource provisioning.",
+      c: "OpsWorks manages infrastructure through Chef/Puppet configuration management, a different IaC approach.",
+      d: "AWS Config tracks and audits configuration state; it doesn't provision resources from templates.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html",
+    referenceLabel: "What Is AWS CloudFormation?",
+    cliExample: { description: "List your CloudFormation stacks", command: "aws cloudformation list-stacks" },
   },
   {
     id: "tech23",
@@ -301,6 +522,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Systems Manager provides operational visibility and automation, including patch management, across AWS resources.",
+    optionRationale: {
+      a: "Systems Manager provides operational visibility and automation, including patch management, across resources.",
+      b: "CloudWatch focuses on metrics, logs, and alarms, not broad operational automation like patching.",
+      c: "AWS Config tracks configuration state and compliance; it doesn't automate operational tasks like patching.",
+      d: "Trusted Advisor gives best-practice recommendations but doesn't execute automated operational tasks.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html",
+    referenceLabel: "What Is AWS Systems Manager?",
   },
   {
     id: "tech24",
@@ -314,6 +543,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon SQS is a fully managed message queuing service used to decouple and scale distributed application components.",
+    optionRationale: {
+      a: "SNS is a pub/sub service for fanning out notifications, not a point-to-point message queue.",
+      b: "SQS is a fully managed message queue that decouples and scales distributed application components.",
+      c: "EventBridge routes events between applications based on rules; it's an event bus, not a simple queue.",
+      d: "Step Functions orchestrates multi-step workflows; it isn't a message queuing service.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
+    referenceLabel: "What Is Amazon SQS?",
+    cliExample: { description: "List your SQS queues", command: "aws sqs list-queues" },
   },
   {
     id: "tech25",
@@ -327,6 +565,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon SNS is a publish/subscribe messaging service that fans out notifications to multiple types of subscribers.",
+    optionRationale: {
+      a: "SQS is a queue meant for one consumer processing messages, not fanning out to many subscriber types.",
+      b: "SNS is a pub/sub service that fans out notifications to subscribers like email, SMS, and Lambda.",
+      c: "Amazon MQ is a managed broker for existing protocols like JMS/AMQP, a different messaging model.",
+      d: "Step Functions orchestrates workflows; it doesn't fan out notifications to subscribers.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/sns/latest/dg/welcome.html",
+    referenceLabel: "What Is Amazon SNS?",
+    cliExample: { description: "List your SNS topics", command: "aws sns list-topics" },
   },
   {
     id: "tech26",
@@ -340,6 +587,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Step Functions coordinates multiple AWS services into serverless workflows using visual state machines.",
+    optionRationale: {
+      a: "Step Functions coordinates Lambda functions and other services into serverless workflows using visual state machines.",
+      b: "EventBridge routes events between services based on rules; it doesn't provide a visual state-machine builder.",
+      c: "SQS is a message queue, not a workflow orchestrator.",
+      d: "AWS Batch runs batch computing jobs; it doesn't coordinate multi-step serverless workflows visually.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html",
+    referenceLabel: "What Is AWS Step Functions?",
+    diagram: `stateDiagram-v2
+  [*] --> ValidateInput
+  ValidateInput --> ProcessOrder
+  ProcessOrder --> SendNotification
+  SendNotification --> [*]`,
   },
   {
     id: "tech27",
@@ -353,6 +613,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon Transcribe is an automatic speech recognition service that converts spoken audio into text.",
+    optionRationale: {
+      a: "Polly converts text to speech — the opposite direction from what's described.",
+      b: "Transcribe is AWS's automatic speech recognition service, converting spoken audio into text.",
+      c: "Comprehend analyzes existing text for sentiment and entities; it doesn't transcribe audio.",
+      d: "Lex builds conversational chatbots and uses speech recognition internally, but it isn't the standalone transcription service.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html",
+    referenceLabel: "What Is Amazon Transcribe?",
   },
   {
     id: "tech28",
@@ -366,6 +634,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Amazon SageMaker provides a fully managed environment covering the full machine learning lifecycle.",
+    optionRationale: {
+      a: "SageMaker provides a fully managed environment covering the full build-train-deploy ML lifecycle.",
+      b: "Rekognition analyzes images and video; it's a pre-built AI service, not a general ML development platform.",
+      c: "Comprehend performs natural language processing; it's a pre-built AI service, not a general ML platform.",
+      d: "DeepLens is an AI-enabled camera device, not a managed ML development environment.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html",
+    referenceLabel: "What Is Amazon SageMaker?",
   },
   {
     id: "tech29",
@@ -379,6 +655,14 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Amazon Athena is a serverless query service that runs SQL directly against data stored in Amazon S3.",
+    optionRationale: {
+      a: "Athena is a serverless query service that runs SQL directly against data already sitting in S3.",
+      b: "Redshift requires loading data into its own warehouse first, unlike Athena's direct S3 querying.",
+      c: "EMR runs big data frameworks like Hadoop/Spark on managed clusters, a heavier tool than ad hoc SQL on S3.",
+      d: "Kinesis is for ingesting streaming data, not running ad hoc SQL queries against data at rest in S3.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
+    referenceLabel: "What Is Amazon Athena?",
   },
   {
     id: "tech30",
@@ -393,6 +677,15 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "Amazon Kinesis and Amazon MSK are both built for ingesting and processing streaming data in real time.",
+    optionRationale: {
+      a: "Kinesis is purpose-built for real-time streaming data ingestion and processing.",
+      b: "MSK is a managed Apache Kafka service, also purpose-built for streaming data.",
+      c: "Redshift queries data already loaded into a warehouse; it isn't a streaming ingestion service.",
+      d: "RDS is a transactional relational database, not built for streaming ingestion.",
+      e: "CloudFormation provisions infrastructure and has nothing to do with streaming data.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+    referenceLabel: "What Is Amazon Kinesis Data Streams?",
   },
   {
     id: "tech31",
@@ -407,5 +700,20 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "Amazon ECS and Amazon EKS are AWS's managed container orchestration services.",
+    optionRationale: {
+      a: "ECS is AWS's native container orchestration service.",
+      b: "EKS is AWS's managed Kubernetes service for running containers.",
+      c: "Route 53 is a DNS service, unrelated to running containers.",
+      d: "Direct Connect is dedicated network connectivity, unrelated to running containers.",
+      e: "SNS is a pub/sub messaging service, unrelated to running containers.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html",
+    referenceLabel: "What Is Amazon ECS?",
+    diagram: `flowchart TD
+  Dev[Container Image] --> ECR[Amazon ECR]
+  ECR --> Orchestrator{ECS or EKS}
+  Orchestrator --> Fargate[AWS Fargate]
+  Orchestrator --> EC2[EC2 Cluster]`,
+    cliExample: { description: "List your ECS clusters", command: "aws ecs list-clusters" },
   },
 ];

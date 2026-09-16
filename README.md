@@ -7,7 +7,11 @@ A static, no-backend exam simulator lives in [`cloud-practitioner/`](cloud-pract
 
     cd cloud-practitioner
     npm install
+    npm run dev
+
+`npm run dev` compiles the TypeScript in watch mode and serves the app at http://localhost:5173/ — opening index.html directly via a file:// URL will not work, since browsers block ES module imports from the file:// scheme.
+
+For a one-off production build without the dev server:
+
     npm run build
     npx http-server .   # or: python3 -m http.server
-
-Then open the URL it prints (e.g. http://localhost:8080/) — opening index.html directly via a file:// URL will not work, since browsers block ES module imports from the file:// scheme.

@@ -13,6 +13,23 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS secures the underlying infrastructure ('security of the cloud'); the customer secures what they put in it ('security in the cloud').",
+    optionRationale: {
+      a: "Configuring security groups is the customer's job — it's part of security 'in' the cloud, not AWS's responsibility.",
+      b: "Correct — AWS secures the physical facilities, hardware, and host infrastructure underneath every service.",
+      c: "Patching the guest OS on EC2 instances is the customer's responsibility, not AWS's.",
+      d: "How customer data is encrypted is a configuration choice made by the customer, not AWS.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
+    referenceLabel: "AWS Shared Responsibility Model",
+    diagram: `flowchart TD
+  A[Shared Responsibility Model] --> B[AWS: Security OF the Cloud]
+  A --> C[Customer: Security IN the Cloud]
+  B --> B1[Physical facilities]
+  B --> B2[Hardware and host infrastructure]
+  B --> B3[Managed service internals]
+  C --> C1[Data encryption choices]
+  C --> C2[IAM configuration]
+  C --> C3[Security group and network rules]`,
   },
   {
     id: "sec2",
@@ -26,6 +43,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "Customers are responsible for their own configuration choices, such as security groups, IAM, and data protection.",
+    optionRationale: {
+      a: "Physical security of data centers is AWS's job, not the customer's.",
+      b: "AWS maintains the underlying hardware as part of security 'of' the cloud.",
+      c: "Correct — configuring security groups and IAM permissions is squarely the customer's responsibility.",
+      d: "AWS handles decommissioning of the physical storage media it owns.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
+    referenceLabel: "AWS Shared Responsibility Model",
   },
   {
     id: "sec3",
@@ -39,6 +64,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["c"],
     explanation: "AWS recommends locking down the root user with MFA and using IAM identities for day-to-day work.",
+    optionRationale: {
+      a: "Using the root user daily increases risk — AWS recommends reserving it for account-level tasks only.",
+      b: "Sharing root credentials violates least privilege and removes any accountability for actions taken.",
+      c: "Correct — enabling MFA and limiting root user use to rare account-management tasks is the recommended practice.",
+      d: "The root user can't be disabled, but it can and should be secured with MFA and limited use.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html",
+    referenceLabel: "AWS account root user best practices",
   },
   {
     id: "sec4",
@@ -52,6 +85,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "IAM roles provide temporary credentials that can be assumed by trusted services, applications, or federated users.",
+    optionRationale: {
+      a: "An IAM group only organizes users for shared permissions; it can't be 'assumed' for temporary access.",
+      b: "Correct — IAM roles are assumed to receive short-lived credentials, avoiding long-term secrets.",
+      c: "An IAM policy defines permissions but doesn't itself grant a way to assume temporary access.",
+      d: "An IAM user has long-term credentials, the opposite of what's being described here.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html",
+    referenceLabel: "IAM roles",
   },
   {
     id: "sec5",
@@ -65,6 +106,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "IAM groups let you manage permissions for many users at once instead of repeating policy assignments per user.",
+    optionRationale: {
+      a: "Assigning policies one-by-one to each user doesn't scale and is harder to maintain.",
+      b: "Correct — an IAM group lets you attach one policy and add every user who needs those permissions.",
+      c: "Sharing one IAM user's credentials removes individual accountability and is against best practice.",
+      d: "Granting root access to every user is a major security risk, not a scalable permission strategy.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html",
+    referenceLabel: "IAM user groups",
   },
   {
     id: "sec6",
@@ -78,6 +127,24 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Security Hub aggregates and prioritizes security findings from multiple AWS services and accounts in one place.",
+    optionRationale: {
+      a: "Correct — Security Hub aggregates findings from GuardDuty, Inspector, Macie, and more into a single dashboard.",
+      b: "AWS Config tracks resource configuration compliance, but it doesn't aggregate security findings from other services.",
+      c: "CloudTrail logs API activity; it doesn't provide a consolidated security findings dashboard.",
+      d: "Amazon Inspector scans for vulnerabilities but is only one of the sources Security Hub aggregates, not the aggregator itself.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html",
+    referenceLabel: "What is AWS Security Hub",
+    diagram: `flowchart TD
+  A[Amazon GuardDuty] --> D[AWS Security Hub]
+  B[Amazon Inspector] --> D
+  C[Amazon Macie] --> D
+  E[AWS Config] --> D
+  D --> F[Consolidated findings dashboard]`,
+    cliExample: {
+      description: "Retrieve current Security Hub findings",
+      command: "aws securityhub get-findings --max-results 10",
+    },
   },
   {
     id: "sec7",
@@ -91,6 +158,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and anomalous behavior.",
+    optionRationale: {
+      a: "Macie focuses on discovering sensitive data in S3, not detecting anomalous account behavior.",
+      b: "Correct — GuardDuty uses machine learning to continuously analyze logs for threats like unusual API activity.",
+      c: "AWS Config evaluates resource configuration compliance, not behavioral threat detection.",
+      d: "Trusted Advisor gives best-practice checks, not continuous ML-based threat monitoring.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html",
+    referenceLabel: "What is Amazon GuardDuty",
+    cliExample: {
+      description: "List GuardDuty detectors in the account",
+      command: "aws guardduty list-detectors",
+    },
   },
   {
     id: "sec8",
@@ -104,6 +183,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Amazon Macie uses machine learning to discover, classify, and help protect sensitive data stored in Amazon S3.",
+    optionRationale: {
+      a: "GuardDuty monitors for threats and anomalous behavior, not sensitive-data discovery.",
+      b: "Correct — Macie uses machine learning to find and classify sensitive data such as PII in S3.",
+      c: "AWS Shield protects against DDoS attacks, unrelated to data classification.",
+      d: "Amazon Inspector scans for vulnerabilities in workloads, not sensitive data in S3.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
+    referenceLabel: "What is Amazon Macie",
   },
   {
     id: "sec9",
@@ -117,6 +204,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Amazon Inspector automatically scans workloads for software vulnerabilities and unintended network exposure.",
+    optionRationale: {
+      a: "Correct — Amazon Inspector automatically scans EC2 instances and container images for vulnerabilities and exposure.",
+      b: "AWS Config assesses configuration compliance, not software vulnerabilities.",
+      c: "AWS Artifact provides compliance documents; it doesn't scan workloads.",
+      d: "Trusted Advisor gives general best-practice checks, not deep vulnerability scanning.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/inspector/v2/userguide/what-is-inspector.html",
+    referenceLabel: "What is Amazon Inspector",
+    cliExample: {
+      description: "List vulnerability findings from Amazon Inspector",
+      command: "aws inspector2 list-findings --max-results 10",
+    },
   },
   {
     id: "sec10",
@@ -130,6 +229,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Artifact is the self-service portal for on-demand access to AWS compliance reports and agreements.",
+    optionRationale: {
+      a: "Trusted Advisor gives account optimization checks, not compliance documents.",
+      b: "Correct — AWS Artifact is the self-service portal for downloading compliance reports and agreements.",
+      c: "AWS Config tracks configuration state, not compliance reports.",
+      d: "CloudTrail logs API activity; it doesn't host compliance documentation.",
+    },
+    referenceUrl: "https://aws.amazon.com/artifact/",
+    referenceLabel: "AWS Artifact",
   },
   {
     id: "sec11",
@@ -143,6 +250,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS Shield protects applications running on AWS against Distributed Denial of Service (DDoS) attacks.",
+    optionRationale: {
+      a: "AWS WAF filters malicious web requests; it doesn't itself provide DDoS protection.",
+      b: "Correct — AWS Shield is AWS's managed DDoS protection service.",
+      c: "Firewall Manager centrally manages firewall rules across accounts; it isn't a DDoS protection service itself.",
+      d: "GuardDuty detects threats via log analysis, not managed DDoS mitigation.",
+    },
+    referenceUrl: "https://aws.amazon.com/shield/",
+    referenceLabel: "AWS Shield",
   },
   {
     id: "sec12",
@@ -156,6 +271,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "AWS WAF lets you define rules that filter and monitor HTTP/HTTPS requests forwarded to protected web applications.",
+    optionRationale: {
+      a: "AWS Shield defends against DDoS attacks, not web application-layer filtering like SQL injection.",
+      b: "Correct — AWS WAF lets you write rules to block common web exploits such as SQL injection and XSS.",
+      c: "Amazon Inspector scans for vulnerabilities; it doesn't filter live web traffic.",
+      d: "AWS Config tracks configuration compliance, not web traffic filtering.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html",
+    referenceLabel: "What is AWS WAF",
   },
   {
     id: "sec13",
@@ -169,6 +292,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS KMS lets you create, manage, and control the cryptographic keys used to encrypt your data.",
+    optionRationale: {
+      a: "Correct — AWS KMS creates and manages the cryptographic keys used to encrypt your data.",
+      b: "Monitoring network traffic for threats is the job of services like GuardDuty, not KMS.",
+      c: "IAM, not KMS, manages user passwords and credentials.",
+      d: "AWS Artifact stores compliance documentation, not encryption keys.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+    referenceLabel: "AWS KMS overview",
+    cliExample: {
+      description: "List customer master keys managed in KMS",
+      command: "aws kms list-keys",
+    },
   },
   {
     id: "sec14",
@@ -182,6 +317,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Secrets Manager securely stores, retrieves, and automatically rotates secrets such as database credentials.",
+    optionRationale: {
+      a: "Correct — Secrets Manager stores, rotates, and retrieves secrets like database credentials programmatically.",
+      b: "KMS manages encryption keys, but doesn't store or rotate secrets like credentials itself.",
+      c: "IAM manages access permissions, not secret storage and rotation.",
+      d: "Certificate Manager issues and manages TLS certificates, not general-purpose secrets.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
+    referenceLabel: "What is AWS Secrets Manager",
   },
   {
     id: "sec15",
@@ -195,6 +338,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Least privilege means granting only the minimum permissions needed to accomplish a task, reducing security risk.",
+    optionRationale: {
+      a: "Granting full admin access by default is the opposite of least privilege.",
+      b: "Correct — least privilege means granting only the permissions needed for a task, nothing more.",
+      c: "Granting root access to all new users is a severe security anti-pattern.",
+      d: "Least privilege is about scoping permissions precisely, not leaving everything disabled by default.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+    referenceLabel: "IAM security best practices",
   },
   {
     id: "sec16",
@@ -209,6 +360,20 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "MFA combines a password (something you know) with a physical or virtual device (something you have).",
+    optionRationale: {
+      a: "Correct — a password is the 'something you know' factor.",
+      b: "Correct — a hardware or virtual MFA device is the 'something you have' factor.",
+      c: "AWS MFA doesn't use inherited account attributes as a factor.",
+      d: "MFA factors are about identity verification methods, not purchases.",
+      e: "Manager approval is a workflow control, not an MFA authentication factor.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html",
+    referenceLabel: "Using MFA in AWS",
+    diagram: `flowchart TD
+  A[AWS MFA] --> B[Something you know: password]
+  A --> C[Something you have: MFA device]
+  B --> D[Sign-in granted]
+  C --> D`,
   },
   {
     id: "sec17",
@@ -222,6 +387,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS CloudTrail logs API calls and account activity for governance, compliance, and auditing.",
+    optionRationale: {
+      a: "Correct — CloudTrail logs who made a request, what action was taken, and when, for every API call.",
+      b: "CloudWatch monitors metrics and logs application and infrastructure performance, not API call auditing specifically.",
+      c: "AWS Config tracks resource configuration state over time, not a full API call audit log.",
+      d: "X-Ray traces application requests for debugging performance, not account-wide API auditing.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
+    referenceLabel: "AWS CloudTrail User Guide",
+    cliExample: {
+      description: "Look up recent CloudTrail account activity events",
+      command: "aws cloudtrail lookup-events --max-results 10",
+    },
   },
   {
     id: "sec18",
@@ -235,6 +412,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "AWS Config tracks resource configuration changes over time and evaluates them against compliance rules.",
+    optionRationale: {
+      a: "Correct — AWS Config continuously records resource configurations and evaluates them against compliance rules.",
+      b: "CloudTrail logs API calls; it doesn't assess configuration state against rules.",
+      c: "Amazon Inspector scans for vulnerabilities, not configuration compliance.",
+      d: "Trusted Advisor gives general best-practice checks, not continuous configuration recording.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
+    referenceLabel: "What is AWS Config",
+    cliExample: {
+      description: "List AWS Config rules and their compliance state",
+      command: "aws configservice describe-config-rules",
+    },
   },
   {
     id: "sec19",
@@ -248,6 +437,22 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Security groups are stateful firewalls attached to instances; NACLs are stateless firewalls applied at the subnet boundary.",
+    optionRationale: {
+      a: "This reverses the relationship — security groups act at the instance level, NACLs at the subnet level.",
+      b: "Correct — security groups are stateful and attach to instances; NACLs are stateless and apply at the subnet boundary.",
+      c: "This also reverses it — NACLs are stateless, security groups are stateful.",
+      d: "They behave differently in statefulness and the layer they operate at, so they are not interchangeable.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-comparison.html",
+    referenceLabel: "Security groups vs. network ACLs",
+    diagram: `flowchart TD
+  A[VPC Subnet] --> B[Network ACL: stateless, subnet level]
+  B --> C[EC2 Instance]
+  C --> D[Security Group: stateful, instance level]`,
+    cliExample: {
+      description: "Describe security groups in the default VPC",
+      command: "aws ec2 describe-security-groups",
+    },
   },
   {
     id: "sec20",
@@ -261,6 +466,24 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Service Control Policies set the maximum available permissions for accounts within an AWS Organization.",
+    optionRationale: {
+      a: "IAM policies grant permissions within a single account; they don't restrict what's available across multiple accounts.",
+      b: "Correct — Service Control Policies set permission guardrails across accounts in an AWS Organization.",
+      c: "Resource-based policies apply to a single resource, not account-wide service restrictions.",
+      d: "AWS Config rules check configuration compliance; they don't restrict which services can be used.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html",
+    referenceLabel: "Service control policies",
+    diagram: `flowchart TD
+  A[AWS Organization] --> B[Organizational Unit]
+  B --> C[Member Account 1]
+  B --> D[Member Account 2]
+  A --> E[Service Control Policy]
+  E --> B`,
+    cliExample: {
+      description: "List service control policies in the organization",
+      command: "aws organizations list-policies --filter SERVICE_CONTROL_POLICY",
+    },
   },
   {
     id: "sec21",
@@ -274,6 +497,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Attaching an IAM role to an EC2 instance provides temporary credentials automatically, avoiding hard-coded keys.",
+    optionRationale: {
+      a: "Storing access keys in code is exactly the hard-coded credential risk this scenario is trying to avoid.",
+      b: "Correct — an IAM role attached to the instance supplies temporary credentials automatically, with no keys in code.",
+      c: "Using root credentials for an application is a major security risk and unnecessary here.",
+      d: "Emailing a shared secret key is insecure and doesn't rotate or scope credentials properly.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html",
+    referenceLabel: "IAM roles for Amazon EC2",
+    diagram: `flowchart TD
+  A[EC2 Instance] --> B[IAM Role attached]
+  B --> C[Temporary credentials issued]
+  C --> D[Amazon S3 bucket access]`,
   },
   {
     id: "sec22",
@@ -287,6 +522,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Encryption in transit protects data as it travels across a network from being intercepted or read.",
+    optionRationale: {
+      a: "Correct — encryption in transit protects data as it moves across a network from being intercepted or read.",
+      b: "Protecting data stored on disk is encryption at rest, not in transit.",
+      c: "Encryption doesn't protect against hardware failure; that's a durability and backup concern.",
+      d: "Encryption doesn't prevent accidental deletion; that's addressed by versioning, backups, or permissions.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/data-protection/",
+    referenceLabel: "AWS data protection",
   },
   {
     id: "sec23",
@@ -300,6 +543,14 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Identity federation lets users authenticate with an existing identity provider and receive temporary AWS access.",
+    optionRationale: {
+      a: "Correct — federation lets users sign in with an existing identity provider and receive temporary AWS access.",
+      b: "Federation still requires access control; it doesn't remove the need for permissions.",
+      c: "Federated users get scoped temporary permissions, not automatic root access.",
+      d: "Federation doesn't disable MFA requirements; MFA can still be enforced by the identity provider or AWS.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html",
+    referenceLabel: "Identity providers and federation",
   },
   {
     id: "sec24",
@@ -314,6 +565,15 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "b"],
     explanation: "AWS Artifact provides compliance documentation, and AWS Config tracks configuration compliance over time.",
+    optionRationale: {
+      a: "Correct — AWS Artifact provides on-demand access to AWS's compliance reports and agreements.",
+      b: "Correct — AWS Config evaluates resource configurations against compliance rules over time.",
+      c: "Route 53 is a DNS service, unrelated to compliance or governance reporting.",
+      d: "EC2 Auto Scaling manages capacity, not compliance or governance.",
+      e: "Lightsail is a simplified virtual server offering, not a compliance or governance tool.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/",
+    referenceLabel: "AWS Compliance",
   },
   {
     id: "sec25",
@@ -327,6 +587,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["b"],
     explanation: "Resource-based policies are attached directly to a resource, such as an S3 bucket policy, rather than to a user or role.",
+    optionRationale: {
+      a: "Identity-based policies attach to users, groups, or roles, not directly to a resource.",
+      b: "Correct — resource-based policies, like an S3 bucket policy, attach directly to the resource itself.",
+      c: "A permissions boundary limits the maximum permissions an identity can have; it isn't attached to a resource.",
+      d: "A service control policy applies across accounts in an Organization, not to a single resource.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_identity-vs-resource.html",
+    referenceLabel: "Identity-based vs. resource-based policies",
+    cliExample: {
+      description: "Retrieve the bucket policy attached to an S3 bucket",
+      command: "aws s3api get-bucket-policy --bucket my-bucket",
+    },
   },
   {
     id: "sec26",
@@ -340,6 +612,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a"],
     explanation: "Server-side encryption automatically encrypts objects before they are written to disk in Amazon S3.",
+    optionRationale: {
+      a: "Correct — server-side encryption automatically encrypts objects before they're written to disk in S3.",
+      b: "Security groups control network traffic; they don't encrypt data at rest.",
+      c: "VPC peering connects networks; it has no role in encrypting stored data.",
+      d: "Direct Connect provides a dedicated network link; it doesn't encrypt data at rest.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html",
+    referenceLabel: "Protecting data with server-side encryption",
+    cliExample: {
+      description: "Check the default encryption configuration on an S3 bucket",
+      command: "aws s3api get-bucket-encryption --bucket my-bucket",
+    },
   },
   {
     id: "sec27",
@@ -354,5 +638,18 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "c"],
     explanation: "Enabling MFA and removing unused root access keys are core best practices for protecting the root user.",
+    optionRationale: {
+      a: "Correct — MFA adds a second authentication factor to the root user, the account's most powerful identity.",
+      b: "Using the root user for daily work increases exposure; it should be reserved for rare account-level tasks.",
+      c: "Correct — removing unused root access keys eliminates a credential that could otherwise be leaked or misused.",
+      d: "Sharing the root password removes accountability and is a direct security risk.",
+      e: "Disabling CloudTrail logging removes visibility into root user activity, the opposite of good practice.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html",
+    referenceLabel: "AWS account root user best practices",
+    cliExample: {
+      description: "List MFA devices registered to the account",
+      command: "aws iam list-virtual-mfa-devices",
+    },
   },
 ];

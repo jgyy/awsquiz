@@ -1,5 +1,5 @@
 import { questionBank } from "./questions/index.js";
-import { Domain, Mode, Question, SessionResult } from "./types.js";
+import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";
 import {
   sampleFullExam,
   shuffle,
@@ -10,6 +10,8 @@ import {
 } from "./scoring.js";
 
 const FULL_EXAM_SECONDS = 90 * 60;
+const OPTION_LETTERS = "ABCDEFGH";
+const MERMAID_CDN_URL = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
 interface Session {
   mode: Mode;
@@ -19,11 +21,18 @@ interface Session {
   timerId: number | null;
   remainingSeconds: number;
   deadlineAt: number | null;
+  revealed: boolean;
+  answeredSoFar: number;
+  correctSoFar: number;
 }
 
 let session: Session | null = null;
 
 const app = document.getElementById("app") as HTMLElement;
+
+let diagramCounter = 0;
+let pendingDiagrams: { id: string; source: string }[] = [];
+let mermaidModulePromise: Promise<any> | null = null;
 
 function escapeHtml(text: string): string {
   return text
@@ -34,8 +43,67 @@ function escapeHtml(text: string): string {
     .replace(/'/g, "&#39;");
 }
 
+function loadMermaid(): Promise<any> {
+  if (!mermaidModulePromise) {
+    const cdnUrl = MERMAID_CDN_URL;
+    mermaidModulePromise = import(cdnUrl).then((mod: any) => {
+      mod.default.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "strict" });
+      return mod.default;
+    });
+  }
+  return mermaidModulePromise;
+}
+
+async function renderMermaidDiagrams(diagrams: { id: string; source: string }[]): Promise<void> {
+  if (diagrams.length === 0) return;
+  try {
+    const mermaid = await loadMermaid();
+    for (const { id, source } of diagrams) {
+      const target = document.getElementById(id);
+      if (!target) continue;
+      try {
+        const { svg } = await mermaid.render(`${id}-svg`, source);
+        target.innerHTML = svg;
+      } catch {
+        target.textContent = "Diagram unavailable.";
+      }
+    }
+  } catch {
+    for (const { id } of diagrams) {
+      const target = document.getElementById(id);
+      if (target) target.textContent = "Diagram unavailable.";
+    }
+  }
+}
+
+function wireCopyButtons(): void {
+  document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.dataset.copyTarget;
+      const codeEl = targetId ? document.getElementById(targetId) : null;
+      const text = codeEl?.textContent ?? "";
+      navigator.clipboard
+        ?.writeText(text)
+        .then(() => {
+          const original = btn.textContent;
+          btn.textContent = "Copied!";
+          window.setTimeout(() => {
+            btn.textContent = original ?? "Copy";
+          }, 1500);
+        })
+        .catch(() => {});
+    });
+  });
+}
+
 function renderModeSelection(): void {
   session = null;
+  const domainCounts = (Object.entries(DOMAIN_LABELS) as [Domain, string][]).map(([value, label]) => ({
+    value,
+    label,
+    count: questionBank.filter((q) => q.domain === value).length,
+  }));
+
   app.innerHTML = `
     <section class="screen">
       <h1>AWS Cloud Practitioner Exam Simulator</h1>
@@ -43,19 +111,19 @@ function renderModeSelection(): void {
         <div class="card">
           <h2>Full Exam Simulation</h2>
           <p>65 questions, a 90 minute timer, and scoring modeled on the real exam.</p>
-          <button class="btn" id="start-full-exam">Start Full Exam</button>
+          <button class="btn" id="start-full-exam" type="button">Start Full Exam</button>
         </div>
         <div class="card">
           <h2>Practice Mode</h2>
-          <p>Untimed, with feedback and an explanation shown after each question.</p>
+          <p>Untimed. Submit each answer to see what's right, what's wrong, and why &mdash; with reference links, diagrams, and CLI examples where relevant.</p>
           <label for="practice-domain">Domain</label>
           <select id="practice-domain">
-            <option value="all">All domains</option>
-            ${(Object.entries(DOMAIN_LABELS) as [Domain, string][])
-              .map(([value, label]) => `<option value="${value}">${label}</option>`)
+            <option value="all">All domains (${questionBank.length})</option>
+            ${domainCounts
+              .map(({ value, label, count }) => `<option value="${value}">${label} (${count})</option>`)
               .join("")}
           </select>
-          <button class="btn" id="start-practice">Start Practice</button>
+          <button class="btn" id="start-practice" type="button">Start Practice</button>
         </div>
       </div>
     </section>
@@ -78,6 +146,9 @@ function startFullExam(): void {
     timerId: null,
     remainingSeconds: FULL_EXAM_SECONDS,
     deadlineAt: Date.now() + FULL_EXAM_SECONDS * 1000,
+    revealed: false,
+    answeredSoFar: 0,
+    correctSoFar: 0,
   };
   startTimer();
   renderQuestionScreen();
@@ -94,6 +165,9 @@ function startPractice(domain: Domain | "all"): void {
     timerId: null,
     remainingSeconds: 0,
     deadlineAt: null,
+    revealed: false,
+    answeredSoFar: 0,
+    correctSoFar: 0,
   };
   renderQuestionScreen();
 }
@@ -127,38 +201,134 @@ function updateTimerDisplay(): void {
   el.textContent = `${minutes}:${seconds}`;
 }
 
+function renderOptionRow(question: Question, opt: { id: string; text: string }, letter: string, selected: string[], revealed: boolean): string {
+  const isMulti = question.correctOptionIds.length > 1;
+  const isChecked = selected.includes(opt.id);
+  const isCorrectOption = question.correctOptionIds.includes(opt.id);
+
+  let stateClass = "";
+  let icon = "";
+  if (revealed) {
+    if (isCorrectOption) {
+      stateClass = " option-correct";
+      icon = `<span class="option-icon" aria-hidden="true">&check;</span>`;
+    } else if (isChecked) {
+      stateClass = " option-incorrect";
+      icon = `<span class="option-icon" aria-hidden="true">&cross;</span>`;
+    }
+  }
+
+  const rationale = revealed ? question.optionRationale?.[opt.id] : undefined;
+
+  return `
+    <label class="option${stateClass}">
+      <input type="${isMulti ? "checkbox" : "radio"}" name="option" value="${opt.id}"
+        ${isChecked ? "checked" : ""} ${revealed ? "disabled" : ""} />
+      <span class="option-body">
+        <span class="option-main">
+          <span class="option-letter">${letter}</span>
+          <span class="option-text">${escapeHtml(opt.text)}</span>
+          ${icon}
+        </span>
+        ${rationale ? `<span class="option-rationale">${escapeHtml(rationale)}</span>` : ""}
+      </span>
+    </label>`;
+}
+
+function renderFeedbackExtras(question: Question, uid: string): string {
+  const parts: string[] = [];
+
+  if (question.referenceUrl) {
+    parts.push(
+      `<a class="reference-link" href="${escapeHtml(question.referenceUrl)}" target="_blank" rel="noopener noreferrer">Learn more: ${escapeHtml(
+        question.referenceLabel ?? "AWS Documentation"
+      )} &rarr;</a>`
+    );
+  }
+
+  if (question.cliExample) {
+    const cliId = `cli-${uid}`;
+    parts.push(`
+      <div class="cli-card">
+        <div class="cli-card-header">
+          <span>${escapeHtml(question.cliExample.description)}</span>
+          <button type="button" class="copy-btn" data-copy-target="${cliId}">Copy</button>
+        </div>
+        <pre class="cli-command" id="${cliId}"><code>${escapeHtml(question.cliExample.command)}</code></pre>
+      </div>`);
+  }
+
+  if (question.diagram) {
+    const diagramId = `diagram-${uid}-${diagramCounter++}`;
+    pendingDiagrams.push({ id: diagramId, source: question.diagram });
+    parts.push(`
+      <div class="diagram-card">
+        <p class="diagram-caption">Diagram</p>
+        <div class="mermaid-target" id="${diagramId}">Rendering diagram&hellip;</div>
+      </div>`);
+  }
+
+  return parts.join("");
+}
+
+function renderFeedbackPanel(question: Question, selected: string[]): string {
+  const correct = isAnswerCorrect(question, selected);
+  return `
+    <div class="feedback-banner ${correct ? "feedback-correct" : "feedback-incorrect"}">
+      <span class="feedback-icon" aria-hidden="true">${correct ? "&check;" : "&cross;"}</span>
+      <span>${correct ? "Correct" : "Not quite"}</span>
+    </div>
+    <p class="explanation">${escapeHtml(question.explanation)}</p>
+    ${renderFeedbackExtras(question, question.id)}
+  `;
+}
+
 function renderQuestionScreen(): void {
   if (!session) return;
+  pendingDiagrams = [];
+
   const question = session.questions[session.currentIndex];
   const isMulti = question.correctOptionIds.length > 1;
   const selected = session.answers[question.id] ?? [];
   const isLast = session.currentIndex === session.questions.length - 1;
+  const revealed = session.mode === "practice" && session.revealed;
+  const progressPct = Math.round((session.currentIndex / session.questions.length) * 100);
+
+  const nextLabel = session.mode === "full-exam" ? (isLast ? "Submit Exam" : "Next Question") : isLast ? "Finish Practice" : "Next Question";
 
   app.innerHTML = `
-    <section class="screen">
-      <div class="top-bar">
-        <span>Question ${session.currentIndex + 1} of ${session.questions.length}</span>
-        ${session.mode === "full-exam" ? `<span class="timer" id="timer">--:--</span>` : ""}
-      </div>
-      <p class="domain-label">${DOMAIN_LABELS[question.domain]}${isMulti ? " — select two" : ""}</p>
+    <section class="screen quiz-screen">
+      <header class="app-bar">
+        ${session.mode === "practice" ? `<button class="link-btn" id="exit-session" type="button">&larr; Exit</button>` : `<span></span>`}
+        <span class="progress-text">Question ${session.currentIndex + 1} of ${session.questions.length}</span>
+        ${
+          session.mode === "full-exam"
+            ? `<span class="timer" id="timer">--:--</span>`
+            : `<span class="practice-stats">${session.correctSoFar}/${session.answeredSoFar} correct</span>`
+        }
+      </header>
+      <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width: ${progressPct}%"></div></div>
+
+      <p class="domain-label">
+        <span class="domain-pill">${DOMAIN_LABELS[question.domain]}</span>
+        ${isMulti ? `<span class="multi-hint">Select two</span>` : ""}
+      </p>
       <h2 class="question-text">${escapeHtml(question.text)}</h2>
-      <form id="question-form">
-        ${question.options
-          .map(
-            (opt) => `
-          <label class="option">
-            <input type="${isMulti ? "checkbox" : "radio"}" name="option" value="${opt.id}"
-              ${selected.includes(opt.id) ? "checked" : ""} />
-            <span>${escapeHtml(opt.text)}</span>
-          </label>`
-          )
-          .join("")}
+
+      <form id="question-form" class="options-list">
+        ${question.options.map((opt, i) => renderOptionRow(question, opt, OPTION_LETTERS[i], selected, revealed)).join("")}
       </form>
-      <div id="feedback"></div>
+
+      <div id="feedback">${revealed ? renderFeedbackPanel(question, selected) : ""}</div>
+
       <div class="nav-buttons">
-        ${session.mode === "full-exam" ? `<button class="btn btn-secondary" id="end-exam">End Exam</button>` : ""}
-        ${session.mode === "practice" ? `<button class="btn" id="check-answer">Check Answer</button>` : ""}
-        <button class="btn" id="next-question">${isLast ? "Submit" : "Next"}</button>
+        ${session.mode === "full-exam" ? `<button class="btn btn-secondary" id="end-exam" type="button">End Exam</button>` : ""}
+        ${
+          session.mode === "practice" && !revealed
+            ? `<button class="btn" id="submit-answer" type="button" ${selected.length === 0 ? "disabled" : ""}>Submit Answer</button>`
+            : ""
+        }
+        ${session.mode === "full-exam" || revealed ? `<button class="btn" id="next-question" type="button">${nextLabel}</button>` : ""}
       </div>
     </section>
   `;
@@ -167,17 +337,29 @@ function renderQuestionScreen(): void {
 
   document.getElementById("question-form")!.addEventListener("change", (event) => {
     recordAnswer(question, event.target as HTMLInputElement);
+    const submitBtn = document.getElementById("submit-answer") as HTMLButtonElement | null;
+    if (submitBtn) {
+      submitBtn.disabled = (session!.answers[question.id] ?? []).length === 0;
+    }
   });
 
-  if (session.mode === "practice") {
-    document.getElementById("check-answer")!.addEventListener("click", () => showFeedback(question));
-  }
+  document.getElementById("exit-session")?.addEventListener("click", () => {
+    if (window.confirm("Exit practice mode? Your progress on this session will be discarded.")) {
+      stopTimer();
+      renderModeSelection();
+    }
+  });
 
-  document.getElementById("next-question")!.addEventListener("click", goToNextQuestion);
+  document.getElementById("submit-answer")?.addEventListener("click", () => submitAnswer(question));
+  document.getElementById("next-question")?.addEventListener("click", goToNextQuestion);
+  document.getElementById("end-exam")?.addEventListener("click", () => {
+    if (window.confirm("End the exam now and submit for scoring?")) {
+      finishSession();
+    }
+  });
 
-  if (session.mode === "full-exam") {
-    document.getElementById("end-exam")!.addEventListener("click", finishSession);
-  }
+  wireCopyButtons();
+  if (revealed) void renderMermaidDiagrams(pendingDiagrams);
 }
 
 function recordAnswer(question: Question, target: HTMLInputElement): void {
@@ -193,19 +375,19 @@ function recordAnswer(question: Question, target: HTMLInputElement): void {
   }
 }
 
-function showFeedback(question: Question): void {
+function submitAnswer(question: Question): void {
   if (!session) return;
   const selected = session.answers[question.id] ?? [];
-  const correct = isAnswerCorrect(question, selected);
-  const feedback = document.getElementById("feedback")!;
-  feedback.innerHTML = `
-    <p class="${correct ? "feedback-correct" : "feedback-incorrect"}">${correct ? "Correct" : "Incorrect"}</p>
-    <p class="explanation">${escapeHtml(question.explanation)}</p>
-  `;
+  if (selected.length === 0) return;
+  session.revealed = true;
+  session.answeredSoFar += 1;
+  if (isAnswerCorrect(question, selected)) session.correctSoFar += 1;
+  renderQuestionScreen();
 }
 
 function goToNextQuestion(): void {
   if (!session) return;
+  session.revealed = false;
   if (session.currentIndex < session.questions.length - 1) {
     session.currentIndex += 1;
     renderQuestionScreen();
@@ -221,13 +403,33 @@ function finishSession(): void {
   renderResultsScreen(result);
 }
 
+function renderReviewItem(pq: PerQuestionResult, index: number): string {
+  const { question } = pq;
+  const uid = `review-${question.id}`;
+  return `
+    <details class="review-item ${pq.isCorrect ? "review-correct" : "review-incorrect"}" ${pq.isCorrect ? "" : "open"}>
+      <summary class="review-summary">
+        <span class="review-icon" aria-hidden="true">${pq.isCorrect ? "&check;" : "&cross;"}</span>
+        <span class="review-question">${index + 1}. ${escapeHtml(question.text)}</span>
+      </summary>
+      <div class="review-body">
+        <p>Your answer: ${describeOptions(question, pq.selectedOptionIds)}</p>
+        <p>Correct answer: ${describeOptions(question, question.correctOptionIds)}</p>
+        <p class="explanation">${escapeHtml(question.explanation)}</p>
+        ${renderFeedbackExtras(question, uid)}
+      </div>
+    </details>`;
+}
+
 function renderResultsScreen(result: SessionResult): void {
+  pendingDiagrams = [];
+
   app.innerHTML = `
-    <section class="screen">
+    <section class="screen results-screen">
       <h1>Results</h1>
       <p class="scaled-score">${result.scaledScore} / 1000</p>
       <p class="pass-fail ${result.passed ? "pass" : "fail"}">
-        ${result.passed ? "Passed" : "Not passed"} — approximate score, not AWS's official scoring algorithm
+        ${result.passed ? "Passed" : "Not passed"} &mdash; approximate score, not AWS's official scoring algorithm
       </p>
       <table class="domain-breakdown">
         <thead>
@@ -248,25 +450,17 @@ function renderResultsScreen(result: SessionResult): void {
       </table>
       <h2>Review</h2>
       <div class="review-list">
-        ${result.perQuestion
-          .map(
-            (pq, i) => `
-          <div class="review-item ${pq.isCorrect ? "review-correct" : "review-incorrect"}">
-            <p class="review-question">${i + 1}. ${escapeHtml(pq.question.text)}</p>
-            <p>Your answer: ${describeOptions(pq.question, pq.selectedOptionIds)}</p>
-            <p>Correct answer: ${describeOptions(pq.question, pq.question.correctOptionIds)}</p>
-            <p class="explanation">${escapeHtml(pq.question.explanation)}</p>
-          </div>`
-          )
-          .join("")}
+        ${result.perQuestion.map((pq, i) => renderReviewItem(pq, i)).join("")}
       </div>
       <div class="nav-buttons">
-        <button class="btn" id="back-to-menu">Back to Menu</button>
+        <button class="btn" id="back-to-menu" type="button">Back to Menu</button>
       </div>
     </section>
   `;
 
   document.getElementById("back-to-menu")!.addEventListener("click", renderModeSelection);
+  wireCopyButtons();
+  void renderMermaidDiagrams(pendingDiagrams);
 }
 
 function describeOptions(question: Question, ids: string[]): string {
