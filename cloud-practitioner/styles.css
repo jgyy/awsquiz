@@ -440,15 +440,38 @@ a:focus-visible {
 .diagram-card {
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.9rem;
+  overflow: hidden;
   background: var(--surface-sunken);
+}
+
+.diagram-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .diagram-caption {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--muted);
-  margin-bottom: 0.5rem;
+  margin: 0;
+}
+
+.diagram-expand-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.diagram-expand-btn:hover {
+  background: var(--accent-soft);
 }
 
 .mermaid-target {
@@ -458,10 +481,71 @@ a:focus-visible {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
+  padding: 0.9rem;
+  cursor: zoom-in;
 }
 
 .mermaid-target svg {
   max-width: 100%;
+  height: auto;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.diagram-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 12, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1000;
+}
+
+.diagram-modal {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.75rem 1.5rem 1.5rem;
+  width: min(900px, 100%);
+  max-width: min(1100px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.diagram-modal-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-sunken);
+  color: var(--ink);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.diagram-modal-close:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.diagram-modal-body {
+  display: flex;
+  justify-content: center;
+}
+
+.diagram-modal-body svg {
+  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 

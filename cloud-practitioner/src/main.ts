@@ -96,6 +96,69 @@ function wireCopyButtons(): void {
   });
 }
 
+function handleDiagramModalKeydown(event: KeyboardEvent): void {
+  if (event.key === "Escape") closeDiagramModal();
+}
+
+function closeDiagramModal(): void {
+  document.getElementById("diagram-modal-overlay")?.remove();
+  document.body.classList.remove("modal-open");
+  document.removeEventListener("keydown", handleDiagramModalKeydown);
+}
+
+function openDiagramModal(svg: SVGSVGElement): void {
+  closeDiagramModal();
+
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "diagram-modal-close";
+  closeBtn.setAttribute("aria-label", "Close");
+  closeBtn.textContent = "×";
+  closeBtn.addEventListener("click", closeDiagramModal);
+
+  const body = document.createElement("div");
+  body.className = "diagram-modal-body";
+  body.appendChild(svg.cloneNode(true));
+
+  const modal = document.createElement("div");
+  modal.className = "diagram-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "Expanded diagram");
+  modal.appendChild(closeBtn);
+  modal.appendChild(body);
+
+  const overlay = document.createElement("div");
+  overlay.id = "diagram-modal-overlay";
+  overlay.className = "diagram-modal-overlay";
+  overlay.appendChild(modal);
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closeDiagramModal();
+  });
+
+  document.body.appendChild(overlay);
+  document.body.classList.add("modal-open");
+  document.addEventListener("keydown", handleDiagramModalKeydown);
+}
+
+function expandDiagram(target: HTMLElement | null): void {
+  const svg = target?.querySelector("svg");
+  if (!svg) return;
+  openDiagramModal(svg);
+}
+
+function wireDiagramExpand(): void {
+  document.querySelectorAll<HTMLButtonElement>(".diagram-expand-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.dataset.expandTarget;
+      expandDiagram(targetId ? document.getElementById(targetId) : null);
+    });
+  });
+  document.querySelectorAll<HTMLElement>(".mermaid-target").forEach((el) => {
+    el.addEventListener("click", () => expandDiagram(el));
+  });
+}
+
 function renderModeSelection(): void {
   session = null;
   const domainCounts = (Object.entries(DOMAIN_LABELS) as [Domain, string][]).map(([value, label]) => ({
@@ -263,8 +326,11 @@ function renderFeedbackExtras(question: Question, uid: string): string {
     pendingDiagrams.push({ id: diagramId, source: question.diagram });
     parts.push(`
       <div class="diagram-card">
-        <p class="diagram-caption">Diagram</p>
-        <div class="mermaid-target" id="${diagramId}">Rendering diagram&hellip;</div>
+        <div class="diagram-card-header">
+          <p class="diagram-caption">Diagram</p>
+          <button type="button" class="diagram-expand-btn" data-expand-target="${diagramId}">Expand</button>
+        </div>
+        <div class="mermaid-target" id="${diagramId}" title="Click to expand">Rendering diagram&hellip;</div>
       </div>`);
   }
 
@@ -359,6 +425,7 @@ function renderQuestionScreen(): void {
   });
 
   wireCopyButtons();
+  wireDiagramExpand();
   if (revealed) void renderMermaidDiagrams(pendingDiagrams);
 }
 
@@ -460,6 +527,7 @@ function renderResultsScreen(result: SessionResult): void {
 
   document.getElementById("back-to-menu")!.addEventListener("click", renderModeSelection);
   wireCopyButtons();
+  wireDiagramExpand();
   void renderMermaidDiagrams(pendingDiagrams);
 }
 
