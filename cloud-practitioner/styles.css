@@ -187,3 +187,19 @@ a:focus-visible {
     flex: 1;
   }
 }
+
+.feedback-correct {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--correct);
+}
+
+.feedback-incorrect {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--incorrect);
+}
+
+.explanation {
+  color: var(--muted);
+}
