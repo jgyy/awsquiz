@@ -21,6 +21,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/pricing/",
     referenceLabel: "AWS Pricing Overview",
+    diagram:
+      "flowchart LR\n    Usage[Track Actual Usage] --> Bill[Pay-as-you-go Bill]\n    NoCommit[No Upfront Commitment] --> Bill\n    Bill --> Stop[Stop Anytime]",
+    cliExample: {
+      description: "Look up on-demand (pay-as-you-go) pricing for an EC2 instance type",
+      command: "aws pricing get-products --service-code AmazonEC2 --region us-east-1 --filters Type=TERM_MATCH,Field=instanceType,Value=t3.micro",
+    },
   },
   {
     id: "cc2",
@@ -42,6 +48,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/what-is-cloud-computing/",
     referenceLabel: "What Is Cloud Computing?",
+    diagram:
+      "flowchart LR\n    Low[Low Demand] --> Scale[Elastic Resources]\n    High[High Demand] --> Scale\n    Scale --> Out[Scale Out Automatically]\n    Scale --> In[Scale In Automatically]",
+    cliExample: {
+      description: "List Auto Scaling groups, which implement elasticity for EC2 capacity",
+      command: "aws autoscaling describe-auto-scaling-groups",
+    },
   },
   {
     id: "cc3",
@@ -63,6 +75,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics",
+    diagram:
+      "flowchart LR\n    CapEx[Upfront Capital Expense] --> Cloud[Move to AWS Cloud]\n    Cloud --> OpEx[Ongoing Variable Operating Expense]",
+    cliExample: {
+      description: "View AWS costs by month, reflecting usage-based variable operating expense",
+      command: "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost",
+    },
   },
   {
     id: "cc4",
@@ -84,6 +102,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/aws-caf/introduction.html",
     referenceLabel: "AWS Cloud Adoption Framework",
+    diagram:
+      "flowchart LR\n    Business[Business Perspective] --> Strategy[IT Strategy]\n    Strategy --> Goals[Aligned Business Outcomes]",
   },
   {
     id: "cc5",
@@ -105,6 +125,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/",
     referenceLabel: "AWS Global Infrastructure",
+    diagram:
+      "flowchart LR\n    Company[Company] --> Launch[Launch Infrastructure]\n    Launch --> Region[New AWS Region]\n    Region --> Minutes[Live in Minutes]",
+    cliExample: {
+      description: "List AWS Regions available to deploy infrastructure into",
+      command: "aws ec2 describe-regions",
+    },
   },
   {
     id: "cc6",
@@ -178,6 +204,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics",
+    diagram:
+      "flowchart LR\n    Guess[Guess Capacity Upfront] --> Waste[Over- or Under-provisioned]\n    Cloud[AWS Cloud] --> Match[Scale to Match Actual Demand]",
+    cliExample: {
+      description: "View recent Auto Scaling activity that matches capacity to actual demand",
+      command: "aws autoscaling describe-scaling-activities",
+    },
   },
   {
     id: "cc9",
@@ -222,6 +254,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/blogs/enterprise-strategy/6-strategies-for-migrating-applications-to-the-cloud/",
     referenceLabel: "6 Strategies for Migrating Applications to the Cloud",
+    diagram:
+      "flowchart LR\n    Rehost[Rehost: No Changes] --> Replatform[Replatform: Minor Optimizations]\n    Replatform --> Refactor[Refactor: Re-architect]",
   },
   {
     id: "cc11",
@@ -243,6 +277,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/blogs/enterprise-strategy/6-strategies-for-migrating-applications-to-the-cloud/",
     referenceLabel: "6 Strategies for Migrating Applications to the Cloud",
+    diagram:
+      "flowchart LR\n    Legacy[Legacy On-premises App] --> SaaS[SaaS Alternative]",
   },
   {
     id: "cc12",
@@ -264,6 +300,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/what-is-cloud-computing/",
     referenceLabel: "What Is Cloud Computing?",
+    diagram:
+      "flowchart LR\n    Idea[New Idea] --> Provision[Provision Resources in Minutes]\n    Provision --> Experiment[Experiment and Iterate Fast]",
   },
   {
     id: "cc13",
@@ -290,6 +328,10 @@ export const cloudConceptsQuestions: Question[] = [
     referenceLabel: "Reliability Pillar — AWS Well-Architected Framework",
     diagram:
       "flowchart TD\n    Goal[Minimize Downtime] --> HA[High Availability]\n    Goal --> FT[Fault Tolerance]\n    HA --> HA1[Brief interruption possible]\n    FT --> FT1[Zero downtime on component failure]",
+    cliExample: {
+      description: "List load balancer target groups, used to monitor health and support high availability",
+      command: "aws elbv2 describe-target-groups",
+    },
   },
   {
     id: "cc14",
@@ -336,6 +378,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics",
+    diagram:
+      "flowchart LR\n    Startup[Startup] --> Avoid[Avoid Data Center Capex]\n    Avoid --> Invest[Redirect Funds to Product]",
   },
   {
     id: "cc16",
@@ -357,6 +401,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/",
     referenceLabel: "AWS Regions and Availability Zones",
+    diagram:
+      "flowchart TD\n    Region[AWS Region] --> AZ1[Availability Zone A]\n    Region --> AZ2[Availability Zone B]\n    Region --> AZ3[Availability Zone C]",
+    cliExample: {
+      description: "List the Availability Zones that make up a Region",
+      command: "aws ec2 describe-availability-zones --region us-east-1",
+    },
   },
   {
     id: "cc17",
@@ -378,6 +428,12 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/cloudfront/",
     referenceLabel: "Amazon CloudFront",
+    diagram:
+      "flowchart LR\n    User[End User Request] --> Edge[Edge Location Cache]\n    Edge -->|Cache Hit| User\n    Edge -->|Cache Miss| Origin[Origin Server]",
+    cliExample: {
+      description: "List CloudFront distributions that use edge locations to cache content",
+      command: "aws cloudfront list-distributions",
+    },
   },
   {
     id: "cc18",
@@ -401,6 +457,10 @@ export const cloudConceptsQuestions: Question[] = [
     referenceLabel: "Hybrid Cloud with AWS",
     diagram:
       "flowchart LR\n    OnPrem[On-premises Data Center] <--> Link[Network Connection]\n    Link <--> Cloud[AWS Cloud]",
+    cliExample: {
+      description: "List VPN connections linking on-premises infrastructure to AWS for a hybrid deployment",
+      command: "aws ec2 describe-vpn-connections",
+    },
   },
   {
     id: "cc19",
@@ -424,6 +484,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics",
+    diagram:
+      "flowchart LR\n    Cloud[Cloud Computing Benefits] --> CapexOpex[Capex to Variable Opex]\n    Cloud --> Scale[Economies of Scale]",
   },
   {
     id: "cc20",
@@ -445,6 +507,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics",
+    diagram:
+      "flowchart LR\n    Scale[AWS Growing Scale] --> LowerCosts[Lower AWS Costs]\n    LowerCosts --> LowerPrices[Lower Prices for Customers]",
   },
   {
     id: "cc21",
@@ -466,5 +530,11 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/well-architected/",
     referenceLabel: "AWS Well-Architected Framework",
+    diagram:
+      "flowchart LR\n    Review[Well-Architected Review] --> BestPractices[Best Practices Checklist]\n    BestPractices --> Improve[Improve Architecture]",
+    cliExample: {
+      description: "List workloads registered in the AWS Well-Architected Tool",
+      command: "aws wellarchitected list-workloads",
+    },
   },
 ];

@@ -21,6 +21,11 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/ec2/pricing/on-demand/",
     referenceLabel: "Amazon EC2 On-Demand Pricing",
+    diagram: "flowchart TD\n  Need{Workload Commitment?} --> None[No Commitment] --> OnDemand[On-Demand Pricing]\n  Need --> Term[1 or 3 Year Term] --> Reserved[Reserved Instances or Savings Plans]\n  Need --> Flex[Interruptible and Flexible] --> Spot[Spot Instances]",
+    cliExample: {
+      description: "List running EC2 instances using standard (on-demand) lifecycle",
+      command: "aws ec2 describe-instances --filters Name=instance-lifecycle,Values=normal",
+    },
   },
   {
     id: "bill2",
@@ -42,6 +47,11 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/ec2/spot/",
     referenceLabel: "Amazon EC2 Spot Instances",
+    diagram: "flowchart LR\n  Spare[AWS Spare Capacity] --> Spot[Spot Instance at a Discount]\n  Spot --> Notice[2-Minute Interruption Notice]\n  Notice --> Reclaim[AWS Reclaims Capacity]",
+    cliExample: {
+      description: "View recent Spot price history for an instance type",
+      command: "aws ec2 describe-spot-price-history --instance-types t3.micro --product-descriptions Linux/UNIX --max-results 5",
+    },
   },
   {
     id: "bill3",
@@ -63,6 +73,11 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/savingsplans/",
     referenceLabel: "AWS Savings Plans",
+    diagram: "flowchart LR\n  Steady[Steady Predictable Workload] --> Commit[1 or 3 Year Commitment] --> Discount[Reserved Instances or Savings Plans Discount]",
+    cliExample: {
+      description: "List available Reserved Instance offerings for an instance type",
+      command: "aws ec2 describe-reserved-instances-offerings --instance-type t3.micro --product-description Linux/UNIX --max-results 5",
+    },
   },
   {
     id: "bill4",
@@ -85,6 +100,10 @@ export const billingPricingAndSupportQuestions: Question[] = [
     referenceUrl: "https://aws.amazon.com/aws-cost-management/aws-budgets/",
     referenceLabel: "AWS Budgets",
     diagram: "flowchart LR\n  Usage[AWS Usage and Billing Data] --> Explorer[AWS Cost Explorer]\n  Usage --> Budgets[AWS Budgets]\n  Budgets --> Alert[Budget Alert Notification]\n  Explorer --> Forecast[Cost Forecast]",
+    cliExample: {
+      description: "Retrieve the budgets configured for your account",
+      command: "aws budgets describe-budgets --account-id $(aws sts get-caller-identity --query Account --output text)",
+    },
   },
   {
     id: "bill5",
@@ -106,6 +125,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/aws-cost-management/aws-cost-explorer/",
     referenceLabel: "AWS Cost Explorer",
+    diagram: "flowchart LR\n  Data[Historical Billing Data] --> CE[AWS Cost Explorer] --> Viz[Interactive Cost and Usage Charts]",
     cliExample: {
       description: "Retrieve unblended cost and usage totals for a monthly period",
       command: "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost",
@@ -183,6 +203,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
     referenceLabel: "AWS Support Plans",
+    diagram: "flowchart LR\n  Basic[Basic Support: Free] --> AccountBilling[Account and Billing Support]\n  Basic --> CoreTA[Core Trusted Advisor Checks]",
     cliExample: {
       description: "List Trusted Advisor checks available to your account (requires a Business or Enterprise support plan)",
       command: "aws support describe-trusted-advisor-checks --language en",
@@ -208,6 +229,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://calculator.aws/",
     referenceLabel: "AWS Pricing Calculator",
+    diagram: "flowchart LR\n  Plan[Planned Architecture] --> Calc[AWS Pricing Calculator] --> Estimate[Monthly Cost Estimate]",
   },
   {
     id: "bill10",
@@ -231,6 +253,11 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/aws-cost-management/",
     referenceLabel: "AWS Cost Management",
+    diagram: "flowchart TD\n  Reduce[Reduce AWS Costs] --> Steady[Steady Workloads] --> RI[Reserved Instances or Savings Plans]\n  Reduce --> Flexible[Flexible, Fault-Tolerant Workloads] --> Spot[Spot Instances]",
+    cliExample: {
+      description: "Get EC2 right-sizing recommendations to help cut costs",
+      command: "aws compute-optimizer get-ec2-instance-recommendations",
+    },
   },
   {
     id: "bill11",
@@ -254,6 +281,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html",
     referenceLabel: "Cost Allocation Tags",
+    diagram: "flowchart TD\n  Track[Track Cost by Team or Project] --> Tags[Cost Allocation Tags]\n  Track --> Orgs[AWS Organizations Consolidated Billing]",
     cliExample: {
       description: "Retrieve cost and usage grouped by a cost allocation tag",
       command:

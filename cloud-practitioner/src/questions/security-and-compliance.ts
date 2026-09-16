@@ -51,6 +51,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
     referenceLabel: "AWS Shared Responsibility Model",
+    diagram: `flowchart TD
+  A[Customer Responsibility: Security IN the Cloud] --> B[Security Group Rules]
+  A --> C[IAM User and Permission Configuration]
+  A --> D[Data Encryption Choices]`,
+    cliExample: {
+      description: "List customer-managed IAM policies in the account",
+      command: "aws iam list-policies --scope Local",
+    },
   },
   {
     id: "sec3",
@@ -72,6 +80,15 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html",
     referenceLabel: "AWS account root user best practices",
+    diagram: `flowchart TD
+  A[AWS Root User] --> B[Enable MFA]
+  A --> C[Avoid daily administrative use]
+  B --> D[Reserved for rare account-level tasks]
+  C --> D`,
+    cliExample: {
+      description: "Check whether MFA is enabled on the account (root user)",
+      command: "aws iam get-account-summary",
+    },
   },
   {
     id: "sec4",
@@ -93,6 +110,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html",
     referenceLabel: "IAM roles",
+    diagram: `flowchart TD
+  A[Trusted Service or Federated User] --> B[Assumes IAM Role]
+  B --> C[Temporary Credentials Issued]
+  C --> D[Access Granted, No Long-term Keys]`,
+    cliExample: {
+      description: "List IAM roles available to assume in the account",
+      command: "aws iam list-roles",
+    },
   },
   {
     id: "sec5",
@@ -114,6 +139,15 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html",
     referenceLabel: "IAM user groups",
+    diagram: `flowchart TD
+  A[IAM Group] --> B[Policy Attached Once]
+  A --> C[User 1]
+  A --> D[User 2]
+  A --> E[User 3]`,
+    cliExample: {
+      description: "List IAM groups in the account",
+      command: "aws iam list-groups",
+    },
   },
   {
     id: "sec6",
@@ -166,6 +200,11 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html",
     referenceLabel: "What is Amazon GuardDuty",
+    diagram: `flowchart TD
+  A[VPC Flow Logs] --> D[Amazon GuardDuty]
+  B[CloudTrail Logs] --> D
+  C[DNS Logs] --> D
+  D --> E[Machine Learning Threat Findings]`,
     cliExample: {
       description: "List GuardDuty detectors in the account",
       command: "aws guardduty list-detectors",
@@ -191,6 +230,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
     referenceLabel: "What is Amazon Macie",
+    diagram: `flowchart TD
+  A[Amazon S3 Buckets] --> B[Amazon Macie]
+  B --> C[Machine Learning Data Discovery]
+  C --> D[PII Classification Findings]`,
+    cliExample: {
+      description: "List Amazon Macie sensitive data discovery jobs",
+      command: "aws macie2 list-classification-jobs",
+    },
   },
   {
     id: "sec9",
@@ -212,6 +259,10 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/inspector/v2/userguide/what-is-inspector.html",
     referenceLabel: "What is Amazon Inspector",
+    diagram: `flowchart TD
+  A[EC2 Instances] --> C[Amazon Inspector]
+  B[Container Images] --> C
+  C --> D[Vulnerability and Exposure Findings]`,
     cliExample: {
       description: "List vulnerability findings from Amazon Inspector",
       command: "aws inspector2 list-findings --max-results 10",
@@ -237,6 +288,10 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/artifact/",
     referenceLabel: "AWS Artifact",
+    diagram: `flowchart TD
+  A[AWS Artifact] --> B[SOC Reports]
+  A --> C[PCI DSS Attestations]
+  A --> D[ISO Certifications and Agreements]`,
   },
   {
     id: "sec11",
@@ -258,6 +313,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/shield/",
     referenceLabel: "AWS Shield",
+    diagram: `flowchart TD
+  A[Incoming Traffic] --> B[AWS Shield]
+  B --> C[DDoS Attack Mitigated]
+  B --> D[Application Stays Available]`,
+    cliExample: {
+      description: "Check AWS Shield Advanced subscription status",
+      command: "aws shield describe-subscription",
+    },
   },
   {
     id: "sec12",
@@ -279,6 +342,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html",
     referenceLabel: "What is AWS WAF",
+    diagram: `flowchart TD
+  A[Web Request] --> B[AWS WAF Rules]
+  B -->|Matches SQLi or XSS pattern| C[Request Blocked]
+  B -->|No match| D[Request Forwarded to App]`,
+    cliExample: {
+      description: "List AWS WAF web ACLs protecting regional resources",
+      command: "aws wafv2 list-web-acls --scope REGIONAL",
+    },
   },
   {
     id: "sec13",
@@ -300,6 +371,10 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
     referenceLabel: "AWS KMS overview",
+    diagram: `flowchart TD
+  A[AWS KMS] --> B[Create and Manage Keys]
+  A --> C[Define Key Policies]
+  A --> D[Encrypt and Decrypt Data]`,
     cliExample: {
       description: "List customer master keys managed in KMS",
       command: "aws kms list-keys",
@@ -325,6 +400,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
     referenceLabel: "What is AWS Secrets Manager",
+    diagram: `flowchart TD
+  A[Application] --> B[AWS Secrets Manager]
+  B --> C[Retrieve Secret at Runtime]
+  B --> D[Automatic Rotation]`,
+    cliExample: {
+      description: "List secrets stored in Secrets Manager",
+      command: "aws secretsmanager list-secrets",
+    },
   },
   {
     id: "sec15",
@@ -346,6 +429,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
     referenceLabel: "IAM security best practices",
+    diagram: `flowchart TD
+  A[Least Privilege] --> B[Grant Only Permissions the Task Needs]
+  B --> C[Task Completed Securely]
+  A -.-> D[Excess Permissions Avoided]`,
+    cliExample: {
+      description: "List IAM Access Analyzer instances used to find overly permissive access",
+      command: "aws accessanalyzer list-analyzers",
+    },
   },
   {
     id: "sec16",
@@ -374,6 +465,10 @@ export const securityAndComplianceQuestions: Question[] = [
   A --> C[Something you have: MFA device]
   B --> D[Sign-in granted]
   C --> D`,
+    cliExample: {
+      description: "List MFA devices assigned to an IAM user",
+      command: "aws iam list-mfa-devices --user-name my-user",
+    },
   },
   {
     id: "sec17",
@@ -395,6 +490,10 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
     referenceLabel: "AWS CloudTrail User Guide",
+    diagram: `flowchart TD
+  A[API Call] --> B[AWS CloudTrail]
+  B --> C[Event Log: Who, What, When]
+  C --> D[Audit Trail for Compliance]`,
     cliExample: {
       description: "Look up recent CloudTrail account activity events",
       command: "aws cloudtrail lookup-events --max-results 10",
@@ -420,6 +519,10 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
     referenceLabel: "What is AWS Config",
+    diagram: `flowchart TD
+  A[Resource Configuration Changes] --> B[AWS Config]
+  B --> C[Compliance Rule Evaluation]
+  C --> D[Compliant / Non-compliant Status]`,
     cliExample: {
       description: "List AWS Config rules and their compliance state",
       command: "aws configservice describe-config-rules",
@@ -509,6 +612,10 @@ export const securityAndComplianceQuestions: Question[] = [
   A[EC2 Instance] --> B[IAM Role attached]
   B --> C[Temporary credentials issued]
   C --> D[Amazon S3 bucket access]`,
+    cliExample: {
+      description: "List the IAM instance profile (role) attached to your EC2 instances",
+      command: "aws ec2 describe-iam-instance-profile-associations",
+    },
   },
   {
     id: "sec22",
@@ -530,6 +637,13 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/data-protection/",
     referenceLabel: "AWS data protection",
+    diagram: `flowchart LR
+  A[Client] -->|TLS-encrypted request| B[AWS Service]
+  A -.->|Unencrypted: interceptable| C[Attacker on the network]`,
+    cliExample: {
+      description: "List ACM certificates used to enable TLS for data in transit",
+      command: "aws acm list-certificates",
+    },
   },
   {
     id: "sec23",
@@ -551,6 +665,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html",
     referenceLabel: "Identity providers and federation",
+    diagram: `flowchart TD
+  A[Corporate or Social Identity Provider] --> B[SAML / Web Identity Federation]
+  B --> C[Temporary AWS Credentials via STS]
+  C --> D[Federated Access to AWS]`,
+    cliExample: {
+      description: "List SAML identity providers configured for federation",
+      command: "aws iam list-saml-providers",
+    },
   },
   {
     id: "sec24",
@@ -574,6 +696,13 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/",
     referenceLabel: "AWS Compliance",
+    diagram: `flowchart TD
+  A[Compliance and Governance] --> B[AWS Artifact: Reports and Agreements]
+  A --> C[AWS Config: Configuration Compliance]`,
+    cliExample: {
+      description: "Check resource compliance status against an AWS Config rule",
+      command: "aws configservice describe-compliance-by-config-rule",
+    },
   },
   {
     id: "sec25",
@@ -595,6 +724,9 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_identity-vs-resource.html",
     referenceLabel: "Identity-based vs. resource-based policies",
+    diagram: `flowchart TD
+  A[IAM User or Role] -->|Identity-based Policy| C[Permissions Evaluation]
+  B[S3 Bucket] -->|Resource-based Policy| C`,
     cliExample: {
       description: "Retrieve the bucket policy attached to an S3 bucket",
       command: "aws s3api get-bucket-policy --bucket my-bucket",
@@ -620,6 +752,9 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html",
     referenceLabel: "Protecting data with server-side encryption",
+    diagram: `flowchart TD
+  A[Object Upload] --> B[S3 Server-Side Encryption]
+  B --> C[Encrypted Before Written to Disk]`,
     cliExample: {
       description: "Check the default encryption configuration on an S3 bucket",
       command: "aws s3api get-bucket-encryption --bucket my-bucket",
@@ -647,6 +782,10 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html",
     referenceLabel: "AWS account root user best practices",
+    diagram: `flowchart TD
+  A[Protect the Root User] --> B[Enable MFA]
+  A --> C[Delete Unused Access Keys]
+  A --> D[Avoid Daily Use]`,
     cliExample: {
       description: "List MFA devices registered to the account",
       command: "aws iam list-virtual-mfa-devices",

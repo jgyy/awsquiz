@@ -21,6 +21,9 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
     referenceLabel: "What Is AWS Lambda?",
+    diagram: `flowchart TD
+  Event[Event Trigger] --> Lambda[AWS Lambda]
+  Lambda --> Run[Code Runs, No Servers Managed]`,
     cliExample: { description: "List your deployed Lambda functions", command: "aws lambda list-functions" },
   },
   {
@@ -43,6 +46,9 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
     referenceLabel: "Amazon EC2 Concepts",
+    diagram: `flowchart TD
+  EC2[Amazon EC2 Instance] --> OS[Full Control of Guest OS]
+  EC2 --> Resize[Resizable Compute Capacity]`,
     cliExample: { description: "List your running EC2 instances", command: "aws ec2 describe-instances" },
   },
   {
@@ -70,6 +76,7 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
   B --> C[Launch New Instances]
   D[Demand Decreases] --> B
   B --> E[Terminate Instances]`,
+    cliExample: { description: "List your Auto Scaling groups", command: "aws autoscaling describe-auto-scaling-groups" },
   },
   {
     id: "tech4",
@@ -96,6 +103,7 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
   LB --> I1[EC2 Instance 1]
   LB --> I2[EC2 Instance 2]
   LB --> I3[EC2 Instance 3]`,
+    cliExample: { description: "List your load balancers", command: "aws elbv2 describe-load-balancers" },
   },
   {
     id: "tech5",
@@ -117,6 +125,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html",
     referenceLabel: "AWS Fargate",
+    diagram: `flowchart TD
+  Container[Container Definition] --> Fargate[AWS Fargate]
+  Fargate --> ECS[Amazon ECS]
+  Fargate --> EKS[Amazon EKS]`,
+    cliExample: { description: "List available Fargate capacity providers", command: "aws ecs describe-capacity-providers" },
   },
   {
     id: "tech6",
@@ -138,6 +151,12 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html",
     referenceLabel: "What Is AWS Elastic Beanstalk?",
+    diagram: `flowchart TD
+  App[Application Code] --> EB[AWS Elastic Beanstalk]
+  EB --> LB[Load Balancer]
+  EB --> ASG[Auto Scaling Group]
+  EB --> Inst[EC2 Instances]`,
+    cliExample: { description: "List your Elastic Beanstalk environments", command: "aws elasticbeanstalk describe-environments" },
   },
   {
     id: "tech7",
@@ -186,6 +205,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
     referenceLabel: "Amazon S3 Storage Classes",
+    diagram: `flowchart LR
+  Standard[Millisecond Retrieval] --> GIR[Glacier Instant Retrieval]
+  GIR --> GFR[Glacier Flexible Retrieval - Hours]
+  GFR --> GDA[Glacier Deep Archive - Up to 12 Hours]`,
+    cliExample: { description: "List your S3 buckets", command: "aws s3api list-buckets" },
   },
   {
     id: "tech9",
@@ -209,6 +233,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html",
     referenceLabel: "Amazon EBS",
+    diagram: `flowchart TD
+  EC2[EC2 Instance] --> EBS[EBS Volume]
+  EBS --> Data[(Persistent Block Storage)]
+  EBS --> Snap[EBS Snapshot in S3]`,
+    cliExample: { description: "List your EBS volumes", command: "aws ec2 describe-volumes" },
   },
   {
     id: "tech10",
@@ -230,6 +259,10 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html",
     referenceLabel: "What Is Amazon EFS?",
+    diagram: `flowchart TD
+  EFS[Amazon EFS] --> I1[EC2 Instance 1]
+  EFS --> I2[EC2 Instance 2]
+  EFS --> I3[EC2 Instance 3]`,
     cliExample: { description: "List your EFS file systems", command: "aws efs describe-file-systems" },
   },
   {
@@ -252,6 +285,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/storagegateway/latest/userguide/WhatIsStorageGateway.html",
     referenceLabel: "What Is AWS Storage Gateway?",
+    diagram: `flowchart LR
+  OnPrem[On-Premises Storage] --> SGW[AWS Storage Gateway]
+  SGW --> S3[Amazon S3]
+  SGW --> Glacier[S3 Glacier]`,
+    cliExample: { description: "List your Storage Gateway gateways", command: "aws storagegateway list-gateways" },
   },
   {
     id: "tech12",
@@ -273,6 +311,10 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
     referenceLabel: "What Is Amazon RDS?",
+    diagram: `flowchart TD
+  RDS[Amazon RDS] --> MySQL[MySQL]
+  RDS --> Postgres[PostgreSQL]
+  RDS --> SQLServer[SQL Server]`,
     cliExample: { description: "List your RDS database instances", command: "aws rds describe-db-instances" },
   },
   {
@@ -295,6 +337,10 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html",
     referenceLabel: "What Is Amazon DynamoDB?",
+    diagram: `flowchart LR
+  App[Application] --> DDB[Amazon DynamoDB]
+  DDB --> KV[Key-Value Item]
+  DDB --> Doc[Document Item]`,
     cliExample: { description: "List your DynamoDB tables", command: "aws dynamodb list-tables" },
   },
   {
@@ -319,6 +365,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html",
     referenceLabel: "What Is Amazon ElastiCache?",
+    diagram: `flowchart LR
+  App[Application] --> Cache[Amazon ElastiCache]
+  Cache --> Redis[Redis Engine]
+  Cache --> Memcached[Memcached Engine]`,
+    cliExample: { description: "List your ElastiCache clusters", command: "aws elasticache describe-cache-clusters" },
   },
   {
     id: "tech15",
@@ -340,6 +391,9 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html",
     referenceLabel: "What Is Amazon Redshift?",
+    diagram: `flowchart LR
+  RDS[Amazon RDS - OLTP] --> Redshift[Amazon Redshift - Analytics]
+  Redshift --> Query[Complex Analytic Queries]`,
     cliExample: { description: "List your Redshift clusters", command: "aws redshift describe-clusters" },
   },
   {
@@ -390,6 +444,9 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html",
     referenceLabel: "What Is Amazon Route 53?",
+    diagram: `flowchart LR
+  User[End User] --> DNS[Amazon Route 53]
+  DNS --> App[Internet Application]`,
     cliExample: { description: "List your Route 53 hosted zones", command: "aws route53 list-hosted-zones" },
   },
   {
@@ -440,6 +497,10 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html",
     referenceLabel: "What Is AWS Direct Connect?",
+    diagram: `flowchart LR
+  OnPrem[On-Premises Data Center] -->|dedicated private link| DX[AWS Direct Connect]
+  DX --> Cloud[AWS Cloud]`,
+    cliExample: { description: "List your Direct Connect connections", command: "aws directconnect describe-connections" },
   },
   {
     id: "tech20",
@@ -465,6 +526,7 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
   Client[Client App] --> APIGW[Amazon API Gateway]
   APIGW --> Lambda[AWS Lambda Function]
   Lambda --> DB[(Database)]`,
+    cliExample: { description: "List your REST APIs", command: "aws apigateway get-rest-apis" },
   },
   {
     id: "tech21",
@@ -486,6 +548,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html",
     referenceLabel: "What Is Amazon CloudWatch?",
+    diagram: `flowchart TD
+  Res[AWS Resources] --> Metrics[CloudWatch Metrics]
+  Res --> Logs[CloudWatch Logs]
+  Metrics --> Alarm[CloudWatch Alarm]
+  Alarm --> Notify[Notification]`,
     cliExample: { description: "List your CloudWatch alarms", command: "aws cloudwatch describe-alarms" },
   },
   {
@@ -508,6 +575,9 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html",
     referenceLabel: "What Is AWS CloudFormation?",
+    diagram: `flowchart LR
+  Template[Declarative Template] --> CFN[AWS CloudFormation]
+  CFN --> Stack[Provisioned Stack of Resources]`,
     cliExample: { description: "List your CloudFormation stacks", command: "aws cloudformation list-stacks" },
   },
   {
@@ -530,6 +600,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html",
     referenceLabel: "What Is AWS Systems Manager?",
+    diagram: `flowchart TD
+  SSM[AWS Systems Manager] --> Patch[Patch Management]
+  SSM --> Inventory[Operational Inventory]
+  SSM --> Automation[Automation Runbooks]`,
+    cliExample: { description: "List instances managed by Systems Manager", command: "aws ssm describe-instance-information" },
   },
   {
     id: "tech24",
@@ -551,6 +626,9 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
     referenceLabel: "What Is Amazon SQS?",
+    diagram: `flowchart LR
+  Producer[Producer] --> Queue[Amazon SQS Queue]
+  Queue --> Consumer[Consumer]`,
     cliExample: { description: "List your SQS queues", command: "aws sqs list-queues" },
   },
   {
@@ -573,6 +651,11 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/sns/latest/dg/welcome.html",
     referenceLabel: "What Is Amazon SNS?",
+    diagram: `flowchart TD
+  Pub[Publisher] --> Topic[Amazon SNS Topic]
+  Topic --> Email[Email]
+  Topic --> SMS[SMS]
+  Topic --> Lambda[Lambda Function]`,
     cliExample: { description: "List your SNS topics", command: "aws sns list-topics" },
   },
   {
@@ -600,6 +683,7 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
   ValidateInput --> ProcessOrder
   ProcessOrder --> SendNotification
   SendNotification --> [*]`,
+    cliExample: { description: "List your Step Functions state machines", command: "aws stepfunctions list-state-machines" },
   },
   {
     id: "tech27",
@@ -621,6 +705,10 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html",
     referenceLabel: "What Is Amazon Transcribe?",
+    diagram: `flowchart LR
+  Audio[Spoken Audio] --> Transcribe[Amazon Transcribe]
+  Transcribe --> Text[Text Output]`,
+    cliExample: { description: "List your transcription jobs", command: "aws transcribe list-transcription-jobs" },
   },
   {
     id: "tech28",
@@ -642,6 +730,12 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html",
     referenceLabel: "What Is Amazon SageMaker?",
+    diagram: `flowchart LR
+  Data[Training Data] --> SM[Amazon SageMaker]
+  SM --> Build[Build]
+  SM --> Train[Train]
+  SM --> Deploy[Deploy]`,
+    cliExample: { description: "List your SageMaker notebook instances", command: "aws sagemaker list-notebook-instances" },
   },
   {
     id: "tech29",
@@ -663,6 +757,10 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
     referenceLabel: "What Is Amazon Athena?",
+    diagram: `flowchart LR
+  S3[Data in Amazon S3] --> Athena[Amazon Athena]
+  Athena --> SQL[Interactive SQL Query]`,
+    cliExample: { description: "List your Athena query executions", command: "aws athena list-query-executions" },
   },
   {
     id: "tech30",
@@ -686,6 +784,12 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
     referenceLabel: "What Is Amazon Kinesis Data Streams?",
+    diagram: `flowchart LR
+  Source[Streaming Data Source] --> Kinesis[Amazon Kinesis]
+  Source --> MSK[Amazon MSK]
+  Kinesis --> Consumer[Real-Time Consumer]
+  MSK --> Consumer`,
+    cliExample: { description: "List your Kinesis data streams", command: "aws kinesis list-streams" },
   },
   {
     id: "tech31",
