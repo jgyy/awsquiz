@@ -1,5 +1,5 @@
 import { questionBank } from "./questions/index.js";
-import { Domain, Mode, Question } from "./types.js";
+import { Domain, Mode, Question, SessionResult } from "./types.js";
 import {
   sampleFullExam,
   shuffle,
@@ -205,7 +205,63 @@ function finishSession(): void {
   if (!session) return;
   stopTimer();
   const result = scoreSession(session.questions, session.answers);
-  console.log("Session finished. Results screen arrives in Task 9.", result);
+  renderResultsScreen(result);
+}
+
+function renderResultsScreen(result: SessionResult): void {
+  app.innerHTML = `
+    <section class="screen">
+      <h1>Results</h1>
+      <p class="scaled-score">${result.scaledScore} / 1000</p>
+      <p class="pass-fail ${result.passed ? "pass" : "fail"}">
+        ${result.passed ? "Passed" : "Not passed"} — approximate score, not AWS's official scoring algorithm
+      </p>
+      <table class="domain-breakdown">
+        <thead>
+          <tr><th>Domain</th><th>Correct</th><th>%</th></tr>
+        </thead>
+        <tbody>
+          ${result.domainBreakdown
+            .map(
+              (entry) => `
+            <tr>
+              <td>${DOMAIN_LABELS[entry.domain]}</td>
+              <td>${entry.correct} / ${entry.total}</td>
+              <td>${Math.round((entry.correct / entry.total) * 100)}%</td>
+            </tr>`
+            )
+            .join("")}
+        </tbody>
+      </table>
+      <h2>Review</h2>
+      <div class="review-list">
+        ${result.perQuestion
+          .map(
+            (pq, i) => `
+          <div class="review-item ${pq.isCorrect ? "review-correct" : "review-incorrect"}">
+            <p class="review-question">${i + 1}. ${pq.question.text}</p>
+            <p>Your answer: ${describeOptions(pq.question, pq.selectedOptionIds)}</p>
+            <p>Correct answer: ${describeOptions(pq.question, pq.question.correctOptionIds)}</p>
+            <p class="explanation">${pq.question.explanation}</p>
+          </div>`
+          )
+          .join("")}
+      </div>
+      <div class="nav-buttons">
+        <button class="btn" id="back-to-menu">Back to Menu</button>
+      </div>
+    </section>
+  `;
+
+  document.getElementById("back-to-menu")!.addEventListener("click", renderModeSelection);
+}
+
+function describeOptions(question: Question, ids: string[]): string {
+  if (ids.length === 0) return "(no answer)";
+  return question.options
+    .filter((opt) => ids.includes(opt.id))
+    .map((opt) => opt.text)
+    .join(", ");
 }
 
 renderModeSelection();

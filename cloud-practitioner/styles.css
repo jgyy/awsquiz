@@ -203,3 +203,65 @@ a:focus-visible {
 .explanation {
   color: var(--muted);
 }
+
+.scaled-score {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.pass-fail {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.pass-fail.pass {
+  color: var(--correct);
+}
+
+.pass-fail.fail {
+  color: var(--incorrect);
+}
+
+.domain-breakdown {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.domain-breakdown th,
+.domain-breakdown td {
+  text-align: left;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-item {
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.review-correct {
+  border-left-color: var(--correct);
+}
+
+.review-incorrect {
+  border-left-color: var(--incorrect);
+}
+
+.review-question {
+  font-weight: 600;
+}
