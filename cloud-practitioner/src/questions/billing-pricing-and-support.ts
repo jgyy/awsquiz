@@ -418,4 +418,320 @@ export const billingPricingAndSupportQuestions: Question[] = [
         "{\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2024-01-01\",\n        \"End\": \"2024-02-01\"\n      },\n      \"Total\": {\n        \"UnblendedCost\": {\n          \"Amount\": \"142.37\",\n          \"Unit\": \"USD\"\n        }\n      },\n      \"Groups\": [],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
     },
   },
+  {
+    id: "bill15",
+    domain: "billing-pricing-and-support",
+    text: "A company must migrate a Windows Server workload that is licensed per physical socket and per core under an existing enterprise agreement. Compliance auditors require visibility into the specific physical server the licenses are bound to. Which EC2 tenancy option should the company choose?",
+    options: [
+      { id: "a", text: "Dedicated Instances" },
+      { id: "b", text: "Dedicated Hosts" },
+      { id: "c", text: "Spot Instances with default tenancy" },
+      { id: "d", text: "On-Demand Instances with a placement group" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Dedicated Hosts give you an entire physical server with visibility into sockets and cores, which is what per-socket or per-core Bring Your Own License (BYOL) agreements require. Dedicated Instances also run on single-tenant hardware but do not expose the underlying host, so they cannot satisfy socket- or core-based licensing.",
+    optionRationale: {
+      a: "Dedicated Instances run on hardware dedicated to your account, but AWS may move them between hosts and you cannot see sockets, cores, or host IDs, so they don't support socket- or core-bound licenses.",
+      b: "A Dedicated Host is a physical server allocated to you; you can see its sockets, cores, and host ID, place instances on it deliberately, and use it for BYOL Windows Server, SQL Server, or other socket-bound licenses.",
+      c: "Spot Instances use shared (default) tenancy and can be interrupted; they provide no isolation or hardware visibility for licensing.",
+      d: "A placement group controls instance proximity for networking, not tenancy; it doesn't isolate hardware or expose physical server details.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html",
+    referenceLabel: "Amazon EC2 Dedicated Hosts",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Hosts:",
+    consoleLabel: "EC2 > Dedicated Hosts",
+    diagram: `flowchart TD
+  Need{Single-Tenant Requirement?} --> Lic[Per-Socket or Per-Core BYOL] --> Host[Dedicated Host: Physical Server Visible]
+  Need --> Iso[Isolation Only, No License Binding] --> DI[Dedicated Instance: Hardware Not Exposed]
+  Need --> None[No Isolation Needed] --> Shared[Default Shared Tenancy]`,
+    cliExample: {
+      description: "Allocate a Dedicated Host for a specific instance family in one Availability Zone",
+      command: "aws ec2 allocate-hosts --instance-family m5 --availability-zone us-east-1a --quantity 1 --auto-placement off",
+      sampleOutput:
+        "{\n  \"HostIds\": [\n    \"h-0123456789abcdef0\"\n  ]\n}",
+    },
+  },
+  {
+    id: "bill16",
+    domain: "billing-pricing-and-support",
+    text: "A finance team needs the most detailed billing data AWS can provide, broken down by hour, resource ID, and cost allocation tag, delivered as files to an Amazon S3 bucket so they can load it into their own data warehouse. Which tool should they use?",
+    options: [
+      { id: "a", text: "AWS Cost Explorer" },
+      { id: "b", text: "AWS Cost and Usage Report (CUR)" },
+      { id: "c", text: "AWS Budgets" },
+      { id: "d", text: "AWS Pricing Calculator" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "The AWS Cost and Usage Report is the most comprehensive set of cost and usage data available. It is delivered to an S3 bucket at up to hourly granularity with resource-level line items and tag columns, and can be queried with Athena, Redshift, or QuickSight.",
+    optionRationale: {
+      a: "Cost Explorer is an interactive console tool for visualizing spend; it doesn't deliver raw, resource-level line items to S3 for external analysis.",
+      b: "The Cost and Usage Report delivers the most granular billing data (hourly, per-resource, per-tag line items) as CSV or Parquet files to an S3 bucket you own, which is ideal for loading into a warehouse.",
+      c: "AWS Budgets tracks thresholds and sends alerts; it isn't a detailed billing data export.",
+      d: "AWS Pricing Calculator estimates costs for planned architectures and has no visibility into actual usage.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html",
+    referenceLabel: "What are AWS Cost and Usage Reports?",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/reports",
+    consoleLabel: "Billing and Cost Management > Cost and Usage Reports",
+    diagram: `flowchart LR
+  Bill[AWS Billing Data] --> CUR[Cost and Usage Report]
+  CUR -->|Hourly, per-resource, per-tag CSV or Parquet| S3[Amazon S3 Bucket]
+  S3 --> Athena[Amazon Athena]
+  S3 --> Redshift[Amazon Redshift]
+  S3 --> QS[Amazon QuickSight]`,
+    cliExample: {
+      description: "List the Cost and Usage Report definitions configured for the account",
+      command: "aws cur describe-report-definitions --region us-east-1",
+      sampleOutput:
+        "{\n  \"ReportDefinitions\": [\n    {\n      \"ReportName\": \"hourly-cur-parquet\",\n      \"TimeUnit\": \"HOURLY\",\n      \"Format\": \"Parquet\",\n      \"Compression\": \"Parquet\",\n      \"AdditionalSchemaElements\": [\n        \"RESOURCES\"\n      ],\n      \"S3Bucket\": \"example-billing-reports\",\n      \"S3Prefix\": \"cur/\",\n      \"S3Region\": \"us-east-1\",\n      \"AdditionalArtifacts\": [\n        \"ATHENA\"\n      ],\n      \"RefreshClosedReports\": true,\n      \"ReportVersioning\": \"OVERWRITE_REPORT\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill17",
+    domain: "billing-pricing-and-support",
+    text: "A company's monthly AWS bill has been stable for a year, but last week a misconfigured job started launching hundreds of instances, and nobody noticed until the invoice arrived. The company wants a service that uses machine learning to automatically detect unusual spend patterns and notify the team as they happen, without having to predefine spending limits. Which service should it enable?",
+    options: [
+      { id: "a", text: "AWS Cost Anomaly Detection" },
+      { id: "b", text: "AWS Budgets" },
+      { id: "c", text: "AWS Trusted Advisor" },
+      { id: "d", text: "Amazon CloudWatch billing alarms" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Cost Anomaly Detection uses machine learning to learn your normal spend patterns and flags unexpected increases, sending alerts by email or Amazon SNS. Unlike Budgets or billing alarms, it doesn't require you to set a fixed threshold in advance.",
+    optionRationale: {
+      a: "Cost Anomaly Detection continuously monitors cost and usage, learns baseline patterns with ML, and alerts you to anomalies along with their root cause (service, account, or tag) without predefined thresholds.",
+      b: "AWS Budgets alerts only when spend crosses a threshold you define ahead of time; it doesn't learn patterns or catch anomalies below that limit.",
+      c: "Trusted Advisor runs best-practice checks such as idle resources, but it is not a real-time anomaly detection or spend-alerting service.",
+      d: "CloudWatch billing alarms trigger on a fixed EstimatedCharges threshold you set; they don't use ML or detect unusual patterns automatically.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/cost-management/latest/userguide/manage-ad.html",
+    referenceLabel: "Detecting unusual spend with AWS Cost Anomaly Detection",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/anomaly-detection/overview",
+    consoleLabel: "Billing and Cost Management > Cost Anomaly Detection",
+    diagram: `flowchart LR
+  Spend[Daily Cost and Usage] --> ML[Cost Anomaly Detection ML Model]
+  ML --> Baseline[Learned Normal Spend Pattern]
+  ML --> Anomaly[Unexpected Spike Detected]
+  Anomaly --> Alert[Email or SNS Alert with Root Cause]`,
+    cliExample: {
+      description: "List cost anomalies detected over a date range",
+      command: "aws ce get-anomalies --date-interval StartDate=2026-03-01,EndDate=2026-03-14 --max-results 5",
+      sampleOutput:
+        "{\n  \"Anomalies\": [\n    {\n      \"AnomalyId\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"AnomalyStartDate\": \"2026-03-09T00:00:00Z\",\n      \"AnomalyEndDate\": \"2026-03-11T00:00:00Z\",\n      \"DimensionValue\": \"Amazon Elastic Compute Cloud - Compute\",\n      \"RootCauses\": [\n        {\n          \"Service\": \"Amazon Elastic Compute Cloud - Compute\",\n          \"Region\": \"us-east-1\",\n          \"LinkedAccount\": \"123456789012\",\n          \"UsageType\": \"BoxUsage:c5.4xlarge\"\n        }\n      ],\n      \"AnomalyScore\": {\n        \"MaxScore\": 0.93,\n        \"CurrentScore\": 0.88\n      },\n      \"Impact\": {\n        \"MaxImpact\": 2140.55,\n        \"TotalImpact\": 4327.10,\n        \"TotalActualSpend\": 5102.40,\n        \"TotalExpectedSpend\": 775.30,\n        \"TotalImpactPercentage\": 558.1\n      },\n      \"MonitorArn\": \"arn:aws:ce::123456789012:anomalymonitor/9f2c1a4e-5b6d-4c7e-8f90-1a2b3c4d5e6f\",\n      \"Feedback\": \"YES\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill18",
+    domain: "billing-pricing-and-support",
+    text: "A company on the Business Support plan wants to use the full set of AWS Trusted Advisor checks to review its account against AWS best practices. Which TWO of the following are check categories that Trusted Advisor provides?",
+    options: [
+      { id: "a", text: "Cost optimization" },
+      { id: "b", text: "Fault tolerance" },
+      { id: "c", text: "Application code review" },
+      { id: "d", text: "Invoice dispute resolution" },
+      { id: "e", text: "Database schema design" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Trusted Advisor inspects your AWS environment and makes recommendations in these categories: cost optimization, performance, security, fault tolerance, service limits (service quotas), and operational excellence. Basic and Developer plans get a core subset of security and service-limit checks; Business, Enterprise On-Ramp, and Enterprise plans get the full set.",
+    optionRationale: {
+      a: "Cost optimization is a Trusted Advisor category, with checks such as Low Utilization EC2 Instances, Idle Load Balancers, and Unassociated Elastic IPs.",
+      b: "Fault tolerance is a Trusted Advisor category, with checks such as EBS snapshots, Multi-AZ RDS, and Auto Scaling group health checks.",
+      c: "Trusted Advisor does not review application source code; that would be a job for tools such as Amazon CodeGuru or manual review.",
+      d: "Invoice disputes are handled through AWS Support billing cases, not Trusted Advisor checks.",
+      e: "Trusted Advisor doesn't analyze database schema design; it reports on account-level configuration and resource usage.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html",
+    referenceLabel: "AWS Trusted Advisor",
+    consoleUrl: "https://console.aws.amazon.com/trustedadvisor/home#/dashboard",
+    consoleLabel: "Trusted Advisor > Dashboard",
+    diagram: `flowchart TD
+  TA[AWS Trusted Advisor] --> Cost[Cost Optimization]
+  TA --> Perf[Performance]
+  TA --> Sec[Security]
+  TA --> FT[Fault Tolerance]
+  TA --> Limits[Service Limits]
+  TA --> Ops[Operational Excellence]
+  Plan{Support Plan} -->|Basic or Developer| Core[Core Checks Only]
+  Plan -->|Business, On-Ramp, Enterprise| Full[All Checks + API Access]`,
+    cliExample: {
+      description: "Refresh and summarize a Trusted Advisor check (requires Business, Enterprise On-Ramp, or Enterprise support)",
+      command: "aws support describe-trusted-advisor-check-summaries --check-ids Qch7DwouX1 --region us-east-1",
+      sampleOutput:
+        "{\n  \"summaries\": [\n    {\n      \"checkId\": \"Qch7DwouX1\",\n      \"timestamp\": \"2026-03-14T06:15:22Z\",\n      \"status\": \"warning\",\n      \"hasFlaggedResources\": true,\n      \"resourcesSummary\": {\n        \"resourcesProcessed\": 42,\n        \"resourcesFlagged\": 6,\n        \"resourcesIgnored\": 0,\n        \"resourcesSuppressed\": 0\n      },\n      \"categorySpecificSummary\": {\n        \"costOptimizing\": {\n          \"estimatedMonthlySavings\": 318.72,\n          \"estimatedPercentMonthlySavings\": 0.11\n        }\n      }\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill19",
+    domain: "billing-pricing-and-support",
+    text: "A company wants to deploy a third-party firewall appliance from a commercial vendor on AWS. It prefers to launch the vendor's pre-configured AMI with a few clicks and have the software subscription charges appear on its regular AWS bill rather than signing a separate contract with the vendor. Which AWS offering meets these requirements?",
+    options: [
+      { id: "a", text: "AWS Marketplace" },
+      { id: "b", text: "AWS Partner Network (APN)" },
+      { id: "c", text: "AWS Professional Services" },
+      { id: "d", text: "AWS Service Catalog" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Marketplace is a curated digital catalog of third-party software, data, and services. Products such as AMIs, containers, and SaaS can be launched directly, and the software fees are consolidated into your AWS bill.",
+    optionRationale: {
+      a: "AWS Marketplace lets you find, subscribe to, and deploy third-party software (including pre-built AMIs) with software charges billed through your AWS account.",
+      b: "The AWS Partner Network is a program for consulting and technology partners; it isn't a storefront for purchasing and deploying software.",
+      c: "AWS Professional Services is a team of AWS consultants that helps with migrations and architecture; it doesn't sell third-party appliances.",
+      d: "AWS Service Catalog lets an organization publish approved CloudFormation products internally; it isn't where you buy vendor software through the AWS bill.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/marketplace/latest/buyerguide/what-is-marketplace.html",
+    referenceLabel: "What is AWS Marketplace?",
+    consoleUrl: "https://console.aws.amazon.com/marketplace/home#/subscriptions",
+    consoleLabel: "AWS Marketplace > Manage subscriptions",
+    diagram: `flowchart LR
+  Vendor[Third-Party Software Vendor] --> MP[AWS Marketplace Listing]
+  MP -->|Subscribe and launch AMI| EC2[EC2 Instance Running Appliance]
+  MP -->|Software fees| Bill[Single Consolidated AWS Bill]`,
+    cliExample: {
+      description: "List the AWS Marketplace products your account has subscribed to",
+      command: "aws marketplace-catalog list-entities --catalog AWSMarketplace --entity-type Offer --region us-east-1",
+      sampleOutput:
+        "{\n  \"EntitySummaryList\": [\n    {\n      \"Name\": \"Fortinet FortiGate Next-Gen Firewall\",\n      \"EntityType\": \"Offer\",\n      \"EntityId\": \"offer-1a2b3c4d5e6f7\",\n      \"EntityArn\": \"arn:aws:aws-marketplace:us-east-1:123456789012:AWSMarketplace/Offer/offer-1a2b3c4d5e6f7\",\n      \"LastModifiedDate\": \"2026-02-20T11:04:53Z\",\n      \"Visibility\": \"Public\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill20",
+    domain: "billing-pricing-and-support",
+    text: "A developer on an account with only Basic Support has a general question about how to structure a DynamoDB table. The developer wants to ask AWS experts and the wider community for free, and also browse answers to similar questions that others have already posted. Which resource should the developer use?",
+    options: [
+      { id: "a", text: "AWS re:Post" },
+      { id: "b", text: "AWS Professional Services" },
+      { id: "c", text: "An AWS Support technical case" },
+      { id: "d", text: "AWS Concierge Support" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS re:Post is a free, community-driven question-and-answer service where AWS customers, partners, and AWS experts answer technical questions. It is available to everyone regardless of support plan.",
+    optionRationale: {
+      a: "AWS re:Post is the free community Q&A knowledge base, moderated and with contributions from AWS experts, available without any paid support plan.",
+      b: "AWS Professional Services is a paid consulting organization for large engagements such as migrations, not a place to ask a quick question.",
+      c: "Technical support cases require at least a Developer Support plan; Basic Support only covers account and billing questions.",
+      d: "The Concierge Support team handles billing and account inquiries for Enterprise On-Ramp and Enterprise customers; it's not free and not for technical questions.",
+    },
+    referenceUrl: "https://aws.amazon.com/premiumsupport/knowledge-center/",
+    referenceLabel: "AWS re:Post Knowledge Center",
+    consoleUrl: "https://console.aws.amazon.com/support/home#/",
+    consoleLabel: "AWS Support Center",
+    diagram: `flowchart TD
+  Q[Technical Question, Basic Support] --> RePost[AWS re:Post: Free Community Q&A]
+  RePost --> Community[Customers, Partners, AWS Experts]
+  RePost --> KC[Knowledge Center Articles]
+  Paid[Paid Support Plan] --> Case[Technical Support Case]
+  Ent[Enterprise Plans] --> Concierge[Concierge: Billing and Account Help]`,
+    cliExample: {
+      description: "Check which AWS services and categories can be used when opening support cases (fails on Basic Support, which has no technical case access)",
+      command: "aws support describe-services --language en --region us-east-1",
+      sampleOutput:
+        "{\n  \"services\": [\n    {\n      \"code\": \"amazon-dynamodb\",\n      \"name\": \"DynamoDB\",\n      \"categories\": [\n        {\n          \"code\": \"general-guidance\",\n          \"name\": \"General Guidance\"\n        },\n        {\n          \"code\": \"throughput-and-capacity\",\n          \"name\": \"Throughput and Capacity\"\n        }\n      ]\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill21",
+    domain: "billing-pricing-and-support",
+    text: "A student created a new AWS account to experiment with services and wants to avoid unexpected charges. Which TWO statements about the AWS Free Tier are correct?",
+    options: [
+      { id: "a", text: "Some offers, such as 750 hours per month of t2.micro or t3.micro EC2 usage, are free only for the first 12 months after account creation" },
+      { id: "b", text: "Some offers, such as 1 million AWS Lambda requests per month, are always free and never expire" },
+      { id: "c", text: "All AWS services are completely free for the first 12 months regardless of usage" },
+      { id: "d", text: "Free Tier usage cannot be tracked or alerted on because it isn't part of the bill" },
+      { id: "e", text: "Short-term trial offers last indefinitely as long as the account remains active" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "The AWS Free Tier has three types of offers: 12-month free offers that start at account creation, always-free offers that never expire, and short-term trials that begin when you activate a service. Usage beyond the free limits is charged at standard rates, and AWS Budgets can alert you as you approach the limits.",
+    optionRationale: {
+      a: "12-month free offers, such as 750 hours per month of eligible micro EC2 instances and 5 GB of S3 Standard storage, are available only for the first year after sign-up.",
+      b: "Always-free offers, such as 1 million Lambda requests, 25 GB of DynamoDB storage, and 10 custom CloudWatch metrics, don't expire.",
+      c: "Only specific services and usage amounts are free; usage above the limits or for non-Free-Tier services is billed at normal rates even within the first 12 months.",
+      d: "AWS Budgets includes Free Tier usage alerts that email you when you approach or exceed a Free Tier limit.",
+      e: "Trial offers, such as 30 days of Amazon Inspector or 2 months of SageMaker notebook usage, are time-limited from the moment you start using the service.",
+    },
+    referenceUrl: "https://aws.amazon.com/free/",
+    referenceLabel: "AWS Free Tier",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/freetier",
+    consoleLabel: "Billing and Cost Management > Free Tier",
+    diagram: `flowchart TD
+  FT[AWS Free Tier] --> Twelve[12 Months Free: e.g. 750 hrs micro EC2, 5 GB S3]
+  FT --> Always[Always Free: e.g. 1M Lambda requests, 25 GB DynamoDB]
+  FT --> Trial[Short-Term Trials: e.g. 30 days Inspector]
+  FT --> Alert[Budgets Free Tier Usage Alerts]`,
+    cliExample: {
+      description: "Show current Free Tier usage and limits for the account",
+      command: "aws freetier get-free-tier-usage --region us-east-1",
+      sampleOutput:
+        "{\n  \"freeTierUsages\": [\n    {\n      \"service\": \"AWS Lambda\",\n      \"operation\": \"Invoke\",\n      \"usageType\": \"Request\",\n      \"region\": \"global\",\n      \"actualUsageAmount\": 184320.0,\n      \"forecastedUsageAmount\": 402500.0,\n      \"limit\": 1000000.0,\n      \"unit\": \"Request\",\n      \"description\": \"1,000,000.0 Request are always free per month as part of AWS Free Usage Tier (Global-Lambda-Requests)\",\n      \"freeTierType\": \"Always Free\"\n    },\n    {\n      \"service\": \"Amazon Elastic Compute Cloud\",\n      \"operation\": \"RunInstances\",\n      \"usageType\": \"BoxUsage:t3.micro\",\n      \"region\": \"us-east-1\",\n      \"actualUsageAmount\": 312.0,\n      \"forecastedUsageAmount\": 690.0,\n      \"limit\": 750.0,\n      \"unit\": \"Hrs\",\n      \"description\": \"750.0 Hrs are free for 12 months as part of AWS Free Usage Tier (Global-BoxUsage:freetier.micro)\",\n      \"freeTierType\": \"12 Months Free\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill22",
+    domain: "billing-pricing-and-support",
+    text: "A managed service provider (MSP) resells AWS to several customers from a single AWS Organization. It needs to generate separate, customized pro forma invoices for each customer that apply the MSP's own pricing rules and markups, without changing the actual bill that AWS charges the management account. Which AWS service is designed for this?",
+    options: [
+      { id: "a", text: "AWS Billing Conductor" },
+      { id: "b", text: "AWS Cost Explorer" },
+      { id: "c", text: "AWS Control Tower" },
+      { id: "d", text: "AWS Cost and Usage Report" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Billing Conductor lets you group accounts into billing groups and apply custom pricing plans, markups, or discounts to produce pro forma (showback or chargeback) billing data for each group, independent of the actual AWS invoice.",
+    optionRationale: {
+      a: "Billing Conductor creates billing groups with custom pricing rules and generates pro forma cost data and CUR files per group, which is exactly what resellers and internal chargeback models need.",
+      b: "Cost Explorer visualizes actual spend; it cannot apply custom markups or produce separate customer-facing pro forma bills.",
+      c: "Control Tower sets up and governs a multi-account landing zone with guardrails; it has no billing customization capability.",
+      d: "The standard Cost and Usage Report reflects actual AWS charges; it doesn't apply custom pricing unless it is generated through a Billing Conductor billing group.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/billingconductor/latest/userguide/what-is-billingconductor.html",
+    referenceLabel: "What is AWS Billing Conductor?",
+    consoleUrl: "https://console.aws.amazon.com/billingconductor/home#/billinggroups",
+    consoleLabel: "AWS Billing Conductor > Billing groups",
+    diagram: `flowchart LR
+  Org[AWS Organization: Actual AWS Bill] --> BC[AWS Billing Conductor]
+  BC --> G1[Billing Group: Customer A + 10% markup]
+  BC --> G2[Billing Group: Customer B + 5% discount]
+  G1 --> PF1[Pro Forma Bill for Customer A]
+  G2 --> PF2[Pro Forma Bill for Customer B]`,
+    cliExample: {
+      description: "List the billing groups defined in AWS Billing Conductor",
+      command: "aws billingconductor list-billing-groups --region us-east-1",
+      sampleOutput:
+        "{\n  \"BillingGroups\": [\n    {\n      \"Name\": \"customer-a\",\n      \"Arn\": \"arn:aws:billingconductor::123456789012:billinggroup/210987654321\",\n      \"Description\": \"Customer A reseller group\",\n      \"PrimaryAccountId\": \"210987654321\",\n      \"ComputationPreference\": {\n        \"PricingPlanArn\": \"arn:aws:billingconductor::123456789012:pricingplan/AbCdEfGhIj\"\n      },\n      \"Size\": 3,\n      \"CreationTime\": 1767225600,\n      \"LastModifiedTime\": 1773705600,\n      \"Status\": \"ACTIVE\",\n      \"AccountGrouping\": {\n        \"AutoAssociate\": false\n      }\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill23",
+    domain: "billing-pricing-and-support",
+    text: "An early-stage startup that has just received seed funding wants to build its product on AWS but has a very limited budget. The founders are looking for AWS credits, technical training, and startup-focused support resources. Which AWS program is designed to help them?",
+    options: [
+      { id: "a", text: "AWS Activate" },
+      { id: "b", text: "AWS Enterprise Support" },
+      { id: "c", text: "AWS Migration Acceleration Program (MAP)" },
+      { id: "d", text: "AWS IQ" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Activate provides startups with AWS promotional credits, technical support, training, and tools to help them build and scale on AWS at low cost.",
+    optionRationale: {
+      a: "AWS Activate is the startup program that offers promotional credits, Activate Console guidance, technical training, and support resources tailored to early-stage companies.",
+      b: "Enterprise Support is the most expensive support tier with a designated TAM, aimed at large mission-critical workloads, not cash-constrained startups.",
+      c: "The Migration Acceleration Program helps established enterprises migrate large existing estates to AWS; it doesn't target new startups building from scratch.",
+      d: "AWS IQ connects customers with third-party AWS Certified experts for paid project work; it doesn't provide credits or startup programs.",
+    },
+    referenceUrl: "https://aws.amazon.com/startups/credits",
+    referenceLabel: "AWS Activate for Startups",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/credits",
+    consoleLabel: "Billing and Cost Management > Credits",
+    diagram: `flowchart LR
+  Startup[Seed-Stage Startup] --> Activate[AWS Activate]
+  Activate --> Credits[Promotional AWS Credits]
+  Activate --> Training[Technical Training and Guidance]
+  Activate --> Support[Startup Support Resources]
+  Credits --> Bill[Applied Automatically to AWS Bill]`,
+    cliExample: {
+      description: "View how credits and other charge types contributed to the month's cost",
+      command: "aws ce get-cost-and-usage --time-period Start=2026-02-01,End=2026-03-01 --granularity MONTHLY --metrics UnblendedCost --group-by Type=DIMENSION,Key=RECORD_TYPE",
+      sampleOutput:
+        "{\n  \"GroupDefinitions\": [\n    {\n      \"Type\": \"DIMENSION\",\n      \"Key\": \"RECORD_TYPE\"\n    }\n  ],\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2026-02-01\",\n        \"End\": \"2026-03-01\"\n      },\n      \"Total\": {},\n      \"Groups\": [\n        {\n          \"Keys\": [\n            \"Usage\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"842.17\",\n              \"Unit\": \"USD\"\n            }\n          }\n        },\n        {\n          \"Keys\": [\n            \"Credit\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"-842.17\",\n              \"Unit\": \"USD\"\n            }\n          }\n        }\n      ],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
+    },
+  },
 ];

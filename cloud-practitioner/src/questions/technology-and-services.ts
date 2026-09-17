@@ -1442,4 +1442,754 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
       sampleOutput: "[\n  \"r6i.8xlarge\",\n  \"r5.8xlarge\",\n  \"r6g.8xlarge\",\n  \"x2iedn.2xlarge\"\n]",
     },
   },
+  {
+    id: "tech45",
+    domain: "cloud-technology-and-services",
+    text: "A media company stores millions of user-uploaded images in Amazon S3. Access patterns are unpredictable: some objects are read constantly while others are untouched for months. They want to lower storage costs automatically without any performance impact or retrieval fees. Which S3 storage class should they use?",
+    options: [
+      { id: "a", text: "S3 Standard" },
+      { id: "b", text: "S3 Intelligent-Tiering" },
+      { id: "c", text: "S3 One Zone-Infrequent Access" },
+      { id: "d", text: "S3 Glacier Deep Archive" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "S3 Intelligent-Tiering monitors access patterns and automatically moves objects between frequent, infrequent, and archive instant access tiers with no retrieval fees and no operational overhead, making it ideal for data with unknown or changing access patterns.",
+    optionRationale: {
+      a: "S3 Standard offers high performance but charges the highest storage price with no automatic cost optimization for rarely accessed objects.",
+      b: "Intelligent-Tiering automatically tiers objects based on observed access with no retrieval charges, which fits unpredictable access patterns.",
+      c: "One Zone-IA stores data in a single Availability Zone, has retrieval fees, and is designed for infrequently accessed, easily re-creatable data.",
+      d: "Glacier Deep Archive is for long-term archives with retrieval times of up to 12 hours, unsuitable for images that may be read at any moment.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/intelligent-tiering.html",
+    referenceLabel: "Amazon S3 Intelligent-Tiering",
+    consoleUrl: "https://console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
+    diagram: `flowchart LR
+  Obj[Uploaded Object] --> IT[S3 Intelligent-Tiering]
+  IT -->|accessed often| FA[Frequent Access Tier]
+  IT -->|30 days no access| IA[Infrequent Access Tier]
+  IT -->|90 days no access| AIA[Archive Instant Access Tier]
+  AIA -->|accessed again| FA`,
+    cliExample: {
+      description: "Upload an object directly into the Intelligent-Tiering storage class",
+      command: "aws s3api put-object --bucket media-uploads --key photos/img-1001.jpg --body img-1001.jpg --storage-class INTELLIGENT_TIERING",
+      sampleOutput: "{\n  \"ETag\": \"\\\"9b2cf535f27731c974343645a3985328\\\"\",\n  \"ServerSideEncryption\": \"AES256\"\n}",
+    },
+  },
+  {
+    id: "tech46",
+    domain: "cloud-technology-and-services",
+    text: "A legal team stores case archives in S3 Glacier Flexible Retrieval. Occasionally they need a single file within minutes for an urgent court request, but most restores can wait several hours. Which retrieval option should they use for the urgent request?",
+    options: [
+      { id: "a", text: "Bulk retrieval" },
+      { id: "b", text: "Standard retrieval" },
+      { id: "c", text: "Expedited retrieval" },
+      { id: "d", text: "S3 Select" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "S3 Glacier Flexible Retrieval offers three retrieval tiers: Expedited (typically 1 to 5 minutes), Standard (3 to 5 hours), and Bulk (5 to 12 hours, lowest cost). Expedited is the right choice when data is needed within minutes.",
+    optionRationale: {
+      a: "Bulk is the cheapest tier but takes 5 to 12 hours, far too slow for an urgent request.",
+      b: "Standard retrieval typically completes in 3 to 5 hours, which does not meet a minutes-level requirement.",
+      c: "Expedited retrieval returns archives in about 1 to 5 minutes at a higher per-request price, ideal for occasional urgent access.",
+      d: "S3 Select filters the contents of an object with SQL; it is not a Glacier retrieval tier.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects-retrieval-options.html",
+    referenceLabel: "Archive retrieval options",
+    consoleUrl: "https://console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
+    diagram: `flowchart TD
+  Req{How fast is the archive needed?} -->|Minutes| Exp[Expedited - 1 to 5 min]
+  Req -->|Hours| Std[Standard - 3 to 5 hours]
+  Req -->|Overnight and cheapest| Bulk[Bulk - 5 to 12 hours]`,
+    cliExample: {
+      description: "Initiate an expedited restore of an archived object for 3 days",
+      command: "aws s3api restore-object --bucket legal-archive --key cases/2019/case-4471.pdf --restore-request '{\"Days\":3,\"GlacierJobParameters\":{\"Tier\":\"Expedited\"}}'",
+      sampleOutput: "{\n  \"RequestCharged\": null\n}",
+    },
+  },
+  {
+    id: "tech47",
+    domain: "cloud-technology-and-services",
+    text: "A company is migrating a Windows-based application to AWS. The application requires a shared file system accessed over the SMB protocol and integrated with its existing Microsoft Active Directory. Which AWS storage service should they choose?",
+    options: [
+      { id: "a", text: "Amazon EFS" },
+      { id: "b", text: "Amazon FSx for Windows File Server" },
+      { id: "c", text: "Amazon EBS" },
+      { id: "d", text: "Amazon S3" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Amazon FSx for Windows File Server provides fully managed, native Windows file shares built on Windows Server, supporting SMB, NTFS, and Active Directory integration.",
+    optionRationale: {
+      a: "EFS is an NFS-based file system designed for Linux workloads; it does not natively support SMB or Windows ACLs.",
+      b: "FSx for Windows File Server delivers SMB file shares with Active Directory integration, matching Windows application requirements.",
+      c: "EBS is block storage attached to a single instance (or limited multi-attach), not a shared network file system.",
+      d: "S3 is object storage accessed via APIs, not a file system that Windows applications can mount over SMB.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html",
+    referenceLabel: "What is FSx for Windows File Server?",
+    consoleUrl: "https://console.aws.amazon.com/fsx/home#file-systems",
+    consoleLabel: "FSx > File systems",
+    diagram: `flowchart LR
+  AD[Microsoft Active Directory] --> FSx[Amazon FSx for Windows File Server]
+  Win1[Windows EC2 Instance] -->|SMB| FSx
+  Win2[Windows EC2 Instance] -->|SMB| FSx
+  OnPrem[On-Premises Clients] -->|SMB over VPN| FSx`,
+    cliExample: {
+      description: "List FSx file systems in the account",
+      command: "aws fsx describe-file-systems --query 'FileSystems[].{Id:FileSystemId,Type:FileSystemType,GiB:StorageCapacity,State:Lifecycle}'",
+      sampleOutput: "[\n  {\n    \"Id\": \"fs-0a1b2c3d4e5f67890\",\n    \"Type\": \"WINDOWS\",\n    \"GiB\": 1024,\n    \"State\": \"AVAILABLE\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech48",
+    domain: "cloud-technology-and-services",
+    text: "A reporting application runs heavy read-only queries against a production Amazon RDS for PostgreSQL database, slowing down the main transactional workload. Which RDS feature should be used to offload the read traffic?",
+    options: [
+      { id: "a", text: "RDS Multi-AZ deployment" },
+      { id: "b", text: "RDS read replicas" },
+      { id: "c", text: "Automated backups" },
+      { id: "d", text: "RDS Proxy" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Read replicas use asynchronous replication to create one or more read-only copies of the database that applications can query directly, scaling out read-heavy workloads such as reporting.",
+    optionRationale: {
+      a: "Multi-AZ provides a synchronous standby for high availability; the standby does not serve read traffic (except in Multi-AZ DB cluster deployments).",
+      b: "Read replicas are designed specifically to scale read capacity by routing read queries to replica endpoints.",
+      c: "Automated backups enable point-in-time recovery; they do not add query capacity.",
+      d: "RDS Proxy pools and shares database connections; it improves connection efficiency but does not add read capacity.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html",
+    referenceLabel: "Working with DB instance read replicas",
+    consoleUrl: "https://console.aws.amazon.com/rds/home#databases:",
+    consoleLabel: "RDS > Databases",
+    diagram: `flowchart LR
+  App[Transactional App] -->|writes and reads| Primary[(RDS Primary)]
+  Primary -->|async replication| RR1[(Read Replica 1)]
+  Primary -->|async replication| RR2[(Read Replica 2)]
+  Rpt[Reporting App] -->|read-only queries| RR1
+  Rpt --> RR2`,
+    cliExample: {
+      description: "Create a read replica of a production PostgreSQL instance",
+      command: "aws rds create-db-instance-read-replica --db-instance-identifier prod-pg-replica-1 --source-db-instance-identifier prod-pg",
+      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"prod-pg-replica-1\",\n    \"DBInstanceClass\": \"db.r6g.large\",\n    \"Engine\": \"postgres\",\n    \"DBInstanceStatus\": \"creating\",\n    \"ReadReplicaSourceDBInstanceIdentifier\": \"prod-pg\",\n    \"MultiAZ\": false\n  }\n}",
+    },
+  },
+  {
+    id: "tech49",
+    domain: "cloud-technology-and-services",
+    text: "A startup is building two new services: a social network feature that must efficiently query relationships between millions of users (friends-of-friends), and a product catalog that currently runs on MongoDB and should move to a managed service with minimal code changes. Which TWO purpose-built AWS databases should they use?",
+    options: [
+      { id: "a", text: "Amazon Neptune" },
+      { id: "b", text: "Amazon DocumentDB (with MongoDB compatibility)" },
+      { id: "c", text: "Amazon Redshift" },
+      { id: "d", text: "Amazon Timestream" },
+      { id: "e", text: "Amazon Keyspaces (for Apache Cassandra)" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Amazon Neptune is a managed graph database optimized for highly connected data such as social graphs, and Amazon DocumentDB is a managed document database compatible with MongoDB APIs and drivers.",
+    optionRationale: {
+      a: "Neptune supports Gremlin, openCypher, and SPARQL for traversing relationships, which is exactly the social graph use case.",
+      b: "DocumentDB is MongoDB-compatible, so existing MongoDB application code can be pointed at it with minimal change.",
+      c: "Redshift is a data warehouse for analytical SQL over large datasets, not a graph or document store.",
+      d: "Timestream is a time series database for IoT and operational metrics, not for relationship queries or MongoDB workloads.",
+      e: "Keyspaces is compatible with Apache Cassandra (wide-column), not MongoDB, and is not a graph database.",
+    },
+    referenceUrl: "https://aws.amazon.com/products/databases/",
+    referenceLabel: "AWS Cloud Databases",
+    consoleUrl: "https://console.aws.amazon.com/neptune/home#databases",
+    consoleLabel: "Neptune > Databases",
+    diagram: `flowchart TD
+  Data{Data model?} -->|Highly connected nodes and edges| Nep[Amazon Neptune - Graph]
+  Data -->|JSON documents, MongoDB API| Doc[Amazon DocumentDB]
+  Data -->|Time-stamped measurements| TS[Amazon Timestream]
+  Data -->|Cassandra wide-column| KS[Amazon Keyspaces]`,
+    cliExample: {
+      description: "List Neptune DB clusters in the account",
+      command: "aws neptune describe-db-clusters --query 'DBClusters[].{Id:DBClusterIdentifier,Engine:Engine,Status:Status}'",
+      sampleOutput: "[\n  {\n    \"Id\": \"social-graph-cluster\",\n    \"Engine\": \"neptune\",\n    \"Status\": \"available\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech50",
+    domain: "cloud-technology-and-services",
+    text: "A company runs applications that communicate through an on-premises Apache ActiveMQ broker using standard protocols such as AMQP and MQTT. They want to move to AWS without rewriting the messaging code. Which service should they use?",
+    options: [
+      { id: "a", text: "Amazon SQS" },
+      { id: "b", text: "Amazon SNS" },
+      { id: "c", text: "Amazon MQ" },
+      { id: "d", text: "Amazon EventBridge" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that supports industry-standard APIs and protocols (JMS, AMQP, MQTT, STOMP, OpenWire), so existing applications can migrate without code changes.",
+    optionRationale: {
+      a: "SQS is a proprietary AWS queue API; migrating to it would require rewriting the messaging layer.",
+      b: "SNS is a pub/sub notification service with its own API, not a drop-in replacement for ActiveMQ.",
+      c: "Amazon MQ provides managed ActiveMQ and RabbitMQ brokers with standard protocols, minimizing migration effort.",
+      d: "EventBridge is an event bus for routing events between AWS services and SaaS apps; it does not speak AMQP or MQTT broker protocols.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/welcome.html",
+    referenceLabel: "What is Amazon MQ?",
+    consoleUrl: "https://console.aws.amazon.com/amazon-mq/home#/brokers",
+    consoleLabel: "Amazon MQ > Brokers",
+    diagram: `flowchart LR
+  Prod[Producer App - JMS or AMQP] --> MQ[Amazon MQ - ActiveMQ Broker]
+  MQ --> Cons1[Consumer App]
+  MQ --> Cons2[Consumer App]
+  OnPrem[On-Prem ActiveMQ] -.->|migrate, same protocols| MQ`,
+    cliExample: {
+      description: "List Amazon MQ brokers",
+      command: "aws mq list-brokers",
+      sampleOutput: "{\n  \"BrokerSummaries\": [\n    {\n      \"BrokerArn\": \"arn:aws:mq:us-east-1:123456789012:broker:orders-broker:b-1a2b3c4d\",\n      \"BrokerId\": \"b-1a2b3c4d\",\n      \"BrokerName\": \"orders-broker\",\n      \"BrokerState\": \"RUNNING\",\n      \"DeploymentMode\": \"ACTIVE_STANDBY_MULTI_AZ\",\n      \"EngineType\": \"ActiveMQ\",\n      \"HostInstanceType\": \"mq.m5.large\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech51",
+    domain: "cloud-technology-and-services",
+    text: "A platform team already runs Kubernetes on-premises and wants to move its containerized workloads to AWS while keeping its existing Kubernetes manifests, tooling, and kubectl workflows. Which AWS service should they use?",
+    options: [
+      { id: "a", text: "Amazon Elastic Container Service (ECS)" },
+      { id: "b", text: "Amazon Elastic Kubernetes Service (EKS)" },
+      { id: "c", text: "AWS Elastic Beanstalk" },
+      { id: "d", text: "Amazon Lightsail" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Amazon EKS is a managed, upstream-conformant Kubernetes service, so teams can reuse their existing Kubernetes manifests, Helm charts, and kubectl tooling. ECS is the AWS-native orchestrator with its own task definition model.",
+    optionRationale: {
+      a: "ECS is a simpler AWS-opinionated orchestrator that does not run Kubernetes manifests or kubectl.",
+      b: "EKS runs certified Kubernetes control planes, providing full compatibility with existing Kubernetes workloads.",
+      c: "Elastic Beanstalk deploys applications with managed infrastructure; it is not a Kubernetes platform.",
+      d: "Lightsail offers simple VPS and container hosting for small projects, not managed Kubernetes.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+    referenceLabel: "What is Amazon EKS?",
+    consoleUrl: "https://console.aws.amazon.com/eks/home#/clusters",
+    consoleLabel: "EKS > Clusters",
+    diagram: `flowchart TD
+  Q{Need Kubernetes API compatibility?} -->|Yes - existing manifests, kubectl| EKS[Amazon EKS]
+  Q -->|No - prefer AWS-native simplicity| ECS[Amazon ECS]
+  EKS --> Launch{Compute?}
+  ECS --> Launch
+  Launch -->|Manage nodes| EC2[EC2]
+  Launch -->|Serverless| FG[AWS Fargate]`,
+    cliExample: {
+      description: "List EKS clusters in the Region",
+      command: "aws eks list-clusters",
+      sampleOutput: "{\n  \"clusters\": [\n    \"platform-prod\",\n    \"platform-staging\"\n  ]\n}",
+    },
+  },
+  {
+    id: "tech52",
+    domain: "cloud-technology-and-services",
+    text: "A development team builds Docker images in its CI pipeline and needs a private, fully managed registry on AWS to store them so that ECS and EKS can pull the images securely. Which service should they use?",
+    options: [
+      { id: "a", text: "Amazon S3" },
+      { id: "b", text: "AWS CodeArtifact" },
+      { id: "c", text: "Amazon Elastic Container Registry (ECR)" },
+      { id: "d", text: "AWS CodeCommit" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Amazon ECR is a fully managed OCI-compliant container image registry integrated with IAM, ECS, EKS, and Lambda, and it can scan images for vulnerabilities.",
+    optionRationale: {
+      a: "S3 stores objects but is not a Docker registry; ECS and EKS cannot pull images from it with docker pull.",
+      b: "CodeArtifact is a repository for software packages such as npm, Maven, and PyPI, not container images.",
+      c: "ECR stores, manages, and serves container images with IAM-based access control and image scanning.",
+      d: "CodeCommit is a managed Git source control service for code, not a container image registry.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+    referenceLabel: "What is Amazon ECR?",
+    consoleUrl: "https://console.aws.amazon.com/ecr/repositories",
+    consoleLabel: "ECR > Repositories",
+    diagram: `flowchart LR
+  CI[CI Pipeline - docker build] -->|docker push| ECR[Amazon ECR Repository]
+  ECR -->|image scan| Scan[Vulnerability Findings]
+  ECR -->|docker pull| ECS[Amazon ECS]
+  ECR -->|docker pull| EKS[Amazon EKS]`,
+    cliExample: {
+      description: "List ECR repositories in the account",
+      command: "aws ecr describe-repositories --query 'repositories[].{Name:repositoryName,Uri:repositoryUri}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"web-api\",\n    \"Uri\": \"123456789012.dkr.ecr.us-east-1.amazonaws.com/web-api\"\n  },\n  {\n    \"Name\": \"worker\",\n    \"Uri\": \"123456789012.dkr.ecr.us-east-1.amazonaws.com/worker\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech53",
+    domain: "cloud-technology-and-services",
+    text: "A small business owner with limited cloud experience wants to launch a WordPress website with a predictable low monthly price that bundles a virtual server, storage, and data transfer. Which AWS service is the best fit?",
+    options: [
+      { id: "a", text: "Amazon EC2 with an Auto Scaling group" },
+      { id: "b", text: "Amazon Lightsail" },
+      { id: "c", text: "AWS Lambda" },
+      { id: "d", text: "Amazon EKS" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Amazon Lightsail provides pre-configured virtual private servers, databases, and container services with simple bundled monthly pricing, designed for users who want an easy on-ramp to AWS.",
+    optionRationale: {
+      a: "EC2 with Auto Scaling is powerful but requires configuring networking, security groups, and scaling policies, and pricing is usage-based rather than a fixed bundle.",
+      b: "Lightsail offers one-click WordPress blueprints with a fixed monthly price that includes compute, SSD storage, and a data transfer allowance.",
+      c: "Lambda runs event-driven functions and is not a straightforward way to host a full WordPress site.",
+      d: "EKS is managed Kubernetes, far more complex than needed for a simple website.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/lightsail/latest/userguide/what-is-amazon-lightsail.html",
+    referenceLabel: "What is Amazon Lightsail?",
+    consoleUrl: "https://lightsail.aws.amazon.com/ls/webapp/home/instances",
+    consoleLabel: "Lightsail > Instances",
+    diagram: `flowchart LR
+  User[Small Business Owner] --> LS[Amazon Lightsail]
+  LS --> BP[WordPress Blueprint]
+  BP --> Bundle[Fixed Monthly Bundle - vCPU, RAM, SSD, transfer]
+  Bundle --> Site[Live Website with Static IP]`,
+    cliExample: {
+      description: "List available Lightsail instance bundles and their monthly price",
+      command: "aws lightsail get-bundles --query 'bundles[?supportedPlatforms[0]==`LINUX_UNIX`].{Id:bundleId,USD:price,RAM:ramSizeInGb}' --output json",
+      sampleOutput: "[\n  {\n    \"Id\": \"nano_3_0\",\n    \"USD\": 5.0,\n    \"RAM\": 0.5\n  },\n  {\n    \"Id\": \"micro_3_0\",\n    \"USD\": 7.0,\n    \"RAM\": 1.0\n  },\n  {\n    \"Id\": \"small_3_0\",\n    \"USD\": 12.0,\n    \"RAM\": 2.0\n  }\n]",
+    },
+  },
+  {
+    id: "tech54",
+    domain: "cloud-technology-and-services",
+    text: "A research group needs to run hundreds of thousands of independent genomics processing jobs each night. They want AWS to queue the jobs, dynamically provision the optimal amount of compute (including Spot capacity), and shut it down when the work is finished. Which service should they use?",
+    options: [
+      { id: "a", text: "AWS Batch" },
+      { id: "b", text: "AWS Step Functions" },
+      { id: "c", text: "Amazon SQS" },
+      { id: "d", text: "AWS Elastic Beanstalk" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Batch plans, schedules, and runs batch computing jobs at any scale, automatically provisioning EC2, Spot, or Fargate compute based on the volume and resource requirements of the submitted jobs.",
+    optionRationale: {
+      a: "Batch is purpose-built for large-scale batch workloads with managed job queues and dynamic compute environments.",
+      b: "Step Functions orchestrates workflows across services but does not itself provision compute for batch jobs.",
+      c: "SQS queues messages; it does not schedule jobs or provision compute to process them.",
+      d: "Elastic Beanstalk deploys long-running web applications, not scheduled batch job fleets.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html",
+    referenceLabel: "What is AWS Batch?",
+    consoleUrl: "https://console.aws.amazon.com/batch/home#jobs",
+    consoleLabel: "AWS Batch > Jobs",
+    diagram: `flowchart LR
+  Submit[Submit Jobs] --> Queue[AWS Batch Job Queue]
+  Queue --> CE[Compute Environment]
+  CE -->|scales up| Spot[EC2 Spot and On-Demand Instances]
+  Spot --> Done[Results to S3]
+  Done -->|queue empty| Down[Scale to zero]`,
+    cliExample: {
+      description: "Submit a job to an AWS Batch job queue",
+      command: "aws batch submit-job --job-name genome-sample-8812 --job-queue genomics-queue --job-definition genome-align:4",
+      sampleOutput: "{\n  \"jobArn\": \"arn:aws:batch:us-east-1:123456789012:job/6a1c2b3d-4e5f-6789-abcd-0123456789ab\",\n  \"jobName\": \"genome-sample-8812\",\n  \"jobId\": \"6a1c2b3d-4e5f-6789-abcd-0123456789ab\"\n}",
+    },
+  },
+  {
+    id: "tech55",
+    domain: "cloud-technology-and-services",
+    text: "A company hosts identical copies of its web application in the us-east-1 and eu-west-1 Regions. It wants Amazon Route 53 to direct each user to the Region that provides the lowest network latency for them. Which routing policy should be configured?",
+    options: [
+      { id: "a", text: "Simple routing" },
+      { id: "b", text: "Weighted routing" },
+      { id: "c", text: "Latency-based routing" },
+      { id: "d", text: "Failover routing" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Latency-based routing responds to DNS queries with the resource in the AWS Region that has the lowest measured latency to the user, improving performance for globally distributed applications.",
+    optionRationale: {
+      a: "Simple routing returns a single resource (or random selection of values) without considering user location or latency.",
+      b: "Weighted routing splits traffic by configured percentages, useful for A/B tests or gradual migrations, not latency optimization.",
+      c: "Latency-based routing uses AWS latency measurements to route each user to the best-performing Region.",
+      d: "Failover routing sends traffic to a primary resource and switches to a secondary only when health checks fail.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html",
+    referenceLabel: "Choosing a routing policy",
+    consoleUrl: "https://console.aws.amazon.com/route53/v2/hostedzones",
+    consoleLabel: "Route 53 > Hosted zones",
+    diagram: `flowchart TD
+  U1[User in New York] --> R53[Route 53 - Latency Policy]
+  U2[User in Paris] --> R53
+  R53 -->|lowest latency| USE1[ALB in us-east-1]
+  R53 -->|lowest latency| EUW1[ALB in eu-west-1]`,
+    cliExample: {
+      description: "List record sets in a hosted zone showing their routing configuration",
+      command: "aws route53 list-resource-record-sets --hosted-zone-id Z0123456789ABCDEFGHIJ --query 'ResourceRecordSets[?Type==`A`].{Name:Name,Region:Region,SetId:SetIdentifier}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"app.example.com.\",\n    \"Region\": \"us-east-1\",\n    \"SetId\": \"us-east-1-alb\"\n  },\n  {\n    \"Name\": \"app.example.com.\",\n    \"Region\": \"eu-west-1\",\n    \"SetId\": \"eu-west-1-alb\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech56",
+    domain: "cloud-technology-and-services",
+    text: "A company has grown to 40 VPCs across several AWS accounts plus an on-premises data center. Managing a full mesh of VPC peering connections has become unmanageable. Which service provides a central hub to connect all VPCs and the on-premises network through a single gateway?",
+    options: [
+      { id: "a", text: "VPC peering" },
+      { id: "b", text: "AWS Transit Gateway" },
+      { id: "c", text: "Internet gateway" },
+      { id: "d", text: "AWS PrivateLink" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS Transit Gateway acts as a regional network hub that connects thousands of VPCs, VPNs, and Direct Connect gateways in a hub-and-spoke model, replacing complex peering meshes. VPC peering is one-to-one and non-transitive.",
+    optionRationale: {
+      a: "VPC peering is a one-to-one connection that is not transitive, so 40 VPCs would require hundreds of peering connections.",
+      b: "Transit Gateway centralizes connectivity: each VPC and VPN attaches once and routing is managed in one place.",
+      c: "An internet gateway provides public internet access to a VPC; it does not connect VPCs to each other privately.",
+      d: "PrivateLink exposes specific services privately via interface endpoints; it is not a general network-to-network connectivity hub.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html",
+    referenceLabel: "What is a transit gateway?",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#TransitGateways:",
+    consoleLabel: "VPC > Transit gateways",
+    diagram: `flowchart TD
+  TGW((AWS Transit Gateway))
+  VPC1[VPC A - Account 1] --- TGW
+  VPC2[VPC B - Account 2] --- TGW
+  VPC3[VPC C - Account 3] --- TGW
+  VPN[Site-to-Site VPN or Direct Connect] --- TGW
+  DC[On-Premises Data Center] --- VPN`,
+    cliExample: {
+      description: "List transit gateway attachments and their resource types",
+      command: "aws ec2 describe-transit-gateway-attachments --query 'TransitGatewayAttachments[].{Id:TransitGatewayAttachmentId,Type:ResourceType,State:State}'",
+      sampleOutput: "[\n  {\n    \"Id\": \"tgw-attach-0a1b2c3d4e5f67890\",\n    \"Type\": \"vpc\",\n    \"State\": \"available\"\n  },\n  {\n    \"Id\": \"tgw-attach-0f9e8d7c6b5a43210\",\n    \"Type\": \"vpn\",\n    \"State\": \"available\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech57",
+    domain: "cloud-technology-and-services",
+    text: "A company needs to connect its on-premises office network to its Amazon VPC within a few days. The connection must be encrypted, and the company is willing to use its existing internet connection. Which option meets these requirements at the lowest cost?",
+    options: [
+      { id: "a", text: "AWS Direct Connect" },
+      { id: "b", text: "AWS Site-to-Site VPN" },
+      { id: "c", text: "VPC peering" },
+      { id: "d", text: "Amazon CloudFront" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS Site-to-Site VPN creates encrypted IPsec tunnels over the public internet between a customer gateway and a virtual private gateway or transit gateway. It can be set up in hours, unlike Direct Connect which takes weeks to provision and is not encrypted by default.",
+    optionRationale: {
+      a: "Direct Connect provides a dedicated private line with consistent performance, but provisioning takes weeks and it is more expensive; traffic is not encrypted unless combined with VPN or MACsec.",
+      b: "Site-to-Site VPN is quick to configure, encrypted with IPsec, and uses the existing internet link at low hourly cost.",
+      c: "VPC peering connects two VPCs together; it cannot connect an on-premises network.",
+      d: "CloudFront is a CDN for delivering content to end users, not a private network connection for corporate offices.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html",
+    referenceLabel: "What is AWS Site-to-Site VPN?",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#VpnConnections:",
+    consoleLabel: "VPC > Site-to-Site VPN connections",
+    diagram: `flowchart LR
+  Office[On-Premises Office] --> CGW[Customer Gateway Device]
+  CGW ==>|IPsec tunnel over internet| VGW[Virtual Private Gateway]
+  VGW --> VPC[Amazon VPC - Private Subnets]`,
+    cliExample: {
+      description: "List Site-to-Site VPN connections and their state",
+      command: "aws ec2 describe-vpn-connections --query 'VpnConnections[].{Id:VpnConnectionId,State:State,Type:Type}'",
+      sampleOutput: "[\n  {\n    \"Id\": \"vpn-0a1b2c3d4e5f67890\",\n    \"State\": \"available\",\n    \"Type\": \"ipsec.1\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech58",
+    domain: "cloud-technology-and-services",
+    text: "An architect is choosing between an Application Load Balancer (ALB) and a Network Load Balancer (NLB) for two different workloads. Which TWO statements correctly describe when to use each?",
+    options: [
+      { id: "a", text: "Use an ALB to route HTTP requests to different target groups based on URL path or host header" },
+      { id: "b", text: "Use an NLB for ultra-low latency TCP/UDP traffic that requires a static IP address per Availability Zone" },
+      { id: "c", text: "Use an NLB to inspect HTTP headers and perform path-based routing" },
+      { id: "d", text: "Use an ALB to load balance raw TCP traffic at Layer 4 with millions of requests per second" },
+      { id: "e", text: "Use an ALB to route traffic across Regions using anycast IP addresses" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "An ALB operates at Layer 7 and supports content-based routing (path, host, headers) for HTTP/HTTPS. An NLB operates at Layer 4, handles TCP/UDP/TLS at very high throughput and low latency, and provides a static IP per AZ.",
+    optionRationale: {
+      a: "Path-based and host-based routing are core Layer 7 features of the Application Load Balancer.",
+      b: "The Network Load Balancer is built for Layer 4 traffic with extreme performance and supports static and Elastic IP addresses.",
+      c: "An NLB does not inspect HTTP content; header and path routing require an ALB.",
+      d: "An ALB is a Layer 7 HTTP/HTTPS load balancer; raw TCP at Layer 4 is the job of an NLB.",
+      e: "Elastic Load Balancers are regional; cross-Region anycast routing is provided by AWS Global Accelerator.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+    referenceLabel: "What is Elastic Load Balancing?",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#LoadBalancers:",
+    consoleLabel: "EC2 > Load Balancers",
+    diagram: `flowchart TD
+  T{Traffic type?} -->|HTTP or HTTPS, content routing| ALB[Application Load Balancer - Layer 7]
+  T -->|TCP, UDP, TLS, static IP| NLB[Network Load Balancer - Layer 4]
+  ALB -->|/api| TG1[API Target Group]
+  ALB -->|/images| TG2[Static Target Group]
+  NLB --> TG3[Game Server Targets]`,
+    cliExample: {
+      description: "List load balancers with their type and scheme",
+      command: "aws elbv2 describe-load-balancers --query 'LoadBalancers[].{Name:LoadBalancerName,Type:Type,Scheme:Scheme}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"web-alb\",\n    \"Type\": \"application\",\n    \"Scheme\": \"internet-facing\"\n  },\n  {\n    \"Name\": \"game-nlb\",\n    \"Type\": \"network\",\n    \"Scheme\": \"internet-facing\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech59",
+    domain: "cloud-technology-and-services",
+    text: "A data engineering team wants to run existing Apache Spark and Hadoop jobs over petabytes of data stored in Amazon S3, using a managed cluster that can be resized or terminated when jobs finish. Which service should they use?",
+    options: [
+      { id: "a", text: "Amazon EMR" },
+      { id: "b", text: "Amazon Athena" },
+      { id: "c", text: "Amazon QuickSight" },
+      { id: "d", text: "AWS Glue DataBrew" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Amazon EMR is a managed big data platform for running open-source frameworks such as Apache Spark, Hadoop, Hive, and Presto on resizable clusters of EC2 instances, EKS, or serverless.",
+    optionRationale: {
+      a: "EMR provides managed clusters purpose-built for Spark and Hadoop workloads with easy scaling and termination.",
+      b: "Athena runs serverless SQL queries over S3 but does not execute custom Spark or Hadoop jobs on a cluster you control.",
+      c: "QuickSight is a business intelligence and visualization service, not a data processing framework.",
+      d: "Glue DataBrew is a visual, no-code data preparation tool; it does not run existing Spark or Hadoop code.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html",
+    referenceLabel: "What is Amazon EMR?",
+    consoleUrl: "https://console.aws.amazon.com/emr/home#/clusters",
+    consoleLabel: "EMR > Clusters",
+    diagram: `flowchart LR
+  S3in[(Amazon S3 - Raw Data)] --> EMR[Amazon EMR Cluster]
+  EMR --> Spark[Apache Spark Jobs]
+  EMR --> Hadoop[Hadoop MapReduce Jobs]
+  Spark --> S3out[(Amazon S3 - Results)]
+  Hadoop --> S3out
+  EMR -.->|auto-terminate when idle| Off[Cluster Terminated]`,
+    cliExample: {
+      description: "List active EMR clusters",
+      command: "aws emr list-clusters --active --query 'Clusters[].{Id:Id,Name:Name,State:Status.State}'",
+      sampleOutput: "[\n  {\n    \"Id\": \"j-2AXXXXXXGAPLF\",\n    \"Name\": \"nightly-spark-etl\",\n    \"State\": \"RUNNING\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech60",
+    domain: "cloud-technology-and-services",
+    text: "A finance team wants to build interactive dashboards with charts and KPIs from data in Amazon Redshift and Amazon S3, and share them with business users through a web browser without managing any servers. Which AWS service should they use?",
+    options: [
+      { id: "a", text: "Amazon QuickSight" },
+      { id: "b", text: "Amazon CloudWatch Dashboards" },
+      { id: "c", text: "AWS Glue" },
+      { id: "d", text: "Amazon Kinesis Data Analytics" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Amazon QuickSight is a serverless business intelligence (BI) service that connects to sources such as Redshift, S3, Athena, and RDS to build interactive dashboards with pay-per-session pricing.",
+    optionRationale: {
+      a: "QuickSight is the AWS BI service for business dashboards, visualizations, and ML-powered insights.",
+      b: "CloudWatch Dashboards visualize operational metrics of AWS resources, not business data in Redshift or S3.",
+      c: "Glue is a serverless ETL and data catalog service; it prepares data but does not provide dashboards.",
+      d: "Kinesis Data Analytics (now Managed Service for Apache Flink) processes streaming data in real time; it is not a BI tool.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html",
+    referenceLabel: "What is Amazon QuickSight?",
+    consoleUrl: "https://quicksight.aws.amazon.com/",
+    consoleLabel: "Amazon QuickSight",
+    diagram: `flowchart LR
+  RS[(Amazon Redshift)] --> QS[Amazon QuickSight]
+  S3[(Amazon S3 via Athena)] --> QS
+  QS --> Dash[Interactive Dashboards]
+  Dash --> Users[Business Users - Browser and Mobile]`,
+    cliExample: {
+      description: "List QuickSight dashboards in the account",
+      command: "aws quicksight list-dashboards --aws-account-id 123456789012",
+      sampleOutput: "{\n  \"Status\": 200,\n  \"DashboardSummaryList\": [\n    {\n      \"Arn\": \"arn:aws:quicksight:us-east-1:123456789012:dashboard/rev-kpis\",\n      \"DashboardId\": \"rev-kpis\",\n      \"Name\": \"Revenue KPIs\",\n      \"PublishedVersionNumber\": 4,\n      \"LastPublishedTime\": \"2026-03-02T08:15:00+00:00\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech61",
+    domain: "cloud-technology-and-services",
+    text: "A retail company wants to add a conversational chatbot to its website that understands customer questions typed in natural language, and it also wants to convert order-status text into natural-sounding speech for its phone system. Which TWO AWS services should they use?",
+    options: [
+      { id: "a", text: "Amazon Lex" },
+      { id: "b", text: "Amazon Polly" },
+      { id: "c", text: "Amazon Transcribe" },
+      { id: "d", text: "Amazon Rekognition" },
+      { id: "e", text: "Amazon Translate" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Amazon Lex provides the automatic speech recognition and natural language understanding to build chatbots (the same technology behind Alexa), and Amazon Polly converts text into lifelike speech.",
+    optionRationale: {
+      a: "Lex builds conversational interfaces that understand user intent from text or voice input.",
+      b: "Polly is the text-to-speech service that generates natural-sounding audio from text.",
+      c: "Transcribe converts speech to text, the opposite direction of what the phone system needs.",
+      d: "Rekognition analyzes images and video; it has no role in chat or speech.",
+      e: "Translate converts text between languages; it does not build chatbots or synthesize speech.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html",
+    referenceLabel: "What is Amazon Lex V2?",
+    consoleUrl: "https://console.aws.amazon.com/lexv2/home#bots",
+    consoleLabel: "Amazon Lex > Bots",
+    diagram: `flowchart LR
+  Cust[Customer Question - text] --> Lex[Amazon Lex - intent and slots]
+  Lex --> Lambda[Lambda Fulfillment - order lookup]
+  Lambda --> Text[Order Status Text]
+  Text --> Polly[Amazon Polly - text to speech]
+  Polly --> Phone[Phone System Audio]`,
+    cliExample: {
+      description: "Synthesize speech from text with Polly and save it as an MP3 file",
+      command: "aws polly synthesize-speech --output-format mp3 --voice-id Joanna --text \"Your order 4471 has shipped and will arrive tomorrow.\" status.mp3",
+      sampleOutput: "{\n  \"ContentType\": \"audio/mpeg\",\n  \"RequestCharacters\": \"52\"\n}",
+    },
+  },
+  {
+    id: "tech62",
+    domain: "cloud-technology-and-services",
+    text: "A company wants to build a generative AI application that summarizes customer support tickets. They want API access to a choice of foundation models from multiple providers without training their own model or managing any infrastructure. Which AWS service should they use?",
+    options: [
+      { id: "a", text: "Amazon SageMaker" },
+      { id: "b", text: "Amazon Bedrock" },
+      { id: "c", text: "Amazon Comprehend" },
+      { id: "d", text: "Amazon Kendra" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Amazon Bedrock is a fully managed service that offers high-performing foundation models from Amazon and leading AI companies through a single API, along with capabilities such as knowledge bases, agents, and guardrails, without provisioning infrastructure.",
+    optionRationale: {
+      a: "SageMaker is for building, training, and deploying your own ML models; it involves more infrastructure and ML expertise than needed here.",
+      b: "Bedrock provides serverless API access to foundation models for text generation and summarization tasks.",
+      c: "Comprehend performs NLP tasks such as sentiment and entity detection with pre-trained models, but it is not a generative foundation model service.",
+      d: "Kendra is an intelligent enterprise search service, not a generative AI model provider.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+    referenceLabel: "What is Amazon Bedrock?",
+    consoleUrl: "https://console.aws.amazon.com/bedrock/home#/overview",
+    consoleLabel: "Amazon Bedrock > Overview",
+    diagram: `flowchart LR
+  Ticket[Support Ticket Text] --> App[Company Application]
+  App -->|InvokeModel API| BR[Amazon Bedrock]
+  BR --> FM1[Anthropic Claude]
+  BR --> FM2[Amazon Nova]
+  BR --> FM3[Meta Llama]
+  BR --> Summary[Generated Summary]`,
+    cliExample: {
+      description: "List foundation models available in Bedrock that support text output",
+      command: "aws bedrock list-foundation-models --by-output-modality TEXT --query 'modelSummaries[].{Id:modelId,Provider:providerName}' | head -20",
+      sampleOutput: "[\n  {\n    \"Id\": \"anthropic.claude-3-5-sonnet-20241022-v2:0\",\n    \"Provider\": \"Anthropic\"\n  },\n  {\n    \"Id\": \"amazon.nova-pro-v1:0\",\n    \"Provider\": \"Amazon\"\n  },\n  {\n    \"Id\": \"meta.llama3-1-70b-instruct-v1:0\",\n    \"Provider\": \"Meta\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech63",
+    domain: "cloud-technology-and-services",
+    text: "A development team wants to define its cloud infrastructure using familiar programming languages such as TypeScript and Python, with loops, conditionals, and reusable classes, instead of writing raw JSON or YAML templates. Which TWO AWS services are involved when they deploy infrastructure this way?",
+    options: [
+      { id: "a", text: "AWS Cloud Development Kit (CDK)" },
+      { id: "b", text: "AWS CloudFormation" },
+      { id: "c", text: "AWS Elastic Beanstalk" },
+      { id: "d", text: "AWS OpsWorks" },
+      { id: "e", text: "AWS CodeCommit" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "The AWS CDK lets developers define infrastructure in general-purpose programming languages. The CDK synthesizes that code into CloudFormation templates, and CloudFormation provisions the resources.",
+    optionRationale: {
+      a: "CDK is the framework for modeling infrastructure in TypeScript, Python, Java, C#, and Go.",
+      b: "CloudFormation is the provisioning engine; every CDK app is synthesized to a CloudFormation stack and deployed through it.",
+      c: "Elastic Beanstalk deploys applications onto managed infrastructure but is not an infrastructure-as-code authoring tool.",
+      d: "OpsWorks is a configuration management service for Chef and Puppet, not a code-based infrastructure definition framework.",
+      e: "CodeCommit stores source code in Git repositories; it does not define or provision infrastructure.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/cdk/v2/guide/home.html",
+    referenceLabel: "What is the AWS CDK?",
+    consoleUrl: "https://console.aws.amazon.com/cloudformation/home#/stacks",
+    consoleLabel: "CloudFormation > Stacks",
+    diagram: `flowchart LR
+  Code[CDK App - TypeScript or Python] -->|cdk synth| Tpl[CloudFormation Template]
+  Tpl -->|cdk deploy| CFN[AWS CloudFormation]
+  CFN --> Res[VPC, Lambda, S3, RDS Resources]`,
+    cliExample: {
+      description: "Synthesize a CDK app into a CloudFormation template and list its stacks",
+      command: "cdk synth --quiet && cdk list",
+      sampleOutput: "OrdersApiStack\nOrdersDataStack",
+    },
+  },
+  {
+    id: "tech64",
+    domain: "cloud-technology-and-services",
+    text: "A microservices application built on Lambda, API Gateway, and DynamoDB is experiencing intermittent slow responses. Developers want to trace individual requests end to end across all services to identify which component adds the latency. Which AWS service should they use?",
+    options: [
+      { id: "a", text: "AWS CloudTrail" },
+      { id: "b", text: "AWS X-Ray" },
+      { id: "c", text: "AWS Config" },
+      { id: "d", text: "Amazon Inspector" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS X-Ray collects trace data as requests travel through distributed applications, producing a service map and per-segment timing that reveal bottlenecks and errors across microservices.",
+    optionRationale: {
+      a: "CloudTrail records API calls made in the account for auditing; it does not trace application request latency.",
+      b: "X-Ray provides distributed tracing with a service map showing latency for each hop in the request path.",
+      c: "AWS Config tracks resource configuration changes and compliance, not application performance.",
+      d: "Inspector scans for software vulnerabilities and unintended network exposure, not request tracing.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html",
+    referenceLabel: "What is AWS X-Ray?",
+    consoleUrl: "https://console.aws.amazon.com/cloudwatch/home#xray:service-map",
+    consoleLabel: "CloudWatch > X-Ray traces > Service map",
+    diagram: `flowchart LR
+  Client[Client Request] --> APIGW[API Gateway]
+  APIGW --> L1[Lambda - orders]
+  L1 --> DDB[(DynamoDB)]
+  L1 --> L2[Lambda - pricing]
+  APIGW -.->|segments| XR[AWS X-Ray]
+  L1 -.->|segments| XR
+  L2 -.->|segments| XR
+  XR --> Map[Service Map and Trace Timeline]`,
+    cliExample: {
+      description: "Retrieve trace summaries from the last 10 minutes with response time over 2 seconds",
+      command: "aws xray get-trace-summaries --start-time $(date -u -d '10 minutes ago' +%s) --end-time $(date -u +%s) --filter-expression 'responsetime > 2'",
+      sampleOutput: "{\n  \"TraceSummaries\": [\n    {\n      \"Id\": \"1-67c5a2f1-3c4d5e6f7a8b9c0d1e2f3a4b\",\n      \"Duration\": 3.412,\n      \"ResponseTime\": 3.398,\n      \"HasFault\": false,\n      \"HasError\": false,\n      \"Http\": {\n        \"HttpURL\": \"https://api.example.com/orders\",\n        \"HttpStatus\": 200,\n        \"HttpMethod\": \"POST\"\n      }\n    }\n  ],\n  \"TracesProcessedCount\": 148,\n  \"ApproximateTime\": \"2026-03-03T10:40:00+00:00\"\n}",
+    },
+  },
+  {
+    id: "tech65",
+    domain: "cloud-technology-and-services",
+    text: "A mobile app team wants a single GraphQL API that lets their app fetch data from DynamoDB and Lambda in one request, receive real-time updates through subscriptions, and support offline data synchronization. Which AWS service should they use?",
+    options: [
+      { id: "a", text: "Amazon API Gateway (REST API)" },
+      { id: "b", text: "AWS AppSync" },
+      { id: "c", text: "Amazon SNS" },
+      { id: "d", text: "AWS Device Farm" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS AppSync is a managed GraphQL and Pub/Sub API service that connects to data sources such as DynamoDB, Lambda, and RDS, supports real-time subscriptions over WebSockets, and integrates with Amplify for offline sync.",
+    optionRationale: {
+      a: "API Gateway builds REST, HTTP, and WebSocket APIs; it does not natively provide GraphQL resolvers or subscriptions.",
+      b: "AppSync is the AWS managed GraphQL service with built-in real-time subscriptions and offline capabilities.",
+      c: "SNS is a pub/sub notification service, not an API layer for querying application data.",
+      d: "Device Farm tests mobile and web apps on real devices; it is not an API service.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html",
+    referenceLabel: "What is AWS AppSync?",
+    consoleUrl: "https://console.aws.amazon.com/appsync/home#/apis",
+    consoleLabel: "AppSync > APIs",
+    diagram: `flowchart LR
+  App[Mobile App] -->|GraphQL query, mutation, subscription| AS[AWS AppSync]
+  AS -->|resolver| DDB[(DynamoDB)]
+  AS -->|resolver| L[Lambda]
+  AS -->|WebSocket push| App`,
+    cliExample: {
+      description: "List AppSync GraphQL APIs in the Region",
+      command: "aws appsync list-graphql-apis --query 'graphqlApis[].{Name:name,Id:apiId,Auth:authenticationType}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"mobile-orders-api\",\n    \"Id\": \"abcdefghijklmnopqrstuvwxyz\",\n    \"Auth\": \"AMAZON_COGNITO_USER_POOLS\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech66",
+    domain: "cloud-technology-and-services",
+    text: "A manufacturer has thousands of factory sensors that need to securely send telemetry to AWS over MQTT, with rules that route messages to services such as Kinesis, DynamoDB, and Lambda. Which AWS service should the devices connect to?",
+    options: [
+      { id: "a", text: "AWS IoT Core" },
+      { id: "b", text: "Amazon EventBridge" },
+      { id: "c", text: "Amazon MQ" },
+      { id: "d", text: "AWS Ground Station" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS IoT Core lets connected devices securely interact with cloud applications over MQTT, HTTPS, and LoRaWAN, using device certificates for authentication and a rules engine to route messages to other AWS services.",
+    optionRationale: {
+      a: "IoT Core provides the device gateway, message broker, device registry, and rules engine designed for large fleets of sensors.",
+      b: "EventBridge routes application and SaaS events; it is not a device-facing MQTT broker with device identity management.",
+      c: "Amazon MQ supports MQTT but is a general-purpose broker without device registry, shadows, or fleet-scale device authentication.",
+      d: "Ground Station provides satellite communication ground antennas, unrelated to factory sensors.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html",
+    referenceLabel: "What is AWS IoT?",
+    consoleUrl: "https://console.aws.amazon.com/iot/home#/thinghub",
+    consoleLabel: "IoT Core > Things",
+    diagram: `flowchart LR
+  S1[Sensor 1] -->|MQTT + X.509 cert| Core[AWS IoT Core Message Broker]
+  S2[Sensor 2] -->|MQTT + X.509 cert| Core
+  Core --> Rules[IoT Rules Engine]
+  Rules --> KDS[Kinesis Data Streams]
+  Rules --> DDB[(DynamoDB)]
+  Rules --> L[Lambda]`,
+    cliExample: {
+      description: "Retrieve the account-specific IoT Core data endpoint for devices",
+      command: "aws iot describe-endpoint --endpoint-type iot:Data-ATS",
+      sampleOutput: "{\n  \"endpointAddress\": \"a1b2c3d4e5f6g7-ats.iot.us-east-1.amazonaws.com\"\n}",
+    },
+  },
 ];

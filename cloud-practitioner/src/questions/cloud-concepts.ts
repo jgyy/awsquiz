@@ -880,4 +880,516 @@ export const cloudConceptsQuestions: Question[] = [
       sampleOutput: "{\n  \"Functions\": [\n    {\n      \"FunctionName\": \"orders-api\",\n      \"FunctionArn\": \"arn:aws:lambda:us-east-1:123456789012:function:orders-api\",\n      \"Runtime\": \"nodejs22.x\",\n      \"Role\": \"arn:aws:iam::123456789012:role/orders-api-role\",\n      \"Handler\": \"index.handler\",\n      \"CodeSize\": 48213,\n      \"Description\": \"Order API backend\",\n      \"Timeout\": 10,\n      \"MemorySize\": 256,\n      \"LastModified\": \"2026-08-30T15:20:11.000+0000\",\n      \"Version\": \"$LATEST\",\n      \"PackageType\": \"Zip\",\n      \"Architectures\": [\n        \"arm64\"\n      ],\n      \"EphemeralStorage\": {\n        \"Size\": 512\n      }\n    }\n  ]\n}",
     },
   },
+  {
+    id: "cc33",
+    domain: "cloud-concepts",
+    text: "A media company runs a video transcoding workload on general-purpose EC2 instances and finds jobs take too long. An architect recommends evaluating GPU-based instance types and using managed services where possible so the team can focus on the application rather than tuning infrastructure. Which Well-Architected Framework pillar does this recommendation align with?",
+    options: [
+      { id: "a", text: "Security" },
+      { id: "b", text: "Performance efficiency" },
+      { id: "c", text: "Cost optimization" },
+      { id: "d", text: "Sustainability" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "The performance efficiency pillar focuses on using computing resources efficiently to meet requirements, including selecting the right resource types and sizes, using managed and serverless services, and experimenting with new technologies.",
+    optionRationale: {
+      a: "Security covers protecting data, systems, and assets; it does not address choosing instance types for throughput.",
+      b: "Selecting purpose-built resources such as GPU instances and democratizing advanced technologies through managed services are core performance efficiency design principles.",
+      c: "Cost optimization focuses on avoiding unnecessary spend; while related, the recommendation is driven by workload performance requirements.",
+      d: "Sustainability addresses minimizing environmental impact; the recommendation is about meeting performance needs.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/performance-efficiency-pillar/welcome.html",
+    referenceLabel: "Performance Efficiency Pillar - AWS Well-Architected Framework",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#InstanceTypes:",
+    consoleLabel: "EC2 > Instance Types",
+    diagram: `flowchart LR
+    Workload[Video Transcoding Workload] --> Select[Select Right Resource Type]
+    Select --> GPU[GPU Instance Family]
+    Select --> Managed[Managed / Serverless Services]
+    GPU --> Perf[Faster Jobs]
+    Managed --> Focus[Team Focuses on Application]`,
+    cliExample: {
+      description: "Describe GPU-accelerated instance types to evaluate for the transcoding workload",
+      command: "aws ec2 describe-instance-types --filters Name=instance-type,Values=g5.xlarge --query 'InstanceTypes[].{Type:InstanceType,vCPUs:VCpuInfo.DefaultVCpus,GPUs:GpuInfo.Gpus[0].Count}'",
+      sampleOutput: "[\n  {\n    \"Type\": \"g5.xlarge\",\n    \"vCPUs\": 4,\n    \"GPUs\": 1\n  }\n]",
+    },
+  },
+  {
+    id: "cc34",
+    domain: "cloud-concepts",
+    text: "An operations team manually configures each new environment through the AWS Management Console, which has led to inconsistent deployments and a lengthy outage caused by a misconfiguration. The team wants to define infrastructure as code, make small reversible changes, and run frequent game days to rehearse failures. Which Well-Architected Framework pillar do these practices belong to?",
+    options: [
+      { id: "a", text: "Operational excellence" },
+      { id: "b", text: "Reliability" },
+      { id: "c", text: "Performance efficiency" },
+      { id: "d", text: "Cost optimization" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "The operational excellence pillar covers running and monitoring systems to deliver business value and continually improving processes. Its design principles include performing operations as code, making frequent small reversible changes, refining procedures, anticipating failure, and learning from operational events.",
+    optionRationale: {
+      a: "Operations as code, small reversible changes, and anticipating failure through game days are explicitly listed operational excellence design principles.",
+      b: "Reliability focuses on the workload's ability to recover from failures and scale; it is related but the practices described concern how operations are performed.",
+      c: "Performance efficiency is about using resources efficiently to meet requirements, not operational procedures.",
+      d: "Cost optimization deals with avoiding unnecessary spending, not deployment consistency.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html",
+    referenceLabel: "Operational Excellence Pillar - AWS Well-Architected Framework",
+    consoleUrl: "https://console.aws.amazon.com/cloudformation/home#/stacks",
+    consoleLabel: "CloudFormation > Stacks",
+    diagram: `flowchart LR
+    Manual[Manual Console Changes] --> Problem[Inconsistent Environments]
+    Problem --> OpsCode[Operations as Code - CloudFormation]
+    OpsCode --> Small[Small Reversible Changes]
+    Small --> GameDay[Game Days - Anticipate Failure]
+    GameDay --> Improve[Learn and Improve]`,
+    cliExample: {
+      description: "Deploy an environment from a CloudFormation template instead of configuring it manually",
+      command: "aws cloudformation create-stack --stack-name web-env-dev --template-body file://web-env.yaml",
+      sampleOutput: "{\n  \"StackId\": \"arn:aws:cloudformation:us-east-1:123456789012:stack/web-env-dev/a1b2c3d4-5e6f-7a8b-9c0d-e1f2a3b4c5d6\"\n}",
+    },
+  },
+  {
+    id: "cc35",
+    domain: "cloud-concepts",
+    text: "A company migrated its servers to EC2 by matching the instance sizes to its old on-premises hardware. Monitoring now shows most instances average 8% CPU utilization. Which cloud concept describes matching instance types and sizes to actual workload requirements, and which AWS service provides recommendations to do so?",
+    options: [
+      { id: "a", text: "Right-sizing, using AWS Compute Optimizer" },
+      { id: "b", text: "Vertical scaling, using Amazon Route 53" },
+      { id: "c", text: "Elasticity, using AWS Artifact" },
+      { id: "d", text: "Fault tolerance, using AWS Shield" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Right-sizing is the process of matching instance types and sizes to workload performance and capacity requirements at the lowest possible cost. AWS Compute Optimizer analyzes utilization metrics and recommends optimal instance types.",
+    optionRationale: {
+      a: "Right-sizing directly addresses over-provisioned resources, and Compute Optimizer uses CloudWatch metrics to recommend appropriately sized instances.",
+      b: "Vertical scaling means adding resources to an instance, which would make over-provisioning worse; Route 53 is a DNS service.",
+      c: "Elasticity refers to automatically acquiring and releasing resources; AWS Artifact provides compliance reports and has nothing to do with sizing.",
+      d: "Fault tolerance is about continuing operation despite failures; AWS Shield provides DDoS protection.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/compute-optimizer/latest/ug/what-is-compute-optimizer.html",
+    referenceLabel: "What is AWS Compute Optimizer?",
+    consoleUrl: "https://console.aws.amazon.com/compute-optimizer/home#/dashboard",
+    consoleLabel: "AWS Compute Optimizer > Dashboard",
+    diagram: `flowchart LR
+    Lift[Lift and Shift - Same Sizes] --> Low[8% CPU Utilization]
+    Low --> CO[AWS Compute Optimizer]
+    CO --> Rec[Recommend Smaller Instance Type]
+    Rec --> RightSize[Right-Sized Fleet]
+    RightSize --> Savings[Lower Cost, Same Performance]`,
+    cliExample: {
+      description: "Get right-sizing recommendations for over-provisioned EC2 instances",
+      command: "aws compute-optimizer get-ec2-instance-recommendations --filters name=Finding,values=Overprovisioned",
+      sampleOutput: "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234ef567890\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"app-server-01\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        }\n      ]\n    }\n  ],\n  \"errors\": []\n}",
+    },
+  },
+  {
+    id: "cc36",
+    domain: "cloud-concepts",
+    text: "A company's monolithic order-processing application struggles to scale. During migration, the team decides to rebuild it as event-driven microservices using AWS Lambda, Amazon SQS, and Amazon DynamoDB to gain agility and scalability. Which migration strategy (one of the 7 Rs) does this describe?",
+    options: [
+      { id: "a", text: "Rehost" },
+      { id: "b", text: "Relocate" },
+      { id: "c", text: "Refactor (re-architect)" },
+      { id: "d", text: "Retain" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Refactor, also called re-architect, means changing how an application is designed and developed, typically using cloud-native features, to improve agility, performance, and scalability. It has the highest effort but the greatest long-term benefit.",
+    optionRationale: {
+      a: "Rehost (lift and shift) moves the application unchanged, which would not solve the scaling limits of the monolith.",
+      b: "Relocate moves infrastructure such as VMware environments to AWS without changing the application.",
+      c: "Rebuilding the monolith as serverless microservices is a textbook refactor / re-architect migration.",
+      d: "Retain keeps the application where it is, which does not address the problem.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
+    referenceLabel: "Migration strategies - AWS Prescriptive Guidance",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/strategy",
+    consoleLabel: "Migration Hub > Strategy Recommendations",
+    diagram: `flowchart LR
+    Mono[Monolithic Order App] --> Refactor[Refactor / Re-architect]
+    Refactor --> L[AWS Lambda]
+    Refactor --> Q[Amazon SQS]
+    Refactor --> D[Amazon DynamoDB]
+    L --> Benefit[Agility + Scalability]
+    Q --> Benefit
+    D --> Benefit`,
+    cliExample: {
+      description: "Retrieve Migration Hub Strategy Recommendations for an application being assessed for refactoring",
+      command: "aws migrationhub-strategy get-application-component-strategies --application-component-id app-comp-0a1b2c3d4e5f6a7b8",
+      sampleOutput: "{\n  \"applicationComponentStrategies\": [\n    {\n      \"recommendation\": {\n        \"strategy\": \"Refactor\",\n        \"targetDestination\": \"AWS Lambda\",\n        \"transformationTool\": {\n          \"name\": \"Strategy Recommendation Support\",\n          \"description\": \"Refactor to serverless microservices\"\n        }\n      },\n      \"status\": \"Recommended\",\n      \"isPreferred\": true\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc37",
+    domain: "cloud-concepts",
+    text: "A company runs hundreds of virtual machines on VMware vSphere in its data center. Its lease is ending and it wants to move the entire environment to AWS quickly without converting VM formats, changing hypervisors, or modifying applications. Which migration strategy BEST fits this scenario?",
+    options: [
+      { id: "a", text: "Repurchase" },
+      { id: "b", text: "Relocate" },
+      { id: "c", text: "Refactor" },
+      { id: "d", text: "Retire" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Relocate (hypervisor-level lift and shift) moves infrastructure to the cloud without purchasing new hardware, rewriting applications, or modifying existing operations, for example by moving vSphere VMs to VMware Cloud on AWS.",
+    optionRationale: {
+      a: "Repurchase means switching to a different product, typically SaaS; the company wants to keep its existing VMs.",
+      b: "Relocate moves VMware workloads to AWS as-is at the hypervisor level, so no VM conversion or application change is required.",
+      c: "Refactor requires re-architecting applications, which the company explicitly wants to avoid.",
+      d: "Retire means decommissioning applications; these workloads are still needed.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
+    referenceLabel: "Migration strategies - AWS Prescriptive Guidance",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/dashboard",
+    consoleLabel: "AWS Migration Hub > Dashboard",
+    diagram: `flowchart LR
+    DC[On-Premises vSphere VMs] --> Relocate[Relocate - Hypervisor-Level Move]
+    Relocate --> VMC[VMware Cloud on AWS]
+    VMC --> Same[Same VM Format, Same Tools]
+    Same --> Fast[Fast Exit from Data Center]`,
+    cliExample: {
+      description: "List migration tasks tracked in AWS Migration Hub during the relocation",
+      command: "aws mgh list-migration-tasks --region us-west-2",
+      sampleOutput: "{\n  \"MigrationTaskSummaryList\": [\n    {\n      \"ProgressUpdateStream\": \"VMware-Relocate\",\n      \"MigrationTaskName\": \"vsphere-cluster-01\",\n      \"Status\": \"IN_PROGRESS\",\n      \"ProgressPercent\": 65,\n      \"StatusDetail\": \"Replicating VMs to VMware Cloud on AWS\",\n      \"UpdateDateTime\": \"2026-09-10T08:45:00+00:00\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc38",
+    domain: "cloud-concepts",
+    text: "During a migration assessment, a company identifies a mainframe billing system that is business critical but is scheduled to be replaced in two years. The company decides to keep it running on-premises for now and revisit it later. Which migration strategy does this decision represent?",
+    options: [
+      { id: "a", text: "Retain" },
+      { id: "b", text: "Retire" },
+      { id: "c", text: "Rehost" },
+      { id: "d", text: "Replatform" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Retain (sometimes called revisit) means keeping an application in its source environment, either because it is not ready to migrate, has compliance constraints, or the business plans to replace or revisit it later.",
+    optionRationale: {
+      a: "Keeping the system where it is and revisiting it later is exactly the retain strategy.",
+      b: "Retire means decommissioning; the billing system is still critical and in use.",
+      c: "Rehost would move the mainframe workload to AWS, which the company is choosing not to do now.",
+      d: "Replatform involves optimizing while migrating; no migration is planned at this time.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
+    referenceLabel: "Migration strategies - AWS Prescriptive Guidance",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/servers",
+    consoleLabel: "Migration Hub > Servers",
+    diagram: `flowchart LR
+    Assess[Migration Assessment] --> Decision{Ready to Migrate?}
+    Decision -->|No, replacing in 2 years| Retain[Retain On-Premises]
+    Decision -->|Yes| Migrate[Rehost / Replatform / Refactor]
+    Retain --> Revisit[Revisit Later]`,
+    cliExample: {
+      description: "Tag a discovered on-premises server with its migration strategy in Application Discovery Service",
+      command: "aws discovery create-tags --configuration-ids d-server-0123456789abcdef0 --tags key=MigrationStrategy,value=Retain",
+      sampleOutput: "{}",
+    },
+  },
+  {
+    id: "cc39",
+    domain: "cloud-concepts",
+    text: "A gaming company in Los Angeles needs single-digit millisecond latency for real-time multiplayer sessions. The nearest AWS Region is too far away to meet this requirement. Which AWS infrastructure component should the company use to run compute and storage closer to its users in that metropolitan area?",
+    options: [
+      { id: "a", text: "An AWS Local Zone" },
+      { id: "b", text: "An additional Availability Zone in the nearest Region" },
+      { id: "c", text: "A CloudFront edge location" },
+      { id: "d", text: "An AWS Direct Connect location" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Local Zones are extensions of a Region that place compute, storage, database, and other services close to large population and industry centers, delivering single-digit millisecond latency for latency-sensitive applications.",
+    optionRationale: {
+      a: "Local Zones bring EC2, EBS, and other services to a specific metro area, which is exactly what low-latency gaming in Los Angeles requires.",
+      b: "Availability Zones are all within the parent Region's geographic area, so adding one does not bring resources closer to a distant city.",
+      c: "Edge locations cache content and terminate connections for CloudFront and Route 53 but do not run general EC2 workloads.",
+      d: "Direct Connect provides dedicated private network connectivity from on-premises to AWS; it does not host compute.",
+    },
+    referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/localzones/",
+    referenceLabel: "AWS Local Zones",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Settings:tab=zones",
+    consoleLabel: "EC2 > Settings > Zones",
+    diagram: `flowchart LR
+    Player[Players in Los Angeles] -->|single-digit ms| LZ[AWS Local Zone us-west-2-lax-1]
+    LZ --> Parent[Parent Region us-west-2 Oregon]
+    Player -.tens of ms.-> Parent
+    LZ --> Game[Game Server on EC2]`,
+    cliExample: {
+      description: "Opt in to the Los Angeles Local Zone group so EC2 resources can be launched there",
+      command: "aws ec2 modify-availability-zone-group --group-name us-west-2-lax-1 --opt-in-status opted-in --region us-west-2",
+      sampleOutput: "{\n  \"Return\": true\n}",
+    },
+  },
+  {
+    id: "cc40",
+    domain: "cloud-concepts",
+    text: "A company is building an augmented reality application for mobile users on a telecommunications provider's 5G network. The application must process data with ultra-low latency by running compute at the edge of the 5G network itself. Which AWS infrastructure offering is designed for this use case?",
+    options: [
+      { id: "a", text: "AWS Outposts" },
+      { id: "b", text: "AWS Wavelength" },
+      { id: "c", text: "Amazon CloudFront" },
+      { id: "d", text: "AWS Global Accelerator" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS Wavelength embeds AWS compute and storage services within telecommunications providers' 5G networks, so application traffic reaches servers in Wavelength Zones without leaving the mobile network, minimizing latency.",
+    optionRationale: {
+      a: "Outposts extends AWS into a customer's own data center, not into a carrier's 5G network.",
+      b: "Wavelength Zones are located inside telecom providers' data centers at the edge of the 5G network, purpose-built for ultra-low-latency mobile applications.",
+      c: "CloudFront is a content delivery network that caches content at edge locations; it does not run EC2 compute inside 5G networks.",
+      d: "Global Accelerator improves routing over the AWS global network but does not place compute within a mobile carrier's network.",
+    },
+    referenceUrl: "https://aws.amazon.com/wavelength/",
+    referenceLabel: "AWS Wavelength",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Settings:tab=zones",
+    consoleLabel: "EC2 > Settings > Zones",
+    diagram: `flowchart LR
+    Phone[5G Mobile Device] --> Carrier[Telecom 5G Network]
+    Carrier --> WZ[AWS Wavelength Zone]
+    WZ --> App[AR Application on EC2]
+    WZ -.backhaul.-> Region[Parent AWS Region]`,
+    cliExample: {
+      description: "List Wavelength Zones available to the account in a Region",
+      command: "aws ec2 describe-availability-zones --all-availability-zones --filters Name=zone-type,Values=wavelength-zone --region us-east-1",
+      sampleOutput: "{\n  \"AvailabilityZones\": [\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opted-in\",\n      \"RegionName\": \"us-east-1\",\n      \"ZoneName\": \"us-east-1-wl1-bos-wlz-1\",\n      \"ZoneId\": \"use1-wl1-bos-wlz1\",\n      \"GroupName\": \"us-east-1-wl1\",\n      \"NetworkBorderGroup\": \"us-east-1-wl1-bos-wlz-1\",\n      \"ZoneType\": \"wavelength-zone\",\n      \"ParentZoneName\": \"us-east-1a\",\n      \"ParentZoneId\": \"use1-az1\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc41",
+    domain: "cloud-concepts",
+    text: "A healthcare company is choosing which AWS Region to deploy a new patient portal in. Which TWO factors should MOST influence the choice of Region?",
+    options: [
+      { id: "a", text: "Data residency and compliance requirements that dictate where patient data may be stored" },
+      { id: "b", text: "Proximity to end users to minimize network latency" },
+      { id: "c", text: "The number of edge locations inside the Region" },
+      { id: "d", text: "Whether the Region uses the same IAM users as other Regions" },
+      { id: "e", text: "The alphabetical order of Region codes" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "The four key Region selection criteria are compliance and data governance, proximity to customers (latency), available services and features, and pricing. For a healthcare portal, data residency rules and user latency are the most important.",
+    optionRationale: {
+      a: "Regulations often require that healthcare data stays within a specific country or jurisdiction, making compliance a primary Region selection factor.",
+      b: "Deploying close to users reduces latency and improves the patient experience, another core selection criterion.",
+      c: "Edge locations are separate from Regions and are used by CloudFront and Route 53; they are not a Region-selection factor.",
+      d: "IAM is a global service, so identities are the same in every Region; this does not differentiate Regions.",
+      e: "Region codes have no bearing on suitability for a workload.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/global-infrastructure.html",
+    referenceLabel: "AWS Global Infrastructure - Overview of Amazon Web Services",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Settings:tab=regions",
+    consoleLabel: "EC2 > Settings > Regions",
+    diagram: `flowchart TD
+    Choose[Choose a Region] --> C[Compliance / Data Residency]
+    Choose --> L[Latency / Proximity to Users]
+    Choose --> S[Service Availability]
+    Choose --> P[Pricing]
+    C --> Region[Selected Region]
+    L --> Region`,
+    cliExample: {
+      description: "List the Regions available to the account when evaluating deployment locations",
+      command: "aws ec2 describe-regions --query 'Regions[].{Name:RegionName,Endpoint:Endpoint}' --output json",
+      sampleOutput: "[\n  {\n    \"Name\": \"eu-central-1\",\n    \"Endpoint\": \"ec2.eu-central-1.amazonaws.com\"\n  },\n  {\n    \"Name\": \"ap-southeast-1\",\n    \"Endpoint\": \"ec2.ap-southeast-1.amazonaws.com\"\n  },\n  {\n    \"Name\": \"us-east-1\",\n    \"Endpoint\": \"ec2.us-east-1.amazonaws.com\"\n  }\n]",
+    },
+  },
+  {
+    id: "cc42",
+    domain: "cloud-concepts",
+    text: "A company's disaster recovery plan states that after a Regional outage the application must be restored within 4 hours and may lose at most 15 minutes of data. Which TWO terms correspond to these requirements, in order?",
+    options: [
+      { id: "a", text: "RTO of 4 hours and RPO of 15 minutes" },
+      { id: "b", text: "RPO of 4 hours and RTO of 15 minutes" },
+      { id: "c", text: "SLA of 4 hours and MTBF of 15 minutes" },
+      { id: "d", text: "Availability of 4 hours and durability of 15 minutes" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Recovery Time Objective (RTO) is the maximum acceptable time to restore service after a disruption. Recovery Point Objective (RPO) is the maximum acceptable amount of data loss measured in time, which determines how frequently backups or replication must occur.",
+    optionRationale: {
+      a: "Restoring within 4 hours is the RTO; losing at most 15 minutes of data is the RPO.",
+      b: "This reverses the definitions; RPO measures data loss, not restoration time.",
+      c: "An SLA is a contractual commitment and MTBF measures average time between failures; neither defines the DR targets described.",
+      d: "Availability and durability describe uptime and data persistence percentages, not recovery targets.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html",
+    referenceLabel: "Disaster Recovery of Workloads on AWS",
+    consoleUrl: "https://console.aws.amazon.com/backup/home#/backupplans",
+    consoleLabel: "AWS Backup > Backup plans",
+    diagram: `flowchart LR
+    Backup[Last Backup] -->|RPO: max 15 min of data loss| Disaster[Disaster Occurs]
+    Disaster -->|RTO: restore within 4 hours| Restored[Service Restored]`,
+    cliExample: {
+      description: "Create a backup plan with a 15-minute schedule to meet the RPO",
+      command: "aws backup create-backup-plan --backup-plan '{\"BackupPlanName\":\"portal-dr\",\"Rules\":[{\"RuleName\":\"every-15-min\",\"TargetBackupVaultName\":\"Default\",\"ScheduleExpression\":\"cron(0/15 * * * ? *)\"}]}'",
+      sampleOutput: "{\n  \"BackupPlanId\": \"5d1a2b3c-4e5f-6a7b-8c9d-0e1f2a3b4c5d\",\n  \"BackupPlanArn\": \"arn:aws:backup:us-east-1:123456789012:backup-plan:5d1a2b3c-4e5f-6a7b-8c9d-0e1f2a3b4c5d\",\n  \"CreationDate\": \"2026-09-12T10:15:00+00:00\",\n  \"VersionId\": \"NjQ2ZjE4ZDMtNmM5MS00YjZk\"\n}",
+    },
+  },
+  {
+    id: "cc43",
+    domain: "cloud-concepts",
+    text: "A retailer wants a disaster recovery strategy in which a scaled-down but fully functional copy of its production environment is always running in a second Region and can be scaled up to handle full production load when a disaster occurs. Which DR strategy does this describe?",
+    options: [
+      { id: "a", text: "Backup and restore" },
+      { id: "b", text: "Pilot light" },
+      { id: "c", text: "Warm standby" },
+      { id: "d", text: "Multi-site active/active" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Warm standby keeps a scaled-down but fully functional version of the workload always running in the recovery Region. On failover it is scaled up to full capacity, giving faster recovery than pilot light at a lower cost than active/active.",
+    optionRationale: {
+      a: "Backup and restore keeps only backups in the recovery Region and rebuilds infrastructure after a disaster, giving the slowest recovery.",
+      b: "Pilot light keeps only core components such as the database running; application servers are not running until failover.",
+      c: "A reduced-capacity but fully functional running copy that scales up on failover is the definition of warm standby.",
+      d: "Multi-site active/active runs the workload at full capacity in multiple Regions serving traffic simultaneously.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html",
+    referenceLabel: "Disaster Recovery Options in the Cloud",
+    consoleUrl: "https://console.aws.amazon.com/route53/v2/healthchecks/home",
+    consoleLabel: "Route 53 > Health checks",
+    diagram: `flowchart LR
+    Users --> R53[Route 53 Failover Routing]
+    R53 -->|primary| Prod[Primary Region - Full Capacity]
+    R53 -.failover.-> Warm[DR Region - Scaled-Down Running Copy]
+    Warm -->|scale up on disaster| Full[Full Production Capacity]`,
+    cliExample: {
+      description: "Scale up the warm standby Auto Scaling group to full production capacity during failover",
+      command: "aws autoscaling update-auto-scaling-group --auto-scaling-group-name retail-web-dr --min-size 6 --desired-capacity 6 --max-size 12 --region us-west-2",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "cc44",
+    domain: "cloud-concepts",
+    text: "A small team currently runs a PostgreSQL database on a self-managed EC2 instance and spends significant time on maintenance. The team plans to move to Amazon RDS to reduce operational burden. Which TWO tasks would AWS take over after the move to the managed service?",
+    options: [
+      { id: "a", text: "Applying database engine patches and operating system updates" },
+      { id: "b", text: "Performing automated backups and point-in-time recovery" },
+      { id: "c", text: "Designing the database schema and writing application queries" },
+      { id: "d", text: "Deciding which tables to index for application performance" },
+      { id: "e", text: "Managing application-level user permissions inside the database" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Managed services shift undifferentiated heavy lifting to AWS. With Amazon RDS, AWS handles provisioning, patching, backups, recovery, failure detection, and Multi-AZ replication, while the customer remains responsible for schema design, queries, and data-level access control.",
+    optionRationale: {
+      a: "RDS applies engine patches and manages the underlying operating system during maintenance windows.",
+      b: "RDS provides automated backups, snapshots, and point-in-time recovery without customer scripting.",
+      c: "Schema design and application queries are customer responsibilities regardless of where the database runs.",
+      d: "Index design is part of application tuning and remains with the customer.",
+      e: "Database-level users, roles, and grants are configured and managed by the customer.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
+    referenceLabel: "What is Amazon RDS?",
+    consoleUrl: "https://console.aws.amazon.com/rds/home#databases:",
+    consoleLabel: "RDS > Databases",
+    diagram: `flowchart LR
+    Self[Self-Managed PostgreSQL on EC2] --> RDS[Amazon RDS Managed Service]
+    RDS --> AWS[AWS Handles: Patching, Backups, HA, Hardware]
+    RDS --> Cust[Customer Handles: Schema, Queries, Data Access]
+    AWS --> Less[Less Operational Burden]`,
+    cliExample: {
+      description: "Create an RDS PostgreSQL instance with automated backups retained for 7 days",
+      command: "aws rds create-db-instance --db-instance-identifier team-postgres --engine postgres --db-instance-class db.t4g.medium --allocated-storage 50 --master-username admin --manage-master-user-password --backup-retention-period 7 --auto-minor-version-upgrade",
+      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"team-postgres\",\n    \"DBInstanceClass\": \"db.t4g.medium\",\n    \"Engine\": \"postgres\",\n    \"DBInstanceStatus\": \"creating\",\n    \"MasterUsername\": \"admin\",\n    \"AllocatedStorage\": 50,\n    \"BackupRetentionPeriod\": 7,\n    \"AutoMinorVersionUpgrade\": true,\n    \"MultiAZ\": false,\n    \"EngineVersion\": \"16.4\",\n    \"StorageType\": \"gp3\"\n  }\n}",
+    },
+  },
+  {
+    id: "cc45",
+    domain: "cloud-concepts",
+    text: "A company beginning its cloud journey is worried that its IT staff lack cloud skills and that existing teams are resistant to new ways of working. It wants to build a cloud-fluent workforce and manage organizational change. Which AWS Cloud Adoption Framework (AWS CAF) perspective addresses these concerns?",
+    options: [
+      { id: "a", text: "Platform" },
+      { id: "b", text: "People" },
+      { id: "c", text: "Governance" },
+      { id: "d", text: "Operations" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "The AWS CAF People perspective serves as a bridge between technology and business, focusing on culture, organizational structure, leadership, workforce transformation, and change acceleration to build a cloud-ready workforce.",
+    optionRationale: {
+      a: "The Platform perspective focuses on building an enterprise-grade, scalable hybrid cloud platform and modernizing workloads.",
+      b: "Skills development, culture evolution, and change acceleration are the core capabilities of the People perspective.",
+      c: "Governance covers program management, benefits management, risk, and cloud financial management, not workforce skills.",
+      d: "Operations ensures cloud services are delivered to meet business needs, such as observability and incident management.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/people-perspective.html",
+    referenceLabel: "People perspective - AWS Cloud Adoption Framework",
+    consoleUrl: "https://console.aws.amazon.com/wellarchitected/home#/workloads",
+    consoleLabel: "AWS Well-Architected Tool > Workloads",
+    diagram: `flowchart LR
+    Concern[Skills Gap + Resistance to Change] --> CAF[AWS CAF People Perspective]
+    CAF --> Culture[Culture Evolution]
+    CAF --> Skills[Cloud Fluency / Workforce Transformation]
+    CAF --> Change[Change Acceleration]
+    Skills --> Ready[Cloud-Ready Organization]`,
+    cliExample: {
+      description: "Create a Well-Architected Tool workload to track readiness as the organization adopts the cloud",
+      command: "aws wellarchitected create-workload --workload-name cloud-adoption-pilot --description 'First workload of the cloud adoption program' --environment PREPRODUCTION --aws-regions us-east-1 --lenses wellarchitected --review-owner platform-team@example.com",
+      sampleOutput: "{\n  \"WorkloadId\": \"a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n  \"WorkloadArn\": \"arn:aws:wellarchitected:us-east-1:123456789012:workload/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\"\n}",
+    },
+  },
+  {
+    id: "cc46",
+    domain: "cloud-concepts",
+    text: "A web application runs on a single large EC2 instance. Traffic is growing, and the operations team is debating between upgrading to an even larger instance type or adding more smaller instances behind a load balancer. Which statement correctly describes these two approaches?",
+    options: [
+      { id: "a", text: "Upgrading to a larger instance is horizontal scaling; adding more instances is vertical scaling" },
+      { id: "b", text: "Upgrading to a larger instance is vertical scaling; adding more instances is horizontal scaling, which also improves availability" },
+      { id: "c", text: "Both approaches are forms of horizontal scaling" },
+      { id: "d", text: "Both approaches are forms of vertical scaling" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Vertical scaling (scaling up) adds more CPU, memory, or storage to a single instance and has an upper limit. Horizontal scaling (scaling out) adds more instances, which is the cloud-native approach: it can scale further, works with Auto Scaling, and removes the single point of failure.",
+    optionRationale: {
+      a: "The definitions are reversed; adding instances is horizontal scaling.",
+      b: "Scaling up is vertical, scaling out is horizontal, and multiple instances behind a load balancer eliminate the single instance as a point of failure.",
+      c: "Changing the instance size does not add instances, so it is not horizontal scaling.",
+      d: "Adding instances is horizontal, not vertical, scaling.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+    referenceLabel: "What is Amazon EC2 Auto Scaling?",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#AutoScalingGroups:",
+    consoleLabel: "EC2 > Auto Scaling Groups",
+    diagram: `flowchart TD
+    Single[Single Large Instance] --> V[Vertical Scaling - Bigger Instance]
+    Single --> H[Horizontal Scaling - More Instances]
+    V --> Limit[Hardware Ceiling + Single Point of Failure]
+    H --> ELB[Load Balancer + Auto Scaling]
+    ELB --> HA[Higher Availability + Near-Unlimited Scale]`,
+    cliExample: {
+      description: "Scale out horizontally by increasing the desired capacity of an Auto Scaling group",
+      command: "aws autoscaling set-desired-capacity --auto-scaling-group-name web-asg --desired-capacity 4 --honor-cooldown",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "cc47",
+    domain: "cloud-concepts",
+    text: "A company wants to design its web tier on AWS to remain available even if an entire Availability Zone fails. Which TWO design choices support this high-availability goal?",
+    options: [
+      { id: "a", text: "Deploy EC2 instances in multiple Availability Zones behind an Elastic Load Balancer" },
+      { id: "b", text: "Use an Auto Scaling group with health checks to replace unhealthy instances automatically" },
+      { id: "c", text: "Place all instances in a single Availability Zone to minimize inter-AZ data transfer costs" },
+      { id: "d", text: "Store session state on the local disk of each instance" },
+      { id: "e", text: "Use a single, larger instance type to reduce the number of servers to manage" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "High availability on AWS is achieved by removing single points of failure: distributing instances across multiple Availability Zones behind a load balancer and using Auto Scaling with health checks so failed instances are automatically replaced.",
+    optionRationale: {
+      a: "Multi-AZ deployment behind a load balancer keeps the application serving traffic from healthy AZs when one fails.",
+      b: "Auto Scaling health checks detect failed instances and launch replacements, maintaining capacity without manual intervention.",
+      c: "A single AZ is a single point of failure; an AZ outage would take the whole application offline.",
+      d: "Local session state ties users to a specific instance, so instance failure loses sessions; state should be externalized to services such as ElastiCache or DynamoDB.",
+      e: "A single instance, however large, cannot survive an AZ or instance failure.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/use-fault-isolation-to-protect-your-workload.html",
+    referenceLabel: "Use fault isolation to protect your workload - Reliability Pillar",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#LoadBalancers:",
+    consoleLabel: "EC2 > Load Balancers",
+    diagram: `flowchart TD
+    Users --> ELB[Elastic Load Balancer]
+    ELB --> AZ1[EC2 in AZ-a]
+    ELB --> AZ2[EC2 in AZ-b]
+    ASG[Auto Scaling Group + Health Checks] --> AZ1
+    ASG --> AZ2
+    AZ1 -.AZ failure.-> ELB
+    ELB -->|traffic continues| AZ2`,
+    cliExample: {
+      description: "Create an Auto Scaling group spanning two Availability Zones with ELB health checks",
+      command: "aws autoscaling create-auto-scaling-group --auto-scaling-group-name web-asg --launch-template LaunchTemplateName=web-lt,Version='$Latest' --min-size 2 --max-size 6 --desired-capacity 2 --vpc-zone-identifier \"subnet-0a1b2c3d,subnet-4e5f6a7b\" --target-group-arns arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/web-tg/73e2d6bc24d8a067 --health-check-type ELB --health-check-grace-period 120",
+      sampleOutput: "",
+    },
+  },
 ];

@@ -1296,4 +1296,657 @@ export const securityAndComplianceQuestions: Question[] = [
       sampleOutput: "{\n  \"EvaluationResults\": [\n    {\n      \"EvalActionName\": \"s3:DeleteObject\",\n      \"EvalResourceName\": \"*\",\n      \"EvalDecision\": \"explicitDeny\",\n      \"MatchedStatements\": [\n        {\n          \"SourcePolicyId\": \"DenyS3Delete\",\n          \"SourcePolicyType\": \"IAM Policy\",\n          \"StartPosition\": {\n            \"Line\": 3,\n            \"Column\": 17\n          },\n          \"EndPosition\": {\n            \"Line\": 8,\n            \"Column\": 6\n          }\n        }\n      ],\n      \"MissingContextValues\": []\n    }\n  ]\n}",
     },
   },
+  {
+    id: "sec41",
+    domain: "security-and-compliance",
+    text: "A security team wants to automatically identify S3 buckets, IAM roles, and KMS keys whose resource policies grant access to principals outside the company's AWS Organization. Which service should they enable?",
+    options: [
+      { id: "a", text: "IAM Access Analyzer" },
+      { id: "b", text: "IAM credential report" },
+      { id: "c", text: "Amazon Inspector" },
+      { id: "d", text: "AWS Trusted Advisor" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "IAM Access Analyzer continuously analyzes resource-based policies and produces findings for any resource that is shared with an external entity outside your zone of trust (account or organization).",
+    optionRationale: {
+      a: "Correct — Access Analyzer generates findings for resources such as S3 buckets, IAM roles, KMS keys, and SQS queues that are accessible from outside the account or organization.",
+      b: "The credential report lists IAM users and their credential status; it does not analyze resource policies.",
+      c: "Inspector scans EC2, containers, and Lambda for software vulnerabilities, not for external resource sharing.",
+      d: "Trusted Advisor flags some public S3 buckets but does not perform provable policy analysis across resource types.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html",
+    referenceLabel: "Using IAM Access Analyzer",
+    consoleUrl: "https://console.aws.amazon.com/access-analyzer/home",
+    consoleLabel: "IAM > Access Analyzer",
+    diagram: `flowchart TD
+  A[IAM Access Analyzer] --> B[Analyzes resource policies]
+  B --> C[S3 bucket policy]
+  B --> D[IAM role trust policy]
+  B --> E[KMS key policy]
+  C --> F{Shared outside zone of trust?}
+  D --> F
+  E --> F
+  F -->|Yes| G[Finding generated]
+  F -->|No| H[No finding]`,
+    cliExample: {
+      description: "Create an Access Analyzer with the AWS Organization as the zone of trust",
+      command: "aws accessanalyzer create-analyzer --analyzer-name org-analyzer --type ORGANIZATION",
+      sampleOutput: "{\n  \"arn\": \"arn:aws:access-analyzer:us-east-1:123456789012:analyzer/org-analyzer\"\n}",
+    },
+  },
+  {
+    id: "sec42",
+    domain: "security-and-compliance",
+    text: "A company allows developers to create IAM roles for their applications but wants to guarantee that no role a developer creates can ever exceed a defined maximum set of permissions, regardless of the policies attached. Which IAM feature enforces this?",
+    options: [
+      { id: "a", text: "IAM groups" },
+      { id: "b", text: "Permissions boundaries" },
+      { id: "c", text: "Resource-based policies" },
+      { id: "d", text: "IAM Access Analyzer" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "A permissions boundary is a managed policy that sets the maximum permissions an identity-based policy can grant to a user or role; effective permissions are the intersection of the boundary and the identity policies.",
+    optionRationale: {
+      a: "Groups organize users and attach policies, but they add permissions rather than capping them, and roles cannot be in groups.",
+      b: "Correct — attaching a permissions boundary caps the maximum permissions a user or role can have, even if broader policies are attached.",
+      c: "Resource-based policies control access to a specific resource; they do not limit what a role can be granted.",
+      d: "Access Analyzer reports on external access and unused permissions; it does not enforce limits.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html",
+    referenceLabel: "Permissions boundaries for IAM entities",
+    consoleUrl: "https://console.aws.amazon.com/iam/home#/policies",
+    consoleLabel: "IAM > Policies",
+    diagram: `flowchart LR
+  A[Identity-based policy: s3:* ec2:*] --> C{Intersection}
+  B[Permissions boundary: s3:* only] --> C
+  C --> D[Effective permissions: s3:* only]`,
+    cliExample: {
+      description: "Attach a permissions boundary to an IAM role",
+      command: "aws iam put-role-permissions-boundary --role-name dev-app-role --permissions-boundary arn:aws:iam::123456789012:policy/DeveloperBoundary",
+      sampleOutput: "{}",
+    },
+  },
+  {
+    id: "sec43",
+    domain: "security-and-compliance",
+    text: "A company stores confidential documents in Amazon S3 and wants to guarantee that no bucket or object in the account can ever be made publicly accessible, even if an administrator accidentally attaches a public bucket policy or ACL. Which feature should they enable?",
+    options: [
+      { id: "a", text: "S3 Block Public Access at the account level" },
+      { id: "b", text: "S3 Versioning" },
+      { id: "c", text: "S3 Transfer Acceleration" },
+      { id: "d", text: "Amazon Macie" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "S3 Block Public Access provides account-level and bucket-level settings that override any bucket policy or ACL that would grant public access, ensuring buckets cannot be exposed publicly.",
+    optionRationale: {
+      a: "Correct — enabling all four Block Public Access settings at the account level overrides public ACLs and policies for every bucket.",
+      b: "Versioning keeps multiple copies of objects for recovery; it does not restrict public access.",
+      c: "Transfer Acceleration speeds up uploads over long distances; it has nothing to do with access control.",
+      d: "Macie discovers sensitive data and reports public buckets, but it does not block public access.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html",
+    referenceLabel: "Blocking public access to your Amazon S3 storage",
+    consoleUrl: "https://s3.console.aws.amazon.com/s3/settings",
+    consoleLabel: "S3 > Block Public Access settings for this account",
+    diagram: `flowchart TD
+  A[Admin attaches public bucket policy] --> B{Block Public Access enabled?}
+  B -->|Yes| C[Public access blocked]
+  B -->|No| D[Bucket becomes public]`,
+    cliExample: {
+      description: "Enable all Block Public Access settings for the entire account",
+      command: "aws s3control put-public-access-block --account-id 123456789012 --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "sec44",
+    domain: "security-and-compliance",
+    text: "After Amazon GuardDuty reports that an EC2 instance is communicating with a known command-and-control server, a security analyst needs to investigate the root cause by visualizing the related API calls, VPC flow logs, and GuardDuty findings over time in one place. Which service is designed for this?",
+    options: [
+      { id: "a", text: "Amazon Detective" },
+      { id: "b", text: "AWS Config" },
+      { id: "c", text: "Amazon Inspector" },
+      { id: "d", text: "AWS Artifact" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Amazon Detective automatically collects CloudTrail logs, VPC Flow Logs, and GuardDuty findings, then builds a linked graph so analysts can quickly investigate and determine the root cause of security findings.",
+    optionRationale: {
+      a: "Correct — Detective is purpose-built for security investigations and root-cause analysis using visualizations built from log data.",
+      b: "Config tracks resource configuration changes and compliance; it does not correlate security findings.",
+      c: "Inspector finds software vulnerabilities; it is not an investigation tool.",
+      d: "Artifact provides compliance reports, not security analytics.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/detective/latest/userguide/what-is-detective.html",
+    referenceLabel: "What is Amazon Detective?",
+    consoleUrl: "https://console.aws.amazon.com/detective/home",
+    consoleLabel: "Amazon Detective",
+    diagram: `flowchart LR
+  A[GuardDuty finding] --> D[Amazon Detective]
+  B[CloudTrail logs] --> D
+  C[VPC Flow Logs] --> D
+  D --> E[Behavior graph]
+  E --> F[Root cause analysis]`,
+    cliExample: {
+      description: "Enable Amazon Detective by creating a behavior graph",
+      command: "aws detective create-graph",
+      sampleOutput: "{\n  \"GraphArn\": \"arn:aws:detective:us-east-1:123456789012:graph:1234abcd5678efgh1234abcd5678efgh\"\n}",
+    },
+  },
+  {
+    id: "sec45",
+    domain: "security-and-compliance",
+    text: "A company with 50 AWS accounts in AWS Organizations wants to centrally configure and enforce AWS WAF rules and security group policies across all accounts, and automatically apply them to new accounts as they are created. Which service should they use?",
+    options: [
+      { id: "a", text: "AWS Firewall Manager" },
+      { id: "b", text: "AWS Network Firewall" },
+      { id: "c", text: "AWS Shield Standard" },
+      { id: "d", text: "Amazon GuardDuty" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Firewall Manager is a security management service that lets you centrally configure and manage WAF rules, Shield Advanced protections, security groups, and Network Firewall policies across accounts in an AWS Organization.",
+    optionRationale: {
+      a: "Correct — Firewall Manager applies firewall policies organization-wide and automatically covers new accounts and resources.",
+      b: "Network Firewall is a per-VPC firewall; it does not manage policies across many accounts on its own.",
+      c: "Shield Standard is automatic DDoS protection, not a policy management tool.",
+      d: "GuardDuty detects threats; it does not configure WAF rules or security groups.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html",
+    referenceLabel: "AWS Firewall Manager",
+    consoleUrl: "https://console.aws.amazon.com/wafv2/fmsv2/home",
+    consoleLabel: "AWS Firewall Manager",
+    diagram: `flowchart TD
+  A[AWS Firewall Manager] --> B[Organization-wide policy]
+  B --> C[Account 1: WAF rules applied]
+  B --> D[Account 2: Security groups audited]
+  B --> E[New account: policy auto-applied]`,
+    cliExample: {
+      description: "List Firewall Manager policies in the administrator account",
+      command: "aws fms list-policies",
+      sampleOutput: "{\n  \"PolicyList\": [\n    {\n      \"PolicyArn\": \"arn:aws:fms:us-east-1:123456789012:policy/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"PolicyId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"PolicyName\": \"org-waf-baseline\",\n      \"ResourceType\": \"AWS::ElasticLoadBalancingV2::LoadBalancer\",\n      \"SecurityServiceType\": \"WAFV2\",\n      \"RemediationEnabled\": true,\n      \"DeleteUnusedFMManagedResources\": false\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec46",
+    domain: "security-and-compliance",
+    text: "A development team needs to store non-sensitive configuration values such as feature flags and environment names, as well as a few database passwords that must be rotated automatically every 30 days. Which combination is the most cost-effective and appropriate?",
+    options: [
+      { id: "a", text: "Store everything in AWS Secrets Manager" },
+      { id: "b", text: "Store configuration values in Systems Manager Parameter Store and the database passwords in AWS Secrets Manager with rotation enabled" },
+      { id: "c", text: "Store everything in AWS KMS" },
+      { id: "d", text: "Hard-code all values in the application source code" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Parameter Store standard parameters are free and ideal for configuration data, while Secrets Manager adds built-in automatic rotation for secrets such as database credentials.",
+    optionRationale: {
+      a: "Secrets Manager charges per secret and per API call, so using it for non-sensitive configuration is unnecessary cost.",
+      b: "Correct — Parameter Store handles plain configuration at no cost and Secrets Manager provides native automatic rotation for credentials.",
+      c: "KMS creates and manages encryption keys; it does not store arbitrary configuration or secret values.",
+      d: "Hard-coding secrets is a security anti-pattern and makes rotation impossible.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html",
+    referenceLabel: "AWS Systems Manager Parameter Store",
+    consoleUrl: "https://console.aws.amazon.com/systems-manager/parameters",
+    consoleLabel: "Systems Manager > Parameter Store",
+    diagram: `flowchart TD
+  A[Application config] --> B{Needs automatic rotation?}
+  B -->|No: feature flags, env names| C[Parameter Store - free standard tier]
+  B -->|Yes: DB passwords| D[Secrets Manager - built-in rotation]`,
+    cliExample: {
+      description: "Store a plain configuration value in Parameter Store",
+      command: "aws ssm put-parameter --name /myapp/prod/feature-flag-beta --value enabled --type String",
+      sampleOutput: "{\n  \"Version\": 1,\n  \"Tier\": \"Standard\"\n}",
+    },
+  },
+  {
+    id: "sec47",
+    domain: "security-and-compliance",
+    text: "An auditor requires proof that AWS CloudTrail log files delivered to an S3 bucket have not been modified, deleted, or forged since CloudTrail delivered them. Which CloudTrail feature satisfies this requirement?",
+    options: [
+      { id: "a", text: "CloudTrail log file integrity validation" },
+      { id: "b", text: "CloudTrail Insights" },
+      { id: "c", text: "S3 Transfer Acceleration" },
+      { id: "d", text: "CloudWatch Logs metric filters" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Log file integrity validation makes CloudTrail deliver hourly digest files containing SHA-256 hashes signed with RSA, letting you verify that log files were not changed after delivery.",
+    optionRationale: {
+      a: "Correct — integrity validation uses signed digest files so you can prove logs are unaltered, which is essential for forensic and compliance investigations.",
+      b: "CloudTrail Insights detects unusual API activity volumes; it does not prove log integrity.",
+      c: "Transfer Acceleration speeds up S3 uploads and is unrelated to CloudTrail.",
+      d: "Metric filters create CloudWatch metrics from log patterns; they cannot detect tampering with stored log files.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html",
+    referenceLabel: "Validating CloudTrail log file integrity",
+    consoleUrl: "https://console.aws.amazon.com/cloudtrailv2/home#/trails",
+    consoleLabel: "CloudTrail > Trails",
+    diagram: `flowchart LR
+  A[CloudTrail delivers log files] --> B[S3 bucket]
+  A --> C[Hourly digest file with SHA-256 hashes]
+  C --> D[Signed with CloudTrail private key]
+  B --> E[validate-logs command]
+  D --> E
+  E --> F{Hashes match?}
+  F -->|Yes| G[Logs unaltered]
+  F -->|No| H[Tampering detected]`,
+    cliExample: {
+      description: "Validate CloudTrail log files delivered during a time range",
+      command: "aws cloudtrail validate-logs --trail-arn arn:aws:cloudtrail:us-east-1:123456789012:trail/management-trail --start-time 2025-06-01T00:00:00Z --end-time 2025-06-02T00:00:00Z",
+      sampleOutput: "Validating log files for trail arn:aws:cloudtrail:us-east-1:123456789012:trail/management-trail between 2025-06-01T00:00:00Z and 2025-06-02T00:00:00Z\n\nResults requested for 2025-06-01T00:00:00Z to 2025-06-02T00:00:00Z\nResults found for 2025-06-01T00:03:12Z to 2025-06-01T23:58:44Z:\n\n24/24 digest files valid\n1436/1436 log files valid",
+    },
+  },
+  {
+    id: "sec48",
+    domain: "security-and-compliance",
+    text: "A compliance team must continuously verify that every EBS volume in the account is encrypted, and be alerted whenever a new unencrypted volume is created. Which approach achieves this with the least operational effort?",
+    options: [
+      { id: "a", text: "Enable the AWS Config managed rule encrypted-volumes and use its compliance status to trigger notifications" },
+      { id: "b", text: "Manually review the EC2 console once a week" },
+      { id: "c", text: "Enable Amazon Macie on the EBS volumes" },
+      { id: "d", text: "Run a penetration test against each volume" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Config managed rules such as encrypted-volumes evaluate resources continuously against a desired configuration and mark them NON_COMPLIANT, which can drive SNS notifications or automatic remediation.",
+    optionRationale: {
+      a: "Correct — Config managed rules run automatically on configuration changes and provide a compliance dashboard and notifications with no custom code.",
+      b: "Manual weekly reviews are error-prone, slow, and do not scale.",
+      c: "Macie analyzes data in Amazon S3, not EBS volume encryption settings.",
+      d: "Penetration tests find exploitable weaknesses; they are not a continuous configuration check.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/config/latest/developerguide/encrypted-volumes.html",
+    referenceLabel: "AWS Config rule: encrypted-volumes",
+    consoleUrl: "https://console.aws.amazon.com/config/home#/rules",
+    consoleLabel: "AWS Config > Rules",
+    diagram: `flowchart TD
+  A[New EBS volume created] --> B[AWS Config records configuration]
+  B --> C[Managed rule: encrypted-volumes]
+  C --> D{Encrypted?}
+  D -->|Yes| E[COMPLIANT]
+  D -->|No| F[NON_COMPLIANT]
+  F --> G[SNS notification or auto-remediation]`,
+    cliExample: {
+      description: "Create the encrypted-volumes managed Config rule",
+      command: "aws configservice put-config-rule --config-rule '{\"ConfigRuleName\":\"encrypted-volumes\",\"Source\":{\"Owner\":\"AWS\",\"SourceIdentifier\":\"ENCRYPTED_VOLUMES\"}}'",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "sec49",
+    domain: "security-and-compliance",
+    text: "A healthcare provider plans to store protected health information (PHI) on AWS and must comply with HIPAA. Which statement about running HIPAA-regulated workloads on AWS is correct?",
+    options: [
+      { id: "a", text: "AWS becomes fully responsible for HIPAA compliance once the account is created" },
+      { id: "b", text: "The customer must accept the AWS Business Associate Addendum (BAA) and use only HIPAA-eligible services for PHI, while remaining responsible for configuring them securely" },
+      { id: "c", text: "HIPAA workloads cannot run on AWS" },
+      { id: "d", text: "Any AWS service can store PHI without additional agreements" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS offers a BAA (accepted through AWS Artifact) and a list of HIPAA-eligible services; compliance is shared, so the customer must still architect and configure the workload appropriately.",
+    optionRationale: {
+      a: "Compliance is shared; AWS provides the compliant infrastructure but the customer is responsible for how PHI is handled in the cloud.",
+      b: "Correct — a BAA must be in place and PHI must be processed only in HIPAA-eligible services, with the customer configuring encryption, access control, and logging.",
+      c: "Many healthcare organizations run HIPAA workloads on AWS.",
+      d: "Only services designated as HIPAA-eligible may be used for PHI under the BAA.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/hipaa-compliance/",
+    referenceLabel: "HIPAA compliance on AWS",
+    consoleUrl: "https://console.aws.amazon.com/artifact/home#/agreements",
+    consoleLabel: "AWS Artifact > Agreements",
+    diagram: `flowchart TD
+  A[Store PHI on AWS] --> B[Accept BAA in AWS Artifact]
+  B --> C[Use only HIPAA-eligible services]
+  C --> D[Customer configures encryption, IAM, logging]
+  D --> E[Shared compliance achieved]`,
+    cliExample: {
+      description: "List the agreements available for acceptance in AWS Artifact",
+      command: "aws artifact list-customer-agreements",
+      sampleOutput: "{\n  \"customerAgreements\": [\n    {\n      \"name\": \"AWS Business Associate Addendum\",\n      \"arn\": \"arn:aws:artifact::123456789012:customer-agreement/ca-1234abcd5678efgh\",\n      \"id\": \"ca-1234abcd5678efgh\",\n      \"agreementArn\": \"arn:aws:artifact:::agreement/ag-baa-2024\",\n      \"state\": \"ACTIVE\",\n      \"type\": \"DEFAULT\",\n      \"effectiveStart\": \"2025-03-14T09:22:11Z\",\n      \"acceptanceTerms\": [\"Applies to all accounts in the organization\"],\n      \"terminateTerms\": []\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec50",
+    domain: "security-and-compliance",
+    text: "A European company must comply with GDPR and needs assurance that customer personal data stored in Amazon S3 and Amazon RDS remains physically within the European Union. What is the correct way to achieve this?",
+    options: [
+      { id: "a", text: "Create the resources in an EU Region such as eu-central-1; AWS does not replicate customer content outside the Region the customer selects unless the customer configures it" },
+      { id: "b", text: "Ask AWS Support to pin the data to Europe after creating resources in us-east-1" },
+      { id: "c", text: "Enable AWS Shield Advanced, which enforces data residency" },
+      { id: "d", text: "Data residency cannot be controlled on AWS" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Customers choose the AWS Region in which their content is stored, and AWS does not move or replicate customer content outside that Region except as the customer directs, which supports GDPR data-residency requirements.",
+    optionRationale: {
+      a: "Correct — Region selection is the primary data-residency control; content stays in the chosen Region unless the customer enables cross-Region features.",
+      b: "Region is fixed at resource creation; AWS Support cannot retroactively relocate data.",
+      c: "Shield Advanced is DDoS protection and has no data-residency function.",
+      d: "Data residency is fully under the customer's control through Region choice.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/gdpr-center/",
+    referenceLabel: "GDPR Center",
+    consoleUrl: "https://console.aws.amazon.com/artifact/home#/reports",
+    consoleLabel: "AWS Artifact > Reports",
+    diagram: `flowchart TD
+  A[GDPR data residency requirement] --> B[Choose EU Region e.g. eu-central-1]
+  B --> C[S3 bucket in Frankfurt]
+  B --> D[RDS instance in Frankfurt]
+  C --> E[Content stays in Region unless customer replicates]
+  D --> E`,
+    cliExample: {
+      description: "Create an S3 bucket in the Frankfurt Region to keep data inside the EU",
+      command: "aws s3api create-bucket --bucket customer-records-eu --region eu-central-1 --create-bucket-configuration LocationConstraint=eu-central-1",
+      sampleOutput: "{\n  \"Location\": \"http://customer-records-eu.s3.amazonaws.com/\"\n}",
+    },
+  },
+  {
+    id: "sec51",
+    domain: "security-and-compliance",
+    text: "A company's security policy requires that it can define its own key policies, control who can use each encryption key, and enable automatic annual key rotation for keys protecting data in Amazon S3. Which AWS KMS key type should they use?",
+    options: [
+      { id: "a", text: "AWS owned keys" },
+      { id: "b", text: "AWS managed keys" },
+      { id: "c", text: "Customer managed keys" },
+      { id: "d", text: "SSH key pairs" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Customer managed KMS keys give the customer full control over the key policy, grants, aliases, enabling/disabling, and rotation settings, whereas AWS managed and AWS owned keys are controlled by AWS.",
+    optionRationale: {
+      a: "AWS owned keys are used across many accounts by AWS services and are not visible or controllable by the customer.",
+      b: "AWS managed keys are created on your behalf per service; you can view them but cannot edit their key policies or rotation schedule.",
+      c: "Correct — customer managed keys let you write the key policy, control usage, and configure automatic rotation.",
+      d: "SSH key pairs are for EC2 login, not data encryption in KMS.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-mgmt",
+    referenceLabel: "AWS KMS key types",
+    consoleUrl: "https://console.aws.amazon.com/kms/home#/kms/keys",
+    consoleLabel: "KMS > Customer managed keys",
+    diagram: `flowchart TD
+  A[KMS key types] --> B[AWS owned: hidden, AWS controlled]
+  A --> C[AWS managed: visible, AWS controlled]
+  A --> D[Customer managed: customer controls policy and rotation]
+  D --> E[Custom key policy]
+  D --> F[Automatic rotation]
+  D --> G[Enable or disable at will]`,
+    cliExample: {
+      description: "Create a customer managed key and enable automatic rotation",
+      command: "aws kms create-key --description \"S3 data key\" && aws kms enable-key-rotation --key-id 1234abcd-12ab-34cd-56ef-1234567890ab",
+      sampleOutput: "{\n  \"KeyMetadata\": {\n    \"AWSAccountId\": \"123456789012\",\n    \"KeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"Arn\": \"arn:aws:kms:us-east-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"CreationDate\": \"2025-06-01T10:15:22.000Z\",\n    \"Enabled\": true,\n    \"Description\": \"S3 data key\",\n    \"KeyUsage\": \"ENCRYPT_DECRYPT\",\n    \"KeyState\": \"Enabled\",\n    \"Origin\": \"AWS_KMS\",\n    \"KeyManager\": \"CUSTOMER\",\n    \"KeySpec\": \"SYMMETRIC_DEFAULT\"\n  }\n}",
+    },
+  },
+  {
+    id: "sec52",
+    domain: "security-and-compliance",
+    text: "A company follows best practice by locking away its root user credentials and using IAM identities for daily work. Which TWO tasks can ONLY be performed by the account root user and therefore still require signing in as root?",
+    options: [
+      { id: "a", text: "Closing the AWS account" },
+      { id: "b", text: "Changing the AWS Support plan" },
+      { id: "c", text: "Launching an EC2 instance" },
+      { id: "d", text: "Creating an IAM user" },
+      { id: "e", text: "Uploading an object to Amazon S3" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "A small set of account-level tasks, such as closing the account, changing the support plan, changing the root email, and restoring IAM user permissions, can only be done by the root user; all normal service operations should use IAM identities.",
+    optionRationale: {
+      a: "Correct — closing an AWS account is a root-only task.",
+      b: "Correct — changing or cancelling the AWS Support plan requires root user credentials.",
+      c: "Launching EC2 instances is a normal service action any IAM identity with permission can perform.",
+      d: "IAM users and roles with the right permissions can create other IAM users.",
+      e: "Uploading to S3 is an ordinary API action available to IAM identities.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#root-user-tasks",
+    referenceLabel: "Tasks that require root user credentials",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/account",
+    consoleLabel: "Account settings",
+    diagram: `flowchart TD
+  A[Task to perform] --> B{Root-only task?}
+  B -->|Close account, change support plan, change root email| C[Sign in as root with MFA]
+  B -->|Launch EC2, create IAM user, use S3| D[Use IAM user or role]`,
+    cliExample: {
+      description: "Check whether the caller is the root user by inspecting the identity ARN",
+      command: "aws sts get-caller-identity",
+      sampleOutput: "{\n  \"UserId\": \"123456789012\",\n  \"Account\": \"123456789012\",\n  \"Arn\": \"arn:aws:iam::123456789012:root\"\n}",
+    },
+  },
+  {
+    id: "sec53",
+    domain: "security-and-compliance",
+    text: "A developer accidentally commits an IAM user's access key and secret key to a public GitHub repository. What is the FIRST action the company should take?",
+    options: [
+      { id: "a", text: "Immediately deactivate or delete the exposed access key in IAM and create a new one if still needed" },
+      { id: "b", text: "Delete the GitHub repository and assume the key is safe" },
+      { id: "c", text: "Enable Amazon Macie to scan GitHub" },
+      { id: "d", text: "Wait for AWS to automatically rotate the key" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Exposed long-term credentials must be invalidated immediately because copies may already exist; afterwards, review CloudTrail for unauthorized activity and move the workload to IAM roles with temporary credentials.",
+    optionRationale: {
+      a: "Correct — revoking the key stops any attacker from using it; rotation is the standard first response to a credential leak.",
+      b: "Removing the repository does not remove copies already scraped by bots; the key is still valid.",
+      c: "Macie analyzes data in Amazon S3, not third-party code repositories.",
+      d: "AWS does not automatically rotate IAM user access keys; the customer must act.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html",
+    referenceLabel: "Managing access keys for IAM users",
+    consoleUrl: "https://console.aws.amazon.com/iam/home#/users",
+    consoleLabel: "IAM > Users",
+    diagram: `flowchart TD
+  A[Access key leaked to public repo] --> B[Deactivate or delete the key immediately]
+  B --> C[Review CloudTrail for misuse]
+  C --> D[Create new key or switch to IAM role]
+  D --> E[Remove secret from repo history]`,
+    cliExample: {
+      description: "Deactivate a compromised access key for an IAM user",
+      command: "aws iam update-access-key --user-name dev-user --access-key-id AKIAIOSFODNN7EXAMPLE --status Inactive",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "sec54",
+    domain: "security-and-compliance",
+    text: "An IAM user in a member account of an AWS Organization has an identity-based policy granting full access to Amazon EC2. A Service Control Policy (SCP) attached to the account's organizational unit denies ec2:RunInstances. What happens when the user tries to launch an instance?",
+    options: [
+      { id: "a", text: "The request is denied, because SCPs set the maximum permissions available to any principal in the account" },
+      { id: "b", text: "The request is allowed, because IAM policies take precedence over SCPs" },
+      { id: "c", text: "The request is allowed, because SCPs only affect the root user" },
+      { id: "d", text: "The request is allowed once the user enables MFA" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "SCPs act as guardrails that define the maximum available permissions for all IAM users and roles in member accounts; an action denied by an SCP cannot be allowed by any IAM policy in that account.",
+    optionRationale: {
+      a: "Correct — effective permissions are the intersection of the SCP and IAM policies, so the SCP deny wins.",
+      b: "IAM policies cannot override SCPs; the SCP is evaluated first as an organizational boundary.",
+      c: "SCPs apply to every principal in member accounts, including the root user of the member account.",
+      d: "MFA does not bypass SCP restrictions.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html",
+    referenceLabel: "Service control policies (SCPs)",
+    consoleUrl: "https://console.aws.amazon.com/organizations/v2/home/policies/service-control-policy",
+    consoleLabel: "Organizations > Service control policies",
+    diagram: `flowchart LR
+  A[SCP: Deny ec2:RunInstances] --> C{Intersection}
+  B[IAM policy: Allow ec2:*] --> C
+  C --> D[ec2:RunInstances denied]`,
+    cliExample: {
+      description: "List the SCPs attached to an organizational unit",
+      command: "aws organizations list-policies-for-target --target-id ou-ab12-11111111 --filter SERVICE_CONTROL_POLICY",
+      sampleOutput: "{\n  \"Policies\": [\n    {\n      \"Id\": \"p-examplepolicyid111\",\n      \"Arn\": \"arn:aws:organizations::123456789012:policy/o-exampleorgid/service_control_policy/p-examplepolicyid111\",\n      \"Name\": \"DenyEC2Launch\",\n      \"Description\": \"Prevents launching EC2 instances in sandbox OUs\",\n      \"Type\": \"SERVICE_CONTROL_POLICY\",\n      \"AwsManaged\": false\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec55",
+    domain: "security-and-compliance",
+    text: "A company stores critical financial records in Amazon S3 and wants to protect them against accidental or malicious deletion by users who have write access. Which TWO S3 features help meet this requirement?",
+    options: [
+      { id: "a", text: "S3 Versioning" },
+      { id: "b", text: "MFA Delete" },
+      { id: "c", text: "S3 Transfer Acceleration" },
+      { id: "d", text: "S3 Intelligent-Tiering" },
+      { id: "e", text: "Amazon S3 Select" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Versioning preserves every version of an object so deletions can be undone, and MFA Delete requires a valid MFA code to permanently delete a version or change the versioning state of the bucket.",
+    optionRationale: {
+      a: "Correct — with versioning, a delete simply adds a delete marker and earlier versions can be restored.",
+      b: "Correct — MFA Delete adds a second factor before object versions can be permanently removed.",
+      c: "Transfer Acceleration improves upload speed; it offers no deletion protection.",
+      d: "Intelligent-Tiering optimizes storage cost; it does not prevent deletion.",
+      e: "S3 Select queries data inside objects; it is unrelated to protection.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html",
+    referenceLabel: "Configuring MFA delete",
+    consoleUrl: "https://s3.console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
+    diagram: `flowchart TD
+  A[Delete request on S3 object] --> B{Versioning enabled?}
+  B -->|Yes| C[Delete marker added, versions retained]
+  C --> D{Permanent delete of version?}
+  D --> E{MFA Delete enabled?}
+  E -->|Yes| F[MFA code required]
+  E -->|No| G[Version deleted]`,
+    cliExample: {
+      description: "Enable versioning and MFA Delete on a bucket (requires root user MFA device)",
+      command: "aws s3api put-bucket-versioning --bucket financial-records --versioning-configuration Status=Enabled,MFADelete=Enabled --mfa \"arn:aws:iam::123456789012:mfa/root-account-mfa-device 123456\"",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "sec56",
+    domain: "security-and-compliance",
+    text: "A company's web servers in a public subnet are being scanned repeatedly from a single known-malicious IP address. The company wants to explicitly block all traffic from that IP address at the subnet level. Which VPC feature should they use?",
+    options: [
+      { id: "a", text: "Add a Deny rule to the subnet's network ACL" },
+      { id: "b", text: "Add a Deny rule to the instances' security group" },
+      { id: "c", text: "Enable VPC Flow Logs" },
+      { id: "d", text: "Create a VPC peering connection" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Network ACLs support both Allow and Deny rules and operate at the subnet level, making them the right tool for explicitly blocking a specific IP; security groups support only Allow rules.",
+    optionRationale: {
+      a: "Correct — a NACL Deny rule with a lower rule number than the Allow rules blocks the malicious IP for the entire subnet.",
+      b: "Security groups have no Deny rules; they only permit traffic that is explicitly allowed.",
+      c: "Flow Logs record traffic metadata for analysis; they do not block anything.",
+      d: "VPC peering connects VPCs; it is unrelated to blocking inbound traffic.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html",
+    referenceLabel: "Control traffic to subnets using network ACLs",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#acls:",
+    consoleLabel: "VPC > Network ACLs",
+    diagram: `flowchart TD
+  A[Traffic from 203.0.113.5] --> B[Subnet network ACL]
+  B --> C{Rule 50: Deny 203.0.113.5/32}
+  C -->|Match| D[Traffic dropped at subnet edge]
+  C -->|No match| E[Rule 100: Allow 0.0.0.0/0]
+  E --> F[Security group evaluation]`,
+    cliExample: {
+      description: "Add an inbound Deny rule for a single IP address to a network ACL",
+      command: "aws ec2 create-network-acl-entry --network-acl-id acl-0abc123def456789a --ingress --rule-number 50 --protocol -1 --cidr-block 203.0.113.5/32 --rule-action deny",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "sec57",
+    domain: "security-and-compliance",
+    text: "A company needs to grant a new team read-only access to Amazon S3 and wants to reuse a ready-made policy that AWS maintains and updates automatically as S3 adds new API actions. Which type of policy should they attach?",
+    options: [
+      { id: "a", text: "An AWS managed policy such as AmazonS3ReadOnlyAccess" },
+      { id: "b", text: "A customer managed policy written from scratch" },
+      { id: "c", text: "An inline policy embedded in each user" },
+      { id: "d", text: "A Service Control Policy" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS managed policies are standalone policies created and maintained by AWS for common job functions and service access levels; AWS updates them when new services or actions are introduced.",
+    optionRationale: {
+      a: "Correct — AmazonS3ReadOnlyAccess is an AWS managed policy that AWS keeps up to date, requiring no maintenance by the customer.",
+      b: "A customer managed policy gives finer control but the customer must maintain it as S3 evolves.",
+      c: "Inline policies are tied to a single identity and are harder to reuse and audit.",
+      d: "SCPs restrict permissions across an Organization; they never grant permissions.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html",
+    referenceLabel: "Managed policies and inline policies",
+    consoleUrl: "https://console.aws.amazon.com/iam/home#/policies?type=aws",
+    consoleLabel: "IAM > Policies (AWS managed)",
+    diagram: `flowchart TD
+  A[IAM policy types] --> B[AWS managed: maintained by AWS, reusable]
+  A --> C[Customer managed: maintained by you, reusable]
+  A --> D[Inline: embedded in one identity]
+  B --> E[AmazonS3ReadOnlyAccess]`,
+    cliExample: {
+      description: "Attach the AWS managed S3 read-only policy to an IAM group",
+      command: "aws iam attach-group-policy --group-name analytics-team --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
+      sampleOutput: "",
+    },
+  },
+  {
+    id: "sec58",
+    domain: "security-and-compliance",
+    text: "Account A owns an S3 bucket, and an application running in Account B needs to read objects from it. Which TWO approaches allow this cross-account access without creating IAM users in Account A?",
+    options: [
+      { id: "a", text: "Create an IAM role in Account A that trusts Account B, and have the application assume that role" },
+      { id: "b", text: "Attach a bucket policy in Account A that grants s3:GetObject to the Account B principal" },
+      { id: "c", text: "Share Account A's root user credentials with the application" },
+      { id: "d", text: "Enable S3 Transfer Acceleration on the bucket" },
+      { id: "e", text: "Create a security group rule allowing Account B" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Cross-account access is achieved either with an IAM role in the resource account that the other account can assume, or with a resource-based policy (bucket policy) that directly grants access to the other account's principals.",
+    optionRationale: {
+      a: "Correct — cross-account IAM roles let Account B obtain temporary credentials scoped to what Account A permits.",
+      b: "Correct — a bucket policy is a resource-based policy that can name principals from other accounts.",
+      c: "Sharing root credentials violates every security best practice.",
+      d: "Transfer Acceleration affects upload speed, not permissions.",
+      e: "Security groups control network traffic to instances and cannot grant S3 permissions.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html",
+    referenceLabel: "Delegate access across AWS accounts using IAM roles",
+    consoleUrl: "https://console.aws.amazon.com/iam/home#/roles",
+    consoleLabel: "IAM > Roles",
+    diagram: `flowchart LR
+  subgraph Account B
+    App[Application]
+  end
+  subgraph Account A
+    Role[IAM role trusting Account B]
+    Bucket[S3 bucket with bucket policy]
+  end
+  App -->|sts:AssumeRole| Role
+  Role -->|s3:GetObject| Bucket
+  App -->|Direct via bucket policy| Bucket`,
+    cliExample: {
+      description: "Assume a cross-account role in Account A from Account B",
+      command: "aws sts assume-role --role-arn arn:aws:iam::111111111111:role/CrossAccountS3Read --role-session-name app-session",
+      sampleOutput: "{\n  \"Credentials\": {\n    \"AccessKeyId\": \"ASIAIOSFODNN7EXAMPLE\",\n    \"SecretAccessKey\": \"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\",\n    \"SessionToken\": \"FwoGZXIvYXdzEBYaDExample...\",\n    \"Expiration\": \"2025-06-01T13:15:22Z\"\n  },\n  \"AssumedRoleUser\": {\n    \"AssumedRoleId\": \"AROAEXAMPLEID:app-session\",\n    \"Arn\": \"arn:aws:sts::111111111111:assumed-role/CrossAccountS3Read/app-session\"\n  }\n}",
+    },
+  },
+  {
+    id: "sec59",
+    domain: "security-and-compliance",
+    text: "A security operations team wants to be notified by email within minutes whenever Amazon GuardDuty generates a high-severity finding, without polling the GuardDuty console. Which approach should they use?",
+    options: [
+      { id: "a", text: "Create an Amazon EventBridge rule that matches GuardDuty findings and sends them to an Amazon SNS topic with an email subscription" },
+      { id: "b", text: "Download findings from AWS Artifact every morning" },
+      { id: "c", text: "Enable AWS Shield Advanced to email findings" },
+      { id: "d", text: "Use AWS Config to email GuardDuty findings" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "GuardDuty publishes findings to Amazon EventBridge, where a rule can filter by severity and forward matching events to targets such as SNS, Lambda, or Security Hub for automated notification and response.",
+    optionRationale: {
+      a: "Correct — EventBridge plus SNS is the standard event-driven pattern for near-real-time security alerting on AWS.",
+      b: "Artifact provides compliance documents, not GuardDuty findings, and daily downloads are far from real time.",
+      c: "Shield Advanced protects against DDoS attacks; it does not route GuardDuty findings.",
+      d: "Config evaluates resource configurations and does not consume GuardDuty findings.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html",
+    referenceLabel: "Creating custom responses to GuardDuty findings with Amazon EventBridge",
+    consoleUrl: "https://console.aws.amazon.com/events/home#/rules",
+    consoleLabel: "EventBridge > Rules",
+    diagram: `flowchart LR
+  A[GuardDuty finding severity 8] --> B[Amazon EventBridge]
+  B --> C{Rule: severity >= 7?}
+  C -->|Match| D[SNS topic]
+  D --> E[Email to security team]
+  C -->|Match| F[Lambda auto-remediation]`,
+    cliExample: {
+      description: "Create an EventBridge rule that matches high-severity GuardDuty findings",
+      command: "aws events put-rule --name guardduty-high-severity --event-pattern '{\"source\":[\"aws.guardduty\"],\"detail-type\":[\"GuardDuty Finding\"],\"detail\":{\"severity\":[7,7.5,8,8.5,9]}}'",
+      sampleOutput: "{\n  \"RuleArn\": \"arn:aws:events:us-east-1:123456789012:rule/guardduty-high-severity\"\n}",
+    },
+  },
 ];
