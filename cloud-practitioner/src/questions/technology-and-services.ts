@@ -2192,4 +2192,764 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
       sampleOutput: "{\n  \"endpointAddress\": \"a1b2c3d4e5f6g7-ats.iot.us-east-1.amazonaws.com\"\n}",
     },
   },
+  {
+    id: "tech67",
+    domain: "cloud-technology-and-services",
+    text: "A company runs a tightly coupled high performance computing (HPC) simulation on a cluster of EC2 instances that exchange large volumes of data with each other. It wants the lowest possible network latency and highest throughput between the instances. Which EC2 feature should be used when launching the instances?",
+    options: [
+      { id: "a", text: "A spread placement group" },
+      { id: "b", text: "A cluster placement group" },
+      { id: "c", text: "Dedicated Hosts" },
+      { id: "d", text: "An Auto Scaling group across three Availability Zones" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "A cluster placement group packs instances close together inside a single Availability Zone, giving the low-latency, high-throughput networking that tightly coupled HPC workloads need.",
+    optionRationale: {
+      a: "A spread placement group deliberately places instances on distinct hardware to reduce correlated failures, which increases rather than minimizes inter-instance latency.",
+      b: "A cluster placement group places instances physically close together in one Availability Zone to provide the lowest network latency and highest per-flow throughput.",
+      c: "Dedicated Hosts give you a physical server for licensing or compliance reasons; they do not optimize network performance between many instances.",
+      d: "Spreading across Availability Zones improves availability but adds inter-AZ latency, the opposite of what an HPC cluster needs.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html",
+    referenceLabel: "Amazon EC2 placement groups",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#PlacementGroups:",
+    consoleLabel: "EC2 > Placement Groups",
+    diagram: `flowchart LR
+  PG[Cluster Placement Group in one AZ] --> N1[Node 1]
+  PG --> N2[Node 2]
+  PG --> N3[Node 3]
+  N1 <--> N2
+  N2 <--> N3
+  N1 <--> N3`,
+    cliExample: {
+      description: "Create a cluster placement group for an HPC workload",
+      command: "aws ec2 create-placement-group --group-name hpc-sim-cluster --strategy cluster",
+      sampleOutput:
+        "{\n  \"PlacementGroup\": {\n    \"GroupName\": \"hpc-sim-cluster\",\n    \"State\": \"available\",\n    \"Strategy\": \"cluster\",\n    \"GroupId\": \"pg-0a1b2c3d4e5f67890\",\n    \"GroupArn\": \"arn:aws:ec2:us-east-1:123456789012:placement-group/hpc-sim-cluster\"\n  }\n}",
+    },
+  },
+  {
+    id: "tech68",
+    domain: "cloud-technology-and-services",
+    text: "An operations team manually installs security agents and patches onto a base Amazon Linux image every month and then creates a new AMI. They want to automate the creation, testing, and distribution of these hardened images on a schedule. Which AWS service should they use?",
+    options: [
+      { id: "a", text: "AWS CodeDeploy" },
+      { id: "b", text: "EC2 Image Builder" },
+      { id: "c", text: "AWS Elastic Beanstalk" },
+      { id: "d", text: "AWS Application Migration Service" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "EC2 Image Builder automates the pipeline of building, customizing, testing, and distributing AMIs and container images, including scheduled rebuilds when new patches are available.",
+    optionRationale: {
+      a: "CodeDeploy deploys application revisions to instances; it does not build or distribute machine images.",
+      b: "EC2 Image Builder provides image pipelines with build components, test components, and distribution settings so hardened AMIs are produced automatically on a schedule.",
+      c: "Elastic Beanstalk manages application environments on top of platform images; it is not an image-building service.",
+      d: "Application Migration Service replicates on-premises servers to AWS for lift-and-shift migrations; it does not create golden images.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html",
+    referenceLabel: "What is EC2 Image Builder",
+    consoleUrl: "https://console.aws.amazon.com/imagebuilder/home#/pipelines",
+    consoleLabel: "EC2 Image Builder > Image pipelines",
+    diagram: `flowchart LR
+  Base[Base Amazon Linux AMI] --> Build[Build Components - agents and patches]
+  Build --> Test[Test Components]
+  Test --> AMI[Hardened AMI]
+  AMI --> Dist[Distribute to Regions and Accounts]`,
+    cliExample: {
+      description: "List the image pipelines configured in the account",
+      command: "aws imagebuilder list-image-pipelines",
+      sampleOutput:
+        "{\n  \"requestId\": \"6a2f4c1e-1b9d-4e3a-9c77-2d8e0f5a1b23\",\n  \"imagePipelineList\": [\n    {\n      \"arn\": \"arn:aws:imagebuilder:us-east-1:123456789012:image-pipeline/hardened-al2023\",\n      \"name\": \"hardened-al2023\",\n      \"platform\": \"Linux\",\n      \"status\": \"ENABLED\",\n      \"schedule\": {\n        \"scheduleExpression\": \"cron(0 2 1 * ? *)\",\n        \"pipelineExecutionStartCondition\": \"EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE\"\n      },\n      \"dateCreated\": \"2026-01-14T08:30:11.000Z\",\n      \"dateLastRun\": \"2026-09-01T02:00:04.000Z\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech69",
+    domain: "cloud-technology-and-services",
+    text: "A developer wants to deploy a containerized web API directly from a source code repository or container image and have AWS automatically build, deploy, load balance, scale, and secure it with HTTPS, without configuring VPCs, clusters, or load balancers. Which service is the BEST fit?",
+    options: [
+      { id: "a", text: "AWS App Runner" },
+      { id: "b", text: "Amazon EKS" },
+      { id: "c", text: "Amazon EC2 with an Auto Scaling group" },
+      { id: "d", text: "AWS Batch" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS App Runner is a fully managed service that takes source code or a container image and provides a running, auto-scaled, HTTPS-enabled web service with no infrastructure to configure.",
+    optionRationale: {
+      a: "App Runner builds and deploys web applications and APIs from source or an image, handling load balancing, scaling, TLS, and networking automatically.",
+      b: "EKS gives full Kubernetes control but requires you to manage clusters, node groups, ingress, and manifests, which is far more configuration than needed.",
+      c: "EC2 with Auto Scaling requires you to build AMIs, configure load balancers, and manage operating systems.",
+      d: "AWS Batch runs batch computing jobs to completion; it is not for long-running HTTP web services.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html",
+    referenceLabel: "What is AWS App Runner",
+    consoleUrl: "https://console.aws.amazon.com/apprunner/home#/services",
+    consoleLabel: "App Runner > Services",
+    diagram: `flowchart LR
+  Src[GitHub Repo or ECR Image] --> AR[AWS App Runner]
+  AR --> Build[Automatic Build]
+  AR --> Deploy[Managed Deployment]
+  AR --> Scale[Auto Scaling and Load Balancing]
+  AR --> HTTPS[HTTPS Endpoint]`,
+    cliExample: {
+      description: "List App Runner services in the Region",
+      command: "aws apprunner list-services",
+      sampleOutput:
+        "{\n  \"ServiceSummaryList\": [\n    {\n      \"ServiceName\": \"orders-api\",\n      \"ServiceId\": \"8fe1e10304f84fd2b0df550fe98593f7\",\n      \"ServiceArn\": \"arn:aws:apprunner:us-east-1:123456789012:service/orders-api/8fe1e10304f84fd2b0df550fe98593f7\",\n      \"ServiceUrl\": \"abc123xyz.us-east-1.awsapprunner.com\",\n      \"CreatedAt\": \"2026-03-02T10:15:42Z\",\n      \"UpdatedAt\": \"2026-09-10T16:20:05Z\",\n      \"Status\": \"RUNNING\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech70",
+    domain: "cloud-technology-and-services",
+    text: "A compliance team must store financial records in Amazon S3 so that no user, including the account root user, can delete or overwrite the objects for a mandatory seven-year retention period. Which S3 feature meets this write-once-read-many (WORM) requirement?",
+    options: [
+      { id: "a", text: "S3 Versioning" },
+      { id: "b", text: "S3 Object Lock in compliance mode" },
+      { id: "c", text: "S3 Lifecycle expiration rules" },
+      { id: "d", text: "S3 Transfer Acceleration" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "S3 Object Lock in compliance mode enforces a retention period during which an object version cannot be overwritten or deleted by any user, including the root user, satisfying WORM regulatory requirements.",
+    optionRationale: {
+      a: "Versioning keeps prior versions but a privileged user can still permanently delete versions; it does not enforce immutability.",
+      b: "Object Lock compliance mode makes object versions immutable for the retention period and prevents anyone, including root, from shortening it.",
+      c: "Lifecycle expiration rules delete objects after a period; they are the opposite of preventing deletion.",
+      d: "Transfer Acceleration speeds up uploads over long distances via edge locations; it has nothing to do with retention.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
+    referenceLabel: "Using S3 Object Lock",
+    consoleUrl: "https://s3.console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets > Properties > Object Lock",
+    diagram: `flowchart LR
+  Rec[Financial Record Object] --> Lock[Object Lock Compliance Mode]
+  Lock --> Ret[Retain Until 2033]
+  User[Any User incl Root] -- Delete or Overwrite --> Deny[Denied Until Retention Expires]`,
+    cliExample: {
+      description: "Read the Object Lock configuration of a bucket",
+      command: "aws s3api get-object-lock-configuration --bucket finance-records-123456789012",
+      sampleOutput:
+        "{\n  \"ObjectLockConfiguration\": {\n    \"ObjectLockEnabled\": \"Enabled\",\n    \"Rule\": {\n      \"DefaultRetention\": {\n        \"Mode\": \"COMPLIANCE\",\n        \"Years\": 7\n      }\n    }\n  }\n}",
+    },
+  },
+  {
+    id: "tech71",
+    domain: "cloud-technology-and-services",
+    text: "A company must retain backups for regulatory reasons for ten years and expects to access them almost never. Cost must be as low as possible, and a retrieval time of up to 12 hours is acceptable. Which Amazon S3 storage class should be used?",
+    options: [
+      { id: "a", text: "S3 Glacier Instant Retrieval" },
+      { id: "b", text: "S3 Standard-IA" },
+      { id: "c", text: "S3 Glacier Deep Archive" },
+      { id: "d", text: "S3 One Zone-IA" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "S3 Glacier Deep Archive is the lowest-cost S3 storage class, designed for data retained 7 to 10 years or more with standard retrieval within 12 hours.",
+    optionRationale: {
+      a: "Glacier Instant Retrieval provides millisecond access for rarely accessed data but costs more than Deep Archive; the fast access is not required here.",
+      b: "Standard-IA is for infrequently accessed data needing millisecond access and is considerably more expensive than archive classes.",
+      c: "Glacier Deep Archive offers the lowest storage price per GB with retrieval times of 12 hours standard or 48 hours bulk, matching the long-term regulatory use case.",
+      d: "One Zone-IA stores data in a single Availability Zone with millisecond access; it is neither the cheapest nor appropriate for critical regulatory backups.",
+    },
+    referenceUrl: "https://aws.amazon.com/s3/storage-classes/",
+    referenceLabel: "Amazon S3 storage classes",
+    consoleUrl: "https://s3.console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
+    diagram: `flowchart LR
+  Std[S3 Standard - ms access] --> IA[Standard-IA - ms access lower cost]
+  IA --> GIR[Glacier Instant Retrieval - ms access]
+  GIR --> GFR[Glacier Flexible Retrieval - minutes to hours]
+  GFR --> GDA[Glacier Deep Archive - 12 hours lowest cost]`,
+    cliExample: {
+      description: "Upload a backup archive directly into the Deep Archive storage class",
+      command: "aws s3api put-object --bucket regulatory-backups-123456789012 --key 2026/ledger-2026-09.tar.gz --body ledger-2026-09.tar.gz --storage-class DEEP_ARCHIVE",
+      sampleOutput:
+        "{\n  \"ETag\": \"\\\"9b2cf535f27731c974343645a3985328\\\"\",\n  \"ServerSideEncryption\": \"AES256\"\n}",
+    },
+  },
+  {
+    id: "tech72",
+    domain: "cloud-technology-and-services",
+    text: "A database on an EC2 instance needs an EBS volume delivering 50,000 IOPS with sub-millisecond latency and the highest durability available. Which EBS volume type should be chosen?",
+    options: [
+      { id: "a", text: "General Purpose SSD (gp3)" },
+      { id: "b", text: "Provisioned IOPS SSD (io2 Block Express)" },
+      { id: "c", text: "Throughput Optimized HDD (st1)" },
+      { id: "d", text: "Cold HDD (sc1)" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "io2 Block Express volumes provide up to 256,000 IOPS, sub-millisecond latency, and 99.999% durability, making them the choice for the most demanding, I/O-intensive databases.",
+    optionRationale: {
+      a: "gp3 is a cost-effective general purpose volume but tops out at 16,000 IOPS and offers 99.8 to 99.9% durability.",
+      b: "io2 Block Express is designed for mission-critical databases needing tens of thousands of IOPS with consistent low latency and 99.999% durability.",
+      c: "st1 is a low-cost HDD optimized for sequential throughput, such as log processing, not high random IOPS.",
+      d: "sc1 is the lowest-cost HDD for infrequently accessed data and cannot deliver high IOPS.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html",
+    referenceLabel: "Amazon EBS volume types",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Volumes:",
+    consoleLabel: "EC2 > Elastic Block Store > Volumes",
+    diagram: `flowchart TD
+  Need[Workload Needs] --> Q1{Random IOPS above 16000?}
+  Q1 -- Yes --> IO2[io2 Block Express]
+  Q1 -- No --> Q2{Sequential big data throughput?}
+  Q2 -- Yes --> ST1[st1 Throughput HDD]
+  Q2 -- No --> GP3[gp3 General Purpose SSD]`,
+    cliExample: {
+      description: "Create a 500 GiB io2 volume with 50,000 provisioned IOPS",
+      command: "aws ec2 create-volume --availability-zone us-east-1a --size 500 --volume-type io2 --iops 50000",
+      sampleOutput:
+        "{\n  \"AvailabilityZone\": \"us-east-1a\",\n  \"CreateTime\": \"2026-09-15T09:12:44.000Z\",\n  \"Encrypted\": false,\n  \"Size\": 500,\n  \"State\": \"creating\",\n  \"VolumeId\": \"vol-0f1e2d3c4b5a69788\",\n  \"Iops\": 50000,\n  \"VolumeType\": \"io2\",\n  \"MultiAttachEnabled\": false\n}",
+    },
+  },
+  {
+    id: "tech73",
+    domain: "cloud-technology-and-services",
+    text: "A company runs EC2 instances, RDS databases, DynamoDB tables, and EFS file systems across several accounts. It wants a single service to define backup schedules and retention policies centrally and apply them to all of these resources. Which service should it use?",
+    options: [
+      { id: "a", text: "Amazon EBS snapshots" },
+      { id: "b", text: "AWS Backup" },
+      { id: "c", text: "AWS Storage Gateway" },
+      { id: "d", text: "Amazon S3 Cross-Region Replication" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS Backup is a fully managed, policy-based service that centralizes and automates backups across many AWS services and accounts using backup plans and vaults.",
+    optionRationale: {
+      a: "EBS snapshots protect only EBS volumes and must be scheduled separately; they do not cover RDS, DynamoDB, or EFS.",
+      b: "AWS Backup lets you create backup plans with schedules and retention, assign resources by tag or ARN, and manage them centrally across accounts via AWS Organizations.",
+      c: "Storage Gateway connects on-premises storage to AWS; it is not a backup policy manager for AWS resources.",
+      d: "S3 Cross-Region Replication copies S3 objects only and does not back up compute or database resources.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html",
+    referenceLabel: "What is AWS Backup",
+    consoleUrl: "https://console.aws.amazon.com/backup/home#/backupplan",
+    consoleLabel: "AWS Backup > Backup plans",
+    diagram: `flowchart LR
+  Plan[AWS Backup Plan - schedule and retention] --> EC2[EC2 and EBS]
+  Plan --> RDS[RDS]
+  Plan --> DDB[DynamoDB]
+  Plan --> EFS[EFS]
+  EC2 --> Vault[Backup Vault]
+  RDS --> Vault
+  DDB --> Vault
+  EFS --> Vault`,
+    cliExample: {
+      description: "List the backup plans defined in the account",
+      command: "aws backup list-backup-plans",
+      sampleOutput:
+        "{\n  \"BackupPlansList\": [\n    {\n      \"BackupPlanArn\": \"arn:aws:backup:us-east-1:123456789012:backup-plan:1f2e3d4c-5b6a-4789-a0b1-c2d3e4f5a6b7\",\n      \"BackupPlanId\": \"1f2e3d4c-5b6a-4789-a0b1-c2d3e4f5a6b7\",\n      \"CreationDate\": \"2026-02-20T11:05:30.000Z\",\n      \"VersionId\": \"ZmU5ZTgwNTAtNjE4Ni00YzA2LWI4ZjItNjA2Mzc3OWQ2Zjg4\",\n      \"BackupPlanName\": \"daily-35day-retention\",\n      \"LastExecutionDate\": \"2026-09-16T05:00:12.000Z\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech74",
+    domain: "cloud-technology-and-services",
+    text: "A company wants to retire its on-premises tape backup infrastructure but its backup software only knows how to write to tape libraries. It wants to keep the software unchanged and store the backups in Amazon S3 and S3 Glacier. Which AWS Storage Gateway type should it deploy?",
+    options: [
+      { id: "a", text: "Amazon S3 File Gateway" },
+      { id: "b", text: "Volume Gateway in cached mode" },
+      { id: "c", text: "Tape Gateway" },
+      { id: "d", text: "Amazon FSx File Gateway" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Tape Gateway presents a virtual tape library (VTL) to existing backup applications, storing virtual tapes in S3 and archiving them to S3 Glacier or Deep Archive.",
+    optionRationale: {
+      a: "S3 File Gateway exposes S3 as NFS or SMB file shares; backup software expecting a tape library cannot use it without changes.",
+      b: "Volume Gateway presents iSCSI block volumes, not a tape interface.",
+      c: "Tape Gateway emulates a physical tape library with iSCSI-based virtual tape drives, so backup applications work unchanged while tapes land in S3 and Glacier.",
+      d: "FSx File Gateway provides low-latency on-premises access to FSx for Windows File Server shares; it is not a tape interface.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/storagegateway/latest/tgw/WhatIsStorageGateway.html",
+    referenceLabel: "What is Tape Gateway",
+    consoleUrl: "https://console.aws.amazon.com/storagegateway/home#/gateways",
+    consoleLabel: "Storage Gateway > Gateways",
+    diagram: `flowchart LR
+  BK[On-Prem Backup Software] -- iSCSI VTL --> TG[Tape Gateway]
+  TG --> S3[Virtual Tapes in S3]
+  S3 --> GL[Archived Tapes in S3 Glacier Deep Archive]`,
+    cliExample: {
+      description: "List the virtual tapes managed by a Tape Gateway",
+      command: "aws storagegateway list-tapes",
+      sampleOutput:
+        "{\n  \"TapeInfos\": [\n    {\n      \"TapeARN\": \"arn:aws:storagegateway:us-east-1:123456789012:tape/TAPE0A1B2C\",\n      \"TapeBarcode\": \"TAPE0A1B2C\",\n      \"TapeSizeInBytes\": 107374182400,\n      \"TapeStatus\": \"AVAILABLE\",\n      \"GatewayARN\": \"arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12A3456B\",\n      \"PoolId\": \"GLACIER\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech75",
+    domain: "cloud-technology-and-services",
+    text: "A global retail application stores shopping cart data in Amazon DynamoDB. Users in North America, Europe, and Asia must all experience single-digit millisecond reads and writes, and the application must keep working in the other Regions if one Region becomes unavailable. Which DynamoDB feature meets these requirements?",
+    options: [
+      { id: "a", text: "DynamoDB Accelerator (DAX)" },
+      { id: "b", text: "DynamoDB global tables" },
+      { id: "c", text: "DynamoDB on-demand capacity mode" },
+      { id: "d", text: "DynamoDB point-in-time recovery" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "DynamoDB global tables provide a fully managed, multi-Region, multi-active database that replicates data across Regions so each Region can read and write locally with automatic failover.",
+    optionRationale: {
+      a: "DAX is an in-memory cache that speeds reads within a single Region; it does not replicate data across Regions or provide Regional failover.",
+      b: "Global tables replicate the table to multiple Regions with active-active writes, delivering low local latency and continued operation if a Region goes down.",
+      c: "On-demand mode handles unpredictable throughput without capacity planning but operates within one Region.",
+      d: "Point-in-time recovery restores a table to a prior state after accidental writes or deletes; it does not address multi-Region latency or availability.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html",
+    referenceLabel: "DynamoDB global tables",
+    consoleUrl: "https://console.aws.amazon.com/dynamodbv2/home#tables",
+    consoleLabel: "DynamoDB > Tables > Global tables",
+    diagram: `flowchart LR
+  US[Users in North America] --> T1[Cart Table us-east-1]
+  EU[Users in Europe] --> T2[Cart Table eu-west-1]
+  AP[Users in Asia] --> T3[Cart Table ap-southeast-1]
+  T1 <--> T2
+  T2 <--> T3
+  T1 <--> T3`,
+    cliExample: {
+      description: "Describe the replica Regions of a global table",
+      command: "aws dynamodb describe-table --table-name ShoppingCart --query 'Table.Replicas'",
+      sampleOutput:
+        "[\n  {\n    \"RegionName\": \"eu-west-1\",\n    \"ReplicaStatus\": \"ACTIVE\"\n  },\n  {\n    \"RegionName\": \"ap-southeast-1\",\n    \"ReplicaStatus\": \"ACTIVE\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech76",
+    domain: "cloud-technology-and-services",
+    text: "A new PostgreSQL-compatible database is needed for an internal application whose usage is sporadic, with hours of inactivity followed by short bursts of heavy traffic. The team wants the database to automatically scale its capacity up and down, and to pay only for the capacity consumed. Which option is the BEST fit?",
+    options: [
+      { id: "a", text: "Amazon Aurora Serverless" },
+      { id: "b", text: "Amazon RDS for PostgreSQL on a Reserved Instance" },
+      { id: "c", text: "Amazon Redshift" },
+      { id: "d", text: "Amazon DynamoDB" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Aurora Serverless automatically adjusts database capacity in fine-grained increments based on demand and bills per Aurora Capacity Unit consumed, ideal for intermittent and unpredictable workloads.",
+    optionRationale: {
+      a: "Aurora Serverless is an on-demand, auto-scaling configuration of Aurora that scales capacity to match usage and charges only for what is used.",
+      b: "A Reserved Instance commits to a fixed instance size for one or three years, which wastes money during the long idle periods.",
+      c: "Redshift is a data warehouse for analytics, not a transactional PostgreSQL database for an application.",
+      d: "DynamoDB is a NoSQL key-value store and does not provide PostgreSQL compatibility.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html",
+    referenceLabel: "Using Aurora Serverless v2",
+    consoleUrl: "https://console.aws.amazon.com/rds/home#databases:",
+    consoleLabel: "RDS > Databases",
+    diagram: `flowchart LR
+  Idle[Hours of Low Traffic] --> Min[Aurora Serverless at Minimum ACUs]
+  Burst[Sudden Traffic Burst] --> Max[Scales Up ACUs in Seconds]
+  Max --> Down[Scales Back Down When Idle]
+  Down --> Bill[Pay Only for ACUs Consumed]`,
+    cliExample: {
+      description: "Show the Serverless v2 capacity range configured on an Aurora cluster",
+      command: "aws rds describe-db-clusters --db-cluster-identifier internal-app-cluster --query 'DBClusters[0].{Engine:Engine,Scaling:ServerlessV2ScalingConfiguration}'",
+      sampleOutput:
+        "{\n  \"Engine\": \"aurora-postgresql\",\n  \"Scaling\": {\n    \"MinCapacity\": 0.5,\n    \"MaxCapacity\": 16.0\n  }\n}",
+    },
+  },
+  {
+    id: "tech77",
+    domain: "cloud-technology-and-services",
+    text: "Which TWO of the following statements correctly describe purpose-built AWS database services?",
+    options: [
+      { id: "a", text: "Amazon Timestream is a serverless time series database for IoT and operational metrics" },
+      { id: "b", text: "Amazon Neptune is a fully managed data warehouse for petabyte-scale SQL analytics" },
+      { id: "c", text: "Amazon DocumentDB is a MongoDB-compatible document database" },
+      { id: "d", text: "Amazon Keyspaces is a managed Redis-compatible in-memory database" },
+    ],
+    correctOptionIds: ["a", "c"],
+    explanation: "Timestream is built for time series data and DocumentDB (with MongoDB compatibility) is built for JSON document workloads; Neptune is a graph database and Keyspaces is Apache Cassandra-compatible.",
+    optionRationale: {
+      a: "Timestream is a fast, scalable, serverless time series database designed for IoT telemetry, DevOps metrics, and similar time-stamped data.",
+      b: "Neptune is a managed graph database for highly connected data; Amazon Redshift is the data warehouse service.",
+      c: "DocumentDB (with MongoDB compatibility) is a managed document database that supports MongoDB workloads and drivers.",
+      d: "Keyspaces is a managed Apache Cassandra-compatible wide-column database; MemoryDB and ElastiCache are the Redis-compatible services.",
+    },
+    referenceUrl: "https://aws.amazon.com/products/databases/",
+    referenceLabel: "AWS cloud databases",
+    consoleUrl: "https://console.aws.amazon.com/timestream/home",
+    consoleLabel: "Amazon Timestream",
+    diagram: `flowchart TD
+  DB[Purpose-Built Databases] --> TS[Timestream - time series]
+  DB --> Doc[DocumentDB - JSON documents]
+  DB --> Nep[Neptune - graph]
+  DB --> Key[Keyspaces - Cassandra wide column]
+  DB --> Mem[MemoryDB - Redis in memory]`,
+    cliExample: {
+      description: "List the Timestream databases in the account",
+      command: "aws timestream-write list-databases",
+      sampleOutput:
+        "{\n  \"Databases\": [\n    {\n      \"Arn\": \"arn:aws:timestream:us-east-1:123456789012:database/sensor-metrics\",\n      \"DatabaseName\": \"sensor-metrics\",\n      \"TableCount\": 3,\n      \"KmsKeyId\": \"arn:aws:kms:us-east-1:123456789012:key/1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d\",\n      \"CreationTime\": \"2026-04-08T13:22:10.512000Z\",\n      \"LastUpdatedTime\": \"2026-04-08T13:22:10.512000Z\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech78",
+    domain: "cloud-technology-and-services",
+    text: "An analytics team wants to capture clickstream events from a website and have them automatically buffered, compressed, and delivered into Amazon S3 and Amazon Redshift without writing any consumer application or managing shards. Which service should be used?",
+    options: [
+      { id: "a", text: "Amazon Kinesis Data Streams" },
+      { id: "b", text: "Amazon Data Firehose" },
+      { id: "c", text: "Amazon SQS" },
+      { id: "d", text: "Amazon Managed Streaming for Apache Kafka (MSK)" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Amazon Data Firehose (formerly Kinesis Data Firehose) is a fully managed delivery service that loads streaming data into destinations such as S3, Redshift, and OpenSearch with automatic buffering, transformation, and compression.",
+    optionRationale: {
+      a: "Kinesis Data Streams captures streaming data but requires you to provision shards and write or run consumers to process and deliver the data.",
+      b: "Data Firehose requires no consumer code and no shard management; you choose a destination and it handles delivery, batching, compression, and optional transformation.",
+      c: "SQS is a message queue for decoupling applications; it does not deliver data into S3 or Redshift.",
+      d: "MSK is a managed Apache Kafka cluster that still requires producers, consumers, and cluster sizing.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html",
+    referenceLabel: "What is Amazon Data Firehose",
+    consoleUrl: "https://console.aws.amazon.com/firehose/home#/streams",
+    consoleLabel: "Amazon Data Firehose > Firehose streams",
+    diagram: `flowchart LR
+  Web[Website Clickstream] --> FH[Amazon Data Firehose]
+  FH --> Buf[Buffer and Compress]
+  Buf --> S3[Amazon S3]
+  Buf --> RS[Amazon Redshift]`,
+    cliExample: {
+      description: "List Firehose delivery streams in the Region",
+      command: "aws firehose list-delivery-streams",
+      sampleOutput:
+        "{\n  \"DeliveryStreamNames\": [\n    \"clickstream-to-s3\",\n    \"clickstream-to-redshift\"\n  ],\n  \"HasMoreDeliveryStreams\": false\n}",
+    },
+  },
+  {
+    id: "tech79",
+    domain: "cloud-technology-and-services",
+    text: "A billing application places order-processing messages on a queue. Messages for the same customer must be processed strictly in the order they were sent, and each message must be delivered exactly once. Which Amazon SQS queue type should be used?",
+    options: [
+      { id: "a", text: "Standard queue" },
+      { id: "b", text: "FIFO queue" },
+      { id: "c", text: "Dead-letter queue" },
+      { id: "d", text: "Delay queue" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "SQS FIFO queues preserve the exact order in which messages are sent and received within a message group and provide exactly-once processing through deduplication.",
+    optionRationale: {
+      a: "Standard queues offer nearly unlimited throughput but provide best-effort ordering and at-least-once delivery, so duplicates and reordering are possible.",
+      b: "FIFO queues guarantee first-in-first-out delivery per message group and exactly-once processing, which is exactly what ordered billing requires.",
+      c: "A dead-letter queue stores messages that could not be processed successfully; it is a failure-handling pattern, not an ordering guarantee.",
+      d: "A delay queue postpones delivery of new messages for a period; it does not guarantee ordering or deduplication.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-fifo-queues.html",
+    referenceLabel: "Amazon SQS FIFO queues",
+    consoleUrl: "https://console.aws.amazon.com/sqs/v3/home#/queues",
+    consoleLabel: "Amazon SQS > Queues",
+    diagram: `flowchart LR
+  P[Producer] -- msg1 msg2 msg3 --> Q[SQS FIFO Queue orders.fifo]
+  Q -- msg1 then msg2 then msg3 --> C[Consumer]
+  Q --> D[Deduplication - exactly once]`,
+    cliExample: {
+      description: "Create a FIFO queue with content-based deduplication enabled",
+      command: "aws sqs create-queue --queue-name orders.fifo --attributes FifoQueue=true,ContentBasedDeduplication=true",
+      sampleOutput:
+        "{\n  \"QueueUrl\": \"https://sqs.us-east-1.amazonaws.com/123456789012/orders.fifo\"\n}",
+    },
+  },
+  {
+    id: "tech80",
+    domain: "cloud-technology-and-services",
+    text: "A company hosts a web application in two Regions. It wants Amazon Route 53 to send all traffic to the primary Region and automatically redirect users to the secondary Region only when health checks show the primary is unhealthy. Which Route 53 routing policy should be used?",
+    options: [
+      { id: "a", text: "Weighted routing" },
+      { id: "b", text: "Geolocation routing" },
+      { id: "c", text: "Failover routing" },
+      { id: "d", text: "Simple routing" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Failover routing is designed for active-passive setups: Route 53 routes to the primary record while its health check passes and switches to the secondary record when it fails.",
+    optionRationale: {
+      a: "Weighted routing splits traffic between resources by assigned proportions; it is for A/B tests or gradual migrations, not active-passive failover.",
+      b: "Geolocation routing directs users based on their geographic location, not on the health of an endpoint.",
+      c: "Failover routing uses health checks to send traffic to a primary resource and fall back to a secondary resource only when the primary is unhealthy.",
+      d: "Simple routing returns a single resource with no health-check-based failover.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html",
+    referenceLabel: "Choosing a Route 53 routing policy",
+    consoleUrl: "https://console.aws.amazon.com/route53/v2/hostedzones",
+    consoleLabel: "Route 53 > Hosted zones",
+    diagram: `flowchart LR
+  U[Users] --> R53[Route 53 Failover Record]
+  R53 -- Health check OK --> P[Primary Region us-east-1]
+  R53 -- Primary unhealthy --> S[Secondary Region us-west-2]
+  HC[Route 53 Health Check] --> P`,
+    cliExample: {
+      description: "List the health checks used by failover records",
+      command: "aws route53 list-health-checks",
+      sampleOutput:
+        "{\n  \"HealthChecks\": [\n    {\n      \"Id\": \"3d4e5f6a-7b8c-4d9e-a0f1-b2c3d4e5f6a7\",\n      \"CallerReference\": \"primary-web-2026-09-01\",\n      \"HealthCheckConfig\": {\n        \"FullyQualifiedDomainName\": \"primary.example.com\",\n        \"Port\": 443,\n        \"Type\": \"HTTPS\",\n        \"ResourcePath\": \"/health\",\n        \"RequestInterval\": 30,\n        \"FailureThreshold\": 3\n      },\n      \"HealthCheckVersion\": 1\n    }\n  ],\n  \"IsTruncated\": false,\n  \"MaxItems\": \"100\"\n}",
+    },
+  },
+  {
+    id: "tech81",
+    domain: "cloud-technology-and-services",
+    text: "An application in a private subnet needs to call Amazon S3 and a third-party SaaS API hosted in another AWS account. The security team requires that this traffic never traverse the public internet and that no internet gateway or NAT gateway be used. Which service provides private connectivity to these services from within the VPC?",
+    options: [
+      { id: "a", text: "AWS PrivateLink (VPC endpoints)" },
+      { id: "b", text: "VPC peering" },
+      { id: "c", text: "AWS Site-to-Site VPN" },
+      { id: "d", text: "An internet gateway with restrictive security groups" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS PrivateLink creates VPC endpoints that provide private, elastic network interfaces inside your VPC for AWS services and for services hosted by other accounts, keeping traffic on the AWS network.",
+    optionRationale: {
+      a: "PrivateLink powers interface and gateway VPC endpoints so traffic to S3 and to partner-hosted endpoint services stays private without an internet or NAT gateway.",
+      b: "VPC peering connects two VPCs but exposes the whole network to each other and is not how you privately reach AWS services or SaaS endpoint services.",
+      c: "Site-to-Site VPN connects an on-premises network to a VPC over an encrypted tunnel; it does not provide private access to AWS services from inside the VPC.",
+      d: "An internet gateway by definition sends traffic over the public internet, which violates the requirement.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
+    referenceLabel: "What is AWS PrivateLink",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#Endpoints:",
+    consoleLabel: "VPC > Endpoints",
+    diagram: `flowchart LR
+  App[App in Private Subnet] --> GW[Gateway Endpoint]
+  GW --> S3[Amazon S3]
+  App --> IF[Interface Endpoint ENI]
+  IF -- PrivateLink --> SaaS[Partner Endpoint Service in another account]`,
+    cliExample: {
+      description: "List the VPC endpoints in a VPC",
+      command: "aws ec2 describe-vpc-endpoints --filters Name=vpc-id,Values=vpc-0a1b2c3d4e5f67890 --query 'VpcEndpoints[].{Id:VpcEndpointId,Service:ServiceName,Type:VpcEndpointType,State:State}'",
+      sampleOutput:
+        "[\n  {\n    \"Id\": \"vpce-0123456789abcdef0\",\n    \"Service\": \"com.amazonaws.us-east-1.s3\",\n    \"Type\": \"Gateway\",\n    \"State\": \"available\"\n  },\n  {\n    \"Id\": \"vpce-0fedcba9876543210\",\n    \"Service\": \"com.amazonaws.vpce.us-east-1.vpce-svc-0a9b8c7d6e5f4a3b2\",\n    \"Type\": \"Interface\",\n    \"State\": \"available\"\n  }\n]",
+    },
+  },
+  {
+    id: "tech82",
+    domain: "cloud-technology-and-services",
+    text: "An operations team stores application logs in Amazon CloudWatch Logs. During an incident they need to quickly search millions of log events across several log groups using a purpose-built query language to find error patterns and aggregate results, without exporting the logs elsewhere. Which feature should they use?",
+    options: [
+      { id: "a", text: "CloudWatch Logs Insights" },
+      { id: "b", text: "Amazon Athena" },
+      { id: "c", text: "AWS CloudTrail Lake" },
+      { id: "d", text: "CloudWatch metric alarms" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "CloudWatch Logs Insights lets you interactively query log data stored in CloudWatch Logs with a purpose-built query language, including filtering, statistics, and visualizations across multiple log groups.",
+    optionRationale: {
+      a: "Logs Insights runs queries directly against CloudWatch log groups, returning matches and aggregations in seconds during troubleshooting.",
+      b: "Athena queries data in Amazon S3, so logs would first have to be exported from CloudWatch Logs to S3.",
+      c: "CloudTrail Lake is for querying CloudTrail API activity events, not application logs.",
+      d: "Metric alarms watch metrics and trigger actions when thresholds are crossed; they do not search log contents.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html",
+    referenceLabel: "Analyzing log data with CloudWatch Logs Insights",
+    consoleUrl: "https://console.aws.amazon.com/cloudwatch/home#logsV2:logs-insights",
+    consoleLabel: "CloudWatch > Logs > Logs Insights",
+    diagram: `flowchart LR
+  App[Application] --> LG[CloudWatch Log Groups]
+  LG --> LI[Logs Insights Query]
+  LI --> Res[Filtered and Aggregated Results]
+  Res --> Ops[Operations Team]`,
+    cliExample: {
+      description: "Start a Logs Insights query that counts ERROR lines per minute",
+      command: "aws logs start-query --log-group-name /app/orders --start-time 1789430400 --end-time 1789434000 --query-string 'filter @message like /ERROR/ | stats count() by bin(1m)'",
+      sampleOutput:
+        "{\n  \"queryId\": \"b7c2e9f4-3a1d-4c5e-8f6a-9d0b1c2e3f4a\"\n}",
+    },
+  },
+  {
+    id: "tech83",
+    domain: "cloud-technology-and-services",
+    text: "A company with 60 AWS accounts managed by AWS Organizations wants to deploy the same CloudFormation template containing baseline IAM roles and CloudTrail configuration to every account in three Regions, and automatically apply it to new accounts that join the organization. Which CloudFormation feature should be used?",
+    options: [
+      { id: "a", text: "CloudFormation change sets" },
+      { id: "b", text: "CloudFormation StackSets" },
+      { id: "c", text: "CloudFormation drift detection" },
+      { id: "d", text: "Nested stacks" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "CloudFormation StackSets lets you create, update, and delete stacks across multiple accounts and Regions from a single operation, with service-managed permissions and automatic deployment to new organization accounts.",
+    optionRationale: {
+      a: "Change sets preview the changes a stack update would make in a single stack; they do not deploy across accounts.",
+      b: "StackSets extend a template to many accounts and Regions at once and can auto-deploy to accounts added to targeted organizational units.",
+      c: "Drift detection reports whether a stack's resources have been changed outside CloudFormation; it does not deploy anything.",
+      d: "Nested stacks compose reusable templates within one parent stack in a single account and Region.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html",
+    referenceLabel: "Working with AWS CloudFormation StackSets",
+    consoleUrl: "https://console.aws.amazon.com/cloudformation/home#/stacksets",
+    consoleLabel: "CloudFormation > StackSets",
+    diagram: `flowchart TD
+  T[Baseline Template] --> SS[CloudFormation StackSet]
+  SS --> A1[Account 1 - 3 Regions]
+  SS --> A2[Account 2 - 3 Regions]
+  SS --> A60[Account 60 - 3 Regions]
+  New[New Account Joins OU] --> SS`,
+    cliExample: {
+      description: "List the stack instances deployed by a StackSet",
+      command: "aws cloudformation list-stack-instances --stack-set-name org-baseline --max-results 2",
+      sampleOutput:
+        "{\n  \"Summaries\": [\n    {\n      \"StackSetId\": \"org-baseline:4a5b6c7d-8e9f-4a0b-b1c2-d3e4f5a6b7c8\",\n      \"Region\": \"us-east-1\",\n      \"Account\": \"123456789012\",\n      \"StackId\": \"arn:aws:cloudformation:us-east-1:123456789012:stack/StackSet-org-baseline-1a2b3c4d/5e6f7a8b-9c0d-4e1f-a2b3-c4d5e6f7a8b9\",\n      \"Status\": \"CURRENT\",\n      \"StackInstanceStatus\": {\n        \"DetailedStatus\": \"SUCCEEDED\"\n      },\n      \"OrganizationalUnitId\": \"ou-abcd-11112222\",\n      \"LastOperationId\": \"7c8d9e0f-1a2b-4c3d-8e4f-5a6b7c8d9e0f\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech84",
+    domain: "cloud-technology-and-services",
+    text: "An operations engineer needs to run the same shell command on 200 EC2 instances at once to restart a service, without logging in to each instance over SSH and without opening any inbound ports. Which AWS Systems Manager capability should be used?",
+    options: [
+      { id: "a", text: "Parameter Store" },
+      { id: "b", text: "Run Command" },
+      { id: "c", text: "Inventory" },
+      { id: "d", text: "OpsCenter" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Systems Manager Run Command lets you remotely and securely execute commands or scripts on managed nodes at scale through the SSM Agent, with no inbound ports or SSH keys required.",
+    optionRationale: {
+      a: "Parameter Store provides hierarchical storage for configuration data and secrets; it does not execute commands.",
+      b: "Run Command targets managed instances by tag, resource group, or ID and executes documents such as AWS-RunShellScript across a fleet, returning the output centrally.",
+      c: "Inventory collects metadata about installed software and configuration on managed nodes; it does not run commands.",
+      d: "OpsCenter aggregates operational issues (OpsItems) for investigation; it does not execute fleet-wide commands.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html",
+    referenceLabel: "AWS Systems Manager Run Command",
+    consoleUrl: "https://console.aws.amazon.com/systems-manager/run-command",
+    consoleLabel: "Systems Manager > Run Command",
+    diagram: `flowchart LR
+  Eng[Operations Engineer] --> RC[Systems Manager Run Command]
+  RC -- AWS-RunShellScript --> I1[Instance 1 SSM Agent]
+  RC --> I2[Instance 2 SSM Agent]
+  RC --> I200[Instance 200 SSM Agent]
+  I1 --> Out[Central Command Output]`,
+    cliExample: {
+      description: "Send a shell command to all instances tagged with Role=web",
+      command: "aws ssm send-command --document-name AWS-RunShellScript --targets Key=tag:Role,Values=web --parameters commands='sudo systemctl restart nginx'",
+      sampleOutput:
+        "{\n  \"Command\": {\n    \"CommandId\": \"0e1f2a3b-4c5d-4e6f-8a7b-9c0d1e2f3a4b\",\n    \"DocumentName\": \"AWS-RunShellScript\",\n    \"Status\": \"Pending\",\n    \"StatusDetails\": \"Pending\",\n    \"RequestedDateTime\": \"2026-09-16T14:03:27.481000+00:00\",\n    \"Targets\": [\n      {\n        \"Key\": \"tag:Role\",\n        \"Values\": [\n          \"web\"\n        ]\n      }\n    ],\n    \"TargetCount\": 200,\n    \"CompletedCount\": 0,\n    \"ErrorCount\": 0\n  }\n}",
+    },
+  },
+  {
+    id: "tech85",
+    domain: "cloud-technology-and-services",
+    text: "A company wants to know about AWS service events that could affect its own resources, such as scheduled EC2 host maintenance or an ongoing Regional service issue, and be notified through its own account. Which AWS service provides this personalized view?",
+    options: [
+      { id: "a", text: "AWS Health Dashboard" },
+      { id: "b", text: "AWS Trusted Advisor" },
+      { id: "c", text: "Amazon CloudWatch" },
+      { id: "d", text: "AWS Config" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "The AWS Health Dashboard shows a personalized view of the health of AWS services that affect your account and resources, including scheduled changes and event notifications, and can trigger automation via EventBridge.",
+    optionRationale: {
+      a: "AWS Health provides account-specific event details, affected resources, and remediation guidance, alongside the public service health view.",
+      b: "Trusted Advisor gives best-practice recommendations for cost, performance, security, fault tolerance, and service limits; it does not report AWS service events.",
+      c: "CloudWatch monitors metrics and logs of your resources; it does not report AWS-side infrastructure events like host maintenance.",
+      d: "AWS Config records resource configurations and evaluates compliance; it is not a service health notification tool.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/health/latest/ug/what-is-aws-health.html",
+    referenceLabel: "What is AWS Health",
+    consoleUrl: "https://health.aws.amazon.com/health/home#/account/dashboard/open-issues",
+    consoleLabel: "AWS Health Dashboard > Your account health",
+    diagram: `flowchart LR
+  AWS[AWS Infrastructure Events] --> H[AWS Health Dashboard]
+  H --> Sched[Scheduled EC2 Host Maintenance]
+  H --> Issue[Regional Service Issue]
+  H --> EB[EventBridge Rule]
+  EB --> Notify[SNS Email to Ops Team]`,
+    cliExample: {
+      description: "Describe open AWS Health events affecting the account",
+      command: "aws health describe-events --filter eventStatusCodes=open --region us-east-1",
+      sampleOutput:
+        "{\n  \"events\": [\n    {\n      \"arn\": \"arn:aws:health:us-east-1::event/EC2/AWS_EC2_INSTANCE_REBOOT_MAINTENANCE_SCHEDULED/AWS_EC2_INSTANCE_REBOOT_MAINTENANCE_SCHEDULED_20260916\",\n      \"service\": \"EC2\",\n      \"eventTypeCode\": \"AWS_EC2_INSTANCE_REBOOT_MAINTENANCE_SCHEDULED\",\n      \"eventTypeCategory\": \"scheduledChange\",\n      \"region\": \"us-east-1\",\n      \"startTime\": \"2026-09-25T02:00:00+00:00\",\n      \"endTime\": \"2026-09-25T04:00:00+00:00\",\n      \"lastUpdatedTime\": \"2026-09-16T07:10:33+00:00\",\n      \"statusCode\": \"open\",\n      \"eventScopeCode\": \"ACCOUNT_SPECIFIC\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech86",
+    domain: "cloud-technology-and-services",
+    text: "A developer needs to improve a codebase using a generative AI assistant that suggests code in the IDE, explains existing code, and can answer questions about AWS services and best practices. Which AWS service is designed for this purpose?",
+    options: [
+      { id: "a", text: "Amazon Q Developer" },
+      { id: "b", text: "Amazon Comprehend" },
+      { id: "c", text: "Amazon Personalize" },
+      { id: "d", text: "AWS Device Farm" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Amazon Q Developer is a generative AI-powered assistant for software development that provides code suggestions, explanations, and AWS expertise inside IDEs, the CLI, and the AWS Management Console.",
+    optionRationale: {
+      a: "Amazon Q Developer offers inline code completion, chat-based code explanation and transformation, and answers about AWS services directly in the developer's tools.",
+      b: "Comprehend is a natural language processing service that extracts sentiment, entities, and key phrases from text; it is not a coding assistant.",
+      c: "Personalize builds real-time recommendation systems for applications; it does not help write code.",
+      d: "Device Farm tests mobile and web applications on real devices in the cloud; it does not generate or explain code.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/what-is.html",
+    referenceLabel: "What is Amazon Q Developer",
+    consoleUrl: "https://console.aws.amazon.com/amazonq/developer/home",
+    consoleLabel: "Amazon Q Developer",
+    diagram: `flowchart LR
+  Dev[Developer in IDE] --> Q[Amazon Q Developer]
+  Q --> Sug[Inline Code Suggestions]
+  Q --> Exp[Explain and Refactor Code]
+  Q --> AWSQ[Answers About AWS Services]`,
+    cliExample: {
+      description: "Ask Amazon Q Developer CLI to translate a natural language request into a shell command",
+      command: "q translate \"list all S3 buckets created this year\"",
+      sampleOutput:
+        "{\n  \"suggestedCommand\": \"aws s3api list-buckets --query 'Buckets[?CreationDate>=`2026-01-01`].[Name,CreationDate]' --output table\",\n  \"explanation\": \"Lists buckets and filters on CreationDate using a JMESPath expression.\"\n}",
+    },
+  },
+  {
+    id: "tech87",
+    domain: "cloud-technology-and-services",
+    text: "Which TWO of the following statements about AWS end-user computing and communication services are correct?",
+    options: [
+      { id: "a", text: "Amazon WorkSpaces provides managed, persistent virtual desktops (Desktop-as-a-Service) that users access from many device types" },
+      { id: "b", text: "Amazon Connect is a service for building physical network connections from on-premises data centers to AWS" },
+      { id: "c", text: "Amazon AppStream 2.0 streams individual desktop applications to users' browsers without installing them locally" },
+      { id: "d", text: "Amazon Pinpoint is a managed relational database for storing customer contact information" },
+    ],
+    correctOptionIds: ["a", "c"],
+    explanation: "WorkSpaces delivers full virtual desktops and AppStream 2.0 streams applications to browsers; Amazon Connect is a cloud contact center service and Pinpoint is a customer engagement messaging service.",
+    optionRationale: {
+      a: "WorkSpaces is a fully managed Desktop-as-a-Service offering that provisions Windows or Linux desktops accessible from laptops, tablets, and thin clients.",
+      b: "Amazon Connect is an omnichannel cloud contact center for voice and chat; AWS Direct Connect is the physical network connection service.",
+      c: "AppStream 2.0 is an application streaming service that delivers desktop applications securely to any web browser without local installation.",
+      d: "Pinpoint sends targeted email, SMS, push, and voice campaigns to customers; it is not a database.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces.html",
+    referenceLabel: "What is Amazon WorkSpaces",
+    consoleUrl: "https://console.aws.amazon.com/workspaces/v2/home#/workspaces",
+    consoleLabel: "Amazon WorkSpaces > WorkSpaces",
+    diagram: `flowchart LR
+  User[Remote Employee] --> WS[Amazon WorkSpaces - full virtual desktop]
+  User --> AS[AppStream 2.0 - streamed app in browser]
+  Agent[Contact Center Agent] --> CN[Amazon Connect]
+  Mkt[Marketing Team] --> PP[Amazon Pinpoint campaigns]`,
+    cliExample: {
+      description: "List the WorkSpaces provisioned in a directory",
+      command: "aws workspaces describe-workspaces --directory-id d-1234567890",
+      sampleOutput:
+        "{\n  \"Workspaces\": [\n    {\n      \"WorkspaceId\": \"ws-abcdefghi\",\n      \"DirectoryId\": \"d-1234567890\",\n      \"UserName\": \"jsmith\",\n      \"IpAddress\": \"10.0.1.25\",\n      \"State\": \"AVAILABLE\",\n      \"BundleId\": \"wsb-0123456ab\",\n      \"ComputerName\": \"WSAMZN-1A2B3C4D\",\n      \"WorkspaceProperties\": {\n        \"RunningMode\": \"AUTO_STOP\",\n        \"RunningModeAutoStopTimeoutInMinutes\": 60,\n        \"ComputeTypeName\": \"STANDARD\"\n      }\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "tech88",
+    domain: "cloud-technology-and-services",
+    text: "Which TWO of the following statements about AWS data transfer and migration services are correct?",
+    options: [
+      { id: "a", text: "AWS DataSync automates and accelerates moving large datasets between on-premises NFS or SMB storage and services such as Amazon S3, EFS, and FSx" },
+      { id: "b", text: "AWS Transfer Family provides fully managed SFTP, FTPS, and FTP endpoints backed by Amazon S3 or EFS" },
+      { id: "c", text: "AWS Elastic Disaster Recovery is used to stream on-premises video content to global audiences" },
+      { id: "d", text: "Amazon AppFlow is a block storage service for high-performance EC2 workloads" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "DataSync is an online data transfer service for bulk file and object movement, and Transfer Family provides managed file transfer protocol endpoints; Elastic Disaster Recovery replicates servers for DR, and AppFlow integrates SaaS application data.",
+    optionRationale: {
+      a: "DataSync uses an agent and purpose-built protocol to move data quickly between on-premises file systems and AWS storage, with scheduling and verification built in.",
+      b: "Transfer Family lets partners keep using SFTP, FTPS, FTP, or AS2 clients while files land directly in S3 or EFS.",
+      c: "Elastic Disaster Recovery continuously replicates on-premises or cloud servers into AWS so they can be recovered within minutes after an outage; it is not a media streaming service.",
+      d: "AppFlow securely transfers data between SaaS applications such as Salesforce and AWS services such as S3 and Redshift; Amazon EBS is the block storage service.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html",
+    referenceLabel: "What is AWS DataSync",
+    consoleUrl: "https://console.aws.amazon.com/datasync/home#/tasks",
+    consoleLabel: "AWS DataSync > Tasks",
+    diagram: `flowchart LR
+  NAS[On-Prem NFS or SMB Storage] -- DataSync Agent --> DS[AWS DataSync]
+  DS --> S3[Amazon S3]
+  DS --> EFS[Amazon EFS]
+  Partner[Partner SFTP Client] --> TF[AWS Transfer Family]
+  TF --> S3`,
+    cliExample: {
+      description: "List DataSync tasks and their current status",
+      command: "aws datasync list-tasks",
+      sampleOutput:
+        "{\n  \"Tasks\": [\n    {\n      \"TaskArn\": \"arn:aws:datasync:us-east-1:123456789012:task/task-0a1b2c3d4e5f67890\",\n      \"Status\": \"AVAILABLE\",\n      \"Name\": \"nas-to-s3-nightly\"\n    },\n    {\n      \"TaskArn\": \"arn:aws:datasync:us-east-1:123456789012:task/task-09f8e7d6c5b4a3210\",\n      \"Status\": \"RUNNING\",\n      \"Name\": \"archive-to-efs\"\n    }\n  ]\n}",
+    },
+  },
 ];

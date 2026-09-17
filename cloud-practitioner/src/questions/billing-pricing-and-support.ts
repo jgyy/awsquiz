@@ -734,4 +734,316 @@ export const billingPricingAndSupportQuestions: Question[] = [
         "{\n  \"GroupDefinitions\": [\n    {\n      \"Type\": \"DIMENSION\",\n      \"Key\": \"RECORD_TYPE\"\n    }\n  ],\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2026-02-01\",\n        \"End\": \"2026-03-01\"\n      },\n      \"Total\": {},\n      \"Groups\": [\n        {\n          \"Keys\": [\n            \"Usage\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"842.17\",\n              \"Unit\": \"USD\"\n            }\n          }\n        },\n        {\n          \"Keys\": [\n            \"Credit\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"-842.17\",\n              \"Unit\": \"USD\"\n            }\n          }\n        }\n      ],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
     },
   },
+  {
+    id: "bill24",
+    domain: "billing-pricing-and-support",
+    text: "A company has decided to buy a one-year Standard Reserved Instance for a database server. The finance team wants the LOWEST possible effective hourly rate and is willing to pay the entire cost at the start of the term. Which payment option should the company choose?",
+    options: [
+      { id: "a", text: "No Upfront" },
+      { id: "b", text: "Partial Upfront" },
+      { id: "c", text: "All Upfront" },
+      { id: "d", text: "Monthly On-Demand billing with a volume discount" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "Reserved Instances offer three payment options: All Upfront, Partial Upfront, and No Upfront. All Upfront gives the largest discount because the full term is paid at purchase; No Upfront gives the smallest discount, and Partial Upfront sits in between.",
+    optionRationale: {
+      a: "No Upfront requires no initial payment and bills a discounted hourly rate monthly, but it provides the smallest discount of the three options.",
+      b: "Partial Upfront pays a portion at purchase and the remainder as a reduced hourly rate; its discount is larger than No Upfront but smaller than All Upfront.",
+      c: "All Upfront pays for the entire term at purchase and delivers the greatest savings compared with On-Demand, which is exactly what the finance team wants.",
+      d: "On-Demand has no commitment-based discount; volume discounts do not apply to EC2 On-Demand hourly rates.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html",
+    referenceLabel: "Amazon EC2 Reserved Instances",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#ReservedInstances:",
+    consoleLabel: "EC2 > Reserved Instances",
+    diagram: `flowchart LR
+  RI[1-Year Standard Reserved Instance] --> NoUp[No Upfront - smallest discount]
+  RI --> Partial[Partial Upfront - medium discount]
+  RI --> AllUp[All Upfront - largest discount]
+  AllUp --> Pay[Full term paid at purchase]`,
+    cliExample: {
+      description: "Search for one-year All Upfront Standard Reserved Instance offerings for a given instance type",
+      command: "aws ec2 describe-reserved-instances-offerings --instance-type m5.large --offering-class standard --offering-type \"All Upfront\" --product-description \"Linux/UNIX\" --min-duration 31536000 --max-duration 31536000 --max-results 1",
+      sampleOutput:
+        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"InstanceType\": \"m5.large\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"Duration\": 31536000,\n      \"UsagePrice\": 0.0,\n      \"FixedPrice\": 496.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [\n        {\n          \"Amount\": 0.0,\n          \"Frequency\": \"Hourly\"\n        }\n      ],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill25",
+    domain: "billing-pricing-and-support",
+    text: "A company wants to commit to a three-year term for a steady EC2 workload but expects to switch from m5 to m6g (Graviton) instances midway through the term. Which purchasing option lets the company exchange for a different instance family during the term while still receiving a discount?",
+    options: [
+      { id: "a", text: "Standard Reserved Instances" },
+      { id: "b", text: "Convertible Reserved Instances" },
+      { id: "c", text: "Spot Instances" },
+      { id: "d", text: "Dedicated Hosts with On-Demand pricing" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Convertible Reserved Instances can be exchanged for other Convertible RIs with a different instance family, operating system, or tenancy during the term. Standard RIs offer a larger discount but can only be modified within the same family and cannot change families.",
+    optionRationale: {
+      a: "Standard RIs give the deepest RI discount but cannot be exchanged for a different instance family; they can only be modified within the same family or sold on the RI Marketplace.",
+      b: "Convertible RIs trade a somewhat smaller discount for the flexibility to exchange to a different instance family, OS, or tenancy during the term.",
+      c: "Spot Instances have no term commitment and can be interrupted; they do not fit a steady workload that needs guaranteed capacity.",
+      d: "Dedicated Hosts address licensing and physical isolation, not the ability to change instance family under a discounted commitment.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/reserved-instances-types.html",
+    referenceLabel: "Reserved Instance types - Standard vs Convertible",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#ReservedInstances:",
+    consoleLabel: "EC2 > Reserved Instances",
+    diagram: `flowchart LR
+  Std[Standard RI] --> StdDisc[Up to 72 percent discount]
+  Std --> StdLimit[Same family only - no exchange]
+  Conv[Convertible RI] --> ConvDisc[Up to 66 percent discount]
+  Conv --> Exchange[Exchange to new family OS or tenancy]
+  Exchange --> Graviton[m5 to m6g mid-term]`,
+    cliExample: {
+      description: "Preview an exchange of a Convertible Reserved Instance for a different target configuration",
+      command: "aws ec2 get-reserved-instances-exchange-quote --reserved-instance-ids ri-0123456789abcdef0 --target-configurations OfferingId=b2c3d4e5-6789-01ab-cdef-EXAMPLE22222,InstanceCount=2",
+      sampleOutput:
+        "{\n  \"CurrencyCode\": \"USD\",\n  \"IsValidExchange\": true,\n  \"OutputReservedInstancesWillExpireAt\": \"2029-01-15T00:00:00.000Z\",\n  \"PaymentDue\": \"182.50\",\n  \"ReservedInstanceValueRollup\": {\n    \"HourlyPrice\": \"0.062\",\n    \"RemainingTotalValue\": \"1086.24\",\n    \"RemainingUpfrontValue\": \"0.0\"\n  },\n  \"ReservedInstanceValueSet\": [\n    {\n      \"ReservedInstanceId\": \"ri-0123456789abcdef0\",\n      \"ReservationValue\": {\n        \"HourlyPrice\": \"0.062\",\n        \"RemainingTotalValue\": \"1086.24\",\n        \"RemainingUpfrontValue\": \"0.0\"\n      }\n    }\n  ],\n  \"TargetConfigurationValueRollup\": {\n    \"HourlyPrice\": \"0.071\",\n    \"RemainingTotalValue\": \"1268.74\",\n    \"RemainingUpfrontValue\": \"0.0\"\n  },\n  \"TargetConfigurationValueSet\": [\n    {\n      \"TargetConfiguration\": {\n        \"OfferingId\": \"b2c3d4e5-6789-01ab-cdef-EXAMPLE22222\",\n        \"InstanceCount\": 2\n      },\n      \"ReservationValue\": {\n        \"HourlyPrice\": \"0.071\",\n        \"RemainingTotalValue\": \"1268.74\",\n        \"RemainingUpfrontValue\": \"0.0\"\n      }\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill26",
+    domain: "billing-pricing-and-support",
+    text: "A company has a corporate policy that certain EC2 workloads must run on physical servers that are not shared with any other AWS customer, but it does not need visibility into sockets or cores and has no bring-your-own-license requirements. It wants the simplest option that is billed per instance. Which option should it choose?",
+    options: [
+      { id: "a", text: "Dedicated Hosts" },
+      { id: "b", text: "Dedicated Instances" },
+      { id: "c", text: "Shared tenancy On-Demand Instances" },
+      { id: "d", text: "EC2 Capacity Reservations" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Dedicated Instances run on hardware dedicated to a single customer and are billed per instance plus a per-Region dedicated fee. Dedicated Hosts also isolate hardware but are billed per host and add socket/core visibility and host affinity, which this company does not need.",
+    optionRationale: {
+      a: "Dedicated Hosts are billed per physical host, not per instance, and are aimed at server-bound licensing and host placement control that the company does not require.",
+      b: "Dedicated Instances provide single-tenant hardware isolation at the instance level with per-instance billing, meeting the policy with the least complexity.",
+      c: "Shared tenancy places instances on hardware that may be shared with other customers, which violates the policy.",
+      d: "Capacity Reservations guarantee capacity in an Availability Zone but do not change tenancy; they can use shared hardware.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html",
+    referenceLabel: "Amazon EC2 Dedicated Instances",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#LaunchInstances:",
+    consoleLabel: "EC2 > Launch Instances",
+    diagram: `flowchart TD
+  Need[Single-tenant hardware required] --> Q{Need socket core visibility or BYOL}
+  Q -->|No| DI[Dedicated Instances - billed per instance]
+  Q -->|Yes| DH[Dedicated Hosts - billed per host]
+  DI --> Fee[Hourly instance price plus per-Region dedicated fee]`,
+    cliExample: {
+      description: "Launch an instance with dedicated tenancy so it runs on single-tenant hardware",
+      command: "aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type m5.large --placement Tenancy=dedicated --subnet-id subnet-0abc123def4567890",
+      sampleOutput:
+        "{\n  \"Groups\": [],\n  \"Instances\": [\n    {\n      \"AmiLaunchIndex\": 0,\n      \"ImageId\": \"ami-0abcdef1234567890\",\n      \"InstanceId\": \"i-0fedcba9876543210\",\n      \"InstanceType\": \"m5.large\",\n      \"LaunchTime\": \"2026-04-08T09:12:44+00:00\",\n      \"Placement\": {\n        \"AvailabilityZone\": \"us-east-1b\",\n        \"GroupName\": \"\",\n        \"Tenancy\": \"dedicated\"\n      },\n      \"State\": {\n        \"Code\": 0,\n        \"Name\": \"pending\"\n      },\n      \"SubnetId\": \"subnet-0abc123def4567890\",\n      \"VpcId\": \"vpc-0123abcd4567efgh8\"\n    }\n  ],\n  \"OwnerId\": \"123456789012\",\n  \"ReservationId\": \"r-0a1b2c3d4e5f67890\"\n}",
+    },
+  },
+  {
+    id: "bill27",
+    domain: "billing-pricing-and-support",
+    text: "A machine learning team wants a one-year commitment that provides discounted pricing for Amazon SageMaker instance usage regardless of instance family, size, or Region. Which pricing model should the team purchase?",
+    options: [
+      { id: "a", text: "Compute Savings Plans" },
+      { id: "b", text: "EC2 Instance Savings Plans" },
+      { id: "c", text: "SageMaker Savings Plans" },
+      { id: "d", text: "Convertible Reserved Instances" },
+    ],
+    correctOptionIds: ["c"],
+    explanation: "AWS offers three types of Savings Plans: Compute Savings Plans (EC2, Fargate, Lambda), EC2 Instance Savings Plans (a specific instance family in a Region), and SageMaker Savings Plans, which apply to eligible SageMaker ML instance usage across family, size, and Region.",
+    optionRationale: {
+      a: "Compute Savings Plans cover EC2, AWS Fargate, and AWS Lambda usage, but they do not apply to SageMaker.",
+      b: "EC2 Instance Savings Plans are locked to one instance family in one Region and only cover EC2.",
+      c: "SageMaker Savings Plans are purpose-built to reduce SageMaker instance costs with flexibility across instance family, size, component, and Region.",
+      d: "Reserved Instances are an EC2, RDS, and similar-service construct; they are not available for SageMaker.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
+    referenceLabel: "What are Savings Plans?",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/savings-plans/overview",
+    consoleLabel: "Billing and Cost Management > Savings Plans",
+    diagram: `flowchart LR
+  SP[Savings Plans] --> Compute[Compute SP - EC2 Fargate Lambda]
+  SP --> EC2SP[EC2 Instance SP - one family one Region]
+  SP --> SM[SageMaker SP - ML instance usage]
+  SM --> Flex[Any family size or Region]`,
+    cliExample: {
+      description: "List the SageMaker Savings Plans offerings available for a one-year term",
+      command: "aws savingsplans describe-savings-plans-offerings --plan-types SageMaker --durations 31536000 --payment-options \"No Upfront\" --max-results 1",
+      sampleOutput:
+        "{\n  \"searchResults\": [\n    {\n      \"offeringId\": \"c3d4e5f6-7890-12ab-cdef-EXAMPLE33333\",\n      \"productTypes\": [\n        \"SageMaker\"\n      ],\n      \"planType\": \"SageMaker\",\n      \"description\": \"1 year No Upfront SageMaker Savings Plan\",\n      \"paymentOption\": \"No Upfront\",\n      \"durationSeconds\": 31536000,\n      \"currency\": \"USD\",\n      \"serviceCode\": \"AmazonSageMaker\",\n      \"usageType\": \"\",\n      \"operation\": \"\",\n      \"properties\": []\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill28",
+    domain: "billing-pricing-and-support",
+    text: "A finance team wants to be notified automatically when AWS spending patterns deviate unexpectedly from historical norms, and to receive root-cause details about which service or account drove the spike, without configuring fixed dollar thresholds. Which feature should the team enable?",
+    options: [
+      { id: "a", text: "AWS Cost Anomaly Detection" },
+      { id: "b", text: "AWS Cost Categories" },
+      { id: "c", text: "AWS Pricing Calculator" },
+      { id: "d", text: "AWS Compute Optimizer" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Cost Anomaly Detection uses machine learning to learn normal spend patterns, detect unusual increases, and send alerts with root-cause analysis by service, account, or cost category, with no static thresholds required.",
+    optionRationale: {
+      a: "Cost Anomaly Detection continuously monitors spend with ML, flags anomalies, and reports the likely root cause, which matches every requirement.",
+      b: "Cost Categories group costs into custom buckets for reporting; they do not detect or alert on unusual spend.",
+      c: "Pricing Calculator estimates costs before deployment and has no monitoring role.",
+      d: "Compute Optimizer recommends right-sized resources; it does not detect billing anomalies.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/cost-management/latest/userguide/manage-ad.html",
+    referenceLabel: "Detecting unusual spend with AWS Cost Anomaly Detection",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/anomaly-detection/overview",
+    consoleLabel: "Billing and Cost Management > Cost Anomaly Detection",
+    diagram: `flowchart LR
+  Spend[Daily AWS Spend] --> ML[Cost Anomaly Detection ML model]
+  ML --> Monitor[Cost Monitor by service or account]
+  Monitor --> Anomaly[Unusual spend detected]
+  Anomaly --> Alert[SNS or email alert with root cause]`,
+    cliExample: {
+      description: "Retrieve anomalies detected by Cost Anomaly Detection in a date range",
+      command: "aws ce get-anomalies --date-interval StartDate=2026-05-01,EndDate=2026-05-31 --max-results 1",
+      sampleOutput:
+        "{\n  \"Anomalies\": [\n    {\n      \"AnomalyId\": \"d4e5f6a7-8901-23bc-def0-EXAMPLE44444\",\n      \"AnomalyStartDate\": \"2026-05-14T00:00:00Z\",\n      \"AnomalyEndDate\": \"2026-05-15T00:00:00Z\",\n      \"DimensionValue\": \"123456789012\",\n      \"RootCauses\": [\n        {\n          \"Service\": \"Amazon Elastic Compute Cloud - Compute\",\n          \"Region\": \"us-east-1\",\n          \"LinkedAccount\": \"123456789012\",\n          \"UsageType\": \"BoxUsage:c5.4xlarge\"\n        }\n      ],\n      \"AnomalyScore\": {\n        \"MaxScore\": 0.93,\n        \"CurrentScore\": 0.87\n      },\n      \"Impact\": {\n        \"MaxImpact\": 1412.36,\n        \"TotalImpact\": 1412.36,\n        \"TotalActualSpend\": 1958.02,\n        \"TotalExpectedSpend\": 545.66,\n        \"TotalImpactPercentage\": 258.85\n      },\n      \"MonitorArn\": \"arn:aws:ce::123456789012:anomalymonitor/e5f6a7b8-9012-34cd-ef01-EXAMPLE55555\",\n      \"Feedback\": \"YES\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill29",
+    domain: "billing-pricing-and-support",
+    text: "A company added a Department tag to all of its EC2 instances and RDS databases last month, but the tag still does not appear as a filter in AWS Cost Explorer or in the Cost and Usage Report. What must the company do?",
+    options: [
+      { id: "a", text: "Activate the Department tag as a cost allocation tag in the Billing and Cost Management console" },
+      { id: "b", text: "Enable AWS Config to record the tag on all resources" },
+      { id: "c", text: "Convert the tag to an AWS generated tag such as aws:createdBy" },
+      { id: "d", text: "Purchase the Business Support plan, which enables tag-based reporting" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "User-defined tags do not appear in billing tools until they are activated as cost allocation tags in the Billing console. After activation, the tag is included in Cost Explorer, Budgets, and the Cost and Usage Report from that point forward (not retroactively).",
+    optionRationale: {
+      a: "Tags must be explicitly activated as cost allocation tags before they are included in billing reports and Cost Explorer filters.",
+      b: "AWS Config tracks resource configuration and compliance; it has no effect on whether a tag shows up in billing data.",
+      c: "AWS generated tags are created automatically by AWS and cannot be created from user tags; user-defined tags are the correct mechanism here.",
+      d: "Cost allocation tags are available on every support plan and do not require a paid plan.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/activating-tags.html",
+    referenceLabel: "Activating user-defined cost allocation tags",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/tags",
+    consoleLabel: "Billing and Cost Management > Cost allocation tags",
+    diagram: `flowchart LR
+  Tag[Department tag on EC2 and RDS] --> Inactive[Inactive - not in billing data]
+  Inactive --> Activate[Activate as cost allocation tag]
+  Activate --> CE[Cost Explorer filter]
+  Activate --> CUR[Cost and Usage Report column]
+  Activate --> Budgets[Budgets by tag]`,
+    cliExample: {
+      description: "Activate the Department tag as a user-defined cost allocation tag",
+      command: "aws ce update-cost-allocation-tags-status --cost-allocation-tags-status TagKey=Department,Status=Active",
+      sampleOutput:
+        "{\n  \"Errors\": []\n}",
+    },
+  },
+  {
+    id: "bill30",
+    domain: "billing-pricing-and-support",
+    text: "A company's production system is down and the business is losing revenue. The company needs the FASTEST guaranteed initial response time from AWS Support for a business-critical system down case. Which support plan offers a 15-minute response for this severity?",
+    options: [
+      { id: "a", text: "Developer Support" },
+      { id: "b", text: "Business Support" },
+      { id: "c", text: "Enterprise On-Ramp Support" },
+      { id: "d", text: "Enterprise Support" },
+    ],
+    correctOptionIds: ["d"],
+    explanation: "Only Enterprise Support offers a 15-minute response time for business-critical system down cases. Enterprise On-Ramp offers 30 minutes for the same severity, Business Support offers 1 hour for production system down, and Developer Support offers 12 hours for system impaired cases during business hours.",
+    optionRationale: {
+      a: "Developer Support provides business-hours email support with a 12-hour response for system impaired cases; it has no production or business-critical severities.",
+      b: "Business Support's fastest response is 1 hour for production system down cases.",
+      c: "Enterprise On-Ramp's fastest response is 30 minutes for business-critical system down cases.",
+      d: "Enterprise Support provides a 15-minute response for business-critical system down cases, the fastest available.",
+    },
+    referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
+    referenceLabel: "Compare AWS Support Plans",
+    consoleUrl: "https://console.aws.amazon.com/support/plans/home",
+    consoleLabel: "Support Center > Support plans",
+    diagram: `flowchart TD
+  Sev[Business-critical system down] --> Dev[Developer - not available]
+  Sev --> Bus[Business - 1 hour for production down]
+  Sev --> Ramp[Enterprise On-Ramp - 30 minutes]
+  Sev --> Ent[Enterprise - 15 minutes]`,
+    cliExample: {
+      description: "Open a support case with critical severity (requires Business, Enterprise On-Ramp, or Enterprise Support)",
+      command: "aws support create-case --subject \"Production API completely unavailable\" --service-code amazon-elastic-compute-cloud-linux --severity-code critical --category-code other --communication-body \"All EC2 instances behind our ALB are failing health checks since 09:40 UTC.\" --region us-east-1",
+      sampleOutput:
+        "{\n  \"caseId\": \"case-123456789012-muen-2026-9f4c1e7b2a3d5f60\"\n}",
+    },
+  },
+  {
+    id: "bill31",
+    domain: "billing-pricing-and-support",
+    text: "A company is comparing offers for the AWS Free Tier before running a proof of concept. Which TWO statements correctly describe the categories of Free Tier offers?",
+    options: [
+      { id: "a", text: "12-month free offers apply for one year after account creation to services such as Amazon EC2 and Amazon RDS" },
+      { id: "b", text: "Always Free offers, such as AWS Lambda and Amazon DynamoDB usage tiers, do not expire after the first year" },
+      { id: "c", text: "All Free Tier offers last indefinitely for as long as the account is open" },
+      { id: "d", text: "Free Tier usage is unlimited as long as the account has a Basic Support plan" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "The AWS Free Tier has three categories: 12 months free (expires one year after sign-up), Always Free (never expires, with monthly limits such as 1 million Lambda requests and 25 GB DynamoDB storage), and short-term Trials (a limited period after you start using a service).",
+    optionRationale: {
+      a: "12-month free offers, such as 750 hours per month of t2.micro or t3.micro EC2, are available only during the first year after account creation.",
+      b: "Always Free offers, like 1 million Lambda requests and 25 GB of DynamoDB storage per month, remain available to all customers indefinitely.",
+      c: "Only the Always Free category has no expiry; 12-month offers and Trials end.",
+      d: "Every Free Tier offer has a usage cap; usage beyond the cap is billed at standard rates regardless of support plan.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-free-tier.html",
+    referenceLabel: "Using the AWS Free Tier",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/freetier",
+    consoleLabel: "Billing and Cost Management > Free Tier",
+    diagram: `flowchart LR
+  FT[AWS Free Tier] --> Twelve[12 Months Free - EC2 RDS S3]
+  FT --> Always[Always Free - Lambda DynamoDB SNS]
+  FT --> Trial[Short-term Trials - from first use]
+  Twelve --> Expire[Expires one year after sign-up]
+  Always --> Never[Never expires within monthly limits]`,
+    cliExample: {
+      description: "Check current-month Free Tier usage against the offer limits",
+      command: "aws freetier get-free-tier-usage --max-results 2 --region us-east-1",
+      sampleOutput:
+        "{\n  \"freeTierUsages\": [\n    {\n      \"actualUsageAmount\": 312.4,\n      \"description\": \"750.0 Hrs are always free per month as part of AWS Free Usage Tier (Global-BoxUsage:t3.micro)\",\n      \"forecastedUsageAmount\": 623.9,\n      \"freeTierType\": \"12 Months Free\",\n      \"limit\": 750.0,\n      \"operation\": \"RunInstances\",\n      \"region\": \"global\",\n      \"service\": \"Amazon Elastic Compute Cloud\",\n      \"unit\": \"Hrs\",\n      \"usageType\": \"BoxUsage:t3.micro\"\n    },\n    {\n      \"actualUsageAmount\": 148902.0,\n      \"description\": \"1,000,000.0 Request are always free per month as part of AWS Free Usage Tier (Global-Request)\",\n      \"forecastedUsageAmount\": 297500.0,\n      \"freeTierType\": \"Always Free\",\n      \"limit\": 1000000.0,\n      \"operation\": \"Invoke\",\n      \"region\": \"global\",\n      \"service\": \"AWS Lambda\",\n      \"unit\": \"Request\",\n      \"usageType\": \"Request\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "bill32",
+    domain: "billing-pricing-and-support",
+    text: "A company subscribed to Enterprise Support and wants to make use of the services that come with the plan beyond technical troubleshooting. Which TWO benefits are included with AWS Enterprise Support but NOT with Business Support?",
+    options: [
+      { id: "a", text: "Access to the Concierge Support Team for billing and account assistance" },
+      { id: "b", text: "Full set of AWS Trusted Advisor checks" },
+      { id: "c", text: "Operations reviews, architecture guidance, and event management such as Infrastructure Event Management delivered by a designated Technical Account Manager" },
+      { id: "d", text: "24/7 phone, chat, and email access to Cloud Support Engineers" },
+    ],
+    correctOptionIds: ["a", "c"],
+    explanation: "Enterprise Support adds a designated Technical Account Manager, the Concierge Support Team for billing and account questions, and proactive programs such as Infrastructure Event Management and well-architected reviews. Business Support already includes full Trusted Advisor checks and 24/7 Cloud Support Engineer access.",
+    optionRationale: {
+      a: "The Concierge Support Team is an Enterprise-only benefit that helps with billing, account, and non-technical questions.",
+      b: "The full set of Trusted Advisor checks is available on Business, Enterprise On-Ramp, and Enterprise plans, so it does not distinguish Enterprise from Business.",
+      c: "A designated TAM providing operations reviews, architecture guidance, and Infrastructure Event Management is included with Enterprise Support (Enterprise On-Ramp offers a pool of TAMs).",
+      d: "24/7 phone, chat, and email access to Cloud Support Engineers begins at the Business Support tier.",
+    },
+    referenceUrl: "https://aws.amazon.com/premiumsupport/plans/enterprise/",
+    referenceLabel: "AWS Enterprise Support",
+    consoleUrl: "https://console.aws.amazon.com/support/home",
+    consoleLabel: "AWS Support Center",
+    diagram: `flowchart LR
+  Bus[Business Support] --> TA[Full Trusted Advisor checks]
+  Bus --> CSE[24x7 Cloud Support Engineers]
+  Ent[Enterprise Support] --> TA
+  Ent --> CSE
+  Ent --> TAM[Designated Technical Account Manager]
+  Ent --> Concierge[Concierge Support Team]
+  Ent --> IEM[Infrastructure Event Management]`,
+    cliExample: {
+      description: "Describe the AWS Support services and categories available for opening cases under the account's support plan",
+      command: "aws support describe-services --language en --region us-east-1 --query \"services[?code=='billing']\"",
+      sampleOutput:
+        "[\n  {\n    \"code\": \"billing\",\n    \"name\": \"Billing\",\n    \"categories\": [\n      {\n        \"code\": \"account-issue\",\n        \"name\": \"Account Issue\"\n      },\n      {\n        \"code\": \"billing-inquiry\",\n        \"name\": \"Billing Inquiry\"\n      },\n      {\n        \"code\": \"credits\",\n        \"name\": \"Credits\"\n      },\n      {\n        \"code\": \"payment-issue\",\n        \"name\": \"Payment Issue\"\n      }\n    ]\n  }\n]",
+    },
+  },
 ];

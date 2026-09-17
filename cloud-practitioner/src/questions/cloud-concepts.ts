@@ -1392,4 +1392,538 @@ export const cloudConceptsQuestions: Question[] = [
       sampleOutput: "",
     },
   },
+  {
+    id: "cc48",
+    domain: "cloud-concepts",
+    text: "An operations team wants to improve how it runs workloads on AWS. It plans to define all runbooks as code, make small frequent reversible changes, and hold regular game days to rehearse failure scenarios. Which AWS Well-Architected Framework pillar do these practices belong to?",
+    options: [
+      { id: "a", text: "Operational Excellence" },
+      { id: "b", text: "Cost Optimization" },
+      { id: "c", text: "Performance Efficiency" },
+      { id: "d", text: "Sustainability" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "The Operational Excellence pillar covers running and monitoring systems to deliver business value and continually improving processes. Its design principles include performing operations as code, making frequent small reversible changes, refining procedures frequently, anticipating failure, and learning from operational failures.",
+    optionRationale: {
+      a: "Operations as code, small reversible changes, and game days that rehearse failure are the core design principles of the Operational Excellence pillar.",
+      b: "Cost Optimization is about avoiding unnecessary spend through right-sizing, pricing models, and measuring efficiency, not about operational procedures.",
+      c: "Performance Efficiency focuses on using computing resources efficiently and selecting the right resource types, not on runbooks and game days.",
+      d: "Sustainability addresses minimizing the environmental impact of workloads; it does not define operational practices like game days.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html",
+    referenceLabel: "AWS Well-Architected Framework - Operational Excellence Pillar",
+    consoleUrl: "https://console.aws.amazon.com/wellarchitected/home#/workloads",
+    consoleLabel: "AWS Well-Architected Tool > Workloads",
+    diagram: `flowchart LR
+  OE[Operational Excellence Pillar] --> Code[Perform Operations as Code]
+  OE --> Small[Small Frequent Reversible Changes]
+  OE --> Refine[Refine Procedures Frequently]
+  OE --> Anticipate[Anticipate Failure with Game Days]
+  OE --> Learn[Learn from Operational Failures]`,
+    cliExample: {
+      description: "Create a Systems Manager Automation runbook so that an operational procedure is stored and executed as code",
+      command: "aws ssm create-document --name RestartWebTier --document-type Automation --document-format YAML --content file://restart-web-tier.yaml",
+      sampleOutput:
+        "{\n  \"DocumentDescription\": {\n    \"Hash\": \"3f1c5e8a9b2d4c6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e\",\n    \"HashType\": \"Sha256\",\n    \"Name\": \"RestartWebTier\",\n    \"Owner\": \"123456789012\",\n    \"CreatedDate\": \"2026-03-04T09:12:41.000Z\",\n    \"Status\": \"Creating\",\n    \"DocumentVersion\": \"1\",\n    \"PlatformTypes\": [\n      \"Windows\",\n      \"Linux\",\n      \"MacOS\"\n    ],\n    \"DocumentType\": \"Automation\",\n    \"SchemaVersion\": \"0.3\",\n    \"LatestVersion\": \"1\",\n    \"DefaultVersion\": \"1\",\n    \"DocumentFormat\": \"YAML\"\n  }\n}",
+    },
+  },
+  {
+    id: "cc49",
+    domain: "cloud-concepts",
+    text: "A company wants to review a production workload against AWS best practices, answer a structured set of questions across the six pillars, and receive a list of high-risk issues with improvement plans. Which AWS service or tool provides this capability at no additional charge?",
+    options: [
+      { id: "a", text: "AWS Well-Architected Tool" },
+      { id: "b", text: "AWS Trusted Advisor" },
+      { id: "c", text: "AWS Config" },
+      { id: "d", text: "AWS Compute Optimizer" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "The AWS Well-Architected Tool is a free service in the AWS Management Console that lets you define a workload, answer the questions of the Well-Architected Framework and its lenses, and get a report of high-risk and medium-risk issues along with an improvement plan.",
+    optionRationale: {
+      a: "The Well-Architected Tool is purpose-built for pillar-by-pillar architecture reviews and generates improvement plans and risk reports for a workload.",
+      b: "Trusted Advisor runs automated checks against your account and resources; it does not walk you through a question-based architecture review.",
+      c: "AWS Config records resource configurations and evaluates them against rules; it does not perform a Well-Architected review.",
+      d: "Compute Optimizer recommends right-sized EC2, EBS, Lambda, and ECS resources based on utilization; it is not a framework review tool.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html",
+    referenceLabel: "AWS Well-Architected Tool User Guide",
+    consoleUrl: "https://console.aws.amazon.com/wellarchitected/home#/workloads",
+    consoleLabel: "AWS Well-Architected Tool > Workloads",
+    diagram: `flowchart LR
+  Define[Define Workload] --> Review[Answer Pillar Questions]
+  Review --> Risks[High and Medium Risk Issues]
+  Risks --> Plan[Improvement Plan]
+  Plan --> Milestone[Save Milestone and Re-review]`,
+    cliExample: {
+      description: "List the workloads defined in the AWS Well-Architected Tool along with their risk counts",
+      command: "aws wellarchitected list-workloads",
+      sampleOutput:
+        "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:us-east-1:123456789012:workload/a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n      \"WorkloadName\": \"order-platform-prod\",\n      \"Owner\": \"platform-team\",\n      \"UpdatedAt\": \"2026-04-10T14:22:07.000Z\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"HIGH\": 3,\n        \"MEDIUM\": 7,\n        \"NONE\": 25,\n        \"NOT_APPLICABLE\": 2,\n        \"UNANSWERED\": 9\n      },\n      \"ImprovementStatus\": \"IMPROVEMENT_IN_PROGRESS\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc50",
+    domain: "cloud-concepts",
+    text: "A company is preparing to move to AWS and wants to structure its transformation effort. Which TWO of the following correctly pair an AWS Cloud Adoption Framework (AWS CAF) perspective with a capability it contains?",
+    options: [
+      { id: "a", text: "Governance perspective - Cloud financial management" },
+      { id: "b", text: "Security perspective - Observability" },
+      { id: "c", text: "Platform perspective - Data engineering" },
+      { id: "d", text: "People perspective - Incident and problem management" },
+    ],
+    correctOptionIds: ["a", "c"],
+    explanation: "The AWS CAF Governance perspective includes capabilities such as program and project management, benefits management, risk management, cloud financial management, and data governance. The Platform perspective includes platform architecture, data architecture, platform engineering, data engineering, provisioning and orchestration, modern application development, and CI/CD.",
+    optionRationale: {
+      a: "Cloud financial management is a Governance perspective capability focused on planning, measuring, and optimizing cloud spend.",
+      b: "Observability belongs to the Operations perspective, not the Security perspective, which covers areas such as identity and access management and threat detection.",
+      c: "Data engineering is a Platform perspective capability that covers building data pipelines and platforms on AWS.",
+      d: "Incident and problem management is an Operations perspective capability; the People perspective covers culture, workforce transformation, and change acceleration.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/foundational-capabilities.html",
+    referenceLabel: "AWS CAF - Foundational Capabilities",
+    consoleUrl: "https://console.aws.amazon.com/wellarchitected/home#/lenses",
+    consoleLabel: "AWS Well-Architected Tool > Lenses",
+    diagram: `flowchart TD
+  CAF[AWS CAF Perspectives] --> Gov[Governance]
+  CAF --> Plat[Platform]
+  CAF --> Ops[Operations]
+  CAF --> Ppl[People]
+  Gov --> CFM[Cloud Financial Management]
+  Gov --> Risk[Risk Management]
+  Plat --> DE[Data Engineering]
+  Plat --> CICD[CI and CD]
+  Ops --> Obs[Observability]
+  Ppl --> Culture[Culture Evolution]`,
+    cliExample: {
+      description: "Enable a cost allocation tag so that cloud financial management can attribute spend to migration workstreams",
+      command: "aws ce update-cost-allocation-tags-status --cost-allocation-tags-status TagKey=Workstream,Status=Active",
+      sampleOutput:
+        "{\n  \"Errors\": []\n}",
+    },
+  },
+  {
+    id: "cc51",
+    domain: "cloud-concepts",
+    text: "A CFO is comparing the total cost of ownership (TCO) of running an application on-premises versus on AWS. Which TWO cost components are typically included in the on-premises estimate but are eliminated or significantly reduced when moving to AWS?",
+    options: [
+      { id: "a", text: "Data center facilities costs such as power, cooling, and physical space" },
+      { id: "b", text: "Application licensing for software that the company brings to AWS" },
+      { id: "c", text: "Hardware procurement and refresh cycles for servers and storage" },
+      { id: "d", text: "Salaries of developers who build the application" },
+    ],
+    correctOptionIds: ["a", "c"],
+    explanation: "A TCO analysis covers direct costs such as servers, storage, and networking hardware plus indirect costs such as facilities, power, cooling, and the labor required to operate them. Moving to AWS removes the need for hardware procurement and refresh and for physical data center facilities, since AWS provides and operates the underlying infrastructure.",
+    optionRationale: {
+      a: "Power, cooling, rack space, and physical security are facilities costs that AWS absorbs into its service pricing, so they disappear from the customer's estimate.",
+      b: "Software licenses that the company brings to AWS (BYOL) are still paid by the company; they do not disappear with migration.",
+      c: "AWS owns and refreshes the physical servers and storage, so the customer no longer buys hardware or budgets for periodic replacement.",
+      d: "Developer salaries are an application cost that remains the same regardless of where the application runs.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics Center",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/home",
+    consoleLabel: "AWS Migration Hub > Home",
+    diagram: `flowchart LR
+  TCO[On-Premises TCO] --> HW[Server and Storage Hardware]
+  TCO --> Fac[Facilities Power and Cooling]
+  TCO --> Net[Network Equipment]
+  TCO --> Labor[Infrastructure Labor]
+  HW -.eliminated.-> AWS[AWS Usage-Based Pricing]
+  Fac -.eliminated.-> AWS
+  Net -.reduced.-> AWS
+  Labor -.reduced.-> AWS`,
+    cliExample: {
+      description: "Retrieve the last month's usage-based costs grouped by service to compare against the on-premises TCO baseline",
+      command: "aws ce get-cost-and-usage --time-period Start=2026-05-01,End=2026-06-01 --granularity MONTHLY --metrics UnblendedCost --group-by Type=DIMENSION,Key=SERVICE",
+      sampleOutput:
+        "{\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2026-05-01\",\n        \"End\": \"2026-06-01\"\n      },\n      \"Total\": {},\n      \"Groups\": [\n        {\n          \"Keys\": [\n            \"Amazon Elastic Compute Cloud - Compute\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"4318.52\",\n              \"Unit\": \"USD\"\n            }\n          }\n        },\n        {\n          \"Keys\": [\n            \"Amazon Simple Storage Service\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"612.09\",\n              \"Unit\": \"USD\"\n            }\n          }\n        }\n      ],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
+    },
+  },
+  {
+    id: "cc52",
+    domain: "cloud-concepts",
+    text: "A web application stores user session data in the memory of each EC2 instance. When Auto Scaling terminates an instance during scale-in, users on that instance lose their shopping carts. Which design principle should be applied so that instances can be added or removed freely?",
+    options: [
+      { id: "a", text: "Design the application tier to be stateless by storing session data in an external store such as Amazon ElastiCache or DynamoDB" },
+      { id: "b", text: "Disable scale-in on the Auto Scaling group so that instances are never terminated" },
+      { id: "c", text: "Use a larger EC2 instance type so that fewer instances are needed" },
+      { id: "d", text: "Enable sticky sessions on the load balancer and keep session data on the instance" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Stateless application tiers keep no client session data on individual servers, so any instance can serve any request and instances can be replaced or scaled at will. Moving session state to a shared store such as ElastiCache or DynamoDB is the recommended cloud design pattern.",
+    optionRationale: {
+      a: "Externalizing session state makes each instance interchangeable, which is the foundation of horizontal scaling and self-healing on AWS.",
+      b: "Disabling scale-in wastes money and does not solve the problem when an instance fails or is replaced for other reasons.",
+      c: "A larger instance still holds state locally and creates a single point of failure; vertical scaling does not address statelessness.",
+      d: "Sticky sessions reduce but do not eliminate the problem; sessions are still lost whenever an instance is terminated or fails.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/implement-loosely-coupled-dependencies.html",
+    referenceLabel: "Reliability Pillar - Loosely Coupled Dependencies",
+    consoleUrl: "https://console.aws.amazon.com/elasticache/home#/redis",
+    consoleLabel: "Amazon ElastiCache > Redis OSS caches",
+    diagram: `flowchart LR
+  User[User] --> ALB[Application Load Balancer]
+  ALB --> EC2a[Stateless EC2 Instance A]
+  ALB --> EC2b[Stateless EC2 Instance B]
+  EC2a --> Cache[ElastiCache Session Store]
+  EC2b --> Cache
+  EC2b -.terminated by scale-in.-> Cache`,
+    cliExample: {
+      description: "Create a DynamoDB table with TTL-friendly design to hold user sessions outside of the EC2 instances",
+      command: "aws dynamodb create-table --table-name user-sessions --attribute-definitions AttributeName=sessionId,AttributeType=S --key-schema AttributeName=sessionId,KeyType=HASH --billing-mode PAY_PER_REQUEST",
+      sampleOutput:
+        "{\n  \"TableDescription\": {\n    \"AttributeDefinitions\": [\n      {\n        \"AttributeName\": \"sessionId\",\n        \"AttributeType\": \"S\"\n      }\n    ],\n    \"TableName\": \"user-sessions\",\n    \"KeySchema\": [\n      {\n        \"AttributeName\": \"sessionId\",\n        \"KeyType\": \"HASH\"\n      }\n    ],\n    \"TableStatus\": \"CREATING\",\n    \"CreationDateTime\": \"2026-02-18T11:05:33.412000+00:00\",\n    \"TableArn\": \"arn:aws:dynamodb:us-east-1:123456789012:table/user-sessions\",\n    \"TableId\": \"8c2f1a4e-6b7d-4e5f-9a0b-1c2d3e4f5a6b\",\n    \"BillingModeSummary\": {\n      \"BillingMode\": \"PAY_PER_REQUEST\"\n    }\n  }\n}",
+    },
+  },
+  {
+    id: "cc53",
+    domain: "cloud-concepts",
+    text: "A news website serves the same articles to millions of readers, and the database is overloaded by repeated reads of identical content. Which Well-Architected Performance Efficiency approach best reduces database load and improves response time?",
+    options: [
+      { id: "a", text: "Introduce caching layers, such as Amazon CloudFront at the edge and Amazon ElastiCache in front of the database" },
+      { id: "b", text: "Increase the database instance size every time traffic grows" },
+      { id: "c", text: "Move the database to a single larger Availability Zone" },
+      { id: "d", text: "Replace the load balancer with Route 53 weighted routing" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Caching frequently read, rarely changing data at the edge and in memory is a core performance efficiency and cost optimization pattern. It removes repeated identical queries from the database and delivers content closer to users.",
+    optionRationale: {
+      a: "CloudFront caches responses at edge locations and ElastiCache serves hot data from memory, so most reads never reach the database.",
+      b: "Continually scaling the database vertically is expensive, has an upper limit, and does not stop redundant reads.",
+      c: "Availability Zones do not have sizes; this option does not address read load.",
+      d: "Route 53 routing policies distribute DNS traffic; they do not reduce database queries.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/performance-efficiency-pillar/welcome.html",
+    referenceLabel: "AWS Well-Architected Framework - Performance Efficiency Pillar",
+    consoleUrl: "https://console.aws.amazon.com/cloudfront/v4/home#/distributions",
+    consoleLabel: "Amazon CloudFront > Distributions",
+    diagram: `flowchart LR
+  Reader[Reader] --> CF[CloudFront Edge Cache]
+  CF -->|cache miss| App[Application Tier]
+  App --> EC[ElastiCache In-Memory Cache]
+  EC -->|cache miss| DB[Database]
+  CF -->|cache hit| Reader`,
+    cliExample: {
+      description: "Check the CloudFront cache hit rate for a distribution to measure how much traffic is served from the edge",
+      command: "aws cloudwatch get-metric-statistics --namespace AWS/CloudFront --metric-name CacheHitRate --dimensions Name=DistributionId,Value=E2EXAMPLE1ABCD Name=Region,Value=Global --start-time 2026-06-01T00:00:00Z --end-time 2026-06-02T00:00:00Z --period 86400 --statistics Average --region us-east-1",
+      sampleOutput:
+        "{\n  \"Label\": \"CacheHitRate\",\n  \"Datapoints\": [\n    {\n      \"Timestamp\": \"2026-06-01T00:00:00+00:00\",\n      \"Average\": 93.7,\n      \"Unit\": \"Percent\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc54",
+    domain: "cloud-concepts",
+    text: "A company operates hundreds of EC2 instances and pays for them 24/7, although utilization data shows most are idle overnight and many are oversized. Which TWO Well-Architected Cost Optimization practices should the company adopt?",
+    options: [
+      { id: "a", text: "Right-size instances using utilization data from AWS Compute Optimizer" },
+      { id: "b", text: "Schedule non-production instances to stop outside business hours" },
+      { id: "c", text: "Move all instances to a single Availability Zone to reduce data transfer" },
+      { id: "d", text: "Purchase the largest instance types available to avoid future resizing" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "The Cost Optimization pillar recommends adopting a consumption model (pay only when resources are needed), measuring overall efficiency, and continually right-sizing. Stopping idle instances and matching instance sizes to actual demand directly implements these principles.",
+    optionRationale: {
+      a: "Right-sizing based on real utilization metrics is a core Cost Optimization practice and Compute Optimizer provides those recommendations.",
+      b: "Stopping non-production instances when they are not needed applies the consumption model and eliminates pay-for-idle waste.",
+      c: "Concentrating everything in one AZ sacrifices reliability and saves little; cross-AZ data transfer is rarely the dominant cost.",
+      d: "Over-provisioning is the opposite of right-sizing and increases waste.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html",
+    referenceLabel: "AWS Well-Architected Framework - Cost Optimization Pillar",
+    consoleUrl: "https://console.aws.amazon.com/compute-optimizer/home#/dashboard",
+    consoleLabel: "AWS Compute Optimizer > Dashboard",
+    diagram: `flowchart LR
+  Idle[Idle and Oversized EC2 Fleet] --> Measure[Measure Utilization]
+  Measure --> Rightsize[Right-Size with Compute Optimizer]
+  Measure --> Schedule[Stop Instances Outside Business Hours]
+  Rightsize --> Savings[Lower Monthly Cost]
+  Schedule --> Savings`,
+    cliExample: {
+      description: "Get right-sizing recommendations for EC2 instances from AWS Compute Optimizer",
+      command: "aws compute-optimizer get-ec2-instance-recommendations --max-results 1",
+      sampleOutput:
+        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abc123def4567890\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"batch-worker-07\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-07-09T06:00:00.000Z\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
+    },
+  },
+  {
+    id: "cc55",
+    domain: "cloud-concepts",
+    text: "A company runs workloads on AWS and also on Microsoft Azure, and it deliberately keeps its data platform on both providers to avoid dependence on a single vendor. Which cloud deployment model does this describe?",
+    options: [
+      { id: "a", text: "Multi-cloud" },
+      { id: "b", text: "Hybrid cloud" },
+      { id: "c", text: "Private cloud" },
+      { id: "d", text: "Community cloud" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Multi-cloud refers to using services from two or more public cloud providers. Hybrid cloud, by contrast, combines on-premises (or private cloud) infrastructure with a public cloud.",
+    optionRationale: {
+      a: "Running workloads across AWS and Azure to avoid vendor lock-in is the definition of a multi-cloud strategy.",
+      b: "Hybrid cloud connects on-premises infrastructure with a public cloud; no on-premises component is mentioned here.",
+      c: "A private cloud is infrastructure dedicated to a single organization, usually on-premises; this scenario uses two public clouds.",
+      d: "A community cloud is shared by several organizations with common concerns; it is not what is described.",
+    },
+    referenceUrl: "https://aws.amazon.com/types-of-cloud-computing/",
+    referenceLabel: "Types of Cloud Computing",
+    consoleUrl: "https://console.aws.amazon.com/console/home",
+    consoleLabel: "AWS Management Console > Home",
+    diagram: `flowchart TD
+  Models[Cloud Deployment Models] --> Public[Public Cloud - single provider]
+  Models --> Hybrid[Hybrid Cloud - on-premises plus public cloud]
+  Models --> Multi[Multi-Cloud - two or more public providers]
+  Models --> Private[Private Cloud - dedicated infrastructure]
+  Multi --> AWS[AWS]
+  Multi --> Azure[Azure]`,
+    cliExample: {
+      description: "List the enabled AWS Regions for the account when planning where AWS-side workloads of a multi-cloud estate will run",
+      command: "aws account list-regions --region-opt-status-contains ENABLED ENABLED_BY_DEFAULT --max-results 3",
+      sampleOutput:
+        "{\n  \"Regions\": [\n    {\n      \"RegionName\": \"ap-southeast-1\",\n      \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\"\n    },\n    {\n      \"RegionName\": \"eu-west-1\",\n      \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\"\n    },\n    {\n      \"RegionName\": \"us-east-1\",\n      \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc56",
+    domain: "cloud-concepts",
+    text: "A company is planning a migration and does not have an accurate inventory of the servers in its data center, their utilization, or the network dependencies between them. Which AWS service should it use FIRST to collect this information?",
+    options: [
+      { id: "a", text: "AWS Application Discovery Service" },
+      { id: "b", text: "AWS Application Migration Service" },
+      { id: "c", text: "AWS Database Migration Service" },
+      { id: "d", text: "AWS DataSync" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Application Discovery Service collects server specifications, performance data, and network connections from on-premises environments using agents or an agentless connector, and stores the results in AWS Migration Hub to help plan the migration.",
+    optionRationale: {
+      a: "Application Discovery Service is designed for the assessment phase: it discovers servers, utilization, and dependencies before any migration takes place.",
+      b: "Application Migration Service performs the lift-and-shift of servers; it assumes you already know which servers to migrate.",
+      c: "DMS migrates databases; it does not inventory servers or map dependencies.",
+      d: "DataSync transfers files between on-premises storage and AWS; it is not a discovery tool.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/application-discovery/latest/userguide/what-is-appdiscovery.html",
+    referenceLabel: "What is AWS Application Discovery Service?",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/discover/home#/servers",
+    consoleLabel: "AWS Migration Hub > Discover > Servers",
+    diagram: `flowchart LR
+  DC[On-Premises Data Center] --> Agent[Discovery Agent or Agentless Collector]
+  Agent --> ADS[AWS Application Discovery Service]
+  ADS --> Hub[AWS Migration Hub Inventory]
+  Hub --> Plan[Migration Waves and Dependencies]`,
+    cliExample: {
+      description: "List the on-premises servers that the discovery agents have reported to Application Discovery Service",
+      command: "aws discovery list-configurations --configuration-type SERVER --max-results 1 --region us-west-2",
+      sampleOutput:
+        "{\n  \"configurations\": [\n    {\n      \"server.configurationId\": \"d-server-0a1b2c3d4e5f6a7b8\",\n      \"server.hostName\": \"erp-db-01.corp.example\",\n      \"server.osName\": \"Red Hat Enterprise Linux\",\n      \"server.osVersion\": \"8.9\",\n      \"server.type\": \"VMWARE\",\n      \"server.agentId\": \"o-0f1e2d3c4b5a69788\",\n      \"server.performance.avgCpuUsagePct\": \"12.4\",\n      \"server.performance.avgNumCores\": \"8\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc57",
+    domain: "cloud-concepts",
+    text: "A retailer is migrating an on-premises Oracle database to Amazon Aurora PostgreSQL. The team needs to convert the schema and stored procedures to the new engine and then keep the source and target in sync with minimal downtime until cutover. Which AWS service is designed for this?",
+    options: [
+      { id: "a", text: "AWS Database Migration Service with the AWS Schema Conversion Tool" },
+      { id: "b", text: "AWS Application Migration Service" },
+      { id: "c", text: "AWS Snowball Edge" },
+      { id: "d", text: "AWS Backup" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Database Migration Service (DMS) replicates data from a source to a target database, including continuous change data capture for near-zero downtime cutovers. For heterogeneous migrations between different engines, the AWS Schema Conversion Tool (SCT) converts the schema and code objects first.",
+    optionRationale: {
+      a: "DMS plus SCT is the purpose-built combination for heterogeneous database migrations with ongoing replication.",
+      b: "Application Migration Service replicates entire servers block by block; it does not convert database engines or schemas.",
+      c: "Snowball Edge is for bulk offline data transfer; it does not convert schemas or keep databases in sync.",
+      d: "AWS Backup manages backups of AWS resources; it is not a migration service.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html",
+    referenceLabel: "What is AWS Database Migration Service?",
+    consoleUrl: "https://console.aws.amazon.com/dms/v2/home#/tasks",
+    consoleLabel: "AWS DMS > Database migration tasks",
+    diagram: `flowchart LR
+  Oracle[On-Premises Oracle] --> SCT[Schema Conversion Tool]
+  SCT --> Aurora[Aurora PostgreSQL]
+  Oracle --> DMS[DMS Replication Instance]
+  DMS -->|full load then CDC| Aurora
+  Aurora --> Cutover[Application Cutover]`,
+    cliExample: {
+      description: "Describe the replication tasks in DMS to check full-load and CDC progress",
+      command: "aws dms describe-replication-tasks --without-settings",
+      sampleOutput:
+        "{\n  \"ReplicationTasks\": [\n    {\n      \"ReplicationTaskIdentifier\": \"oracle-to-aurora-orders\",\n      \"SourceEndpointArn\": \"arn:aws:dms:us-east-1:123456789012:endpoint:ABCDEFGHIJKLMNOPQRSTUVWXYZ012345\",\n      \"TargetEndpointArn\": \"arn:aws:dms:us-east-1:123456789012:endpoint:ZYXWVUTSRQPONMLKJIHGFEDCBA543210\",\n      \"ReplicationInstanceArn\": \"arn:aws:dms:us-east-1:123456789012:rep:REPLICATIONINSTANCE0123456789ABC\",\n      \"MigrationType\": \"full-load-and-cdc\",\n      \"Status\": \"running\",\n      \"ReplicationTaskCreationDate\": \"2026-04-21T08:30:12.000Z\",\n      \"ReplicationTaskStats\": {\n        \"FullLoadProgressPercent\": 100,\n        \"TablesLoaded\": 42,\n        \"TablesLoading\": 0,\n        \"TablesQueued\": 0,\n        \"TablesErrored\": 0\n      },\n      \"ReplicationTaskArn\": \"arn:aws:dms:us-east-1:123456789012:task:TASK0123456789ABCDEFGHIJKLMNOPQR\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc58",
+    domain: "cloud-concepts",
+    text: "A company has a large migration involving many teams and tools. Leadership wants a single place to track the status of every application being migrated, regardless of whether it is moved with AWS Application Migration Service, AWS DMS, or partner tools. Which AWS service provides this?",
+    options: [
+      { id: "a", text: "AWS Migration Hub" },
+      { id: "b", text: "AWS Systems Manager" },
+      { id: "c", text: "AWS CloudFormation" },
+      { id: "d", text: "AWS Control Tower" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Migration Hub provides a single location to discover existing servers, plan migrations, and track the status of each application migration across multiple AWS and partner migration tools.",
+    optionRationale: {
+      a: "Migration Hub aggregates progress from Application Migration Service, DMS, and integrated partner tools into one dashboard.",
+      b: "Systems Manager manages and operates resources already in AWS; it does not track migration progress.",
+      c: "CloudFormation provisions infrastructure as code; it is not a migration tracking service.",
+      d: "Control Tower sets up and governs a multi-account landing zone; it does not track application migrations.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/migrationhub/latest/ug/whatishub.html",
+    referenceLabel: "What is AWS Migration Hub?",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/dashboard",
+    consoleLabel: "AWS Migration Hub > Dashboard",
+    diagram: `flowchart LR
+  MGN[Application Migration Service] --> Hub[AWS Migration Hub]
+  DMS[Database Migration Service] --> Hub
+  Partner[Partner Migration Tools] --> Hub
+  Hub --> Status[Per-Application Migration Status]`,
+    cliExample: {
+      description: "List the migration tasks currently reported to Migration Hub in the home Region",
+      command: "aws mgh list-migration-tasks --region us-west-2",
+      sampleOutput:
+        "{\n  \"MigrationTaskSummaryList\": [\n    {\n      \"ProgressUpdateStream\": \"MGN\",\n      \"MigrationTaskName\": \"s-0123456789abcdef0\",\n      \"Status\": \"IN_PROGRESS\",\n      \"ProgressPercent\": 65,\n      \"StatusDetail\": \"Replicating data\",\n      \"UpdateDateTime\": \"2026-08-02T15:47:19.000Z\"\n    },\n    {\n      \"ProgressUpdateStream\": \"DMS\",\n      \"MigrationTaskName\": \"oracle-to-aurora-orders\",\n      \"Status\": \"COMPLETED\",\n      \"ProgressPercent\": 100,\n      \"StatusDetail\": \"Full load complete\",\n      \"UpdateDateTime\": \"2026-08-01T22:10:05.000Z\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc59",
+    domain: "cloud-concepts",
+    text: "A company must move its data center out of a facility whose lease expires in 90 days. It runs hundreds of VMware VMs and has no time to re-architect. Which AWS service and migration strategy best fits this timeline?",
+    options: [
+      { id: "a", text: "Relocate using VMware Cloud on AWS to move the vSphere environment as-is" },
+      { id: "b", text: "Refactor every application into serverless microservices" },
+      { id: "c", text: "Repurchase all applications with SaaS equivalents" },
+      { id: "d", text: "Retain all workloads in the current facility" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Relocate is the 7 Rs strategy for moving infrastructure to the cloud without purchasing new hardware, rewriting applications, or changing operations. VMware Cloud on AWS lets a company move vSphere-based VMs to AWS-managed hosts while continuing to use familiar VMware tooling.",
+    optionRationale: {
+      a: "Relocating a VMware estate to VMware Cloud on AWS moves the environment quickly with no application changes, which fits a 90-day deadline.",
+      b: "Refactoring hundreds of applications is the slowest and most expensive strategy and is impossible in 90 days.",
+      c: "Repurchasing requires finding SaaS replacements for every application, which is not feasible in this timeframe.",
+      d: "Retain is not an option because the lease is ending and the facility must be vacated.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
+    referenceLabel: "AWS Prescriptive Guidance - Migration Strategies (7 Rs)",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/strategy",
+    consoleLabel: "AWS Migration Hub > Strategy Recommendations",
+    diagram: `flowchart TD
+  R7[The 7 Rs of Migration] --> Rehost[Rehost - lift and shift]
+  R7 --> Relocate[Relocate - move VMware as-is]
+  R7 --> Replatform[Replatform - minor tweaks]
+  R7 --> Refactor[Refactor - re-architect]
+  R7 --> Repurchase[Repurchase - move to SaaS]
+  R7 --> Retire[Retire - decommission]
+  R7 --> Retain[Retain - keep as is]
+  Relocate --> VMC[VMware Cloud on AWS]`,
+    cliExample: {
+      description: "Retrieve the Migration Hub Strategy Recommendations assessment summary that suggests a strategy per application",
+      command: "aws migrationhubstrategy get-portfolio-summary --region us-east-1",
+      sampleOutput:
+        "{\n  \"assessmentSummary\": {\n    \"listServerStrategySummary\": [\n      {\n        \"strategy\": \"Rehost\",\n        \"count\": 212\n      },\n      {\n        \"strategy\": \"Relocate\",\n        \"count\": 96\n      },\n      {\n        \"strategy\": \"Replatform\",\n        \"count\": 18\n      },\n      {\n        \"strategy\": \"Retire\",\n        \"count\": 11\n      }\n    ],\n    \"lastAnalyzedTimestamp\": \"2026-05-14T03:20:00.000Z\",\n    \"listServerSummary\": [\n      {\n        \"ServerOsType\": \"WindowsServer\",\n        \"count\": 180\n      },\n      {\n        \"ServerOsType\": \"Linux\",\n        \"count\": 157\n      }\n    ]\n  }\n}",
+    },
+  },
+  {
+    id: "cc60",
+    domain: "cloud-concepts",
+    text: "A company wants to deploy a workload in a Region for the first time and needs to know whether a specific AWS service is available in that Region. Which TWO statements about AWS Regions and service availability are correct?",
+    options: [
+      { id: "a", text: "Not every AWS service is available in every Region, and new services usually launch in a subset of Regions first" },
+      { id: "b", text: "Regional services store and process data only in the Region you select unless you explicitly copy or replicate it elsewhere" },
+      { id: "c", text: "All Regions contain exactly three Availability Zones" },
+      { id: "d", text: "AWS automatically moves customer data between Regions to balance capacity" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "AWS Regions are isolated from each other. Service availability varies by Region, and customers should check the AWS Regional Services List. Data placed in a Region stays there unless the customer chooses to replicate it, which supports data sovereignty requirements.",
+    optionRationale: {
+      a: "Service availability differs by Region; the Regional Services List shows which services are offered where.",
+      b: "AWS does not replicate customer data across Regions without the customer configuring it, so data residency can be controlled by Region choice.",
+      c: "Regions have at least three AZs in most cases, but the exact number varies; some have more.",
+      d: "AWS never moves customer content between Regions on its own; the customer controls where data resides.",
+    },
+    referenceUrl: "https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/",
+    referenceLabel: "AWS Regional Services List",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Home:",
+    consoleLabel: "Amazon EC2 > Dashboard (Region selector)",
+    diagram: `flowchart LR
+  Choose[Choose a Region] --> Check[Check Regional Services List]
+  Check --> Avail{Service Available?}
+  Avail -->|yes| Deploy[Deploy Workload]
+  Avail -->|no| Other[Pick Another Region or Wait]
+  Deploy --> Data[Data Stays in Selected Region]`,
+    cliExample: {
+      description: "Check whether a service is available in a Region by listing its endpoint in the Systems Manager global infrastructure parameters",
+      command: "aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda --region us-east-1",
+      sampleOutput:
+        "{\n  \"Parameters\": [\n    {\n      \"Name\": \"/aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda\",\n      \"Type\": \"String\",\n      \"Value\": \"lambda\",\n      \"Version\": 1,\n      \"LastModifiedDate\": \"2026-01-15T10:00:00.000000+00:00\",\n      \"ARN\": \"arn:aws:ssm:us-east-1::parameter/aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda\",\n      \"DataType\": \"text\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "cc61",
+    domain: "cloud-concepts",
+    text: "An IT director wants to quantify the business value of moving to AWS beyond simple infrastructure savings, including staff productivity, operational resilience, and business agility. Which AWS framework organizes these benefits into four pillars?",
+    options: [
+      { id: "a", text: "AWS Cloud Value Framework" },
+      { id: "b", text: "AWS Well-Architected Framework" },
+      { id: "c", text: "AWS Shared Responsibility Model" },
+      { id: "d", text: "AWS Cloud Adoption Framework" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "The AWS Cloud Value Framework describes the value of the cloud in four pillars: cost savings (TCO), staff productivity, operational resilience, and business agility. It is used to build the business case for migration.",
+    optionRationale: {
+      a: "The Cloud Value Framework's four pillars are exactly cost savings, staff productivity, operational resilience, and business agility.",
+      b: "The Well-Architected Framework has six pillars about how to design workloads, not about quantifying business value.",
+      c: "The Shared Responsibility Model defines which security tasks belong to AWS versus the customer.",
+      d: "The CAF organizes organizational capabilities into six perspectives; it does not quantify cloud value in four pillars.",
+    },
+    referenceUrl: "https://aws.amazon.com/economics/",
+    referenceLabel: "AWS Cloud Economics Center",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/home",
+    consoleLabel: "AWS Migration Hub > Home",
+    diagram: `flowchart LR
+  CVF[AWS Cloud Value Framework] --> Cost[Cost Savings - TCO]
+  CVF --> Staff[Staff Productivity]
+  CVF --> Resil[Operational Resilience]
+  CVF --> Agility[Business Agility]`,
+    cliExample: {
+      description: "Retrieve the account's recommended Savings Plans purchase as input to the cost savings pillar of a business case",
+      command: "aws ce get-savings-plans-purchase-recommendation --savings-plans-type COMPUTE_SP --term-in-years ONE_YEAR --payment-option NO_UPFRONT --lookback-period-in-days THIRTY_DAYS",
+      sampleOutput:
+        "{\n  \"Metadata\": {\n    \"RecommendationId\": \"9e2c4f6a-1b3d-4e5f-8a7b-6c5d4e3f2a1b\",\n    \"GenerationTimestamp\": \"2026-06-20T04:11:00Z\"\n  },\n  \"SavingsPlansPurchaseRecommendation\": {\n    \"SavingsPlansType\": \"COMPUTE_SP\",\n    \"TermInYears\": \"ONE_YEAR\",\n    \"PaymentOption\": \"NO_UPFRONT\",\n    \"LookbackPeriodInDays\": \"THIRTY_DAYS\",\n    \"SavingsPlansPurchaseRecommendationSummary\": {\n      \"EstimatedROI\": \"32.5\",\n      \"CurrencyCode\": \"USD\",\n      \"EstimatedTotalCost\": \"6120.00\",\n      \"CurrentOnDemandSpend\": \"9070.00\",\n      \"EstimatedSavingsAmount\": \"2950.00\",\n      \"EstimatedSavingsPercentage\": \"32.5\",\n      \"EstimatedMonthlySavingsAmount\": \"2950.00\",\n      \"HourlyCommitmentToPurchase\": \"8.50\"\n    }\n  }\n}",
+    },
+  },
+  {
+    id: "cc62",
+    domain: "cloud-concepts",
+    text: "An architect is designing a new system and wants to follow AWS design principles for reliability. Which TWO practices reflect the 'design for failure' principle recommended in the AWS Well-Architected Framework?",
+    options: [
+      { id: "a", text: "Automatically recover from failure by monitoring key metrics and triggering automated remediation" },
+      { id: "b", text: "Test recovery procedures regularly by injecting failures, for example with AWS Fault Injection Service" },
+      { id: "c", text: "Consolidate all components onto one very large, highly specified server to minimize moving parts" },
+      { id: "d", text: "Manually inspect logs each morning to determine whether anything failed overnight" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "The Reliability pillar's design principles include automatically recovering from failure, testing recovery procedures, scaling horizontally to increase aggregate availability, and managing change through automation. Designing for failure assumes components will fail and builds automated detection and recovery in from the start.",
+    optionRationale: {
+      a: "Automated recovery driven by monitoring is a named design principle of the Reliability pillar.",
+      b: "Regularly testing how the workload fails and recovers, including with chaos engineering tools such as AWS FIS, is a core Reliability design principle.",
+      c: "A single large server is a single point of failure; the framework recommends scaling horizontally with many small resources instead.",
+      d: "Manual daily log review is slow and reactive; it does not automate detection or recovery.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/design-principles.html",
+    referenceLabel: "Reliability Pillar - Design Principles",
+    consoleUrl: "https://console.aws.amazon.com/fis/home#/experiment-templates",
+    consoleLabel: "AWS Fault Injection Service > Experiment templates",
+    diagram: `flowchart LR
+  Monitor[CloudWatch Monitoring] --> Alarm[Alarm on Key Metric]
+  Alarm --> Auto[Automated Remediation]
+  Auto --> Healthy[Workload Restored]
+  FIS[Fault Injection Experiment] -.injects failure.-> Monitor
+  FIS --> Verify[Verify Recovery Works]`,
+    cliExample: {
+      description: "List the AWS Fault Injection Service experiment templates used to rehearse failures",
+      command: "aws fis list-experiment-templates",
+      sampleOutput:
+        "{\n  \"experimentTemplates\": [\n    {\n      \"id\": \"EXT7abCdEfGhIjKlM\",\n      \"arn\": \"arn:aws:fis:us-east-1:123456789012:experiment-template/EXT7abCdEfGhIjKlM\",\n      \"description\": \"Terminate one EC2 instance in the web tier and verify Auto Scaling replaces it\",\n      \"creationTime\": \"2026-03-11T13:45:02.000Z\",\n      \"lastUpdateTime\": \"2026-03-11T13:45:02.000Z\",\n      \"tags\": {\n        \"Name\": \"web-tier-az-failure\"\n      }\n    }\n  ]\n}",
+    },
+  },
 ];

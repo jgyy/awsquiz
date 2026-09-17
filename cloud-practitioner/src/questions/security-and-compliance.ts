@@ -1949,4 +1949,668 @@ export const securityAndComplianceQuestions: Question[] = [
       sampleOutput: "{\n  \"RuleArn\": \"arn:aws:events:us-east-1:123456789012:rule/guardduty-high-severity\"\n}",
     },
   },
+  {
+    id: "sec60",
+    domain: "security-and-compliance",
+    text: "A security team wants to find IAM roles and users across the organization that have not been used for 90 days, as well as permissions that were granted but never exercised, so it can remove them. Which capability meets this need with the LEAST operational effort?",
+    options: [
+      { id: "a", text: "IAM Access Analyzer unused access analyzer" },
+      { id: "b", text: "Amazon Inspector network reachability findings" },
+      { id: "c", text: "AWS Trusted Advisor service limit checks" },
+      { id: "d", text: "Amazon Macie sensitive data discovery" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "IAM Access Analyzer can create an unused access analyzer that continuously generates findings for unused roles, unused access keys and passwords, and unused permissions across an account or organization, helping teams move toward least privilege.",
+    optionRationale: {
+      a: "An unused access analyzer reports roles, credentials, and permissions that have not been used within a configurable tracking period, which is exactly what the team wants.",
+      b: "Inspector network reachability findings show which ports on EC2 instances are reachable from the internet; they say nothing about IAM usage.",
+      c: "Trusted Advisor service limit checks track quota usage, not IAM permission usage.",
+      d: "Macie discovers sensitive data in Amazon S3; it does not analyze IAM access patterns.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-unused-access.html",
+    referenceLabel: "Findings for unused access - IAM Access Analyzer",
+    consoleUrl: "https://console.aws.amazon.com/access-analyzer/home",
+    consoleLabel: "IAM > Access Analyzer",
+    diagram: `flowchart LR
+  A[Unused access analyzer] --> B[Scans IAM roles and users]
+  B --> C[Unused role finding]
+  B --> D[Unused access key finding]
+  B --> E[Unused permission finding]
+  C --> F[Security team removes access]
+  D --> F
+  E --> F`,
+    cliExample: {
+      description: "Create an unused access analyzer with a 90-day tracking period for the whole organization",
+      command: "aws accessanalyzer create-analyzer --analyzer-name org-unused-access --type ORGANIZATION_UNUSED_ACCESS --configuration '{\"unusedAccess\":{\"unusedAccessAge\":90}}'",
+      sampleOutput: "{\n  \"arn\": \"arn:aws:access-analyzer:us-east-1:123456789012:analyzer/org-unused-access\"\n}",
+    },
+  },
+  {
+    id: "sec61",
+    domain: "security-and-compliance",
+    text: "An administrator creates a new IAM user and does not attach any policy or add the user to any group. The user signs in and tries to list Amazon S3 buckets. What happens and why?",
+    options: [
+      { id: "a", text: "The request is denied because IAM denies all requests by default unless an applicable policy explicitly allows them" },
+      { id: "b", text: "The request succeeds because new IAM users inherit the permissions of the root user" },
+      { id: "c", text: "The request succeeds because listing buckets is a read-only action that is always permitted" },
+      { id: "d", text: "The request is denied only if an explicit Deny statement exists somewhere in the account" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "IAM policy evaluation starts from an implicit deny. A request is allowed only if an applicable identity-based or resource-based policy contains an Allow and no explicit Deny applies. A brand-new user with no policies has no Allow, so every request is implicitly denied.",
+    optionRationale: {
+      a: "Correct: by default all requests are implicitly denied; an explicit Allow is required and an explicit Deny always overrides it.",
+      b: "IAM users never inherit root user permissions; they start with no permissions at all.",
+      c: "There is no set of actions that is always permitted; even read-only actions need an Allow.",
+      d: "An explicit Deny is not required for a request to fail; the absence of an Allow (implicit deny) is enough.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html",
+    referenceLabel: "Policy evaluation logic - IAM User Guide",
+    consoleUrl: "https://console.aws.amazon.com/iam/home#/users",
+    consoleLabel: "IAM > Users",
+    diagram: `flowchart TD
+  A[Request from new IAM user] --> B{Explicit Deny?}
+  B -->|Yes| C[Denied]
+  B -->|No| D{Any Allow in applicable policies?}
+  D -->|Yes| E[Allowed]
+  D -->|No| F[Implicit deny - request fails]`,
+    cliExample: {
+      description: "Simulate whether the user can call s3:ListAllMyBuckets before granting anything",
+      command: "aws iam simulate-principal-policy --policy-source-arn arn:aws:iam::123456789012:user/new-analyst --action-names s3:ListAllMyBuckets",
+      sampleOutput: "{\n  \"EvaluationResults\": [\n    {\n      \"EvalActionName\": \"s3:ListAllMyBuckets\",\n      \"EvalResourceName\": \"*\",\n      \"EvalDecision\": \"implicitDeny\",\n      \"MatchedStatements\": [],\n      \"MissingContextValues\": []\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec62",
+    domain: "security-and-compliance",
+    text: "A company must demonstrate that its AWS accounts are configured according to the CIS AWS Foundations Benchmark and wants automated, continuously updated checks with a compliance score rather than a one-time manual review. Which approach should it take?",
+    options: [
+      { id: "a", text: "Enable the CIS AWS Foundations Benchmark standard in AWS Security Hub" },
+      { id: "b", text: "Download the CIS benchmark PDF from AWS Artifact and review each account manually" },
+      { id: "c", text: "Run Amazon Inspector against all EC2 instances once per quarter" },
+      { id: "d", text: "Enable Amazon GuardDuty in every account" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Security Hub provides security standards such as the CIS AWS Foundations Benchmark, AWS Foundational Security Best Practices, PCI DSS, and NIST. Enabling a standard runs automated controls continuously and produces a security score per standard.",
+    optionRationale: {
+      a: "Security Hub standards run automated controls (backed by AWS Config rules) continuously and report pass/fail status and an overall score.",
+      b: "AWS Artifact provides AWS's own compliance reports; it does not automate checks of your account configuration.",
+      c: "Inspector finds software vulnerabilities and network exposure on workloads; it does not evaluate account-level CIS controls such as root MFA or CloudTrail settings.",
+      d: "GuardDuty is a threat detection service and does not evaluate configuration compliance against benchmarks.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html",
+    referenceLabel: "Security standards in Security Hub",
+    consoleUrl: "https://console.aws.amazon.com/securityhub/home#/standards",
+    consoleLabel: "Security Hub > Security standards",
+    diagram: `flowchart LR
+  A[Security Hub] --> B[CIS AWS Foundations Benchmark]
+  A --> C[AWS Foundational Security Best Practices]
+  A --> D[PCI DSS]
+  B --> E[Automated controls via AWS Config]
+  E --> F[Pass or Fail findings]
+  F --> G[Security score per standard]`,
+    cliExample: {
+      description: "List the security standards available to enable in Security Hub",
+      command: "aws securityhub describe-standards --query 'Standards[].{Name:Name,Arn:StandardsArn}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"CIS AWS Foundations Benchmark v1.4.0\",\n    \"Arn\": \"arn:aws:securityhub:us-east-1::standards/cis-aws-foundations-benchmark/v/1.4.0\"\n  },\n  {\n    \"Name\": \"AWS Foundational Security Best Practices v1.0.0\",\n    \"Arn\": \"arn:aws:securityhub:us-east-1::standards/aws-foundational-security-best-practices/v/1.0.0\"\n  },\n  {\n    \"Name\": \"PCI DSS v3.2.1\",\n    \"Arn\": \"arn:aws:securityhub:us-east-1::standards/pci-dss/v/3.2.1\"\n  }\n]",
+    },
+  },
+  {
+    id: "sec63",
+    domain: "security-and-compliance",
+    text: "A compliance team spends weeks before every audit manually collecting evidence such as CloudTrail logs, IAM configurations, and AWS Config snapshots and mapping them to controls in frameworks like SOC 2 and PCI DSS. Which AWS service automates this evidence collection and produces audit-ready assessment reports?",
+    options: [
+      { id: "a", text: "AWS Audit Manager" },
+      { id: "b", text: "AWS Artifact" },
+      { id: "c", text: "AWS Trusted Advisor" },
+      { id: "d", text: "Amazon Detective" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Audit Manager continuously collects evidence from AWS services, maps it to controls in prebuilt or custom frameworks, and generates assessment reports to simplify audit preparation.",
+    optionRationale: {
+      a: "Audit Manager automates evidence collection and organizes it by framework control, producing assessment reports for auditors.",
+      b: "AWS Artifact lets you download AWS's compliance reports about AWS itself; it does not collect evidence from your own account.",
+      c: "Trusted Advisor gives best-practice recommendations, not framework-mapped audit evidence.",
+      d: "Detective helps investigate security findings by analyzing log data; it is not an audit evidence tool.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html",
+    referenceLabel: "What is AWS Audit Manager?",
+    consoleUrl: "https://console.aws.amazon.com/auditmanager/home",
+    consoleLabel: "AWS Audit Manager",
+    diagram: `flowchart LR
+  A[CloudTrail] --> D[AWS Audit Manager]
+  B[AWS Config] --> D
+  C[Security Hub] --> D
+  D --> E[Evidence mapped to framework controls]
+  E --> F[Assessment report for auditors]`,
+    cliExample: {
+      description: "List the prebuilt frameworks available in Audit Manager",
+      command: "aws auditmanager list-assessment-frameworks --framework-type Standard --max-results 3",
+      sampleOutput: "{\n  \"frameworkMetadataList\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"type\": \"Standard\",\n      \"name\": \"PCI DSS V3.2.1\",\n      \"controlsCount\": 245,\n      \"controlSetsCount\": 12\n    },\n    {\n      \"id\": \"66666666-7777-8888-9999-000000000000\",\n      \"type\": \"Standard\",\n      \"name\": \"SOC 2\",\n      \"controlsCount\": 61,\n      \"controlSetsCount\": 5\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec64",
+    domain: "security-and-compliance",
+    text: "A healthcare startup is about to store protected health information on AWS and its lawyers require a signed Business Associate Addendum (BAA) with AWS. How can the company accept the BAA?",
+    options: [
+      { id: "a", text: "Accept the AWS BAA online through the Agreements section of AWS Artifact" },
+      { id: "b", text: "Open a support case and request that AWS mail a paper contract" },
+      { id: "c", text: "Enable the HIPAA standard in AWS Security Hub, which automatically signs the BAA" },
+      { id: "d", text: "A BAA is not needed because AWS is responsible for HIPAA compliance of all workloads" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Artifact Agreements lets customers review, accept, and manage agreements such as the Business Associate Addendum for a single account or for all accounts in an AWS Organization.",
+    optionRationale: {
+      a: "Artifact Agreements is the self-service place to accept the AWS BAA, either per account or organization-wide from the management account.",
+      b: "AWS does not require paper contracts for the BAA; it is accepted electronically in Artifact.",
+      c: "Security Hub runs automated security checks; it cannot sign legal agreements.",
+      d: "Under the shared responsibility model the customer remains responsible for HIPAA compliance of its workloads and must have a BAA in place before storing PHI.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/artifact/latest/ug/managing-agreements.html",
+    referenceLabel: "Managing agreements in AWS Artifact",
+    consoleUrl: "https://console.aws.amazon.com/artifact/home#/agreements",
+    consoleLabel: "AWS Artifact > Agreements",
+    diagram: `flowchart LR
+  A[Healthcare startup] --> B[AWS Artifact Agreements]
+  B --> C[Review BAA terms]
+  C --> D[Accept for account or organization]
+  D --> E[Store PHI in HIPAA-eligible services]`,
+    cliExample: {
+      description: "List the agreements available to accept in AWS Artifact",
+      command: "aws artifact list-customer-agreements --query 'customerAgreements[].{Name:name,State:state}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"AWS Business Associate Addendum\",\n    \"State\": \"ACTIVE\"\n  },\n  {\n    \"Name\": \"AWS Australian Notifiable Data Breach Addendum\",\n    \"State\": \"ACTIVE\"\n  }\n]",
+    },
+  },
+  {
+    id: "sec65",
+    domain: "security-and-compliance",
+    text: "A company's security policy states that every new Amazon EBS volume and snapshot created in a Region must be encrypted, without relying on engineers to tick an encryption checkbox each time. What is the SIMPLEST way to enforce this?",
+    options: [
+      { id: "a", text: "Enable EBS encryption by default in the EC2 settings for the Region" },
+      { id: "b", text: "Write a Lambda function that deletes any unencrypted volume it finds" },
+      { id: "c", text: "Require all instances to use instance store volumes instead" },
+      { id: "d", text: "Attach a KMS key policy that denies the creation of unencrypted volumes" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "EBS encryption by default is a per-Region account setting. Once enabled, all new EBS volumes and snapshot copies are automatically encrypted with the chosen KMS key, with no changes to launch workflows.",
+    optionRationale: {
+      a: "This account-level, per-Region setting ensures every new volume is encrypted automatically using the default KMS key.",
+      b: "A cleanup function is reactive and destructive; it does not prevent unencrypted volumes from being created.",
+      c: "Instance store is ephemeral storage and is not a substitute for persistent EBS volumes.",
+      d: "KMS key policies control who can use a key; they cannot force EBS to encrypt volumes.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/ebs/latest/userguide/EBSEncryption.html",
+    referenceLabel: "Amazon EBS encryption",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Settings:",
+    consoleLabel: "EC2 > Settings > EBS encryption",
+    diagram: `flowchart LR
+  A[Enable EBS encryption by default] --> B[Region-level account setting]
+  B --> C[New EBS volume]
+  B --> D[New snapshot copy]
+  C --> E[Encrypted with KMS key automatically]
+  D --> E`,
+    cliExample: {
+      description: "Turn on EBS encryption by default for the current Region",
+      command: "aws ec2 enable-ebs-encryption-by-default --region us-east-1",
+      sampleOutput: "{\n  \"EbsEncryptionByDefault\": true\n}",
+    },
+  },
+  {
+    id: "sec66",
+    domain: "security-and-compliance",
+    text: "An application on EC2 instances in a private subnet reads and writes objects in Amazon S3. Security policy prohibits the traffic from traversing the public internet, and the company does not want to pay for a NAT gateway just for S3 access. Which solution meets these requirements?",
+    options: [
+      { id: "a", text: "Create a gateway VPC endpoint for Amazon S3 and add a route to it in the private subnet's route table" },
+      { id: "b", text: "Attach an internet gateway to the VPC and give the instances public IP addresses" },
+      { id: "c", text: "Set up an AWS Site-to-Site VPN between the VPC and Amazon S3" },
+      { id: "d", text: "Enable S3 Transfer Acceleration on the bucket" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "A gateway VPC endpoint for S3 lets resources in a VPC reach S3 privately over the AWS network with no internet gateway, NAT device, or VPN, and it has no additional charge.",
+    optionRationale: {
+      a: "Gateway endpoints for S3 and DynamoDB route traffic privately via the route table and are free of charge.",
+      b: "This exposes the instances to the internet and sends S3 traffic over the public path, violating the policy.",
+      c: "Site-to-Site VPN connects on-premises networks to a VPC; S3 is not a VPN endpoint.",
+      d: "Transfer Acceleration speeds up long-distance uploads via edge locations; it still uses the public internet.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html",
+    referenceLabel: "Gateway endpoints for Amazon S3",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#Endpoints:",
+    consoleLabel: "VPC > Endpoints",
+    diagram: `flowchart LR
+  A[EC2 in private subnet] --> B[Route table entry pl-s3]
+  B --> C[Gateway VPC endpoint]
+  C --> D[Amazon S3]
+  A -.x.- E[Internet gateway or NAT not used]`,
+    cliExample: {
+      description: "Create a gateway endpoint for S3 attached to the private route table",
+      command: "aws ec2 create-vpc-endpoint --vpc-id vpc-0a1b2c3d4e5f67890 --service-name com.amazonaws.us-east-1.s3 --vpc-endpoint-type Gateway --route-table-ids rtb-0123456789abcdef0",
+      sampleOutput: "{\n  \"VpcEndpoint\": {\n    \"VpcEndpointId\": \"vpce-0fedcba9876543210\",\n    \"VpcEndpointType\": \"Gateway\",\n    \"VpcId\": \"vpc-0a1b2c3d4e5f67890\",\n    \"ServiceName\": \"com.amazonaws.us-east-1.s3\",\n    \"State\": \"available\",\n    \"RouteTableIds\": [\n      \"rtb-0123456789abcdef0\"\n    ],\n    \"CreationTimestamp\": \"2026-03-14T09:12:44.000Z\",\n    \"OwnerId\": \"123456789012\"\n  }\n}",
+    },
+  },
+  {
+    id: "sec67",
+    domain: "security-and-compliance",
+    text: "A company must evaluate 40 AWS accounts against a common set of operational best-practice rules, such as encrypted storage and enabled logging, and wants to deploy those rules as a single, versioned package rather than configuring dozens of individual rules per account. Which AWS Config feature should it use?",
+    options: [
+      { id: "a", text: "AWS Config conformance packs" },
+      { id: "b", text: "AWS Config configuration snapshots" },
+      { id: "c", text: "AWS Config aggregators only" },
+      { id: "d", text: "AWS CloudFormation drift detection" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "A conformance pack is a collection of AWS Config rules and remediation actions packaged as a single YAML template that can be deployed to an account, a Region, or across an entire AWS Organization.",
+    optionRationale: {
+      a: "Conformance packs bundle many Config rules and remediation actions into one deployable, versioned unit, with sample packs for common frameworks.",
+      b: "Configuration snapshots are point-in-time exports of resource configurations, not rule packages.",
+      c: "Aggregators collect Config data from multiple accounts into one view, but they do not deploy rules.",
+      d: "CloudFormation drift detection compares a stack with its template; it does not evaluate compliance rules across accounts.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/config/latest/developerguide/conformance-packs.html",
+    referenceLabel: "Conformance packs - AWS Config",
+    consoleUrl: "https://console.aws.amazon.com/config/home#/conformance-packs",
+    consoleLabel: "AWS Config > Conformance packs",
+    diagram: `flowchart LR
+  A[Conformance pack YAML template] --> B[Deploy to organization]
+  B --> C[Account 1 Config rules]
+  B --> D[Account 2 Config rules]
+  B --> E[Account 40 Config rules]
+  C --> F[Compliance score per pack]
+  D --> F
+  E --> F`,
+    cliExample: {
+      description: "Check the compliance summary of a deployed conformance pack",
+      command: "aws configservice get-conformance-pack-compliance-summary --conformance-pack-names operational-best-practices-for-s3",
+      sampleOutput: "{\n  \"ConformancePackComplianceSummaryList\": [\n    {\n      \"ConformancePackName\": \"operational-best-practices-for-s3\",\n      \"ConformancePackComplianceStatus\": \"NON_COMPLIANT\"\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec68",
+    domain: "security-and-compliance",
+    text: "A security team needs to run SQL-style queries across several years of API activity from all accounts in its organization, for example to find every principal that called DeleteBucket in 2025, without building its own log pipeline in Amazon Athena. Which AWS feature is designed for this?",
+    options: [
+      { id: "a", text: "AWS CloudTrail Lake event data stores" },
+      { id: "b", text: "Amazon CloudWatch Logs metric filters" },
+      { id: "c", text: "AWS Config configuration history" },
+      { id: "d", text: "Amazon Inspector findings export" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "CloudTrail Lake is a managed data lake for CloudTrail events. It stores events in immutable event data stores with retention of up to ten years and lets you run SQL queries on them directly, with no separate S3, Glue, or Athena setup.",
+    optionRationale: {
+      a: "CloudTrail Lake ingests events into event data stores and exposes a SQL query interface, including across an entire organization.",
+      b: "Metric filters count log patterns for alarms; they are not a long-term query engine for API history.",
+      c: "Config history tracks resource configuration changes, not who called which API.",
+      d: "Inspector reports vulnerabilities and does not store API activity.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html",
+    referenceLabel: "Working with AWS CloudTrail Lake",
+    consoleUrl: "https://console.aws.amazon.com/cloudtrailv2/home#/lake",
+    consoleLabel: "CloudTrail > Lake",
+    diagram: `flowchart LR
+  A[Management and data events] --> B[CloudTrail Lake event data store]
+  B --> C[Retention up to 10 years]
+  B --> D[SQL query]
+  D --> E[Who called DeleteBucket in 2025]`,
+    cliExample: {
+      description: "Start a SQL query against a CloudTrail Lake event data store",
+      command: "aws cloudtrail start-query --query-statement \"SELECT userIdentity.arn, eventTime FROM 3f4a1b2c-1234-5678-9abc-def012345678 WHERE eventName = 'DeleteBucket' AND eventTime > '2025-01-01 00:00:00'\"",
+      sampleOutput: "{\n  \"QueryId\": \"9c8b7a6d-5e4f-4321-8765-4321fedcba98\"\n}",
+    },
+  },
+  {
+    id: "sec69",
+    domain: "security-and-compliance",
+    text: "A company uses AWS Organizations and wants to (1) prevent member accounts from launching resources outside approved Regions and (2) ensure every resource is tagged with a CostCenter key using a standard set of allowed values. Which TWO Organizations policy types address these two requirements respectively?",
+    options: [
+      { id: "a", text: "A service control policy (SCP) that denies actions when the requested Region is not in the approved list" },
+      { id: "b", text: "A tag policy that defines the CostCenter key, its capitalization, and its allowed values" },
+      { id: "c", text: "A backup policy that restricts backup vaults to approved Regions" },
+      { id: "d", text: "An AI services opt-out policy applied to the root" },
+      { id: "e", text: "An IAM permissions boundary attached to the management account root user" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "SCPs set the maximum permissions available in member accounts and are commonly used to deny actions outside approved Regions. Tag policies standardize tag keys and values across accounts and can report or enforce non-compliant tags.",
+    optionRationale: {
+      a: "SCPs with a condition on aws:RequestedRegion are the standard way to restrict Regions organization-wide.",
+      b: "Tag policies define allowed tag keys, capitalization, and values, and can prevent non-compliant tagging operations on supported resources.",
+      c: "Backup policies centrally manage AWS Backup plans; they do not restrict where general resources are launched.",
+      d: "AI services opt-out policies control whether AWS AI services may store or use your content; unrelated to Regions or tags.",
+      e: "Permissions boundaries apply to IAM users and roles, not to the root user, and do not work across accounts.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html",
+    referenceLabel: "Tag policies - AWS Organizations",
+    consoleUrl: "https://console.aws.amazon.com/organizations/v2/home/policies",
+    consoleLabel: "AWS Organizations > Policies",
+    diagram: `flowchart TD
+  A[AWS Organizations root] --> B[SCP - deny outside approved Regions]
+  A --> C[Tag policy - CostCenter allowed values]
+  B --> D[Member account]
+  C --> D
+  D --> E[Launch blocked in unapproved Region]
+  D --> F[Non-compliant tag reported or blocked]`,
+    cliExample: {
+      description: "List the tag policies attached in the organization",
+      command: "aws organizations list-policies --filter TAG_POLICY",
+      sampleOutput: "{\n  \"Policies\": [\n    {\n      \"Id\": \"p-costcenter01\",\n      \"Arn\": \"arn:aws:organizations::123456789012:policy/o-exampleorgid/tag_policy/p-costcenter01\",\n      \"Name\": \"CostCenterStandard\",\n      \"Description\": \"Require CostCenter tag with approved values\",\n      \"Type\": \"TAG_POLICY\",\n      \"AwsManaged\": false\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec70",
+    domain: "security-and-compliance",
+    text: "A company is setting up its first multi-account AWS environment and wants a prescriptive landing zone with preconfigured guardrails, such as disallowing public S3 buckets and requiring CloudTrail, that are applied automatically to every new account it provisions. Which service provides this?",
+    options: [
+      { id: "a", text: "AWS Control Tower" },
+      { id: "b", text: "AWS Config alone" },
+      { id: "c", text: "AWS Service Catalog alone" },
+      { id: "d", text: "AWS Trusted Advisor" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Control Tower builds a landing zone on top of AWS Organizations and applies preventive, detective, and proactive controls (formerly called guardrails) to organizational units, so accounts created through Account Factory are governed from day one.",
+    optionRationale: {
+      a: "Control Tower automates landing zone setup, account provisioning through Account Factory, and enforces controls such as blocking public S3 access or requiring CloudTrail.",
+      b: "AWS Config provides detective rules but does not set up an organization, OUs, or preventive controls by itself.",
+      c: "Service Catalog manages approved product templates; Control Tower uses it under the hood for Account Factory but Service Catalog alone does not provide guardrails.",
+      d: "Trusted Advisor offers recommendations; it cannot enforce controls on new accounts.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/controltower/latest/userguide/controls.html",
+    referenceLabel: "About controls in AWS Control Tower",
+    consoleUrl: "https://console.aws.amazon.com/controltower/home",
+    consoleLabel: "AWS Control Tower",
+    diagram: `flowchart TD
+  A[AWS Control Tower landing zone] --> B[Security OU]
+  A --> C[Workloads OU]
+  A --> D[Account Factory]
+  D --> E[New account]
+  C --> E
+  E --> F[Preventive controls via SCP]
+  E --> G[Detective controls via Config rules]`,
+    cliExample: {
+      description: "List the controls enabled on an organizational unit managed by Control Tower",
+      command: "aws controltower list-enabled-controls --target-identifier arn:aws:organizations::123456789012:ou/o-exampleorgid/ou-abcd-11112222",
+      sampleOutput: "{\n  \"enabledControls\": [\n    {\n      \"controlIdentifier\": \"arn:aws:controltower:us-east-1::control/AWS-GR_RESTRICTED_PUBLIC_BUCKETS\",\n      \"statusSummary\": {\n        \"status\": \"SUCCEEDED\"\n      }\n    },\n    {\n      \"controlIdentifier\": \"arn:aws:controltower:us-east-1::control/AWS-GR_CLOUDTRAIL_ENABLED\",\n      \"statusSummary\": {\n        \"status\": \"SUCCEEDED\"\n      }\n    }\n  ]\n}",
+    },
+  },
+  {
+    id: "sec71",
+    domain: "security-and-compliance",
+    text: "A developer is building a document-sharing application and needs fine-grained, policy-based authorization inside the app, for example allowing a user to edit a document only if they are its owner or in its editors group. The team wants a managed service instead of hard-coding these rules. Which AWS service is designed for this?",
+    options: [
+      { id: "a", text: "Amazon Verified Permissions" },
+      { id: "b", text: "AWS IAM Identity Center" },
+      { id: "c", text: "AWS Certificate Manager" },
+      { id: "d", text: "Amazon Cognito user pools alone" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Amazon Verified Permissions is a scalable, fine-grained authorization service for custom applications. Developers write policies in the Cedar language and the application calls the service to make allow or deny decisions for its own resources.",
+    optionRationale: {
+      a: "Verified Permissions externalizes application-level authorization decisions using Cedar policies, integrating with identity providers like Cognito.",
+      b: "IAM Identity Center manages workforce sign-in to AWS accounts and applications; it does not authorize actions on your application's own documents.",
+      c: "Certificate Manager provisions TLS certificates and is unrelated to authorization logic.",
+      d: "Cognito user pools handle authentication (who the user is); they do not evaluate fine-grained permission policies for application resources.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/verifiedpermissions/latest/userguide/what-is-avp.html",
+    referenceLabel: "What is Amazon Verified Permissions?",
+    consoleUrl: "https://console.aws.amazon.com/verifiedpermissions/home",
+    consoleLabel: "Amazon Verified Permissions",
+    diagram: `flowchart LR
+  A[User signs in via Cognito] --> B[Application]
+  B --> C[IsAuthorized request]
+  C --> D[Verified Permissions policy store]
+  D --> E[Cedar policies]
+  E --> F[Allow or Deny decision]
+  F --> B`,
+    cliExample: {
+      description: "Ask Verified Permissions whether a user may edit a document",
+      command: "aws verifiedpermissions is-authorized --policy-store-id PSEXAMPLEabcdefg123456 --principal entityType=User,entityId=alice --action actionType=Action,actionId=EditDocument --resource entityType=Document,entityId=doc-42",
+      sampleOutput: "{\n  \"decision\": \"ALLOW\",\n  \"determiningPolicies\": [\n    {\n      \"policyId\": \"SPEXAMPLEabcdefg123456\"\n    }\n  ],\n  \"errors\": []\n}",
+    },
+  },
+  {
+    id: "sec72",
+    domain: "security-and-compliance",
+    text: "A company wants to guarantee that only code packages digitally signed by its release team can be deployed to its production AWS Lambda functions, and that any unsigned or tampered package is rejected at deployment time. Which service should it use with Lambda code signing?",
+    options: [
+      { id: "a", text: "AWS Signer" },
+      { id: "b", text: "AWS Certificate Manager" },
+      { id: "c", text: "AWS Secrets Manager" },
+      { id: "d", text: "Amazon Inspector" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Signer is a managed code-signing service. A Lambda code signing configuration references a Signer signing profile, and Lambda then validates that deployment packages are signed by a trusted publisher and unaltered, rejecting or warning on failures.",
+    optionRationale: {
+      a: "Signer produces signatures for Lambda deployment packages and container images; Lambda code signing configurations enforce them.",
+      b: "Certificate Manager issues TLS certificates for endpoints; it does not sign application code.",
+      c: "Secrets Manager stores and rotates secrets; it has no code-signing capability.",
+      d: "Inspector scans Lambda functions for vulnerabilities after deployment but does not validate signatures.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/lambda/latest/dg/configuration-codesigning.html",
+    referenceLabel: "Configuring code signing for AWS Lambda",
+    consoleUrl: "https://console.aws.amazon.com/signer/home",
+    consoleLabel: "AWS Signer",
+    diagram: `flowchart LR
+  A[Release team builds package] --> B[AWS Signer signing profile]
+  B --> C[Signed deployment package]
+  C --> D[Lambda code signing configuration]
+  D -->|Signature valid| E[Deployment allowed]
+  D -->|Unsigned or tampered| F[Deployment rejected]`,
+    cliExample: {
+      description: "Create a Signer signing profile for Lambda deployment packages",
+      command: "aws signer put-signing-profile --profile-name prod-release-team --platform-id AWSLambda-SHA384-ECDSA",
+      sampleOutput: "{\n  \"arn\": \"arn:aws:signer:us-east-1:123456789012:/signing-profiles/prod-release-team\",\n  \"profileVersion\": \"a1b2c3d4e5\",\n  \"profileVersionArn\": \"arn:aws:signer:us-east-1:123456789012:/signing-profiles/prod-release-team/a1b2c3d4e5\"\n}",
+    },
+  },
+  {
+    id: "sec73",
+    domain: "security-and-compliance",
+    text: "A company runs 300 EC2 instances across Linux and Windows and must apply operating system security patches on a scheduled maintenance window and report which instances are missing critical patches. Which AWS capability provides this with the LEAST custom scripting?",
+    options: [
+      { id: "a", text: "AWS Systems Manager Patch Manager with patch baselines and maintenance windows" },
+      { id: "b", text: "Amazon Inspector network reachability analysis" },
+      { id: "c", text: "AWS CloudFormation change sets" },
+      { id: "d", text: "Amazon EC2 Auto Scaling instance refresh" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Systems Manager Patch Manager automates scanning and installing OS patches on managed instances according to patch baselines, runs during maintenance windows, and reports patch compliance for each instance.",
+    optionRationale: {
+      a: "Patch Manager handles patch selection via baselines, scheduling via maintenance windows, and compliance reporting for both Linux and Windows.",
+      b: "Inspector can identify vulnerable software and open network paths but does not install patches.",
+      c: "Change sets preview infrastructure changes to a stack; they are unrelated to OS patching.",
+      d: "Instance refresh replaces instances with a new AMI; it does not scan or report missing patches on running instances.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager.html",
+    referenceLabel: "AWS Systems Manager Patch Manager",
+    consoleUrl: "https://console.aws.amazon.com/systems-manager/patch-manager",
+    consoleLabel: "Systems Manager > Patch Manager",
+    diagram: `flowchart LR
+  A[Patch baseline] --> C[Patch Manager]
+  B[Maintenance window] --> C
+  C --> D[Scan managed instances]
+  D --> E[Install approved patches]
+  E --> F[Patch compliance report]`,
+    cliExample: {
+      description: "Summarize patch compliance across managed instances",
+      command: "aws ssm describe-patch-group-state --patch-group Production",
+      sampleOutput: "{\n  \"Instances\": 300,\n  \"InstancesWithInstalledPatches\": 284,\n  \"InstancesWithInstalledOtherPatches\": 12,\n  \"InstancesWithInstalledPendingRebootPatches\": 9,\n  \"InstancesWithMissingPatches\": 16,\n  \"InstancesWithFailedPatches\": 2,\n  \"InstancesWithNotApplicablePatches\": 0,\n  \"InstancesWithUnreportedNotApplicablePatches\": 0,\n  \"InstancesWithCriticalNonCompliantPatches\": 7,\n  \"InstancesWithSecurityNonCompliantPatches\": 11,\n  \"InstancesWithOtherNonCompliantPatches\": 3\n}",
+    },
+  },
+  {
+    id: "sec74",
+    domain: "security-and-compliance",
+    text: "A company that processes credit card payments and also sells to US federal agencies is evaluating AWS. Which TWO statements about AWS compliance programs are correct?",
+    options: [
+      { id: "a", text: "AWS is certified as a PCI DSS Level 1 service provider, but the customer must still validate its own cardholder data environment" },
+      { id: "b", text: "AWS GovCloud (US) Regions and many commercial services hold FedRAMP authorizations that federal workloads can inherit controls from" },
+      { id: "c", text: "Deploying any workload on AWS automatically makes that workload PCI DSS compliant" },
+      { id: "d", text: "AWS compliance certifications only cover Regions in the United States" },
+      { id: "e", text: "Customers must hire an AWS-approved auditor before they are allowed to store card data on AWS" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "AWS inherits many controls to customers through certifications such as PCI DSS Level 1 and FedRAMP, but compliance is shared: customers remain responsible for the compliance of what they build on AWS.",
+    optionRationale: {
+      a: "AWS is a PCI DSS Level 1 service provider; customers inherit infrastructure controls but must validate their own applications, network segmentation, and processes.",
+      b: "AWS services hold FedRAMP Moderate and High authorizations (High in GovCloud US), letting agencies leverage those authorizations.",
+      c: "Compliance is shared; using AWS does not make an application compliant on its own.",
+      d: "AWS holds global certifications such as ISO 27001 and regional ones across many Regions, not only the US.",
+      e: "There is no AWS-approved auditor requirement; customers use their own Qualified Security Assessors as PCI requires.",
+    },
+    referenceUrl: "https://aws.amazon.com/compliance/programs/",
+    referenceLabel: "AWS Compliance Programs",
+    consoleUrl: "https://console.aws.amazon.com/artifact/home#/reports",
+    consoleLabel: "AWS Artifact > Reports",
+    diagram: `flowchart LR
+  A[AWS compliance programs] --> B[PCI DSS Level 1]
+  A --> C[FedRAMP Moderate and High]
+  A --> D[ISO 27001 and SOC]
+  B --> E[Customer inherits infrastructure controls]
+  E --> F[Customer validates its own workload]`,
+    cliExample: {
+      description: "List compliance reports available for download in AWS Artifact",
+      command: "aws artifact list-reports --max-results 3 --query 'reports[].{Name:name,Category:category}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"PCI DSS Attestation of Compliance and Responsibility Summary\",\n    \"Category\": \"Certifications and Attestations\"\n  },\n  {\n    \"Name\": \"FedRAMP Moderate Customer Package\",\n    \"Category\": \"Certifications and Attestations\"\n  },\n  {\n    \"Name\": \"ISO 27001 Certification\",\n    \"Category\": \"Certifications and Attestations\"\n  }\n]",
+    },
+  },
+  {
+    id: "sec75",
+    domain: "security-and-compliance",
+    text: "A company migrates an application from EC2 instances to AWS Lambda functions. Under the AWS Shared Responsibility Model, which TWO security tasks remain the customer's responsibility after the migration?",
+    options: [
+      { id: "a", text: "Writing secure function code and keeping its third-party libraries up to date" },
+      { id: "b", text: "Configuring the IAM execution role with least-privilege permissions" },
+      { id: "c", text: "Patching the operating system of the servers that run the functions" },
+      { id: "d", text: "Maintaining the physical security of the data centers hosting Lambda" },
+      { id: "e", text: "Patching the Lambda runtime environment and its underlying Firecracker microVMs" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "With Lambda, AWS manages the infrastructure, operating system, and runtime environment. The customer remains responsible for the code it deploys, its dependencies, the function's IAM permissions, and how data is handled and encrypted.",
+    optionRationale: {
+      a: "Application code and bundled dependencies are always the customer's responsibility in any service model.",
+      b: "The execution role and resource-based policies for the function are configured by the customer.",
+      c: "AWS manages and patches the underlying compute for Lambda; the customer has no OS to patch.",
+      d: "Physical data center security is always AWS's responsibility.",
+      e: "AWS maintains the managed runtimes and microVM isolation, though customers must choose a supported runtime version.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html",
+    referenceLabel: "Security in AWS Lambda",
+    consoleUrl: "https://console.aws.amazon.com/lambda/home#/functions",
+    consoleLabel: "Lambda > Functions",
+    diagram: `flowchart TD
+  A[Shared responsibility for Lambda] --> B[AWS]
+  A --> C[Customer]
+  B --> D[Physical hosts and network]
+  B --> E[OS and runtime patching]
+  B --> F[MicroVM isolation]
+  C --> G[Function code and libraries]
+  C --> H[IAM execution role]
+  C --> I[Data encryption and secrets]`,
+    cliExample: {
+      description: "Inspect a function's runtime and execution role to confirm customer-managed settings",
+      command: "aws lambda get-function-configuration --function-name order-processor --query '{Runtime:Runtime,Role:Role,LastModified:LastModified}'",
+      sampleOutput: "{\n  \"Runtime\": \"python3.12\",\n  \"Role\": \"arn:aws:iam::123456789012:role/order-processor-exec-role\",\n  \"LastModified\": \"2026-04-02T11:20:35.000+0000\"\n}",
+    },
+  },
+  {
+    id: "sec76",
+    domain: "security-and-compliance",
+    text: "A company's on-premises servers are receiving a brute-force SSH attack and its firewall logs show the source IP addresses belong to Amazon EC2. The company is not an AWS customer. What is the appropriate way to report this activity to AWS?",
+    options: [
+      { id: "a", text: "Submit the details, including source IPs, timestamps, and logs, through the AWS abuse report form or by emailing the AWS Trust and Safety team" },
+      { id: "b", text: "Open an AWS Support case, which requires purchasing a Business Support plan first" },
+      { id: "c", text: "Enable Amazon GuardDuty, which will automatically notify AWS about the attacker" },
+      { id: "d", text: "Nothing can be done because AWS does not accept reports from non-customers" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Anyone, customer or not, can report suspected abuse originating from AWS resources to the AWS Trust and Safety team using the online abuse report form or the abuse email address, providing logs with source IPs and timestamps so AWS can investigate.",
+    optionRationale: {
+      a: "The AWS abuse reporting process is open to the public and asks for evidence such as IPs, timestamps in UTC, and log excerpts.",
+      b: "Abuse reports do not go through paid support cases and do not require an AWS account or support plan.",
+      c: "GuardDuty monitors your own AWS account for threats; it cannot be used by a non-customer and does not file abuse reports.",
+      d: "AWS explicitly accepts abuse reports from anyone affected by activity originating from AWS.",
+    },
+    referenceUrl: "https://aws.amazon.com/premiumsupport/knowledge-center/report-aws-abuse/",
+    referenceLabel: "How do I report abuse of AWS resources?",
+    consoleUrl: "https://console.aws.amazon.com/support/home",
+    consoleLabel: "AWS Support Center",
+    diagram: `flowchart LR
+  A[Victim collects firewall logs] --> B[AWS abuse report form]
+  B --> C[AWS Trust and Safety team]
+  C --> D[Investigates AWS customer resource]
+  D --> E[Notifies owner or takes action]`,
+    cliExample: {
+      description: "From your own account, check GuardDuty for signs that your instances are the source of outbound brute-force attacks",
+      command: "aws guardduty list-findings --detector-id 12abc34d567e8fa901bc2d34e56789f0 --finding-criteria '{\"Criterion\":{\"type\":{\"Eq\":[\"UnauthorizedAccess:EC2/SSHBruteForce\"]}}}'",
+      sampleOutput: "{\n  \"FindingIds\": [\n    \"7ab1c2d3e4f5a6b7c8d9e0f1a2b3c4d5\"\n  ]\n}",
+    },
+  },
+  {
+    id: "sec77",
+    domain: "security-and-compliance",
+    text: "A security architect asks how AWS isolates customer workloads from one another and from AWS operators on modern EC2 instances, and how the hypervisor attack surface is minimized. Which AWS technology provides this hardware-based isolation with dedicated security chips and no operator access to customer memory?",
+    options: [
+      { id: "a", text: "The AWS Nitro System" },
+      { id: "b", text: "AWS CloudHSM" },
+      { id: "c", text: "Amazon Macie" },
+      { id: "d", text: "AWS Shield Advanced" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "The AWS Nitro System offloads virtualization, networking, and storage to dedicated hardware and uses a lightweight hypervisor plus the Nitro Security Chip, providing a locked-down environment in which not even AWS operators can access customer instance memory.",
+    optionRationale: {
+      a: "Nitro offloads functions to dedicated cards, uses a minimal hypervisor, and its security chip prohibits administrative access, enabling features like Nitro Enclaves.",
+      b: "CloudHSM provides dedicated hardware security modules for key storage; it is not the EC2 virtualization platform.",
+      c: "Macie discovers sensitive data in S3 and is unrelated to instance isolation.",
+      d: "Shield Advanced protects against DDoS attacks, not hypervisor-level isolation.",
+    },
+    referenceUrl: "https://aws.amazon.com/ec2/nitro/",
+    referenceLabel: "AWS Nitro System",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#InstanceTypes:",
+    consoleLabel: "EC2 > Instance Types",
+    diagram: `flowchart LR
+  A[AWS Nitro System] --> B[Nitro Cards - network storage offload]
+  A --> C[Nitro Security Chip]
+  A --> D[Nitro Hypervisor - minimal attack surface]
+  C --> E[No operator access to customer memory]
+  A --> F[Nitro Enclaves for isolated compute]`,
+    cliExample: {
+      description: "Check whether an instance type is built on the Nitro hypervisor",
+      command: "aws ec2 describe-instance-types --instance-types m6i.large --query 'InstanceTypes[].{Type:InstanceType,Hypervisor:Hypervisor,NitroEnclaves:NitroEnclavesSupport}'",
+      sampleOutput: "[\n  {\n    \"Type\": \"m6i.large\",\n    \"Hypervisor\": \"nitro\",\n    \"NitroEnclaves\": \"supported\"\n  }\n]",
+    },
+  },
+  {
+    id: "sec78",
+    domain: "security-and-compliance",
+    text: "A public login API behind an Application Load Balancer is being hit by credential-stuffing bots that send thousands of requests per minute from many IP addresses. The company also wants baseline protection against common exploits without writing its own rules. Which TWO AWS WAF features should it use?",
+    options: [
+      { id: "a", text: "A rate-based rule that temporarily blocks any IP exceeding a request threshold in a five-minute window" },
+      { id: "b", text: "AWS Managed Rules rule groups such as the Core rule set and the Bot Control rule group" },
+      { id: "c", text: "Enabling VPC Flow Logs on the ALB subnets" },
+      { id: "d", text: "Placing the ALB in a private subnet with no internet gateway" },
+      { id: "e", text: "Attaching an AWS Network Firewall policy to the ALB listener" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Rate-based rules automatically block source IPs that exceed a request rate, which throttles automated credential-stuffing. AWS Managed Rules provide curated rule groups maintained by AWS, including baseline protection and Bot Control, without custom rule writing.",
+    optionRationale: {
+      a: "Rate-based rules count requests per IP over a rolling window and block IPs above the limit until the rate drops.",
+      b: "Managed rule groups are pre-built and updated by AWS to cover common threats and known bad bots.",
+      c: "Flow logs only record metadata for troubleshooting; they do not block requests.",
+      d: "A public login API must be reachable from the internet, so a private subnet breaks the application.",
+      e: "Network Firewall inspects VPC traffic at the subnet level and cannot be attached to an ALB listener; WAF is the layer 7 web protection service.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-type-rate-based.html",
+    referenceLabel: "Rate-based rule statement - AWS WAF",
+    consoleUrl: "https://console.aws.amazon.com/wafv2/homev2/web-acls",
+    consoleLabel: "WAF & Shield > Web ACLs",
+    diagram: `flowchart LR
+  A[Bots and users] --> B[AWS WAF web ACL]
+  B --> C[Rate-based rule - block IPs over limit]
+  B --> D[AWS Managed Rules - Core rule set]
+  B --> E[Bot Control rule group]
+  C --> F[Application Load Balancer]
+  D --> F
+  E --> F`,
+    cliExample: {
+      description: "List the AWS Managed Rules rule groups available for a regional web ACL",
+      command: "aws wafv2 list-available-managed-rule-groups --scope REGIONAL --query 'ManagedRuleGroups[?VendorName==`AWS`].Name | [0:3]'",
+      sampleOutput: "[\n  \"AWSManagedRulesCommonRuleSet\",\n  \"AWSManagedRulesKnownBadInputsRuleSet\",\n  \"AWSManagedRulesBotControlRuleSet\"\n]",
+    },
+  },
 ];
