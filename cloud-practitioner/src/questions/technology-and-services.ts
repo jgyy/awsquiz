@@ -820,4 +820,362 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
   Orchestrator --> EC2[EC2 Cluster]`,
     cliExample: { description: "List your ECS clusters", command: "aws ecs list-clusters" },
   },
+  {
+    id: "tech32",
+    domain: "cloud-technology-and-services",
+    text: "A company runs a MySQL database on Amazon RDS and wants a MySQL-compatible engine that delivers up to five times the throughput of standard MySQL, replicates six copies of data across three Availability Zones, and scales storage automatically. Which service should they migrate to?",
+    options: [
+      { id: "a", text: "Amazon DynamoDB" },
+      { id: "b", text: "Amazon Aurora" },
+      { id: "c", text: "Amazon Redshift" },
+      { id: "d", text: "Amazon ElastiCache for Redis" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Amazon Aurora is a MySQL- and PostgreSQL-compatible relational database built for the cloud, with storage replicated six ways across three AZs and automatic storage scaling.",
+    optionRationale: {
+      a: "DynamoDB is a NoSQL key-value/document database; it is not MySQL-compatible.",
+      b: "Aurora is MySQL/PostgreSQL-compatible, delivers higher throughput than standard engines, and keeps six copies of data across three AZs.",
+      c: "Redshift is a columnar data warehouse for analytics, not a drop-in MySQL-compatible transactional database.",
+      d: "ElastiCache for Redis is an in-memory cache, not a durable relational database engine.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html",
+    referenceLabel: "What Is Amazon Aurora?",
+    diagram: `flowchart LR
+  App[Application] --> Aurora[Amazon Aurora Cluster]
+  Aurora --> AZ1[AZ 1 - 2 copies]
+  Aurora --> AZ2[AZ 2 - 2 copies]
+  Aurora --> AZ3[AZ 3 - 2 copies]`,
+    cliExample: { description: "List your Aurora DB clusters", command: "aws rds describe-db-clusters" },
+  },
+  {
+    id: "tech33",
+    domain: "cloud-technology-and-services",
+    text: "An application on Amazon RDS must keep running with minimal downtime if the primary database instance or its Availability Zone fails. Which RDS feature directly meets this high-availability requirement?",
+    options: [
+      { id: "a", text: "Read replicas" },
+      { id: "b", text: "Multi-AZ deployment" },
+      { id: "c", text: "Automated backups" },
+      { id: "d", text: "RDS Performance Insights" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "An RDS Multi-AZ deployment maintains a synchronous standby in another Availability Zone and fails over to it automatically, which is designed for high availability rather than read scaling.",
+    optionRationale: {
+      a: "Read replicas use asynchronous replication to scale read traffic; they are not automatic failover targets for high availability.",
+      b: "Multi-AZ keeps a synchronous standby replica in another AZ and fails over automatically when the primary or its AZ fails.",
+      c: "Automated backups let you restore to a point in time, but restoring takes time and is not an automatic failover mechanism.",
+      d: "Performance Insights is a monitoring and tuning tool; it has no effect on availability.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html",
+    referenceLabel: "Multi-AZ Deployments for Amazon RDS",
+    diagram: `flowchart LR
+  App[Application] --> Primary[Primary DB - AZ a]
+  Primary -->|synchronous replication| Standby[Standby DB - AZ b]
+  Primary -.->|automatic failover| Standby
+  Primary -->|asynchronous| RR[Read Replica - read scaling]`,
+    cliExample: { description: "Convert an RDS instance to a Multi-AZ deployment", command: "aws rds modify-db-instance --db-instance-identifier mydb --multi-az --apply-immediately" },
+  },
+  {
+    id: "tech34",
+    domain: "cloud-technology-and-services",
+    text: "A company stores logs in Amazon S3. They want to protect objects from accidental deletion and automatically move objects to a cheaper storage class after 90 days. Which TWO S3 features should they enable?",
+    options: [
+      { id: "a", text: "S3 Versioning" },
+      { id: "b", text: "S3 Lifecycle configuration" },
+      { id: "c", text: "S3 Transfer Acceleration" },
+      { id: "d", text: "S3 Static website hosting" },
+      { id: "e", text: "S3 Requester Pays" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Versioning keeps previous versions so deleted or overwritten objects can be recovered, and Lifecycle rules automate transitions to lower-cost storage classes or expiration after a set period.",
+    optionRationale: {
+      a: "Versioning preserves every version of an object, so an accidental delete only adds a delete marker and the data can be restored.",
+      b: "Lifecycle configuration defines rules that transition objects to another storage class (or expire them) after a number of days.",
+      c: "Transfer Acceleration speeds up long-distance uploads via edge locations; it does not protect or tier data.",
+      d: "Static website hosting serves a bucket's content as a website; unrelated to deletion protection or tiering.",
+      e: "Requester Pays shifts data transfer and request costs to the requester; it does not protect or tier data.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html",
+    referenceLabel: "Managing Your Storage Lifecycle",
+    diagram: `flowchart LR
+  Upload[Object Uploaded] --> Std[S3 Standard - versioned]
+  Std -->|Lifecycle rule: 90 days| IA[S3 Standard-IA]
+  IA -->|Lifecycle rule: 1 year| Glacier[S3 Glacier Deep Archive]
+  Std -->|accidental delete| Marker[Delete Marker - previous version kept]`,
+    cliExample: { description: "Enable versioning on an S3 bucket", command: "aws s3api put-bucket-versioning --bucket my-logs-bucket --versioning-configuration Status=Enabled" },
+  },
+  {
+    id: "tech35",
+    domain: "cloud-technology-and-services",
+    text: "An EC2 instance uses an instance store volume for temporary scratch data. What happens to that data if the instance is stopped or terminated?",
+    options: [
+      { id: "a", text: "The data is retained and reattached when the instance restarts" },
+      { id: "b", text: "The data is lost because instance store is ephemeral storage physically attached to the host" },
+      { id: "c", text: "The data is automatically copied to Amazon S3" },
+      { id: "d", text: "The data is automatically snapshotted to Amazon EBS" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Instance store volumes are ephemeral disks on the physical host; data persists only for the life of the instance and is lost on stop, hibernate, termination, or host failure. Use EBS for data that must persist.",
+    optionRationale: {
+      a: "Only EBS volumes persist independently of the instance; instance store data does not survive a stop or terminate.",
+      b: "Instance store is temporary block storage on the host machine, so its contents are lost when the instance stops or terminates.",
+      c: "AWS does not automatically copy instance store contents to S3; you would have to do that yourself.",
+      d: "Snapshots are a feature of EBS volumes; instance store volumes cannot be snapshotted.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html",
+    referenceLabel: "Amazon EC2 Instance Store",
+    diagram: `flowchart TD
+  EC2[EC2 Instance] --> IS[Instance Store - ephemeral, on host]
+  EC2 --> EBS[EBS Volume - persistent, network-attached]
+  IS -->|stop or terminate| Lost[Data Lost]
+  EBS -->|stop or terminate| Kept[Data Retained]`,
+    cliExample: { description: "Show instance types that include instance store volumes", command: "aws ec2 describe-instance-types --filters Name=instance-storage-supported,Values=true" },
+  },
+  {
+    id: "tech36",
+    domain: "cloud-technology-and-services",
+    text: "A company wants to build an event-driven architecture in which events from AWS services, their own applications, and SaaS partners are matched against rules and routed to targets such as Lambda functions and SQS queues. Which service should they use?",
+    options: [
+      { id: "a", text: "Amazon EventBridge" },
+      { id: "b", text: "Amazon SQS" },
+      { id: "c", text: "AWS Step Functions" },
+      { id: "d", text: "Amazon Kinesis Data Streams" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "Amazon EventBridge is a serverless event bus that ingests events from AWS services, custom applications, and SaaS partners, and routes them to targets based on rules.",
+    optionRationale: {
+      a: "EventBridge is the serverless event bus that matches events against rules and routes them to many AWS targets.",
+      b: "SQS is a point-to-point queue; it does not evaluate routing rules or integrate natively with SaaS event sources.",
+      c: "Step Functions orchestrates workflows as state machines; it is often an EventBridge target rather than the event router.",
+      d: "Kinesis Data Streams ingests high-volume streaming records for consumers; it does not do rule-based event routing.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html",
+    referenceLabel: "What Is Amazon EventBridge?",
+    diagram: `flowchart LR
+  AWS[AWS Services] --> Bus[EventBridge Event Bus]
+  Custom[Custom Apps] --> Bus
+  SaaS[SaaS Partners] --> Bus
+  Bus -->|rule match| Lambda[Lambda Function]
+  Bus -->|rule match| SQS[SQS Queue]`,
+    cliExample: { description: "List EventBridge rules on the default event bus", command: "aws events list-rules" },
+  },
+  {
+    id: "tech37",
+    domain: "cloud-technology-and-services",
+    text: "A gaming company runs a non-HTTP, UDP-based multiplayer service behind Network Load Balancers in two Regions. They want static anycast IP addresses and to route users over the AWS global network to the nearest healthy endpoint. Which service best meets this need?",
+    options: [
+      { id: "a", text: "Amazon CloudFront" },
+      { id: "b", text: "AWS Global Accelerator" },
+      { id: "c", text: "Amazon Route 53 simple routing" },
+      { id: "d", text: "AWS Direct Connect" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS Global Accelerator provides two static anycast IPs and routes TCP/UDP traffic across the AWS global network to the optimal healthy regional endpoint, whereas CloudFront caches HTTP(S) content at the edge.",
+    optionRationale: {
+      a: "CloudFront is an HTTP/HTTPS content delivery network with caching; it does not front UDP services or provide static anycast IPs.",
+      b: "Global Accelerator gives static anycast IPs and uses the AWS backbone to direct TCP and UDP traffic to the nearest healthy endpoint.",
+      c: "Route 53 simple routing returns DNS records without health-aware, network-optimized routing or static IPs.",
+      d: "Direct Connect is a private link from on-premises to AWS; it does not serve internet users.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html",
+    referenceLabel: "What Is AWS Global Accelerator?",
+    diagram: `flowchart LR
+  User[Player] --> Edge[Nearest AWS Edge - static anycast IP]
+  Edge --> GA[AWS Global Accelerator]
+  GA -->|AWS global network| NLB1[NLB - Region A]
+  GA -->|AWS global network| NLB2[NLB - Region B]`,
+    cliExample: { description: "List your Global Accelerator accelerators", command: "aws globalaccelerator list-accelerators --region us-west-2" },
+  },
+  {
+    id: "tech38",
+    domain: "cloud-technology-and-services",
+    text: "EC2 instances in a private subnet need to download operating system patches from the internet, but they must not be reachable from the internet. Which VPC component should be added?",
+    options: [
+      { id: "a", text: "An internet gateway attached directly to the private subnet's route table" },
+      { id: "b", text: "A NAT gateway in a public subnet, with a route from the private subnet to it" },
+      { id: "c", text: "A VPC peering connection" },
+      { id: "d", text: "A virtual private gateway" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "A NAT gateway in a public subnet lets instances in private subnets initiate outbound connections to the internet while blocking inbound connections initiated from the internet.",
+    optionRationale: {
+      a: "Routing a subnet directly to an internet gateway makes it a public subnet, so instances with public IPs become reachable from the internet.",
+      b: "A NAT gateway allows outbound-only internet access from private subnets; return traffic is allowed but unsolicited inbound is not.",
+      c: "VPC peering connects two VPCs privately; it does not provide internet access.",
+      d: "A virtual private gateway is the VPC side of a Site-to-Site VPN or Direct Connect link to on-premises, not an internet path.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
+    referenceLabel: "NAT Gateways",
+    diagram: `flowchart LR
+  Priv[EC2 in Private Subnet] --> NAT[NAT Gateway in Public Subnet]
+  NAT --> IGW[Internet Gateway]
+  IGW --> Internet[Internet]
+  Internet -.->|inbound blocked| Priv`,
+    cliExample: { description: "List your NAT gateways", command: "aws ec2 describe-nat-gateways" },
+  },
+  {
+    id: "tech39",
+    domain: "cloud-technology-and-services",
+    text: "A company wants to automatically detect objects and faces in uploaded photos, and separately extract text and form fields from scanned invoices. Which TWO AI services should they use?",
+    options: [
+      { id: "a", text: "Amazon Rekognition" },
+      { id: "b", text: "Amazon Textract" },
+      { id: "c", text: "Amazon Polly" },
+      { id: "d", text: "Amazon Translate" },
+      { id: "e", text: "Amazon Lex" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Amazon Rekognition analyzes images and video for objects, scenes, and faces, while Amazon Textract extracts printed text, handwriting, and structured form/table data from scanned documents.",
+    optionRationale: {
+      a: "Rekognition performs image and video analysis, including object, scene, and facial detection.",
+      b: "Textract goes beyond OCR to extract text, key-value pairs, and tables from scanned documents such as invoices.",
+      c: "Polly converts text into lifelike speech; it does not analyze images or documents.",
+      d: "Translate performs neural machine translation between languages; it does not read images.",
+      e: "Lex builds conversational chatbots and voice interfaces; it does not process photos or scanned documents.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/textract/latest/dg/what-is.html",
+    referenceLabel: "What Is Amazon Textract?",
+    diagram: `flowchart LR
+  Photo[Uploaded Photo] --> Rek[Amazon Rekognition]
+  Rek --> Labels[Objects, Scenes, Faces]
+  Invoice[Scanned Invoice] --> Tex[Amazon Textract]
+  Tex --> Fields[Text, Key-Value Pairs, Tables]`,
+    cliExample: { description: "Detect labels in an image stored in S3 with Rekognition", command: "aws rekognition detect-labels --image '{\"S3Object\":{\"Bucket\":\"my-photos\",\"Name\":\"photo.jpg\"}}'" },
+  },
+  {
+    id: "tech40",
+    domain: "cloud-technology-and-services",
+    text: "A data team needs a serverless service to discover the schema of data in Amazon S3, catalog it, and run extract, transform, and load (ETL) jobs to prepare the data for analytics. Which service should they use?",
+    options: [
+      { id: "a", text: "AWS Glue" },
+      { id: "b", text: "Amazon QuickSight" },
+      { id: "c", text: "Amazon Kinesis Data Streams" },
+      { id: "d", text: "AWS Batch" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Glue is a serverless data integration service with crawlers that populate a Data Catalog and managed ETL jobs to transform and load data for analytics.",
+    optionRationale: {
+      a: "Glue provides crawlers, a central Data Catalog, and serverless Spark-based ETL jobs.",
+      b: "QuickSight is a business intelligence service for dashboards and visualizations; it consumes prepared data rather than performing ETL.",
+      c: "Kinesis Data Streams ingests real-time streaming data; it does not catalog schemas or run ETL jobs.",
+      d: "AWS Batch schedules generic batch compute jobs on EC2/Fargate; it has no data catalog or built-in ETL tooling.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html",
+    referenceLabel: "What Is AWS Glue?",
+    diagram: `flowchart LR
+  S3[Raw Data in S3] --> Crawler[Glue Crawler]
+  Crawler --> Catalog[Glue Data Catalog]
+  Catalog --> ETL[Glue ETL Job]
+  ETL --> Clean[Transformed Data in S3]
+  Clean --> Athena[Athena / Redshift / QuickSight]`,
+    cliExample: { description: "List databases in the Glue Data Catalog", command: "aws glue get-databases" },
+  },
+  {
+    id: "tech41",
+    domain: "cloud-technology-and-services",
+    text: "A hospital must keep certain workloads on-premises for data residency and low latency, but wants to run them using the same AWS APIs, tools, and services (such as EC2 and EBS) it uses in the cloud. Which service should it use?",
+    options: [
+      { id: "a", text: "AWS Outposts" },
+      { id: "b", text: "AWS Local Zones" },
+      { id: "c", text: "AWS Wavelength" },
+      { id: "d", text: "AWS Snowball Edge" },
+    ],
+    correctOptionIds: ["a"],
+    explanation: "AWS Outposts delivers AWS-managed racks or servers into a customer's own facility, so native AWS services run on-premises with the same APIs and tools as the Region.",
+    optionRationale: {
+      a: "Outposts installs AWS hardware in the customer's data center, running EC2, EBS, and other services on-premises with the same AWS APIs.",
+      b: "Local Zones are AWS-owned infrastructure placed near large population centers, not inside a customer's own facility.",
+      c: "Wavelength embeds AWS compute in telecom providers' 5G networks for ultra-low-latency mobile applications, not on-premises residency.",
+      d: "Snowball Edge is a rugged device for edge computing and bulk data transfer, not a long-term extension of the AWS Region on-premises.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html",
+    referenceLabel: "What Is AWS Outposts?",
+    diagram: `flowchart LR
+  Region[AWS Region] -->|same APIs and control plane| OP[AWS Outposts Rack in Hospital Data Center]
+  OP --> EC2[EC2 Instances]
+  OP --> EBS[EBS Volumes]
+  OP --> Local[Low-Latency, Data-Resident Workloads]`,
+    cliExample: { description: "List your Outposts", command: "aws outposts list-outposts" },
+  },
+  {
+    id: "tech42",
+    domain: "cloud-technology-and-services",
+    text: "A development team wants a fully managed CI/CD pipeline on AWS that compiles source code and runs unit tests, then automatically deploys the build to EC2 instances. Which TWO services are used for the build and deployment stages respectively?",
+    options: [
+      { id: "a", text: "AWS CodeBuild" },
+      { id: "b", text: "AWS CodeDeploy" },
+      { id: "c", text: "AWS CloudFormation" },
+      { id: "d", text: "AWS Config" },
+      { id: "e", text: "Amazon Inspector" },
+    ],
+    correctOptionIds: ["a", "b"],
+    explanation: "Within a CodePipeline workflow, AWS CodeBuild compiles code and runs tests, and AWS CodeDeploy automates deployments to EC2, Lambda, ECS, or on-premises servers.",
+    optionRationale: {
+      a: "CodeBuild is the managed build service that compiles source, runs tests, and produces deployable artifacts.",
+      b: "CodeDeploy automates application deployments to EC2 instances, on-premises servers, Lambda, and ECS.",
+      c: "CloudFormation provisions infrastructure from templates; it is not the application build or deployment stage.",
+      d: "AWS Config records and evaluates resource configurations for compliance; it has no role in CI/CD.",
+      e: "Amazon Inspector scans workloads for software vulnerabilities; it does not build or deploy code.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html",
+    referenceLabel: "What Is AWS CodePipeline?",
+    diagram: `flowchart LR
+  Src[Source Repository] --> Pipe[AWS CodePipeline]
+  Pipe --> Build[AWS CodeBuild - compile and test]
+  Build --> Deploy[AWS CodeDeploy]
+  Deploy --> EC2[EC2 Instances]`,
+    cliExample: { description: "List your CodePipeline pipelines", command: "aws codepipeline list-pipelines" },
+  },
+  {
+    id: "tech43",
+    domain: "cloud-technology-and-services",
+    text: "A company needs to migrate 80 TB of archived video from an on-premises data center with a slow, unreliable internet connection to Amazon S3 within two weeks. Which approach is most appropriate?",
+    options: [
+      { id: "a", text: "Upload the data using AWS DataSync over the existing internet connection" },
+      { id: "b", text: "Order an AWS Snowball Edge device, load the data locally, and ship it back to AWS" },
+      { id: "c", text: "Use AWS Transfer Family to upload the data over SFTP" },
+      { id: "d", text: "Enable S3 Transfer Acceleration and upload with the AWS CLI" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "AWS Snowball Edge is a physical, ruggedized device used to move tens of terabytes to petabytes offline, avoiding limited or unreliable network bandwidth entirely.",
+    optionRationale: {
+      a: "DataSync accelerates online transfers, but it still depends on the slow, unreliable network link, which is the bottleneck here.",
+      b: "Snowball Edge provides an offline bulk transfer: data is copied onto the device on-site and shipped to AWS for import into S3.",
+      c: "Transfer Family provides managed SFTP/FTPS/FTP endpoints into S3 or EFS; it is still an online transfer constrained by the network.",
+      d: "Transfer Acceleration uses edge locations to speed up S3 uploads over the internet, so it cannot overcome an unreliable local link.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/snowball/latest/developer-guide/whatisedge.html",
+    referenceLabel: "What Is AWS Snowball Edge?",
+    diagram: `flowchart LR
+  DC[On-Premises Data - 80 TB] --> Snow[AWS Snowball Edge Device]
+  Snow -->|shipped to AWS| Import[AWS Import Facility]
+  Import --> S3[Amazon S3 Bucket]`,
+    cliExample: { description: "List your Snow Family jobs", command: "aws snowball list-jobs" },
+  },
+  {
+    id: "tech44",
+    domain: "cloud-technology-and-services",
+    text: "A team runs an in-memory analytics database that needs a very large amount of RAM relative to vCPUs. Which Amazon EC2 instance family is the most appropriate choice?",
+    options: [
+      { id: "a", text: "Compute optimized (for example, C family)" },
+      { id: "b", text: "Memory optimized (for example, R or X family)" },
+      { id: "c", text: "Storage optimized (for example, I or D family)" },
+      { id: "d", text: "Accelerated computing (for example, P or G family)" },
+    ],
+    correctOptionIds: ["b"],
+    explanation: "Memory optimized instances (R, X, and z families) are designed for workloads that process large datasets in memory, such as in-memory databases and real-time big data analytics.",
+    optionRationale: {
+      a: "Compute optimized instances have a high vCPU-to-memory ratio, suited to CPU-bound workloads like batch processing and gaming servers.",
+      b: "Memory optimized instances provide the largest memory-to-vCPU ratio, ideal for in-memory databases and caches.",
+      c: "Storage optimized instances provide high sequential read/write to large local NVMe or HDD storage, for workloads like distributed file systems.",
+      d: "Accelerated computing instances use GPUs or FPGAs for machine learning and graphics workloads, not memory-heavy databases.",
+    },
+    referenceUrl: "https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html",
+    referenceLabel: "Amazon EC2 Instance Types",
+    diagram: `flowchart TD
+  Need{Workload Bottleneck?} -->|CPU| C[Compute Optimized - C]
+  Need -->|RAM| R[Memory Optimized - R, X]
+  Need -->|Local disk IO| I[Storage Optimized - I, D]
+  Need -->|GPU| P[Accelerated Computing - P, G]`,
+    cliExample: { description: "List memory optimized instance types with at least 256 GiB of RAM", command: "aws ec2 describe-instance-types --filters Name=memory-info.size-in-mib,Values=262144 --query 'InstanceTypes[].InstanceType'" },
+  },
 ];
