@@ -103,7 +103,7 @@ export const cloudConceptsQuestions: Question[] = [
       c: "The Business perspective ensures IT investments and strategy align with and enable business outcomes.",
       d: "The Security perspective covers risk management and compliance, not business alignment.",
     },
-    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/aws-caf/introduction.html",
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/welcome.html",
     referenceLabel: "AWS Cloud Adoption Framework",
     diagram:
       "flowchart LR\n    Business[Business Perspective] --> Strategy[IT Strategy]\n    Strategy --> Goals[Aligned Business Outcomes]",
@@ -362,7 +362,7 @@ export const cloudConceptsQuestions: Question[] = [
       d: "Sales Enablement is not one of the AWS CAF perspectives.",
       e: "Human Resources is not a CAF perspective; the closest official perspective is People.",
     },
-    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/aws-caf/introduction.html",
+    referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/welcome.html",
     referenceLabel: "AWS Cloud Adoption Framework",
     diagram:
       "flowchart TD\n    CAF[AWS Cloud Adoption Framework] --> Business\n    CAF --> People\n    CAF --> Governance\n    CAF --> Platform\n    CAF --> Security\n    CAF --> Operations",
@@ -578,7 +578,7 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart LR\n    Single[Single AZ Instance] -->|AZ outage| Down[Site Offline]\n    Multi[Instances in Multiple AZs] -->|AZ outage| Up[Traffic Shifts to Healthy AZ]\n    Multi --> Pillar[Reliability Pillar]",
     cliExample: {
       description: "List lens reviews for a workload in the AWS Well-Architected Tool, which include the Reliability pillar",
-      command: "aws wellarchitected list-lens-reviews --workload-id <workload-id>",
+      command: "aws wellarchitected list-lens-reviews --workload-id 0123456789abcdef0123456789abcdef",
       sampleOutput: "{\n  \"WorkloadId\": \"5f2c1a9b8e7d6c5b4a3f2e1d0c9b8a7f\",\n  \"LensReviewSummaries\": [\n    {\n      \"LensAlias\": \"wellarchitected\",\n      \"LensArn\": \"arn:aws:wellarchitected::aws:lens/wellarchitected\",\n      \"LensVersion\": \"2024-06-27\",\n      \"LensName\": \"AWS Well-Architected Framework\",\n      \"LensStatus\": \"CURRENT\",\n      \"UpdatedAt\": \"2026-06-09T11:30:00.000Z\",\n      \"RiskCounts\": {\n        \"UNANSWERED\": 12,\n        \"HIGH\": 3,\n        \"MEDIUM\": 5,\n        \"NONE\": 26,\n        \"NOT_APPLICABLE\": 0\n      }\n    }\n  ]\n}",
     },
   },
@@ -628,7 +628,7 @@ export const cloudConceptsQuestions: Question[] = [
       c: "Retire is the correct choice: applications that are no longer useful are decommissioned rather than migrated.",
       d: "Refactor re-architects an application for cloud-native benefits, which makes no sense for an application with no users.",
     },
-    referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-retiring-applications/welcome.html",
+    referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-retiring-applications/",
     referenceLabel: "AWS Prescriptive Guidance — Retiring Applications",
     diagram:
       "flowchart TD\n    Discover[Discovery: App Inventory] --> Used{Still in use?}\n    Used -->|Yes| Migrate[Choose Migration Strategy]\n    Used -->|No| Retire[Retire: Decommission]\n    Retire --> Savings[Reduced Scope and Cost]",
