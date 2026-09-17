@@ -1734,7 +1734,7 @@ export const securityAndComplianceQuestions: Question[] = [
   D --> E[Remove secret from repo history]`,
     cliExample: {
       description: "Deactivate a compromised access key for an IAM user",
-      command: "aws iam update-access-key --user-name dev-user --access-key-id AKIAIOSFODNN7EXAMPLE --status Inactive",
+      command: "aws iam update-access-key --user-name dev-user --access-key-id <access-key-id> --status Inactive",
       sampleOutput: "",
     },
   },
@@ -1912,7 +1912,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Assume a cross-account role in Account A from Account B",
       command: "aws sts assume-role --role-arn arn:aws:iam::111111111111:role/CrossAccountS3Read --role-session-name app-session",
-      sampleOutput: "{\n  \"Credentials\": {\n    \"AccessKeyId\": \"ASIAIOSFODNN7EXAMPLE\",\n    \"SecretAccessKey\": \"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\",\n    \"SessionToken\": \"FwoGZXIvYXdzEBYaDExample...\",\n    \"Expiration\": \"2025-06-01T13:15:22Z\"\n  },\n  \"AssumedRoleUser\": {\n    \"AssumedRoleId\": \"AROAEXAMPLEID:app-session\",\n    \"Arn\": \"arn:aws:sts::111111111111:assumed-role/CrossAccountS3Read/app-session\"\n  }\n}",
+      sampleOutput: "{\n  \"Credentials\": {\n    \"AccessKeyId\": \"<temporary-access-key-id>\",\n    \"SecretAccessKey\": \"<temporary-secret-access-key>\",\n    \"SessionToken\": \"<session-token>\",\n    \"Expiration\": \"2025-06-01T13:15:22Z\"\n  },\n  \"AssumedRoleUser\": {\n    \"AssumedRoleId\": \"AROAEXAMPLEID:app-session\",\n    \"Arn\": \"arn:aws:sts::111111111111:assumed-role/CrossAccountS3Read/app-session\"\n  }\n}",
     },
   },
   {
