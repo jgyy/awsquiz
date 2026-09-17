@@ -21,10 +21,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
     referenceLabel: "What Is AWS Lambda?",
+    consoleUrl: "https://console.aws.amazon.com/lambda/home#/functions",
+    consoleLabel: "Lambda > Functions",
     diagram: `flowchart TD
   Event[Event Trigger] --> Lambda[AWS Lambda]
   Lambda --> Run[Code Runs, No Servers Managed]`,
-    cliExample: { description: "List your deployed Lambda functions", command: "aws lambda list-functions" },
+    cliExample: {
+      description: "List your deployed Lambda functions",
+      command: "aws lambda list-functions",
+      sampleOutput: "{\n  \"Functions\": [\n    {\n      \"FunctionName\": \"process-orders\",\n      \"FunctionArn\": \"arn:aws:lambda:us-east-1:123456789012:function:process-orders\",\n      \"Runtime\": \"python3.12\",\n      \"Role\": \"arn:aws:iam::123456789012:role/lambda-exec-role\",\n      \"Handler\": \"app.handler\",\n      \"CodeSize\": 2048,\n      \"Timeout\": 30,\n      \"MemorySize\": 256,\n      \"LastModified\": \"2026-03-14T09:22:41.000+0000\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech2",
@@ -46,10 +52,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
     referenceLabel: "Amazon EC2 Concepts",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Instances:",
+    consoleLabel: "EC2 > Instances",
     diagram: `flowchart TD
   EC2[Amazon EC2 Instance] --> OS[Full Control of Guest OS]
   EC2 --> Resize[Resizable Compute Capacity]`,
-    cliExample: { description: "List your running EC2 instances", command: "aws ec2 describe-instances" },
+    cliExample: {
+      description: "List your running EC2 instances",
+      command: "aws ec2 describe-instances",
+      sampleOutput: "{\n  \"Reservations\": [\n    {\n      \"ReservationId\": \"r-0a1b2c3d4e5f67890\",\n      \"OwnerId\": \"123456789012\",\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abc123def456789a\",\n          \"ImageId\": \"ami-0abcdef1234567890\",\n          \"InstanceType\": \"t3.micro\",\n          \"State\": {\n            \"Code\": 16,\n            \"Name\": \"running\"\n          },\n          \"PrivateIpAddress\": \"10.0.1.25\",\n          \"VpcId\": \"vpc-0123456789abcdef0\",\n          \"SubnetId\": \"subnet-0123456789abcdef0\",\n          \"LaunchTime\": \"2026-02-10T08:15:32+00:00\"\n        }\n      ]\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech3",
@@ -71,12 +83,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
     referenceLabel: "What Is Amazon EC2 Auto Scaling?",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#AutoScalingGroups:",
+    consoleLabel: "EC2 > Auto Scaling Groups",
     diagram: `flowchart TD
   A[Demand Increases] --> B[Amazon EC2 Auto Scaling]
   B --> C[Launch New Instances]
   D[Demand Decreases] --> B
   B --> E[Terminate Instances]`,
-    cliExample: { description: "List your Auto Scaling groups", command: "aws autoscaling describe-auto-scaling-groups" },
+    cliExample: {
+      description: "List your Auto Scaling groups",
+      command: "aws autoscaling describe-auto-scaling-groups",
+      sampleOutput: "{\n  \"AutoScalingGroups\": [\n    {\n      \"AutoScalingGroupName\": \"web-asg\",\n      \"AutoScalingGroupARN\": \"arn:aws:autoscaling:us-east-1:123456789012:autoScalingGroup:1a2b3c4d-5e6f-7890-abcd-ef1234567890:autoScalingGroupName/web-asg\",\n      \"MinSize\": 2,\n      \"MaxSize\": 6,\n      \"DesiredCapacity\": 2,\n      \"DefaultCooldown\": 300,\n      \"AvailabilityZones\": [\n        \"us-east-1a\",\n        \"us-east-1b\"\n      ],\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abc123def456789a\",\n          \"AvailabilityZone\": \"us-east-1a\",\n          \"LifecycleState\": \"InService\",\n          \"HealthStatus\": \"Healthy\"\n        }\n      ],\n      \"CreatedTime\": \"2026-01-20T11:05:17.512000+00:00\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech4",
@@ -98,12 +116,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
     referenceLabel: "What Is Elastic Load Balancing?",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#LoadBalancers:",
+    consoleLabel: "EC2 > Load Balancers",
     diagram: `flowchart TD
   U[Incoming Traffic] --> LB[Elastic Load Balancer]
   LB --> I1[EC2 Instance 1]
   LB --> I2[EC2 Instance 2]
   LB --> I3[EC2 Instance 3]`,
-    cliExample: { description: "List your load balancers", command: "aws elbv2 describe-load-balancers" },
+    cliExample: {
+      description: "List your load balancers",
+      command: "aws elbv2 describe-load-balancers",
+      sampleOutput: "{\n  \"LoadBalancers\": [\n    {\n      \"LoadBalancerArn\": \"arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/web-alb/50dc6c495c0c9188\",\n      \"DNSName\": \"web-alb-1234567890.us-east-1.elb.amazonaws.com\",\n      \"LoadBalancerName\": \"web-alb\",\n      \"Scheme\": \"internet-facing\",\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"State\": {\n        \"Code\": \"active\"\n      },\n      \"Type\": \"application\",\n      \"IpAddressType\": \"ipv4\",\n      \"CreatedTime\": \"2026-01-22T14:30:00.000Z\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech5",
@@ -125,11 +149,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html",
     referenceLabel: "AWS Fargate",
+    consoleUrl: "https://console.aws.amazon.com/ecs/v2/clusters",
+    consoleLabel: "ECS > Clusters",
     diagram: `flowchart TD
   Container[Container Definition] --> Fargate[AWS Fargate]
   Fargate --> ECS[Amazon ECS]
   Fargate --> EKS[Amazon EKS]`,
-    cliExample: { description: "List available Fargate capacity providers", command: "aws ecs describe-capacity-providers" },
+    cliExample: {
+      description: "List available Fargate capacity providers",
+      command: "aws ecs describe-capacity-providers",
+      sampleOutput: "{\n  \"capacityProviders\": [\n    {\n      \"capacityProviderArn\": \"arn:aws:ecs:us-east-1:123456789012:capacity-provider/FARGATE\",\n      \"name\": \"FARGATE\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"capacityProviderArn\": \"arn:aws:ecs:us-east-1:123456789012:capacity-provider/FARGATE_SPOT\",\n      \"name\": \"FARGATE_SPOT\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech6",
@@ -151,12 +181,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html",
     referenceLabel: "What Is AWS Elastic Beanstalk?",
+    consoleUrl: "https://console.aws.amazon.com/elasticbeanstalk/home#/applications",
+    consoleLabel: "Elastic Beanstalk > Applications",
     diagram: `flowchart TD
   App[Application Code] --> EB[AWS Elastic Beanstalk]
   EB --> LB[Load Balancer]
   EB --> ASG[Auto Scaling Group]
   EB --> Inst[EC2 Instances]`,
-    cliExample: { description: "List your Elastic Beanstalk environments", command: "aws elasticbeanstalk describe-environments" },
+    cliExample: {
+      description: "List your Elastic Beanstalk environments",
+      command: "aws elasticbeanstalk describe-environments",
+      sampleOutput: "{\n  \"Environments\": [\n    {\n      \"EnvironmentName\": \"my-web-app-env\",\n      \"EnvironmentId\": \"e-abcd1234ef\",\n      \"ApplicationName\": \"my-web-app\",\n      \"SolutionStackName\": \"64bit Amazon Linux 2023 v6.4.0 running Node.js 20\",\n      \"CNAME\": \"my-web-app-env.eba-abc123.us-east-1.elasticbeanstalk.com\",\n      \"Status\": \"Ready\",\n      \"Health\": \"Green\",\n      \"DateCreated\": \"2026-03-01T10:00:00.000Z\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech7",
@@ -178,12 +214,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
     referenceLabel: "Amazon S3 Storage Classes",
+    consoleUrl: "https://console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
     diagram: `flowchart LR
   A[S3 Standard] --> B[S3 Standard-IA]
   B --> C[S3 One Zone-IA]
   C --> D[S3 Glacier Instant Retrieval]
   D --> E[S3 Glacier Deep Archive]`,
-    cliExample: { description: "List your S3 buckets", command: "aws s3api list-buckets" },
+    cliExample: {
+      description: "List your S3 buckets",
+      command: "aws s3api list-buckets",
+      sampleOutput: "{\n  \"Buckets\": [\n    {\n      \"Name\": \"my-reports-bucket\",\n      \"CreationDate\": \"2026-01-15T09:12:44+00:00\"\n    },\n    {\n      \"Name\": \"my-backups-bucket\",\n      \"CreationDate\": \"2026-02-03T16:40:02+00:00\"\n    }\n  ],\n  \"Owner\": {\n    \"DisplayName\": \"admin\",\n    \"ID\": \"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2\"\n  }\n}",
+    },
   },
   {
     id: "tech8",
@@ -205,11 +247,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
     referenceLabel: "Amazon S3 Storage Classes",
+    consoleUrl: "https://console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
     diagram: `flowchart LR
   Standard[Millisecond Retrieval] --> GIR[Glacier Instant Retrieval]
   GIR --> GFR[Glacier Flexible Retrieval - Hours]
   GFR --> GDA[Glacier Deep Archive - Up to 12 Hours]`,
-    cliExample: { description: "List your S3 buckets", command: "aws s3api list-buckets" },
+    cliExample: {
+      description: "List your S3 buckets",
+      command: "aws s3api list-buckets",
+      sampleOutput: "{\n  \"Buckets\": [\n    {\n      \"Name\": \"my-archive-bucket\",\n      \"CreationDate\": \"2026-01-15T09:12:44+00:00\"\n    },\n    {\n      \"Name\": \"my-compliance-records\",\n      \"CreationDate\": \"2026-02-03T16:40:02+00:00\"\n    }\n  ],\n  \"Owner\": {\n    \"DisplayName\": \"admin\",\n    \"ID\": \"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2\"\n  }\n}",
+    },
   },
   {
     id: "tech9",
@@ -233,11 +281,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html",
     referenceLabel: "Amazon EBS",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Volumes:",
+    consoleLabel: "EC2 > Volumes",
     diagram: `flowchart TD
   EC2[EC2 Instance] --> EBS[EBS Volume]
   EBS --> Data[(Persistent Block Storage)]
   EBS --> Snap[EBS Snapshot in S3]`,
-    cliExample: { description: "List your EBS volumes", command: "aws ec2 describe-volumes" },
+    cliExample: {
+      description: "List your EBS volumes",
+      command: "aws ec2 describe-volumes",
+      sampleOutput: "{\n  \"Volumes\": [\n    {\n      \"VolumeId\": \"vol-0123456789abcdef0\",\n      \"Size\": 30,\n      \"VolumeType\": \"gp3\",\n      \"State\": \"in-use\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"Encrypted\": true,\n      \"Iops\": 3000,\n      \"Attachments\": [\n        {\n          \"VolumeId\": \"vol-0123456789abcdef0\",\n          \"InstanceId\": \"i-0abc123def456789a\",\n          \"Device\": \"/dev/xvda\",\n          \"State\": \"attached\",\n          \"DeleteOnTermination\": false\n        }\n      ],\n      \"CreateTime\": \"2026-02-10T08:15:30.000Z\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech10",
@@ -259,11 +313,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html",
     referenceLabel: "What Is Amazon EFS?",
+    consoleUrl: "https://console.aws.amazon.com/efs/home#/file-systems",
+    consoleLabel: "EFS > File systems",
     diagram: `flowchart TD
   EFS[Amazon EFS] --> I1[EC2 Instance 1]
   EFS --> I2[EC2 Instance 2]
   EFS --> I3[EC2 Instance 3]`,
-    cliExample: { description: "List your EFS file systems", command: "aws efs describe-file-systems" },
+    cliExample: {
+      description: "List your EFS file systems",
+      command: "aws efs describe-file-systems",
+      sampleOutput: "{\n  \"FileSystems\": [\n    {\n      \"OwnerId\": \"123456789012\",\n      \"CreationToken\": \"shared-content\",\n      \"FileSystemId\": \"fs-0123456789abcdef0\",\n      \"FileSystemArn\": \"arn:aws:elasticfilesystem:us-east-1:123456789012:file-system/fs-0123456789abcdef0\",\n      \"CreationTime\": \"2026-02-18T13:45:10+00:00\",\n      \"LifeCycleState\": \"available\",\n      \"NumberOfMountTargets\": 2,\n      \"SizeInBytes\": {\n        \"Value\": 6291456\n      },\n      \"PerformanceMode\": \"generalPurpose\",\n      \"Encrypted\": true,\n      \"ThroughputMode\": \"elastic\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech11",
@@ -285,11 +345,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/storagegateway/latest/userguide/WhatIsStorageGateway.html",
     referenceLabel: "What Is AWS Storage Gateway?",
+    consoleUrl: "https://console.aws.amazon.com/storagegateway/home#/gateways",
+    consoleLabel: "Storage Gateway > Gateways",
     diagram: `flowchart LR
   OnPrem[On-Premises Storage] --> SGW[AWS Storage Gateway]
   SGW --> S3[Amazon S3]
   SGW --> Glacier[S3 Glacier]`,
-    cliExample: { description: "List your Storage Gateway gateways", command: "aws storagegateway list-gateways" },
+    cliExample: {
+      description: "List your Storage Gateway gateways",
+      command: "aws storagegateway list-gateways",
+      sampleOutput: "{\n  \"Gateways\": [\n    {\n      \"GatewayId\": \"sgw-12A3456B\",\n      \"GatewayARN\": \"arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12A3456B\",\n      \"GatewayType\": \"FILE_S3\",\n      \"GatewayOperationalState\": \"ACTIVE\",\n      \"GatewayName\": \"onprem-file-gateway\",\n      \"Ec2InstanceRegion\": \"us-east-1\",\n      \"HostEnvironment\": \"VMWARE\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech12",
@@ -311,11 +377,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
     referenceLabel: "What Is Amazon RDS?",
+    consoleUrl: "https://console.aws.amazon.com/rds/home#databases:",
+    consoleLabel: "RDS > Databases",
     diagram: `flowchart TD
   RDS[Amazon RDS] --> MySQL[MySQL]
   RDS --> Postgres[PostgreSQL]
   RDS --> SQLServer[SQL Server]`,
-    cliExample: { description: "List your RDS database instances", command: "aws rds describe-db-instances" },
+    cliExample: {
+      description: "List your RDS database instances",
+      command: "aws rds describe-db-instances",
+      sampleOutput: "{\n  \"DBInstances\": [\n    {\n      \"DBInstanceIdentifier\": \"mydb\",\n      \"DBInstanceClass\": \"db.t3.medium\",\n      \"Engine\": \"postgres\",\n      \"EngineVersion\": \"16.3\",\n      \"DBInstanceStatus\": \"available\",\n      \"MasterUsername\": \"admin\",\n      \"Endpoint\": {\n        \"Address\": \"mydb.c9akciq32rlq.us-east-1.rds.amazonaws.com\",\n        \"Port\": 5432\n      },\n      \"AllocatedStorage\": 20,\n      \"MultiAZ\": false,\n      \"StorageType\": \"gp3\",\n      \"DBInstanceArn\": \"arn:aws:rds:us-east-1:123456789012:db:mydb\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech13",
@@ -337,11 +409,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html",
     referenceLabel: "What Is Amazon DynamoDB?",
+    consoleUrl: "https://console.aws.amazon.com/dynamodbv2/home#tables",
+    consoleLabel: "DynamoDB > Tables",
     diagram: `flowchart LR
   App[Application] --> DDB[Amazon DynamoDB]
   DDB --> KV[Key-Value Item]
   DDB --> Doc[Document Item]`,
-    cliExample: { description: "List your DynamoDB tables", command: "aws dynamodb list-tables" },
+    cliExample: {
+      description: "List your DynamoDB tables",
+      command: "aws dynamodb list-tables",
+      sampleOutput: "{\n  \"TableNames\": [\n    \"Orders\",\n    \"UserSessions\"\n  ]\n}",
+    },
   },
   {
     id: "tech14",
@@ -365,11 +443,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html",
     referenceLabel: "What Is Amazon ElastiCache?",
+    consoleUrl: "https://console.aws.amazon.com/elasticache/home#/redis",
+    consoleLabel: "ElastiCache > Redis caches",
     diagram: `flowchart LR
   App[Application] --> Cache[Amazon ElastiCache]
   Cache --> Redis[Redis Engine]
   Cache --> Memcached[Memcached Engine]`,
-    cliExample: { description: "List your ElastiCache clusters", command: "aws elasticache describe-cache-clusters" },
+    cliExample: {
+      description: "List your ElastiCache clusters",
+      command: "aws elasticache describe-cache-clusters",
+      sampleOutput: "{\n  \"CacheClusters\": [\n    {\n      \"CacheClusterId\": \"session-cache-001\",\n      \"CacheNodeType\": \"cache.t3.micro\",\n      \"Engine\": \"redis\",\n      \"EngineVersion\": \"7.1\",\n      \"CacheClusterStatus\": \"available\",\n      \"NumCacheNodes\": 1,\n      \"PreferredAvailabilityZone\": \"us-east-1a\",\n      \"CacheClusterCreateTime\": \"2026-03-05T12:00:00.000Z\",\n      \"ARN\": \"arn:aws:elasticache:us-east-1:123456789012:cluster:session-cache-001\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech15",
@@ -391,10 +475,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html",
     referenceLabel: "What Is Amazon Redshift?",
+    consoleUrl: "https://console.aws.amazon.com/redshiftv2/home#clusters",
+    consoleLabel: "Redshift > Clusters",
     diagram: `flowchart LR
   RDS[Amazon RDS - OLTP] --> Redshift[Amazon Redshift - Analytics]
   Redshift --> Query[Complex Analytic Queries]`,
-    cliExample: { description: "List your Redshift clusters", command: "aws redshift describe-clusters" },
+    cliExample: {
+      description: "List your Redshift clusters",
+      command: "aws redshift describe-clusters",
+      sampleOutput: "{\n  \"Clusters\": [\n    {\n      \"ClusterIdentifier\": \"analytics-cluster\",\n      \"NodeType\": \"ra3.xlplus\",\n      \"ClusterStatus\": \"available\",\n      \"MasterUsername\": \"awsuser\",\n      \"DBName\": \"dev\",\n      \"Endpoint\": {\n        \"Address\": \"analytics-cluster.abc123xyz.us-east-1.redshift.amazonaws.com\",\n        \"Port\": 5439\n      },\n      \"ClusterCreateTime\": \"2026-02-25T10:30:00.000Z\",\n      \"NumberOfNodes\": 2,\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"ClusterNamespaceArn\": \"arn:aws:redshift:us-east-1:123456789012:namespace:1a2b3c4d-5e6f-7890-abcd-ef1234567890\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech16",
@@ -416,13 +506,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
     referenceLabel: "What Is Amazon VPC?",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#vpcs:",
+    consoleLabel: "VPC > Your VPCs",
     diagram: `flowchart TD
   V[Amazon VPC] --> PubSub[Public Subnet]
   V --> PrivSub[Private Subnet]
   PubSub --> IGW[Internet Gateway]
   PrivSub --> NAT[NAT Gateway]
   NAT --> IGW`,
-    cliExample: { description: "List your VPCs", command: "aws ec2 describe-vpcs" },
+    cliExample: {
+      description: "List your VPCs",
+      command: "aws ec2 describe-vpcs",
+      sampleOutput: "{\n  \"Vpcs\": [\n    {\n      \"OwnerId\": \"123456789012\",\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"CidrBlock\": \"10.0.0.0/16\",\n      \"DhcpOptionsId\": \"dopt-0123456789abcdef0\",\n      \"State\": \"available\",\n      \"InstanceTenancy\": \"default\",\n      \"IsDefault\": false,\n      \"Tags\": [\n        {\n          \"Key\": \"Name\",\n          \"Value\": \"prod-vpc\"\n        }\n      ]\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech17",
@@ -444,10 +540,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html",
     referenceLabel: "What Is Amazon Route 53?",
+    consoleUrl: "https://console.aws.amazon.com/route53/v2/hostedzones",
+    consoleLabel: "Route 53 > Hosted zones",
     diagram: `flowchart LR
   User[End User] --> DNS[Amazon Route 53]
   DNS --> App[Internet Application]`,
-    cliExample: { description: "List your Route 53 hosted zones", command: "aws route53 list-hosted-zones" },
+    cliExample: {
+      description: "List your Route 53 hosted zones",
+      command: "aws route53 list-hosted-zones",
+      sampleOutput: "{\n  \"HostedZones\": [\n    {\n      \"Id\": \"/hostedzone/Z0123456789ABCDEFGHIJ\",\n      \"Name\": \"example.com.\",\n      \"CallerReference\": \"2026-01-12T10:00:00Z\",\n      \"Config\": {\n        \"Comment\": \"Public zone for example.com\",\n        \"PrivateZone\": false\n      },\n      \"ResourceRecordSetCount\": 6\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech18",
@@ -469,13 +571,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
     referenceLabel: "What Is Amazon CloudFront?",
+    consoleUrl: "https://console.aws.amazon.com/cloudfront/v4/home#/distributions",
+    consoleLabel: "CloudFront > Distributions",
     diagram: `flowchart LR
   Origin[Origin Server] --> CF[CloudFront Distribution]
   CF --> Edge1[Edge Location A]
   CF --> Edge2[Edge Location B]
   Edge1 --> User1[End User]
   Edge2 --> User2[End User]`,
-    cliExample: { description: "List your CloudFront distributions", command: "aws cloudfront list-distributions" },
+    cliExample: {
+      description: "List your CloudFront distributions",
+      command: "aws cloudfront list-distributions",
+      sampleOutput: "{\n  \"DistributionList\": {\n    \"Marker\": \"\",\n    \"MaxItems\": 100,\n    \"IsTruncated\": false,\n    \"Quantity\": 1,\n    \"Items\": [\n      {\n        \"Id\": \"E1A2B3C4D5E6F7\",\n        \"ARN\": \"arn:aws:cloudfront::123456789012:distribution/E1A2B3C4D5E6F7\",\n        \"Status\": \"Deployed\",\n        \"LastModifiedTime\": \"2026-03-10T15:20:00.000Z\",\n        \"DomainName\": \"d111111abcdef8.cloudfront.net\",\n        \"Enabled\": true,\n        \"Origins\": {\n          \"Quantity\": 1,\n          \"Items\": [\n            {\n              \"Id\": \"S3-my-static-site\",\n              \"DomainName\": \"my-static-site.s3.us-east-1.amazonaws.com\"\n            }\n          ]\n        },\n        \"PriceClass\": \"PriceClass_All\",\n        \"HttpVersion\": \"http2\"\n      }\n    ]\n  }\n}",
+    },
   },
   {
     id: "tech19",
@@ -497,10 +605,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html",
     referenceLabel: "What Is AWS Direct Connect?",
+    consoleUrl: "https://console.aws.amazon.com/directconnect/v2/home#/connections",
+    consoleLabel: "Direct Connect > Connections",
     diagram: `flowchart LR
   OnPrem[On-Premises Data Center] -->|dedicated private link| DX[AWS Direct Connect]
   DX --> Cloud[AWS Cloud]`,
-    cliExample: { description: "List your Direct Connect connections", command: "aws directconnect describe-connections" },
+    cliExample: {
+      description: "List your Direct Connect connections",
+      command: "aws directconnect describe-connections",
+      sampleOutput: "{\n  \"connections\": [\n    {\n      \"ownerAccount\": \"123456789012\",\n      \"connectionId\": \"dxcon-fg1a2b3c\",\n      \"connectionName\": \"dc-to-aws-primary\",\n      \"connectionState\": \"available\",\n      \"region\": \"us-east-1\",\n      \"location\": \"EqDC2\",\n      \"bandwidth\": \"1Gbps\",\n      \"vlan\": 101,\n      \"partnerName\": \"Equinix\",\n      \"jumboFrameCapable\": true,\n      \"macSecCapable\": false\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech20",
@@ -522,11 +636,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html",
     referenceLabel: "What Is Amazon API Gateway?",
+    consoleUrl: "https://console.aws.amazon.com/apigateway/main/apis",
+    consoleLabel: "API Gateway > APIs",
     diagram: `flowchart LR
   Client[Client App] --> APIGW[Amazon API Gateway]
   APIGW --> Lambda[AWS Lambda Function]
   Lambda --> DB[(Database)]`,
-    cliExample: { description: "List your REST APIs", command: "aws apigateway get-rest-apis" },
+    cliExample: {
+      description: "List your REST APIs",
+      command: "aws apigateway get-rest-apis",
+      sampleOutput: "{\n  \"items\": [\n    {\n      \"id\": \"a1b2c3d4e5\",\n      \"name\": \"orders-api\",\n      \"description\": \"Public orders API\",\n      \"createdDate\": \"2026-02-14T09:00:00+00:00\",\n      \"apiKeySource\": \"HEADER\",\n      \"endpointConfiguration\": {\n        \"types\": [\n          \"REGIONAL\"\n        ]\n      },\n      \"disableExecuteApiEndpoint\": false\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech21",
@@ -548,12 +668,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html",
     referenceLabel: "What Is Amazon CloudWatch?",
+    consoleUrl: "https://console.aws.amazon.com/cloudwatch/home#alarmsV2:",
+    consoleLabel: "CloudWatch > Alarms",
     diagram: `flowchart TD
   Res[AWS Resources] --> Metrics[CloudWatch Metrics]
   Res --> Logs[CloudWatch Logs]
   Metrics --> Alarm[CloudWatch Alarm]
   Alarm --> Notify[Notification]`,
-    cliExample: { description: "List your CloudWatch alarms", command: "aws cloudwatch describe-alarms" },
+    cliExample: {
+      description: "List your CloudWatch alarms",
+      command: "aws cloudwatch describe-alarms",
+      sampleOutput: "{\n  \"MetricAlarms\": [\n    {\n      \"AlarmName\": \"HighCPU-web\",\n      \"AlarmArn\": \"arn:aws:cloudwatch:us-east-1:123456789012:alarm:HighCPU-web\",\n      \"AlarmDescription\": \"CPU above 80% for 5 minutes\",\n      \"StateValue\": \"OK\",\n      \"StateUpdatedTimestamp\": \"2026-03-15T07:45:12.000Z\",\n      \"MetricName\": \"CPUUtilization\",\n      \"Namespace\": \"AWS/EC2\",\n      \"Statistic\": \"Average\",\n      \"Dimensions\": [\n        {\n          \"Name\": \"InstanceId\",\n          \"Value\": \"i-0abc123def456789a\"\n        }\n      ],\n      \"Period\": 300,\n      \"EvaluationPeriods\": 1,\n      \"Threshold\": 80,\n      \"ComparisonOperator\": \"GreaterThanThreshold\",\n      \"AlarmActions\": [\n        \"arn:aws:sns:us-east-1:123456789012:ops-alerts\"\n      ]\n    }\n  ],\n  \"CompositeAlarms\": []\n}",
+    },
   },
   {
     id: "tech22",
@@ -575,10 +701,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html",
     referenceLabel: "What Is AWS CloudFormation?",
+    consoleUrl: "https://console.aws.amazon.com/cloudformation/home#/stacks",
+    consoleLabel: "CloudFormation > Stacks",
     diagram: `flowchart LR
   Template[Declarative Template] --> CFN[AWS CloudFormation]
   CFN --> Stack[Provisioned Stack of Resources]`,
-    cliExample: { description: "List your CloudFormation stacks", command: "aws cloudformation list-stacks" },
+    cliExample: {
+      description: "List your CloudFormation stacks",
+      command: "aws cloudformation list-stacks",
+      sampleOutput: "{\n  \"StackSummaries\": [\n    {\n      \"StackId\": \"arn:aws:cloudformation:us-east-1:123456789012:stack/web-tier/1a2b3c4d-5e6f-7890-abcd-ef1234567890\",\n      \"StackName\": \"web-tier\",\n      \"CreationTime\": \"2026-02-01T12:00:00.000Z\",\n      \"LastUpdatedTime\": \"2026-03-08T09:30:00.000Z\",\n      \"StackStatus\": \"UPDATE_COMPLETE\",\n      \"DriftInformation\": {\n        \"StackDriftStatus\": \"NOT_CHECKED\"\n      }\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech23",
@@ -600,11 +732,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html",
     referenceLabel: "What Is AWS Systems Manager?",
+    consoleUrl: "https://console.aws.amazon.com/systems-manager/managed-instances",
+    consoleLabel: "Systems Manager > Fleet Manager",
     diagram: `flowchart TD
   SSM[AWS Systems Manager] --> Patch[Patch Management]
   SSM --> Inventory[Operational Inventory]
   SSM --> Automation[Automation Runbooks]`,
-    cliExample: { description: "List instances managed by Systems Manager", command: "aws ssm describe-instance-information" },
+    cliExample: {
+      description: "List instances managed by Systems Manager",
+      command: "aws ssm describe-instance-information",
+      sampleOutput: "{\n  \"InstanceInformationList\": [\n    {\n      \"InstanceId\": \"i-0abc123def456789a\",\n      \"PingStatus\": \"Online\",\n      \"LastPingDateTime\": \"2026-03-16T08:02:11.000000+00:00\",\n      \"AgentVersion\": \"3.3.1345.0\",\n      \"IsLatestVersion\": true,\n      \"PlatformType\": \"Linux\",\n      \"PlatformName\": \"Amazon Linux\",\n      \"PlatformVersion\": \"2023\",\n      \"ResourceType\": \"EC2Instance\",\n      \"IPAddress\": \"10.0.1.25\",\n      \"ComputerName\": \"ip-10-0-1-25.ec2.internal\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech24",
@@ -626,10 +764,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
     referenceLabel: "What Is Amazon SQS?",
+    consoleUrl: "https://console.aws.amazon.com/sqs/v3/home#/queues",
+    consoleLabel: "SQS > Queues",
     diagram: `flowchart LR
   Producer[Producer] --> Queue[Amazon SQS Queue]
   Queue --> Consumer[Consumer]`,
-    cliExample: { description: "List your SQS queues", command: "aws sqs list-queues" },
+    cliExample: {
+      description: "List your SQS queues",
+      command: "aws sqs list-queues",
+      sampleOutput: "{\n  \"QueueUrls\": [\n    \"https://sqs.us-east-1.amazonaws.com/123456789012/order-processing\",\n    \"https://sqs.us-east-1.amazonaws.com/123456789012/order-processing-dlq\"\n  ]\n}",
+    },
   },
   {
     id: "tech25",
@@ -651,12 +795,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/sns/latest/dg/welcome.html",
     referenceLabel: "What Is Amazon SNS?",
+    consoleUrl: "https://console.aws.amazon.com/sns/v3/home#/topics",
+    consoleLabel: "SNS > Topics",
     diagram: `flowchart TD
   Pub[Publisher] --> Topic[Amazon SNS Topic]
   Topic --> Email[Email]
   Topic --> SMS[SMS]
   Topic --> Lambda[Lambda Function]`,
-    cliExample: { description: "List your SNS topics", command: "aws sns list-topics" },
+    cliExample: {
+      description: "List your SNS topics",
+      command: "aws sns list-topics",
+      sampleOutput: "{\n  \"Topics\": [\n    {\n      \"TopicArn\": \"arn:aws:sns:us-east-1:123456789012:ops-alerts\"\n    },\n    {\n      \"TopicArn\": \"arn:aws:sns:us-east-1:123456789012:order-events\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech26",
@@ -678,12 +828,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html",
     referenceLabel: "What Is AWS Step Functions?",
+    consoleUrl: "https://console.aws.amazon.com/states/home#/statemachines",
+    consoleLabel: "Step Functions > State machines",
     diagram: `stateDiagram-v2
   [*] --> ValidateInput
   ValidateInput --> ProcessOrder
   ProcessOrder --> SendNotification
   SendNotification --> [*]`,
-    cliExample: { description: "List your Step Functions state machines", command: "aws stepfunctions list-state-machines" },
+    cliExample: {
+      description: "List your Step Functions state machines",
+      command: "aws stepfunctions list-state-machines",
+      sampleOutput: "{\n  \"stateMachines\": [\n    {\n      \"stateMachineArn\": \"arn:aws:states:us-east-1:123456789012:stateMachine:OrderFulfillment\",\n      \"name\": \"OrderFulfillment\",\n      \"type\": \"STANDARD\",\n      \"creationDate\": \"2026-02-20T14:10:00.000000+00:00\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech27",
@@ -705,10 +861,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html",
     referenceLabel: "What Is Amazon Transcribe?",
+    consoleUrl: "https://console.aws.amazon.com/transcribe/home#jobs",
+    consoleLabel: "Amazon Transcribe > Transcription jobs",
     diagram: `flowchart LR
   Audio[Spoken Audio] --> Transcribe[Amazon Transcribe]
   Transcribe --> Text[Text Output]`,
-    cliExample: { description: "List your transcription jobs", command: "aws transcribe list-transcription-jobs" },
+    cliExample: {
+      description: "List your transcription jobs",
+      command: "aws transcribe list-transcription-jobs",
+      sampleOutput: "{\n  \"TranscriptionJobSummaries\": [\n    {\n      \"TranscriptionJobName\": \"support-call-0042\",\n      \"CreationTime\": \"2026-03-12T10:05:00.000000+00:00\",\n      \"StartTime\": \"2026-03-12T10:05:02.000000+00:00\",\n      \"CompletionTime\": \"2026-03-12T10:07:48.000000+00:00\",\n      \"LanguageCode\": \"en-US\",\n      \"TranscriptionJobStatus\": \"COMPLETED\",\n      \"OutputLocationType\": \"SERVICE_BUCKET\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech28",
@@ -730,12 +892,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html",
     referenceLabel: "What Is Amazon SageMaker?",
+    consoleUrl: "https://console.aws.amazon.com/sagemaker/home#/notebook-instances",
+    consoleLabel: "SageMaker > Notebook instances",
     diagram: `flowchart LR
   Data[Training Data] --> SM[Amazon SageMaker]
   SM --> Build[Build]
   SM --> Train[Train]
   SM --> Deploy[Deploy]`,
-    cliExample: { description: "List your SageMaker notebook instances", command: "aws sagemaker list-notebook-instances" },
+    cliExample: {
+      description: "List your SageMaker notebook instances",
+      command: "aws sagemaker list-notebook-instances",
+      sampleOutput: "{\n  \"NotebookInstances\": [\n    {\n      \"NotebookInstanceName\": \"ml-experiments\",\n      \"NotebookInstanceArn\": \"arn:aws:sagemaker:us-east-1:123456789012:notebook-instance/ml-experiments\",\n      \"NotebookInstanceStatus\": \"InService\",\n      \"Url\": \"ml-experiments.notebook.us-east-1.sagemaker.aws\",\n      \"InstanceType\": \"ml.t3.medium\",\n      \"CreationTime\": \"2026-03-02T09:00:00.000000+00:00\",\n      \"LastModifiedTime\": \"2026-03-02T09:06:31.000000+00:00\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech29",
@@ -757,10 +925,16 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
     referenceLabel: "What Is Amazon Athena?",
+    consoleUrl: "https://console.aws.amazon.com/athena/home#/query-editor",
+    consoleLabel: "Athena > Query editor",
     diagram: `flowchart LR
   S3[Data in Amazon S3] --> Athena[Amazon Athena]
   Athena --> SQL[Interactive SQL Query]`,
-    cliExample: { description: "List your Athena query executions", command: "aws athena list-query-executions" },
+    cliExample: {
+      description: "List your Athena query executions",
+      command: "aws athena list-query-executions",
+      sampleOutput: "{\n  \"QueryExecutionIds\": [\n    \"1a2b3c4d-5e6f-7890-abcd-ef1234567890\",\n    \"9f8e7d6c-5b4a-3210-fedc-ba0987654321\"\n  ]\n}",
+    },
   },
   {
     id: "tech30",
@@ -784,12 +958,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
     referenceLabel: "What Is Amazon Kinesis Data Streams?",
+    consoleUrl: "https://console.aws.amazon.com/kinesis/home#/streams/list",
+    consoleLabel: "Kinesis > Data streams",
     diagram: `flowchart LR
   Source[Streaming Data Source] --> Kinesis[Amazon Kinesis]
   Source --> MSK[Amazon MSK]
   Kinesis --> Consumer[Real-Time Consumer]
   MSK --> Consumer`,
-    cliExample: { description: "List your Kinesis data streams", command: "aws kinesis list-streams" },
+    cliExample: {
+      description: "List your Kinesis data streams",
+      command: "aws kinesis list-streams",
+      sampleOutput: "{\n  \"StreamNames\": [\n    \"clickstream-events\",\n    \"iot-telemetry\"\n  ],\n  \"StreamSummaries\": [\n    {\n      \"StreamName\": \"clickstream-events\",\n      \"StreamARN\": \"arn:aws:kinesis:us-east-1:123456789012:stream/clickstream-events\",\n      \"StreamStatus\": \"ACTIVE\",\n      \"StreamModeDetails\": {\n        \"StreamMode\": \"ON_DEMAND\"\n      },\n      \"StreamCreationTimestamp\": \"2026-02-11T08:00:00+00:00\"\n    }\n  ],\n  \"HasMoreStreams\": false\n}",
+    },
   },
   {
     id: "tech31",
@@ -813,12 +993,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html",
     referenceLabel: "What Is Amazon ECS?",
+    consoleUrl: "https://console.aws.amazon.com/ecs/v2/clusters",
+    consoleLabel: "ECS > Clusters",
     diagram: `flowchart TD
   Dev[Container Image] --> ECR[Amazon ECR]
   ECR --> Orchestrator{ECS or EKS}
   Orchestrator --> Fargate[AWS Fargate]
   Orchestrator --> EC2[EC2 Cluster]`,
-    cliExample: { description: "List your ECS clusters", command: "aws ecs list-clusters" },
+    cliExample: {
+      description: "List your ECS clusters",
+      command: "aws ecs list-clusters",
+      sampleOutput: "{\n  \"clusterArns\": [\n    \"arn:aws:ecs:us-east-1:123456789012:cluster/prod-cluster\",\n    \"arn:aws:ecs:us-east-1:123456789012:cluster/staging-cluster\"\n  ]\n}",
+    },
   },
   {
     id: "tech32",
@@ -840,12 +1026,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html",
     referenceLabel: "What Is Amazon Aurora?",
+    consoleUrl: "https://console.aws.amazon.com/rds/home#databases:",
+    consoleLabel: "RDS > Databases",
     diagram: `flowchart LR
   App[Application] --> Aurora[Amazon Aurora Cluster]
   Aurora --> AZ1[AZ 1 - 2 copies]
   Aurora --> AZ2[AZ 2 - 2 copies]
   Aurora --> AZ3[AZ 3 - 2 copies]`,
-    cliExample: { description: "List your Aurora DB clusters", command: "aws rds describe-db-clusters" },
+    cliExample: {
+      description: "List your Aurora DB clusters",
+      command: "aws rds describe-db-clusters",
+      sampleOutput: "{\n  \"DBClusters\": [\n    {\n      \"DBClusterIdentifier\": \"orders-aurora\",\n      \"Engine\": \"aurora-mysql\",\n      \"EngineVersion\": \"8.0.mysql_aurora.3.06.0\",\n      \"Status\": \"available\",\n      \"Endpoint\": \"orders-aurora.cluster-c9akciq32rlq.us-east-1.rds.amazonaws.com\",\n      \"ReaderEndpoint\": \"orders-aurora.cluster-ro-c9akciq32rlq.us-east-1.rds.amazonaws.com\",\n      \"MultiAZ\": true,\n      \"Port\": 3306,\n      \"MasterUsername\": \"admin\",\n      \"DBClusterMembers\": [\n        {\n          \"DBInstanceIdentifier\": \"orders-aurora-instance-1\",\n          \"IsClusterWriter\": true\n        }\n      ],\n      \"StorageEncrypted\": true,\n      \"DBClusterArn\": \"arn:aws:rds:us-east-1:123456789012:cluster:orders-aurora\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech33",
@@ -867,12 +1059,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html",
     referenceLabel: "Multi-AZ Deployments for Amazon RDS",
+    consoleUrl: "https://console.aws.amazon.com/rds/home#databases:",
+    consoleLabel: "RDS > Databases",
     diagram: `flowchart LR
   App[Application] --> Primary[Primary DB - AZ a]
   Primary -->|synchronous replication| Standby[Standby DB - AZ b]
   Primary -.->|automatic failover| Standby
   Primary -->|asynchronous| RR[Read Replica - read scaling]`,
-    cliExample: { description: "Convert an RDS instance to a Multi-AZ deployment", command: "aws rds modify-db-instance --db-instance-identifier mydb --multi-az --apply-immediately" },
+    cliExample: {
+      description: "Convert an RDS instance to a Multi-AZ deployment",
+      command: "aws rds modify-db-instance --db-instance-identifier mydb --multi-az --apply-immediately",
+      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"mydb\",\n    \"DBInstanceClass\": \"db.t3.medium\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"modifying\",\n    \"MasterUsername\": \"admin\",\n    \"Endpoint\": {\n      \"Address\": \"mydb.c9akciq32rlq.us-east-1.rds.amazonaws.com\",\n      \"Port\": 3306\n    },\n    \"AvailabilityZone\": \"us-east-1a\",\n    \"MultiAZ\": false,\n    \"PendingModifiedValues\": {\n      \"MultiAZ\": true\n    },\n    \"DBInstanceArn\": \"arn:aws:rds:us-east-1:123456789012:db:mydb\"\n  }\n}",
+    },
   },
   {
     id: "tech34",
@@ -896,12 +1094,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html",
     referenceLabel: "Managing Your Storage Lifecycle",
+    consoleUrl: "https://console.aws.amazon.com/s3/buckets",
+    consoleLabel: "S3 > Buckets",
     diagram: `flowchart LR
   Upload[Object Uploaded] --> Std[S3 Standard - versioned]
   Std -->|Lifecycle rule: 90 days| IA[S3 Standard-IA]
   IA -->|Lifecycle rule: 1 year| Glacier[S3 Glacier Deep Archive]
   Std -->|accidental delete| Marker[Delete Marker - previous version kept]`,
-    cliExample: { description: "Enable versioning on an S3 bucket", command: "aws s3api put-bucket-versioning --bucket my-logs-bucket --versioning-configuration Status=Enabled" },
+    cliExample: {
+      description: "Enable versioning on an S3 bucket",
+      command: "aws s3api put-bucket-versioning --bucket my-logs-bucket --versioning-configuration Status=Enabled",
+      sampleOutput: "(no output — the command prints nothing on success and exits with code 0)",
+    },
   },
   {
     id: "tech35",
@@ -923,12 +1127,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html",
     referenceLabel: "Amazon EC2 Instance Store",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#InstanceTypes:",
+    consoleLabel: "EC2 > Instance Types",
     diagram: `flowchart TD
   EC2[EC2 Instance] --> IS[Instance Store - ephemeral, on host]
   EC2 --> EBS[EBS Volume - persistent, network-attached]
   IS -->|stop or terminate| Lost[Data Lost]
   EBS -->|stop or terminate| Kept[Data Retained]`,
-    cliExample: { description: "Show instance types that include instance store volumes", command: "aws ec2 describe-instance-types --filters Name=instance-storage-supported,Values=true" },
+    cliExample: {
+      description: "Show instance types that include instance store volumes",
+      command: "aws ec2 describe-instance-types --filters Name=instance-storage-supported,Values=true",
+      sampleOutput: "{\n  \"InstanceTypes\": [\n    {\n      \"InstanceType\": \"m5d.large\",\n      \"CurrentGeneration\": true,\n      \"VCpuInfo\": {\n        \"DefaultVCpus\": 2\n      },\n      \"MemoryInfo\": {\n        \"SizeInMiB\": 8192\n      },\n      \"InstanceStorageSupported\": true,\n      \"InstanceStorageInfo\": {\n        \"TotalSizeInGB\": 75,\n        \"Disks\": [\n          {\n            \"SizeInGB\": 75,\n            \"Count\": 1,\n            \"Type\": \"ssd\"\n          }\n        ],\n        \"NvmeSupport\": \"required\"\n      },\n      \"Hypervisor\": \"nitro\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech36",
@@ -950,13 +1160,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html",
     referenceLabel: "What Is Amazon EventBridge?",
+    consoleUrl: "https://console.aws.amazon.com/events/home#/rules",
+    consoleLabel: "EventBridge > Rules",
     diagram: `flowchart LR
   AWS[AWS Services] --> Bus[EventBridge Event Bus]
   Custom[Custom Apps] --> Bus
   SaaS[SaaS Partners] --> Bus
   Bus -->|rule match| Lambda[Lambda Function]
   Bus -->|rule match| SQS[SQS Queue]`,
-    cliExample: { description: "List EventBridge rules on the default event bus", command: "aws events list-rules" },
+    cliExample: {
+      description: "List EventBridge rules on the default event bus",
+      command: "aws events list-rules",
+      sampleOutput: "{\n  \"Rules\": [\n    {\n      \"Name\": \"order-created-to-lambda\",\n      \"Arn\": \"arn:aws:events:us-east-1:123456789012:rule/order-created-to-lambda\",\n      \"EventPattern\": \"{\\\"source\\\":[\\\"com.example.orders\\\"],\\\"detail-type\\\":[\\\"OrderCreated\\\"]}\",\n      \"State\": \"ENABLED\",\n      \"EventBusName\": \"default\"\n    },\n    {\n      \"Name\": \"nightly-report\",\n      \"Arn\": \"arn:aws:events:us-east-1:123456789012:rule/nightly-report\",\n      \"ScheduleExpression\": \"cron(0 2 * * ? *)\",\n      \"State\": \"ENABLED\",\n      \"EventBusName\": \"default\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech37",
@@ -978,12 +1194,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html",
     referenceLabel: "What Is AWS Global Accelerator?",
+    consoleUrl: "https://us-west-2.console.aws.amazon.com/globalaccelerator/home#/accelerators",
+    consoleLabel: "Global Accelerator > Accelerators",
     diagram: `flowchart LR
   User[Player] --> Edge[Nearest AWS Edge - static anycast IP]
   Edge --> GA[AWS Global Accelerator]
   GA -->|AWS global network| NLB1[NLB - Region A]
   GA -->|AWS global network| NLB2[NLB - Region B]`,
-    cliExample: { description: "List your Global Accelerator accelerators", command: "aws globalaccelerator list-accelerators --region us-west-2" },
+    cliExample: {
+      description: "List your Global Accelerator accelerators",
+      command: "aws globalaccelerator list-accelerators --region us-west-2",
+      sampleOutput: "{\n  \"Accelerators\": [\n    {\n      \"AcceleratorArn\": \"arn:aws:globalaccelerator::123456789012:accelerator/1a2b3c4d-5e6f-7890-abcd-ef1234567890\",\n      \"Name\": \"game-servers\",\n      \"IpAddressType\": \"IPV4\",\n      \"Enabled\": true,\n      \"IpSets\": [\n        {\n          \"IpFamily\": \"IPv4\",\n          \"IpAddresses\": [\n            \"75.2.10.11\",\n            \"99.83.20.22\"\n          ]\n        }\n      ],\n      \"DnsName\": \"a1234567890abcdef.awsglobalaccelerator.com\",\n      \"Status\": \"DEPLOYED\",\n      \"CreatedTime\": \"2026-02-28T11:00:00+00:00\",\n      \"LastModifiedTime\": \"2026-02-28T11:05:00+00:00\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech38",
@@ -1005,12 +1227,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
     referenceLabel: "NAT Gateways",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#NatGateways:",
+    consoleLabel: "VPC > NAT gateways",
     diagram: `flowchart LR
   Priv[EC2 in Private Subnet] --> NAT[NAT Gateway in Public Subnet]
   NAT --> IGW[Internet Gateway]
   IGW --> Internet[Internet]
   Internet -.->|inbound blocked| Priv`,
-    cliExample: { description: "List your NAT gateways", command: "aws ec2 describe-nat-gateways" },
+    cliExample: {
+      description: "List your NAT gateways",
+      command: "aws ec2 describe-nat-gateways",
+      sampleOutput: "{\n  \"NatGateways\": [\n    {\n      \"NatGatewayId\": \"nat-0123456789abcdef0\",\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"SubnetId\": \"subnet-0aaa111bbb222ccc3\",\n      \"State\": \"available\",\n      \"ConnectivityType\": \"public\",\n      \"CreateTime\": \"2026-02-05T10:20:00+00:00\",\n      \"NatGatewayAddresses\": [\n        {\n          \"AllocationId\": \"eipalloc-0123456789abcdef0\",\n          \"NetworkInterfaceId\": \"eni-0123456789abcdef0\",\n          \"PrivateIp\": \"10.0.0.45\",\n          \"PublicIp\": \"54.210.12.34\"\n        }\n      ]\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech39",
@@ -1034,12 +1262,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/textract/latest/dg/what-is.html",
     referenceLabel: "What Is Amazon Textract?",
+    consoleUrl: "https://console.aws.amazon.com/rekognition/home#/label-detection",
+    consoleLabel: "Rekognition > Label detection",
     diagram: `flowchart LR
   Photo[Uploaded Photo] --> Rek[Amazon Rekognition]
   Rek --> Labels[Objects, Scenes, Faces]
   Invoice[Scanned Invoice] --> Tex[Amazon Textract]
   Tex --> Fields[Text, Key-Value Pairs, Tables]`,
-    cliExample: { description: "Detect labels in an image stored in S3 with Rekognition", command: "aws rekognition detect-labels --image '{\"S3Object\":{\"Bucket\":\"my-photos\",\"Name\":\"photo.jpg\"}}'" },
+    cliExample: {
+      description: "Detect labels in an image stored in S3 with Rekognition",
+      command: "aws rekognition detect-labels --image '{\"S3Object\":{\"Bucket\":\"my-photos\",\"Name\":\"photo.jpg\"}}'",
+      sampleOutput: "{\n  \"Labels\": [\n    {\n      \"Name\": \"Person\",\n      \"Confidence\": 99.21,\n      \"Instances\": [\n        {\n          \"BoundingBox\": {\n            \"Width\": 0.31,\n            \"Height\": 0.72,\n            \"Left\": 0.35,\n            \"Top\": 0.14\n          },\n          \"Confidence\": 99.21\n        }\n      ],\n      \"Parents\": []\n    },\n    {\n      \"Name\": \"Dog\",\n      \"Confidence\": 96.87,\n      \"Instances\": [],\n      \"Parents\": [\n        {\n          \"Name\": \"Animal\"\n        },\n        {\n          \"Name\": \"Pet\"\n        }\n      ]\n    }\n  ],\n  \"LabelModelVersion\": \"3.0\"\n}",
+    },
   },
   {
     id: "tech40",
@@ -1061,13 +1295,19 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html",
     referenceLabel: "What Is AWS Glue?",
+    consoleUrl: "https://console.aws.amazon.com/glue/home#/v2/data-catalog/databases",
+    consoleLabel: "Glue > Data Catalog > Databases",
     diagram: `flowchart LR
   S3[Raw Data in S3] --> Crawler[Glue Crawler]
   Crawler --> Catalog[Glue Data Catalog]
   Catalog --> ETL[Glue ETL Job]
   ETL --> Clean[Transformed Data in S3]
   Clean --> Athena[Athena / Redshift / QuickSight]`,
-    cliExample: { description: "List databases in the Glue Data Catalog", command: "aws glue get-databases" },
+    cliExample: {
+      description: "List databases in the Glue Data Catalog",
+      command: "aws glue get-databases",
+      sampleOutput: "{\n  \"DatabaseList\": [\n    {\n      \"Name\": \"sales_raw\",\n      \"Description\": \"Raw CSV exports in S3\",\n      \"LocationUri\": \"s3://my-data-lake/sales_raw/\",\n      \"CreateTime\": \"2026-02-16T09:00:00+00:00\",\n      \"CatalogId\": \"123456789012\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech41",
@@ -1089,12 +1329,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html",
     referenceLabel: "What Is AWS Outposts?",
+    consoleUrl: "https://console.aws.amazon.com/outposts/home#OutpostsList",
+    consoleLabel: "Outposts > Outposts",
     diagram: `flowchart LR
   Region[AWS Region] -->|same APIs and control plane| OP[AWS Outposts Rack in Hospital Data Center]
   OP --> EC2[EC2 Instances]
   OP --> EBS[EBS Volumes]
   OP --> Local[Low-Latency, Data-Resident Workloads]`,
-    cliExample: { description: "List your Outposts", command: "aws outposts list-outposts" },
+    cliExample: {
+      description: "List your Outposts",
+      command: "aws outposts list-outposts",
+      sampleOutput: "{\n  \"Outposts\": [\n    {\n      \"OutpostId\": \"op-0abcdef1234567890\",\n      \"OwnerId\": \"123456789012\",\n      \"OutpostArn\": \"arn:aws:outposts:us-east-1:123456789012:outpost/op-0abcdef1234567890\",\n      \"SiteId\": \"os-0123456789abcdef0\",\n      \"Name\": \"hospital-dc-rack-1\",\n      \"LifeCycleStatus\": \"ACTIVE\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"SupportedHardwareType\": \"RACK\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech42",
@@ -1118,12 +1364,18 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html",
     referenceLabel: "What Is AWS CodePipeline?",
+    consoleUrl: "https://console.aws.amazon.com/codesuite/codepipeline/pipelines",
+    consoleLabel: "CodePipeline > Pipelines",
     diagram: `flowchart LR
   Src[Source Repository] --> Pipe[AWS CodePipeline]
   Pipe --> Build[AWS CodeBuild - compile and test]
   Build --> Deploy[AWS CodeDeploy]
   Deploy --> EC2[EC2 Instances]`,
-    cliExample: { description: "List your CodePipeline pipelines", command: "aws codepipeline list-pipelines" },
+    cliExample: {
+      description: "List your CodePipeline pipelines",
+      command: "aws codepipeline list-pipelines",
+      sampleOutput: "{\n  \"pipelines\": [\n    {\n      \"name\": \"web-app-pipeline\",\n      \"version\": 3,\n      \"pipelineType\": \"V2\",\n      \"executionMode\": \"QUEUED\",\n      \"created\": \"2026-01-30T10:00:00.000000+00:00\",\n      \"updated\": \"2026-03-11T15:42:00.000000+00:00\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech43",
@@ -1145,11 +1397,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/snowball/latest/developer-guide/whatisedge.html",
     referenceLabel: "What Is AWS Snowball Edge?",
+    consoleUrl: "https://console.aws.amazon.com/importexport/home#/jobs",
+    consoleLabel: "AWS Snow Family > Jobs",
     diagram: `flowchart LR
   DC[On-Premises Data - 80 TB] --> Snow[AWS Snowball Edge Device]
   Snow -->|shipped to AWS| Import[AWS Import Facility]
   Import --> S3[Amazon S3 Bucket]`,
-    cliExample: { description: "List your Snow Family jobs", command: "aws snowball list-jobs" },
+    cliExample: {
+      description: "List your Snow Family jobs",
+      command: "aws snowball list-jobs",
+      sampleOutput: "{\n  \"JobListEntries\": [\n    {\n      \"JobId\": \"JID1a2b3c4d-5e6f-7890-abcd-ef1234567890\",\n      \"JobState\": \"InTransitToAWS\",\n      \"IsMaster\": false,\n      \"JobType\": \"IMPORT\",\n      \"SnowballType\": \"EDGE_S\",\n      \"CreationDate\": \"2026-03-04T09:30:00.000000+00:00\",\n      \"Description\": \"Archived video import - 80 TB\"\n    }\n  ]\n}",
+    },
   },
   {
     id: "tech44",
@@ -1171,11 +1429,17 @@ export const cloudTechnologyAndServicesQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html",
     referenceLabel: "Amazon EC2 Instance Types",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#InstanceTypes:",
+    consoleLabel: "EC2 > Instance Types",
     diagram: `flowchart TD
   Need{Workload Bottleneck?} -->|CPU| C[Compute Optimized - C]
   Need -->|RAM| R[Memory Optimized - R, X]
   Need -->|Local disk IO| I[Storage Optimized - I, D]
   Need -->|GPU| P[Accelerated Computing - P, G]`,
-    cliExample: { description: "List memory optimized instance types with at least 256 GiB of RAM", command: "aws ec2 describe-instance-types --filters Name=memory-info.size-in-mib,Values=262144 --query 'InstanceTypes[].InstanceType'" },
+    cliExample: {
+      description: "List memory optimized instance types with at least 256 GiB of RAM",
+      command: "aws ec2 describe-instance-types --filters Name=memory-info.size-in-mib,Values=262144 --query 'InstanceTypes[].InstanceType'",
+      sampleOutput: "[\n  \"r6i.8xlarge\",\n  \"r5.8xlarge\",\n  \"r6g.8xlarge\",\n  \"x2iedn.2xlarge\"\n]",
+    },
   },
 ];

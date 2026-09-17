@@ -12,6 +12,8 @@ export interface Option {
 export interface CliExample {
   description: string;
   command: string;
+  /** Mocked stdout for the command, shaped like the real API response. */
+  sampleOutput?: string;
 }
 
 export interface Question {
@@ -25,6 +27,9 @@ export interface Question {
   optionRationale?: Record<string, string>;
   referenceUrl?: string;
   referenceLabel?: string;
+  /** Deep link to the specific AWS Console page for the concept being tested. */
+  consoleUrl?: string;
+  consoleLabel?: string;
   /** Mermaid diagram definition, rendered only when present. */
   diagram?: string;
   cliExample?: CliExample;

@@ -309,15 +309,32 @@ function renderFeedbackExtras(question: Question, uid: string): string {
     );
   }
 
+  if (question.consoleUrl) {
+    parts.push(
+      `<a class="reference-link console-link" href="${escapeHtml(question.consoleUrl)}" target="_blank" rel="noopener noreferrer">Open in AWS Console: ${escapeHtml(
+        question.consoleLabel ?? "AWS Management Console"
+      )} &rarr;</a>`
+    );
+  }
+
   if (question.cliExample) {
     const cliId = `cli-${uid}`;
+    const outId = `cli-out-${uid}`;
+    const output = question.cliExample.sampleOutput
+      ? `
+        <div class="cli-card-header cli-output-header">
+          <span>Sample output</span>
+          <button type="button" class="copy-btn" data-copy-target="${outId}">Copy</button>
+        </div>
+        <pre class="cli-output" id="${outId}"><code>${escapeHtml(question.cliExample.sampleOutput)}</code></pre>`
+      : "";
     parts.push(`
       <div class="cli-card">
         <div class="cli-card-header">
           <span>${escapeHtml(question.cliExample.description)}</span>
           <button type="button" class="copy-btn" data-copy-target="${cliId}">Copy</button>
         </div>
-        <pre class="cli-command" id="${cliId}"><code>${escapeHtml(question.cliExample.command)}</code></pre>
+        <pre class="cli-command" id="${cliId}"><code>${escapeHtml(question.cliExample.command)}</code></pre>${output}
       </div>`);
   }
 

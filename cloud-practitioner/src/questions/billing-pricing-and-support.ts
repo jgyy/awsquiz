@@ -21,10 +21,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/ec2/pricing/on-demand/",
     referenceLabel: "Amazon EC2 On-Demand Pricing",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#Instances:",
+    consoleLabel: "EC2 > Instances",
     diagram: "flowchart TD\n  Need{Workload Commitment?} --> None[No Commitment] --> OnDemand[On-Demand Pricing]\n  Need --> Term[1 or 3 Year Term] --> Reserved[Reserved Instances or Savings Plans]\n  Need --> Flex[Interruptible and Flexible] --> Spot[Spot Instances]",
     cliExample: {
       description: "List running EC2 instances using standard (on-demand) lifecycle",
       command: "aws ec2 describe-instances --filters Name=instance-lifecycle,Values=normal",
+      sampleOutput:
+        "{\n  \"Reservations\": [\n    {\n      \"ReservationId\": \"r-0a1b2c3d4e5f67890\",\n      \"OwnerId\": \"123456789012\",\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abcd1234efgh5678\",\n          \"InstanceType\": \"t3.micro\",\n          \"State\": {\n            \"Code\": 16,\n            \"Name\": \"running\"\n          },\n          \"LaunchTime\": \"2026-03-14T08:21:05+00:00\",\n          \"Placement\": {\n            \"AvailabilityZone\": \"us-east-1a\",\n            \"Tenancy\": \"default\"\n          },\n          \"Tags\": [\n            {\n              \"Key\": \"Name\",\n              \"Value\": \"web-1\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -47,10 +51,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/ec2/spot/",
     referenceLabel: "Amazon EC2 Spot Instances",
+    consoleUrl: "https://console.aws.amazon.com/ec2/home#SpotInstances:",
+    consoleLabel: "EC2 > Spot Requests",
     diagram: "flowchart LR\n  Spare[AWS Spare Capacity] --> Spot[Spot Instance at a Discount]\n  Spot --> Notice[2-Minute Interruption Notice]\n  Notice --> Reclaim[AWS Reclaims Capacity]",
     cliExample: {
       description: "View recent Spot price history for an instance type",
       command: "aws ec2 describe-spot-price-history --instance-types t3.micro --product-descriptions Linux/UNIX --max-results 5",
+      sampleOutput:
+        "{\n  \"SpotPriceHistory\": [\n    {\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"InstanceType\": \"t3.micro\",\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"SpotPrice\": \"0.003100\",\n      \"Timestamp\": \"2026-03-14T09:12:41+00:00\"\n    },\n    {\n      \"AvailabilityZone\": \"us-east-1b\",\n      \"InstanceType\": \"t3.micro\",\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"SpotPrice\": \"0.003300\",\n      \"Timestamp\": \"2026-03-14T08:47:10+00:00\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
     },
   },
   {
@@ -73,10 +81,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/savingsplans/",
     referenceLabel: "AWS Savings Plans",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/savings-plans/overview",
+    consoleLabel: "Billing and Cost Management > Savings Plans",
     diagram: "flowchart LR\n  Steady[Steady Predictable Workload] --> Commit[1 or 3 Year Commitment] --> Discount[Reserved Instances or Savings Plans Discount]",
     cliExample: {
       description: "List available Reserved Instance offerings for an instance type",
       command: "aws ec2 describe-reserved-instances-offerings --instance-type t3.micro --product-description Linux/UNIX --max-results 5",
+      sampleOutput:
+        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a6ce8269-7b8c-42cd-a7f5-0cd78f5f0b37\",\n      \"InstanceType\": \"t3.micro\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"Duration\": 94608000,\n      \"FixedPrice\": 140.0,\n      \"UsagePrice\": 0.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
     },
   },
   {
@@ -99,10 +111,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/aws-cost-management/aws-budgets/",
     referenceLabel: "AWS Budgets",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/budgets",
+    consoleLabel: "Billing and Cost Management > Budgets",
     diagram: "flowchart LR\n  Usage[AWS Usage and Billing Data] --> Explorer[AWS Cost Explorer]\n  Usage --> Budgets[AWS Budgets]\n  Budgets --> Alert[Budget Alert Notification]\n  Explorer --> Forecast[Cost Forecast]",
     cliExample: {
       description: "Retrieve the budgets configured for your account",
       command: "aws budgets describe-budgets --account-id $(aws sts get-caller-identity --query Account --output text)",
+      sampleOutput:
+        "{\n  \"Budgets\": [\n    {\n      \"BudgetName\": \"monthly-total-cost\",\n      \"BudgetLimit\": {\n        \"Amount\": \"500.0\",\n        \"Unit\": \"USD\"\n      },\n      \"CostTypes\": {\n        \"IncludeTax\": true,\n        \"IncludeSubscription\": true,\n        \"UseBlended\": false\n      },\n      \"TimeUnit\": \"MONTHLY\",\n      \"TimePeriod\": {\n        \"Start\": \"2026-01-01T00:00:00+00:00\",\n        \"End\": \"2087-06-15T00:00:00+00:00\"\n      },\n      \"CalculatedSpend\": {\n        \"ActualSpend\": {\n          \"Amount\": \"312.48\",\n          \"Unit\": \"USD\"\n        },\n        \"ForecastedSpend\": {\n          \"Amount\": \"468.10\",\n          \"Unit\": \"USD\"\n        }\n      },\n      \"BudgetType\": \"COST\",\n      \"LastUpdatedTime\": \"2026-03-14T07:00:12+00:00\"\n    }\n  ]\n}",
     },
   },
   {
@@ -125,10 +141,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/aws-cost-management/aws-cost-explorer/",
     referenceLabel: "AWS Cost Explorer",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/cost-explorer",
+    consoleLabel: "Billing and Cost Management > Cost Explorer",
     diagram: "flowchart LR\n  Data[Historical Billing Data] --> CE[AWS Cost Explorer] --> Viz[Interactive Cost and Usage Charts]",
     cliExample: {
       description: "Retrieve unblended cost and usage totals for a monthly period",
       command: "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost",
+      sampleOutput:
+        "{\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2024-01-01\",\n        \"End\": \"2024-02-01\"\n      },\n      \"Total\": {\n        \"UnblendedCost\": {\n          \"Amount\": \"1427.36\",\n          \"Unit\": \"USD\"\n        }\n      },\n      \"Groups\": [],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
     },
   },
   {
@@ -151,10 +171,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html",
     referenceLabel: "AWS Organizations",
+    consoleUrl: "https://console.aws.amazon.com/organizations/v2/home/accounts",
+    consoleLabel: "AWS Organizations > AWS accounts",
     diagram: "flowchart TD\n  Mgmt[Management Account] --> A1[Member Account A]\n  Mgmt --> A2[Member Account B]\n  Mgmt --> A3[Member Account C]\n  A1 --> Bill[Single Consolidated Bill]\n  A2 --> Bill\n  A3 --> Bill",
     cliExample: {
       description: "List the member accounts included in an AWS Organization",
       command: "aws organizations list-accounts",
+      sampleOutput:
+        "{\n  \"Accounts\": [\n    {\n      \"Id\": \"123456789012\",\n      \"Arn\": \"arn:aws:organizations::123456789012:account/o-a1b2c3d4e5/123456789012\",\n      \"Email\": \"aws-management@example.com\",\n      \"Name\": \"Management\",\n      \"Status\": \"ACTIVE\",\n      \"JoinedMethod\": \"INVITED\",\n      \"JoinedTimestamp\": \"2025-11-02T10:15:30.412000+00:00\"\n    },\n    {\n      \"Id\": \"210987654321\",\n      \"Arn\": \"arn:aws:organizations::123456789012:account/o-a1b2c3d4e5/210987654321\",\n      \"Email\": \"aws-dev@example.com\",\n      \"Name\": \"Development\",\n      \"Status\": \"ACTIVE\",\n      \"JoinedMethod\": \"CREATED\",\n      \"JoinedTimestamp\": \"2026-01-18T14:02:11.905000+00:00\"\n    }\n  ]\n}",
     },
   },
   {
@@ -177,10 +201,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
     referenceLabel: "AWS Support Plans",
+    consoleUrl: "https://console.aws.amazon.com/support/home#/",
+    consoleLabel: "AWS Support Center",
     diagram: "flowchart BT\n  Basic[Basic Support Free] --> Developer[Developer Support]\n  Developer --> Business[Business Support]\n  Business --> Enterprise[Enterprise Support with TAM]",
     cliExample: {
       description: "List the case severity levels available under your support plan",
       command: "aws support describe-severity-levels",
+      sampleOutput:
+        "{\n  \"severityLevels\": [\n    {\n      \"code\": \"low\",\n      \"name\": \"Low\"\n    },\n    {\n      \"code\": \"normal\",\n      \"name\": \"Normal\"\n    },\n    {\n      \"code\": \"high\",\n      \"name\": \"High\"\n    },\n    {\n      \"code\": \"urgent\",\n      \"name\": \"Urgent\"\n    },\n    {\n      \"code\": \"critical\",\n      \"name\": \"Critical\"\n    }\n  ]\n}",
     },
   },
   {
@@ -203,10 +231,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
     referenceLabel: "AWS Support Plans",
+    consoleUrl: "https://console.aws.amazon.com/support/home#/",
+    consoleLabel: "AWS Support Center",
     diagram: "flowchart LR\n  Basic[Basic Support: Free] --> AccountBilling[Account and Billing Support]\n  Basic --> CoreTA[Core Trusted Advisor Checks]",
     cliExample: {
       description: "List Trusted Advisor checks available to your account (requires a Business or Enterprise support plan)",
       command: "aws support describe-trusted-advisor-checks --language en",
+      sampleOutput:
+        "{\n  \"checks\": [\n    {\n      \"id\": \"Qch7DwouX1\",\n      \"name\": \"Low Utilization Amazon EC2 Instances\",\n      \"description\": \"Checks the Amazon EC2 instances that were running at any time during the last 14 days...\",\n      \"category\": \"cost_optimizing\",\n      \"metadata\": [\n        \"Region/AZ\",\n        \"Instance ID\",\n        \"Instance Name\",\n        \"Instance Type\",\n        \"Estimated Monthly Savings\"\n      ]\n    },\n    {\n      \"id\": \"Pfx0RwqBli\",\n      \"name\": \"Amazon S3 Bucket Permissions\",\n      \"description\": \"Checks buckets in Amazon S3 that have open access permissions...\",\n      \"category\": \"security\",\n      \"metadata\": [\n        \"Region Name\",\n        \"Region API Parameter\",\n        \"Bucket Name\",\n        \"ACL Allows List\",\n        \"ACL Allows Upload/Delete\",\n        \"Status\",\n        \"Policy Allows Access\"\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -229,6 +261,8 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://calculator.aws/",
     referenceLabel: "AWS Pricing Calculator",
+    consoleUrl: "https://calculator.aws/#/",
+    consoleLabel: "AWS Pricing Calculator",
     diagram: "flowchart LR\n  Plan[Planned Architecture] --> Calc[AWS Pricing Calculator] --> Estimate[Monthly Cost Estimate]",
   },
   {
@@ -257,6 +291,8 @@ export const billingPricingAndSupportQuestions: Question[] = [
     cliExample: {
       description: "Get EC2 right-sizing recommendations to help cut costs",
       command: "aws compute-optimizer get-ec2-instance-recommendations",
+      sampleOutput:
+        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234efgh5678\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"web-1\",\n      \"currentInstanceType\": \"m5.xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"utilizationMetrics\": [\n        {\n          \"name\": \"CPU\",\n          \"statistic\": \"MAXIMUM\",\n          \"value\": 11.4\n        }\n      ],\n      \"lookBackPeriodInDays\": 14.0,\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        },\n        {\n          \"instanceType\": \"t3.large\",\n          \"performanceRisk\": 2.0,\n          \"rank\": 2\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-03-14T06:30:00+00:00\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
     },
   },
   {
@@ -281,11 +317,15 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html",
     referenceLabel: "Cost Allocation Tags",
+    consoleUrl: "https://console.aws.amazon.com/billing/home#/tags",
+    consoleLabel: "Billing and Cost Management > Cost allocation tags",
     diagram: "flowchart TD\n  Track[Track Cost by Team or Project] --> Tags[Cost Allocation Tags]\n  Track --> Orgs[AWS Organizations Consolidated Billing]",
     cliExample: {
       description: "Retrieve cost and usage grouped by a cost allocation tag",
       command:
         "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost --group-by Type=TAG,Key=Project",
+      sampleOutput:
+        "{\n  \"GroupDefinitions\": [\n    {\n      \"Type\": \"TAG\",\n      \"Key\": \"Project\"\n    }\n  ],\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2024-01-01\",\n        \"End\": \"2024-02-01\"\n      },\n      \"Total\": {},\n      \"Groups\": [\n        {\n          \"Keys\": [\n            \"Project$checkout\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"612.90\",\n              \"Unit\": \"USD\"\n            }\n          }\n        },\n        {\n          \"Keys\": [\n            \"Project$analytics\"\n          ],\n          \"Metrics\": {\n            \"UnblendedCost\": {\n              \"Amount\": \"389.15\",\n              \"Unit\": \"USD\"\n            }\n          }\n        }\n      ],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
     },
   },
   {
@@ -308,10 +348,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
     referenceLabel: "What are Savings Plans?",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/savings-plans/overview",
+    consoleLabel: "Billing and Cost Management > Savings Plans",
     diagram: "flowchart LR\n  Commit[1 or 3 Year Hourly Spend Commitment] --> CSP[Compute Savings Plan]\n  CSP --> EC2[Any EC2 Family, Size, Region, OS]\n  CSP --> Fargate[AWS Fargate]\n  CSP --> Lambda[AWS Lambda]\n  Commit --> ESP[EC2 Instance Savings Plan]\n  ESP --> Family[One Instance Family in One Region]",
     cliExample: {
       description: "Retrieve Savings Plans purchase recommendations for a 1-year, no-upfront Compute Savings Plan",
       command: "aws ce get-savings-plans-purchase-recommendation --savings-plans-type COMPUTE_SP --term-in-years ONE_YEAR --payment-option NO_UPFRONT --lookback-period-in-days THIRTY_DAYS",
+      sampleOutput:
+        "{\n  \"Metadata\": {\n    \"RecommendationId\": \"9f2c1a4e-5b6d-4c7e-8f90-1a2b3c4d5e6f\",\n    \"GenerationTimestamp\": \"2026-03-14T05:12:44Z\"\n  },\n  \"SavingsPlansPurchaseRecommendation\": {\n    \"AccountScope\": \"PAYER\",\n    \"SavingsPlansType\": \"COMPUTE_SP\",\n    \"TermInYears\": \"ONE_YEAR\",\n    \"PaymentOption\": \"NO_UPFRONT\",\n    \"LookbackPeriodInDays\": \"THIRTY_DAYS\",\n    \"SavingsPlansPurchaseRecommendationDetails\": [\n      {\n        \"SavingsPlansDetails\": {\n          \"Region\": \"us-east-1\",\n          \"OfferingId\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n        },\n        \"AccountId\": \"123456789012\",\n        \"HourlyCommitmentToPurchase\": \"1.25\",\n        \"EstimatedMonthlySavingsAmount\": \"214.62\",\n        \"EstimatedSavingsPercentage\": \"23.8\",\n        \"EstimatedOnDemandCost\": \"901.77\",\n        \"CurrencyCode\": \"USD\"\n      }\n    ],\n    \"SavingsPlansPurchaseRecommendationSummary\": {\n      \"EstimatedTotalCost\": \"687.15\",\n      \"TotalRecommendationCount\": \"1\",\n      \"CurrencyCode\": \"USD\"\n    }\n  }\n}",
     },
   },
   {
@@ -334,10 +378,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/premiumsupport/plans/",
     referenceLabel: "Compare AWS Support Plans",
+    consoleUrl: "https://console.aws.amazon.com/support/home#/",
+    consoleLabel: "AWS Support Center",
     diagram: "flowchart TD\n  Dev[Developer: Business Hours Email] --> DevSLA[System Impaired < 12 hrs]\n  Biz[Business: 24/7 Phone, Chat, Email] --> BizSLA[Production Down < 1 hr]\n  Ramp[Enterprise On-Ramp: 24/7 + Pool of TAMs] --> RampSLA[Business-Critical Down < 30 min]\n  Ent[Enterprise: 24/7 + Designated TAM] --> EntSLA[Business-Critical Down < 15 min]",
     cliExample: {
       description: "Open a high-severity support case (requires a Business, Enterprise On-Ramp, or Enterprise support plan)",
       command: "aws support create-case --subject \"Production API unavailable\" --service-code amazon-elastic-compute-cloud-linux --severity-code urgent --category-code other --communication-body \"Production instances are unreachable since 09:00 UTC.\"",
+      sampleOutput:
+        "{\n  \"caseId\": \"case-123456789012-muen-2026-9f2c1a4e5b6d4c7e\"\n}",
     },
   },
   {
@@ -366,6 +414,8 @@ export const billingPricingAndSupportQuestions: Question[] = [
     cliExample: {
       description: "Retrieve monthly cost filtered to data transfer usage types",
       command: "aws ce get-cost-and-usage --time-period Start=2024-01-01,End=2024-02-01 --granularity MONTHLY --metrics UnblendedCost --filter '{\"Dimensions\":{\"Key\":\"USAGE_TYPE_GROUP\",\"Values\":[\"EC2: Data Transfer - Internet (Out)\"]}}'",
+      sampleOutput:
+        "{\n  \"ResultsByTime\": [\n    {\n      \"TimePeriod\": {\n        \"Start\": \"2024-01-01\",\n        \"End\": \"2024-02-01\"\n      },\n      \"Total\": {\n        \"UnblendedCost\": {\n          \"Amount\": \"142.37\",\n          \"Unit\": \"USD\"\n        }\n      },\n      \"Groups\": [],\n      \"Estimated\": false\n    }\n  ],\n  \"DimensionValueAttributes\": []\n}",
     },
   },
 ];
