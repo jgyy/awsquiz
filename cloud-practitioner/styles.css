@@ -59,7 +59,7 @@ body {
 }
 
 #app {
-  max-width: 1360px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
 }
@@ -395,61 +395,104 @@ a:focus-visible {
 }
 
 .cli-card {
-  border: 1px solid var(--border);
+  /* Terminal look: monospace metrics on the card so 80ch matches the shell text. */
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  width: 100%;
+  max-width: calc(80ch + 1.8rem);
+  border: 1px solid #2a2a2a;
   border-radius: 8px;
   overflow: hidden;
+  background: #0c0c0c;
+  color: #d8d8d8;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
 }
 
 .cli-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--muted);
-  background: var(--surface-sunken);
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: #9a9a9a;
+  background: #1a1a1a;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* macOS-style traffic lights on the first header only. */
+.cli-card > .cli-card-header:first-child::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: 1.1rem 0 0 #febc2e, 2.2rem 0 0 #28c840;
+  margin-right: 2.4rem;
+}
+
+.cli-card-header > span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .copy-btn {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: #9a9a9a;
+  border: 1px solid #3a3a3a;
   border-radius: 4px;
   padding: 0.2rem 0.5rem;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .copy-btn:hover {
-  background: var(--accent-soft);
+  color: #e6e6e6;
+  border-color: #6a6a6a;
+  background: #262626;
 }
 
-.cli-command {
-  margin: 0;
-  padding: 0.75rem 0.9rem;
-  background: var(--code-bg);
-  color: var(--code-ink);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  overflow-x: auto;
-}
-
-.cli-output-header {
-  border-top: 1px solid var(--border);
-}
-
+.cli-command,
 .cli-output {
   margin: 0;
   padding: 0.75rem 0.9rem;
-  background: var(--surface-sunken);
-  color: var(--muted);
+  background: #0c0c0c;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  line-height: 1.45;
-  overflow-x: auto;
+  line-height: 1.5;
+  /* Wrap at the card's 80-column edge; never scroll sideways. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow-x: hidden;
+  tab-size: 4;
+}
+
+.cli-command {
+  color: #e6e6e6;
+}
+
+.cli-command code::before {
+  content: "$ ";
+  color: #5af78e;
+  font-weight: 600;
+  user-select: none;
+}
+
+.cli-output-header {
+  border-top: 1px solid #2a2a2a;
+}
+
+.cli-output {
+  color: #b0b0b0;
   max-height: 22rem;
   overflow-y: auto;
 }
