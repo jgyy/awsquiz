@@ -487,11 +487,8 @@ a:focus-visible {
   user-select: none;
 }
 
-.cli-output-header {
-  border-top: 1px solid #2a2a2a;
-}
-
 .cli-output {
+  padding-top: 0;
   color: #b0b0b0;
   max-height: 22rem;
   overflow-y: auto;

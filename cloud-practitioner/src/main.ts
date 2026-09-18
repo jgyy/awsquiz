@@ -322,10 +322,6 @@ function renderFeedbackExtras(question: Question, uid: string): string {
     const outId = `cli-out-${uid}`;
     const output = question.cliExample.sampleOutput
       ? `
-        <div class="cli-card-header cli-output-header">
-          <span>Sample output</span>
-          <button type="button" class="copy-btn" data-copy-target="${outId}">Copy</button>
-        </div>
         <pre class="cli-output" id="${outId}"><code>${escapeHtml(question.cliExample.sampleOutput)}</code></pre>`
       : "";
     parts.push(`
