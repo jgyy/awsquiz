@@ -118,7 +118,15 @@ function openDiagramModal(svg: SVGSVGElement): void {
 
   const body = document.createElement("div");
   body.className = "diagram-modal-body";
-  body.appendChild(svg.cloneNode(true));
+  const clone = svg.cloneNode(true) as SVGSVGElement;
+  // Mermaid pins an inline max-width; drop it so the diagram scales to the window.
+  clone.style.maxWidth = "none";
+  clone.style.width = "100%";
+  clone.style.height = "100%";
+  clone.removeAttribute("width");
+  clone.removeAttribute("height");
+  clone.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  body.appendChild(clone);
 
   const modal = document.createElement("div");
   modal.className = "diagram-modal";
