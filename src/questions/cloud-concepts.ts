@@ -2175,7 +2175,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html",
     referenceLabel: "What is AWS Database Migration Service?",
-    consoleUrl: "https://console.aws.amazon.com/dms/v2/home#/tasks",
+    consoleUrl: "https://console.aws.amazon.com/dms/v2/home#tasks",
     consoleLabel: "AWS DMS > Database migration tasks",
     diagram: `flowchart LR
   Oracle[On-Premises Oracle] --> SCT[Schema Conversion Tool]
@@ -2391,7 +2391,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/design-principles.html",
     referenceLabel: "Reliability Pillar - Design Principles",
-    consoleUrl: "https://console.aws.amazon.com/fis/home#/experiment-templates",
+    consoleUrl: "https://console.aws.amazon.com/fis/home#ExperimentTemplates",
     consoleLabel: "AWS Fault Injection Service > Experiment templates",
     diagram: `flowchart LR
   Monitor[CloudWatch Monitoring] --> Alarm[Alarm on Key Metric]
@@ -2582,7 +2582,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/governance-perspective.html",
     referenceLabel: "AWS CAF – Governance Perspective",
-    consoleUrl: "https://console.aws.amazon.com/cost-management/home",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home",
     consoleLabel: "Billing and Cost Management",
     diagram: "flowchart TD\n  Gov[Governance perspective] --> Fin[Cloud financial management]\n  Gov --> Risk[Risk management]\n  Gov --> Ben[Benefits management]\n  Gov --> Port[Application portfolio management]\n  Gov --> Data[Data governance]",
     cliExample: {
@@ -2987,7 +2987,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/the-shared-responsibility-model.html",
     referenceLabel: "Sustainability Pillar – Shared Responsibility Model",
-    consoleUrl: "https://console.aws.amazon.com/billing/home#/carbon-footprint",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/carbon-footprint",
     consoleLabel: "Billing > Customer Carbon Footprint Tool",
     diagram: "flowchart LR\n  AWS[AWS - sustainability of the cloud] --> DC[Efficient data centers and renewable energy]\n  Cust[Customer - sustainability in the cloud] --> Size[Right-size and scale to demand]\n  Cust --> Reg[Choose low-carbon Regions]\n  Cust --> Arch[Efficient architecture and data lifecycle]",
     cliExample: {
@@ -3651,7 +3651,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
     referenceLabel: "AWS Shared Responsibility Model",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home#/reports",
+    consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact > Reports",
     diagram: "flowchart TB\n  AWS[AWS responsibility] --> Phys[Physical data center security]\n  AWS --> HW[Hardware and media disposal]\n  Cust[Customer responsibility] --> Data[Customer data]\n  Cust --> IAM[Identity and access management]",
     cliExample: {
@@ -3688,7 +3688,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/region-selection.html",
     referenceLabel: "Sustainability Pillar – Region Selection",
-    consoleUrl: "https://console.aws.amazon.com/billing/home#/carbonfootprint",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/carbon-footprint",
     consoleLabel: "Billing and Cost Management > Customer Carbon Footprint Tool",
     diagram: "flowchart LR\n  Req[Batch workload with no latency needs] --> Choose[Select low carbon intensity Region]\n  Choose --> Sched[Schedule at flexible times]\n  Sched --> Measure[Track with Customer Carbon Footprint Tool]",
     cliExample: {
@@ -4019,7 +4019,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/framework/perf_04.html",
     referenceLabel: "Well-Architected Framework – Performance Efficiency trade-offs",
-    consoleUrl: "https://console.aws.amazon.com/elasticache/home#/",
+    consoleUrl: "https://console.aws.amazon.com/elasticache/home",
     consoleLabel: "Amazon ElastiCache",
     diagram: "flowchart LR\n  App[Application] --> Cache[ElastiCache]\n  Cache -->|miss| DB[Database]\n  DB --> Cache\n  Cache -->|hit within TTL| App",
     cliExample: {
@@ -4205,7 +4205,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/migrationhub-strategy/latest/userguide/what-is-mhub-strategy.html",
     referenceLabel: "What Is Migration Hub Strategy Recommendations?",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub-strategy/home#/dashboard",
+    consoleUrl: "https://console.aws.amazon.com/migrationhub/strategy/home",
     consoleLabel: "Migration Hub > Strategy Recommendations",
     diagram:
       "flowchart LR\n    Collect[Collect Server and App Data] --> Analyze[Strategy Recommendations Analysis]\n    Analyze --> Rehost[Rehost to EC2]\n    Analyze --> Replatform[Replatform to Managed Services]\n    Analyze --> Refactor[Refactor to Containers or Serverless]",
@@ -4471,7 +4471,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html",
     referenceLabel: "Amazon Route 53 - DNS Failover",
-    consoleUrl: "https://console.aws.amazon.com/route53/healthchecks/home",
+    consoleUrl: "https://console.aws.amazon.com/route53/v2/healthchecks/home",
     consoleLabel: "Amazon Route 53 > Health checks",
     diagram:
       "flowchart LR\n    Users[Users] --> R53[Route 53 Failover Record]\n    R53 --> HC[Health Check on Primary]\n    HC -->|Healthy| Primary[Primary Region]\n    HC -->|Unhealthy| Standby[Standby Region]",
@@ -4547,7 +4547,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/snowball/latest/developer-guide/whatisedge.html",
     referenceLabel: "What Is AWS Snowball Edge?",
-    consoleUrl: "https://console.aws.amazon.com/importexport/home#/jobs",
+    consoleUrl: "https://console.aws.amazon.com/snowfamily/home#/jobs",
     consoleLabel: "AWS Snow Family > Jobs",
     diagram:
       "flowchart LR\n    Sensors[Remote Sensors] --> Edge[Snowball Edge Compute Optimized]\n    Edge --> Local[Local EC2 and Lambda Analytics]\n    Local --> Ship[Ship Device to AWS]\n    Ship --> S3[Data Imported to Amazon S3]",
@@ -5648,7 +5648,7 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/the-shared-responsibility-model.html",
     referenceLabel: "Shared responsibility model - Sustainability Pillar",
-    consoleUrl: "https://console.aws.amazon.com/billing/home#/carbon-footprint",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/carbon-footprint",
     consoleLabel: "Billing > Customer Carbon Footprint Tool",
     diagram: "flowchart LR\n  subgraph AWS[Sustainability OF the cloud - AWS]\n    DC[Efficient data centers]\n    RE[Renewable energy]\n    HW[Hardware lifecycle]\n  end\n  subgraph Cust[Sustainability IN the cloud - Customer]\n    Size[Right-size and scale down]\n    Reg[Choose efficient Regions]\n    Data[Delete unneeded data]\n  end",
     cliExample: {

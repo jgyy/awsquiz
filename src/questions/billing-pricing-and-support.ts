@@ -1309,7 +1309,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/cost-management/latest/userguide/ce-ris.html",
     referenceLabel: "Analyzing Reservations with Cost Explorer",
-    consoleUrl: "https://console.aws.amazon.com/cost-management/home#/reservations/utilization",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/reservations/utilization",
     consoleLabel: "Cost Explorer > Reservations",
     diagram: "flowchart LR\n  RI[Purchased RI hours] --> Util[Utilization %: used / purchased]\n  Usage[Total EC2 usage hours] --> Cov[Coverage %: reserved / total]\n  Util --> Decide[Buy more or fewer]\n  Cov --> Decide",
     cliExample: {
@@ -1346,7 +1346,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/s3/pricing/",
     referenceLabel: "Amazon S3 Pricing",
-    consoleUrl: "https://console.aws.amazon.com/cost-management/home#/cost-explorer",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/cost-explorer",
     consoleLabel: "Cost Explorer",
     diagram: "flowchart TD\n  S3[S3 bill] --> Store[Storage GB-month]\n  S3 --> Req[Requests: PUT, GET, LIST]\n  S3 --> Out[Data transfer out]\n  S3 --> Mgmt[Optional: inventory, analytics, replication]\n  In[Data transfer in] -->|free| S3",
     cliExample: {
@@ -1568,7 +1568,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/cost-management/latest/userguide/manage-cost-categories.html",
     referenceLabel: "Managing Your Costs with AWS Cost Categories",
-    consoleUrl: "https://console.aws.amazon.com/cost-management/home#/cost-categories",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/cost-categories",
     consoleLabel: "Cost Categories",
     diagram: "flowchart TD\n  Rules[Cost Category: BusinessUnit] --> Retail[Retail: accounts 1-8 + tag team=retail]\n  Rules --> Log[Logistics: accounts 9-15]\n  Rules --> Shared[Shared Services: Support, CloudTrail, Config]\n  Retail --> CE[Cost Explorer group by BusinessUnit]\n  Log --> CE\n  Shared --> CE",
     cliExample: {
@@ -1679,7 +1679,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
     referenceLabel: "What are Savings Plans?",
-    consoleUrl: "https://console.aws.amazon.com/cost-management/home#/savings-plans/overview",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/savings-plans/overview",
     consoleLabel: "Savings Plans",
     diagram: "flowchart LR\n  EC2SP[\"EC2 Instance SP: one family + Region\"] --> High[Up to 72% off]\n  CompSP[\"Compute SP: any family, Region, Fargate, Lambda\"] --> Mid[Up to 66% off]",
     cliExample: {
@@ -2198,7 +2198,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html",
     referenceLabel: "Replicating objects within and across Regions - Amazon S3",
-    consoleUrl: "https://console.aws.amazon.com/s3/bucket/compliance-archive/property/replication",
+    consoleUrl: "https://console.aws.amazon.com/s3/buckets",
     consoleLabel: "Amazon S3 > Bucket > Management > Replication rules",
     diagram: "flowchart LR\n  Upload[Internet upload] -->|Free inbound| Src[S3 bucket ap-southeast-1]\n  Src -->|Inter-Region transfer OUT charged| Dst[S3 bucket eu-west-1]\n  Src --> S1[Storage charge]\n  Dst --> S2[Storage plus replication PUTs]",
     cliExample: {
@@ -2842,7 +2842,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
     referenceLabel: "What are Savings Plans?",
-    consoleUrl: "https://console.aws.amazon.com/cost-management/home#/savings-plans/utilization",
+    consoleUrl: "https://console.aws.amazon.com/costmanagement/home#/savings-plans/utilization",
     consoleLabel: "Cost Management > Savings Plans > Utilization report",
     diagram: "flowchart LR\n  Commit[$10/hour commitment] --> Used[$6/hour used at SP rate]\n  Commit --> Unused[$4/hour unused, still billed]\n  Over[Usage above $10/hour] --> OD[Billed at On-Demand rate]",
     cliExample: {

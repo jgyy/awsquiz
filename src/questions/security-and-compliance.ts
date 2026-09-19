@@ -390,7 +390,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/artifact/",
     referenceLabel: "AWS Artifact",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home",
+    consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact",
     diagram: `flowchart TD
   A[AWS Artifact] --> B[SOC Reports]
@@ -425,7 +425,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/shield/",
     referenceLabel: "AWS Shield",
-    consoleUrl: "https://console.aws.amazon.com/wafv2/shieldv2#/",
+    consoleUrl: "https://console.aws.amazon.com/wafv2/shieldv2#/overview",
     consoleLabel: "AWS Shield",
     diagram: `flowchart TD
   A[Incoming Traffic] --> B[AWS Shield]
@@ -664,7 +664,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
     referenceLabel: "AWS CloudTrail User Guide",
-    consoleUrl: "https://console.aws.amazon.com/cloudtrail/home#/trails",
+    consoleUrl: "https://console.aws.amazon.com/cloudtrailv2/home#/trails",
     consoleLabel: "CloudTrail > Trails",
     diagram: `flowchart TD
   A[API Call] --> B[AWS CloudTrail]
@@ -943,7 +943,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/",
     referenceLabel: "AWS Compliance",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home",
+    consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact",
     diagram: `flowchart TD
   A[Compliance and Governance] --> B[AWS Artifact: Reports and Agreements]
@@ -1100,7 +1100,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/ddos-overview.html",
     referenceLabel: "AWS Shield Standard and Shield Advanced",
-    consoleUrl: "https://console.aws.amazon.com/wafv2/shieldv2#/",
+    consoleUrl: "https://console.aws.amazon.com/wafv2/shieldv2#/overview",
     consoleLabel: "AWS Shield",
     diagram: `flowchart TD
   A[AWS Shield] --> B[Shield Standard]
@@ -1971,7 +1971,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/hipaa-compliance/",
     referenceLabel: "HIPAA compliance on AWS",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home#/agreements",
+    consoleUrl: "https://console.aws.amazon.com/artifact/agreements",
     consoleLabel: "AWS Artifact > Agreements",
     diagram: `flowchart TD
   A[Store PHI on AWS] --> B[Accept BAA in AWS Artifact]
@@ -2012,7 +2012,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/gdpr-center/",
     referenceLabel: "GDPR Center",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home#/reports",
+    consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact > Reports",
     diagram: `flowchart TD
   A[GDPR data residency requirement] --> B[Choose EU Region e.g. eu-central-1]
@@ -2604,7 +2604,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/artifact/latest/ug/managing-agreements.html",
     referenceLabel: "Managing agreements in AWS Artifact",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home#/agreements",
+    consoleUrl: "https://console.aws.amazon.com/artifact/agreements",
     consoleLabel: "AWS Artifact > Agreements",
     diagram: `flowchart LR
   A[Healthcare startup] --> B[AWS Artifact Agreements]
@@ -3027,7 +3027,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/programs/",
     referenceLabel: "AWS Compliance Programs",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home#/reports",
+    consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact > Reports",
     diagram: `flowchart LR
   A[AWS compliance programs] --> B[PCI DSS Level 1]
@@ -5054,7 +5054,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/pci-dss-level-1-faqs/",
     referenceLabel: "PCI DSS Level 1 FAQs",
-    consoleUrl: "https://console.aws.amazon.com/artifact/home#/reports",
+    consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact > Reports",
     diagram: "flowchart TB\n  AWS[AWS PCI DSS attestation] --> Inherit[Inherited controls: physical, network, hypervisor]\n  Cust[Customer assessment] --> Own[Own controls: app, IAM, logging, encryption]\n  Inherit --> Result[Customer PCI DSS compliance]\n  Own --> Result",
     cliExample: {
@@ -5831,7 +5831,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html",
     referenceLabel: "Security group rules",
-    consoleUrl: "https://console.aws.amazon.com/vpc/home#SecurityGroups:",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#SecurityGroups:",
     consoleLabel: "Amazon VPC > Security groups",
     diagram: "flowchart LR\n  Internet[Users] -->|443| ALB[ALB in security group sg-alb]\n  ALB -->|8080 allowed because source is sg-alb| Web[Web servers in security group sg-web]\n  Other[Other instances] -.->|8080 denied| Web",
     cliExample: {
@@ -5868,7 +5868,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html",
     referenceLabel: "Control subnet traffic with network access control lists",
-    consoleUrl: "https://console.aws.amazon.com/vpc/home#acls:",
+    consoleUrl: "https://console.aws.amazon.com/vpcconsole/home#acls:",
     consoleLabel: "Amazon VPC > Network ACLs",
     diagram: "flowchart LR\n  Def[Default NACL allows all in and out] --> Sub[Subnet]\n  Cust[New custom NACL only deny all rule] -->|associated| Sub\n  Sub --> Inst[Instances lose connectivity]\n  Fix[Add inbound and outbound allow rules] --> Cust",
     cliExample: {
@@ -8305,7 +8305,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
     referenceLabel: "AWS Shared Responsibility Model",
-    consoleUrl: "https://us-east-1.console.aws.amazon.com/artifact/home",
+    consoleUrl: "https://us-east-1.console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact",
     diagram: "flowchart TB\n  Inh[Inherited controls\nphysical, environmental] --> AWS[AWS only]\n  Sh[Shared controls\npatching, config mgmt, training] --> Both[AWS infrastructure + customer layer]\n  Cust[Customer-specific controls\ndata classification, zone security] --> C[Customer only]",
     cliExample: {
