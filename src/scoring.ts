@@ -38,8 +38,21 @@ export function sampleFullExam(pool: Question[]): Question[] {
   return shuffle(picked);
 }
 
-export function shuffleQuestionOptions(question: Question): Question {
-  return { ...question, options: shuffle(question.options) };
+/** Number of options shown per question: 4 for single-answer, 5 for "Select TWO". */
+export function displayedOptionCount(question: Question): number {
+  return question.correctOptionIds.length > 1 ? 5 : 4;
+}
+
+/**
+ * Each question stores a pool of options (up to 8). Every time it is shown, keep all
+ * correct options, draw a random subset of the distractors to fill the displayed count,
+ * and shuffle the result so the answer position rotates between attempts.
+ */
+export function sampleQuestionOptions(question: Question): Question {
+  const correct = question.options.filter((opt) => question.correctOptionIds.includes(opt.id));
+  const distractors = shuffle(question.options.filter((opt) => !question.correctOptionIds.includes(opt.id)));
+  const wanted = Math.max(displayedOptionCount(question) - correct.length, 0);
+  return { ...question, options: shuffle([...correct, ...distractors.slice(0, wanted)]) };
 }
 
 export function isAnswerCorrect(question: Question, selectedOptionIds: string[]): boolean {

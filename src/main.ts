@@ -3,7 +3,7 @@ import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./type
 import {
   sampleFullExam,
   shuffle,
-  shuffleQuestionOptions,
+  sampleQuestionOptions,
   isAnswerCorrect,
   scoreSession,
   DOMAIN_LABELS,
@@ -208,7 +208,7 @@ function renderModeSelection(): void {
 }
 
 function startFullExam(): void {
-  const questions = sampleFullExam(questionBank).map(shuffleQuestionOptions);
+  const questions = sampleFullExam(questionBank).map(sampleQuestionOptions);
   session = {
     mode: "full-exam",
     questions,
@@ -227,7 +227,7 @@ function startFullExam(): void {
 
 function startPractice(domain: Domain | "all"): void {
   const pool = domain === "all" ? questionBank : questionBank.filter((q) => q.domain === domain);
-  const questions = shuffle(pool).map(shuffleQuestionOptions);
+  const questions = shuffle(pool).map(sampleQuestionOptions);
   session = {
     mode: "practice",
     questions,
