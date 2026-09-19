@@ -56,3 +56,7 @@ dkms.conf
 
 # Subagent-driven-development scratch workspace
 .superpowers/
+
+# Build output and dependencies
+node_modules/
+dist/
