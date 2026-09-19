@@ -799,7 +799,7 @@ export const cloudConceptsQuestions: Question[] = [
       { id: "d", text: "Amazon S3 Transfer Acceleration" },
     ],
     correctOptionIds: ["b"],
-    explanation: "The AWS Snow Family provides physical devices for offline data transfer; Snowball Edge devices are shipped to the customer, loaded locally, and returned to AWS, avoiding the need for network bandwidth entirely.",
+    explanation: "The AWS Snow Family provides physical devices for offline data transfer; Snowball Edge devices are shipped to the customer, loaded locally, and returned to AWS, avoiding the need for network bandwidth entirely. Availability note: AWS no longer offers Snow Family devices to new customers and ends support for Snowball on December 31, 2026; AWS now points new customers to AWS DataSync for online transfers, AWS Data Transfer Terminal for physical drop-off, or partner solutions. The exam may still describe Snowball as the offline bulk-transfer option.",
     optionRationale: {
       a: "AWS Direct Connect is a dedicated private network link that takes weeks to provision and is meant for ongoing hybrid connectivity, not a one-time transfer from a remote site.",
       b: "Snowball Edge is a rugged physical appliance (tens of TB per device) designed exactly for petabyte-scale offline migrations where the network is a bottleneck.",
@@ -1002,8 +1002,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
     referenceLabel: "Migration strategies - AWS Prescriptive Guidance",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/strategy",
-    consoleLabel: "Migration Hub > Strategy Recommendations",
+    consoleUrl: "https://console.aws.amazon.com/mgn/home#/sourceServers",
+    consoleLabel: "AWS Transform MGN > Source servers",
     diagram: `flowchart LR
     Mono[Monolithic Order App] --> Refactor[Refactor / Re-architect]
     Refactor --> L[AWS Lambda]
@@ -1038,8 +1038,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
     referenceLabel: "Migration strategies - AWS Prescriptive Guidance",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/dashboard",
-    consoleLabel: "AWS Migration Hub > Dashboard",
+    consoleUrl: "https://console.aws.amazon.com/mgn/home#/sourceServers",
+    consoleLabel: "AWS Transform MGN > Source servers",
     diagram: `flowchart LR
     DC[On-Premises vSphere VMs] --> Relocate[Relocate - Hypervisor-Level Move]
     Relocate --> VMC[VMware Cloud on AWS]
@@ -1071,8 +1071,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
     referenceLabel: "Migration strategies - AWS Prescriptive Guidance",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/servers",
-    consoleLabel: "Migration Hub > Servers",
+    consoleUrl: "https://console.aws.amazon.com/mgn/home#/sourceServers",
+    consoleLabel: "AWS Transform MGN > Source servers",
     diagram: `flowchart LR
     Assess[Migration Assessment] --> Decision{Ready to Migrate?}
     Decision -->|No, replacing in 2 years| Retain[Retain On-Premises]
@@ -1521,8 +1521,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics Center",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/home",
-    consoleLabel: "AWS Migration Hub > Home",
+    consoleUrl: "https://calculator.aws/#/",
+    consoleLabel: "AWS Pricing Calculator",
     diagram: `flowchart LR
   TCO[On-Premises TCO] --> HW[Server and Storage Hardware]
   TCO --> Fac[Facilities Power and Cooling]
@@ -1692,7 +1692,7 @@ export const cloudConceptsQuestions: Question[] = [
       { id: "d", text: "AWS DataSync" },
     ],
     correctOptionIds: ["a"],
-    explanation: "AWS Application Discovery Service collects server specifications, performance data, and network connections from on-premises environments using agents or an agentless connector, and stores the results in AWS Migration Hub to help plan the migration.",
+    explanation: "AWS Application Discovery Service collects server specifications, performance data, and network connections from on-premises environments using agents or an agentless collector, and stores the results in AWS Migration Hub to help plan the migration. Availability note: AWS Migration Hub and Application Discovery Service were closed to new customers on November 7, 2025; AWS now points new customers to AWS Transform, and Application Migration Service has been renamed AWS Transform MGN. The exam still uses the older names.",
     optionRationale: {
       a: "Application Discovery Service is designed for the assessment phase: it discovers servers, utilization, and dependencies before any migration takes place.",
       b: "Application Migration Service performs the lift-and-shift of servers; it assumes you already know which servers to migrate.",
@@ -1761,7 +1761,7 @@ export const cloudConceptsQuestions: Question[] = [
       { id: "d", text: "AWS Control Tower" },
     ],
     correctOptionIds: ["a"],
-    explanation: "AWS Migration Hub provides a single location to discover existing servers, plan migrations, and track the status of each application migration across multiple AWS and partner migration tools.",
+    explanation: "AWS Migration Hub provides a single location to discover existing servers, plan migrations, and track the status of each application migration across multiple AWS and partner migration tools. Availability note: AWS Migration Hub and Application Discovery Service were closed to new customers on November 7, 2025; AWS now points new customers to AWS Transform, and Application Migration Service has been renamed AWS Transform MGN. The exam still uses the older names.",
     optionRationale: {
       a: "Migration Hub aggregates progress from Application Migration Service, DMS, and integrated partner tools into one dashboard.",
       b: "Systems Manager manages and operates resources already in AWS; it does not track migration progress.",
@@ -1804,8 +1804,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
     referenceLabel: "AWS Prescriptive Guidance - Migration Strategies (7 Rs)",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/strategy",
-    consoleLabel: "AWS Migration Hub > Strategy Recommendations",
+    consoleUrl: "https://console.aws.amazon.com/mgn/home#/sourceServers",
+    consoleLabel: "AWS Transform MGN > Source servers",
     diagram: `flowchart TD
   R7[The 7 Rs of Migration] --> Rehost[Rehost - lift and shift]
   R7 --> Relocate[Relocate - move VMware as-is]
@@ -1877,8 +1877,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/economics/",
     referenceLabel: "AWS Cloud Economics Center",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/home",
-    consoleLabel: "AWS Migration Hub > Home",
+    consoleUrl: "https://calculator.aws/#/",
+    consoleLabel: "AWS Pricing Calculator",
     diagram: `flowchart LR
   CVF[AWS Cloud Value Framework] --> Cost[Cost Savings - TCO]
   CVF --> Staff[Staff Productivity]
@@ -2006,7 +2006,7 @@ export const cloudConceptsQuestions: Question[] = [
     referenceLabel: "Types of Cloud Computing",
     consoleUrl: "https://console.aws.amazon.com/elasticbeanstalk/home",
     consoleLabel: "Elastic Beanstalk",
-    diagram: "flowchart TD\n  IaaS[IaaS: EC2, EBS, VPC] --> Cust1[Customer manages OS and app]\n  PaaS[PaaS: Elastic Beanstalk, Lambda] --> Cust2[Customer manages code and data]\n  SaaS[SaaS: Amazon Chime, WorkMail] --> Cust3[Customer uses the application]",
+    diagram: "flowchart TD\n  IaaS[IaaS: EC2, EBS, VPC] --> Cust1[Customer manages OS and app]\n  PaaS[PaaS: Elastic Beanstalk, Lambda] --> Cust2[Customer manages code and data]\n  SaaS[SaaS: Amazon WorkMail, Amazon Connect] --> Cust3[Customer only uses the software]",
     cliExample: {
       description: "Create an Elastic Beanstalk application, where AWS manages the platform layer for you",
       command: "aws elasticbeanstalk create-application --application-name orders-api --description \"PaaS-managed orders service\"",
@@ -2207,8 +2207,6 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/migration-acceleration-program/",
     referenceLabel: "AWS Migration Acceleration Program",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home",
-    consoleLabel: "AWS Migration Hub",
     diagram: "flowchart LR\n  Assess[Assess: readiness and business case] --> Mobilize[Mobilize: landing zone, skills, plan]\n  Mobilize --> Migrate[Migrate and modernize at scale]\n  MAP[MAP credits, partners, training] --> Assess",
     cliExample: {
       description: "List the migration tasks tracked in Migration Hub during a MAP engagement",
@@ -2393,30 +2391,30 @@ export const cloudConceptsQuestions: Question[] = [
   {
     id: "cc79",
     domain: "cloud-concepts",
-    text: "A field research team collects 6 TB of sensor data at a remote site with no reliable network connection and very little space or power. They need a small, rugged device to run a lightweight pre-processing application locally and then ship the data to AWS. Which service is MOST appropriate?",
+    text: "A field research team has collected 6 TB of sensor data on portable drives at a remote site with no reliable network connection. The company, an AWS Enterprise Support customer, created its AWS account in 2026, so it cannot order AWS Snow Family devices. Which option is the MOST appropriate way to get the data into Amazon S3?",
     options: [
-      { id: "a", text: "AWS Snowcone" },
+      { id: "a", text: "Bring the drives to an AWS Data Transfer Terminal location and upload the data over its high-speed connection" },
       { id: "b", text: "AWS Storage Gateway" },
       { id: "c", text: "AWS Direct Connect" },
       { id: "d", text: "Amazon S3 Transfer Acceleration" },
     ],
     correctOptionIds: ["a"],
-    explanation: "AWS Snowcone is the smallest member of the Snow Family: a portable, rugged device with 8 TB (HDD) or 14 TB (SSD) of storage that can run edge compute and be shipped back to AWS to import data into S3.",
+    explanation: "AWS Data Transfer Terminal is a secure physical location (reserved from the console, currently for Enterprise Support customers) where you bring your own storage devices and upload data to AWS over a high-throughput connection. It is the physical-transfer option AWS recommends now that the Snow Family is closed to new customers: AWS Snowcone was discontinued on November 12, 2024, Snowball Edge is no longer offered to new customers, and Snowball support ends on December 31, 2026.",
     optionRationale: {
-      a: "Snowcone is purpose-built for space-constrained, disconnected edge environments with small data volumes.",
+      a: "Data Transfer Terminal is designed for exactly this case: data already sitting on portable media, no usable network at the source, and no Snow device available.",
       b: "Storage Gateway requires a persistent network connection to AWS.",
       c: "Direct Connect is a dedicated network link that takes weeks to provision and requires a fixed location.",
       d: "Transfer Acceleration still relies on an internet connection, which the site lacks.",
     },
-    referenceUrl: "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snowcone-what-is-snowcone.html",
-    referenceLabel: "What Is AWS Snowcone?",
-    consoleUrl: "https://console.aws.amazon.com/snowfamily/home",
-    consoleLabel: "AWS Snow Family",
-    diagram: "flowchart LR\n  Site[Remote site - no network] --> Cone[Snowcone - edge compute and 8 TB]\n  Cone -->|ship device| AWS[AWS ingestion]\n  AWS --> S3[Amazon S3 bucket]",
+    referenceUrl: "https://docs.aws.amazon.com/datatransferterminal/latest/userguide/what-is-dtt.html",
+    referenceLabel: "What is AWS Data Transfer Terminal?",
+    consoleUrl: "https://console.aws.amazon.com/datatransferterminal/home",
+    consoleLabel: "AWS Data Transfer Terminal",
+    diagram: "flowchart LR\n  Site[Remote site - no network] --> Drives[Portable storage drives]\n  Drives -->|carry to| DTT[AWS Data Transfer Terminal]\n  DTT -->|high-speed upload| S3[Amazon S3 bucket]",
     cliExample: {
-      description: "Create a Snowcone import job that delivers data into an S3 bucket",
-      command: "aws snowball create-job --job-type IMPORT --snowball-type SNC1_HDD --resources '{\"S3Resources\":[{\"BucketArn\":\"arn:aws:s3:::sensor-archive\"}]}' --address-id ADID1234abcd-1234-abcd-1234-abcd12345678 --role-arn arn:aws:iam::123456789012:role/SnowRole --shipping-option SECOND_DAY",
-      sampleOutput: "{\n  \"JobId\": \"JID123e4567-e89b-12d3-a456-426655440000\"\n}",
+      description: "From a workstation at a Data Transfer Terminal, copy the contents of a mounted drive into an S3 bucket",
+      command: "aws s3 cp /media/sensor-drive s3://sensor-archive/site-7/ --recursive --storage-class STANDARD_IA",
+      sampleOutput: "upload: media/sensor-drive/day-01.parquet to s3://sensor-archive/site-7/day-01.parquet\nupload: media/sensor-drive/day-02.parquet to s3://sensor-archive/site-7/day-02.parquet\nupload: media/sensor-drive/day-03.parquet to s3://sensor-archive/site-7/day-03.parquet",
     },
   },
   {
@@ -2470,8 +2468,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
     referenceLabel: "Migration Strategies – 7 Rs",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/strategy",
-    consoleLabel: "Migration Hub > Strategy Recommendations",
+    consoleUrl: "https://console.aws.amazon.com/mgn/home#/sourceServers",
+    consoleLabel: "AWS Transform MGN > Source servers",
     diagram: "flowchart LR\n  Apps[300 applications - no code changes] --> RH[Rehost to EC2 via MGN]\n  Apps --> RL[Relocate to VMware Cloud on AWS]\n  Apps -.-x RF[Refactor - code rewrite]\n  Apps -.-x RP[Replatform - targeted changes]",
     cliExample: {
       description: "List server recommendations produced by Migration Hub Strategy Recommendations",
@@ -2586,8 +2584,6 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/your-cloud-transformation-journey.html",
     referenceLabel: "AWS CAF – Your Cloud Transformation Journey",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/journey",
-    consoleLabel: "Migration Hub > Journeys",
     diagram: "flowchart LR\n  Env[Envision - opportunities and outcomes] --> Al[Align - capability gaps and plan]\n  Al --> La[Launch - pilots]\n  La --> Sc[Scale - expand and realize value]\n  Sc -.-> Env",
     cliExample: {
       description: "List migration journeys tracked in Migration Hub",
@@ -2998,8 +2994,8 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html",
     referenceLabel: "AWS Prescriptive Guidance – Migration strategies (the 7 Rs)",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/strategy",
-    consoleLabel: "AWS Migration Hub > Strategy Recommendations",
+    consoleUrl: "https://console.aws.amazon.com/mgn/home#/sourceServers",
+    consoleLabel: "AWS Transform MGN > Source servers",
     diagram: "flowchart LR\n  Six[Original 6 Rs] --> Seven[7 Rs]\n  Seven --> Relocate[Relocate added]\n  Relocate --> VMC[VMware Cloud on AWS]\n  Relocate --> Acct[Move between accounts or Regions]",
     cliExample: {
       description: "Retrieve the portfolio summary from Migration Hub Strategy Recommendations",
@@ -3029,8 +3025,6 @@ export const cloudConceptsQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/transformation-domains.html",
     referenceLabel: "AWS CAF – Transformation domains",
-    consoleUrl: "https://console.aws.amazon.com/migrationhub/home#/journey",
-    consoleLabel: "AWS Migration Hub > Journeys",
     diagram: "flowchart TB\n  CAF[AWS CAF] --> Tech[Technology domain]\n  CAF --> Proc[Process domain]\n  CAF --> Org[Organization domain]\n  CAF --> Prod[Product domain]",
     cliExample: {
       description: "List Migration Hub Orchestrator workflow templates used to structure a transformation",
