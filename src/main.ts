@@ -317,7 +317,7 @@ function renderFeedbackExtras(question: Question, uid: string): string {
     );
   }
 
-  if (question.consoleUrl) {
+  if (question.consoleUrl && question.consoleUrl !== question.referenceUrl) {
     parts.push(
       `<a class="reference-link console-link" href="${escapeHtml(question.consoleUrl)}" target="_blank" rel="noopener noreferrer">Open in AWS Console: ${escapeHtml(
         question.consoleLabel ?? "AWS Management Console"

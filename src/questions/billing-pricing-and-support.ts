@@ -28,7 +28,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "List running EC2 instances using standard (on-demand) lifecycle",
       command: "aws ec2 describe-instances --filters Name=instance-lifecycle,Values=normal",
       sampleOutput:
-        "{\n  \"Reservations\": [\n    {\n      \"ReservationId\": \"r-0a1b2c3d4e5f67890\",\n      \"OwnerId\": \"123456789012\",\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abcd1234efgh5678\",\n          \"InstanceType\": \"t3.micro\",\n          \"State\": {\n            \"Code\": 16,\n            \"Name\": \"running\"\n          },\n          \"LaunchTime\": \"2026-03-14T08:21:05+00:00\",\n          \"Placement\": {\n            \"AvailabilityZone\": \"us-east-1a\",\n            \"Tenancy\": \"default\"\n          },\n          \"Tags\": [\n            {\n              \"Key\": \"Name\",\n              \"Value\": \"web-1\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+        "{\n  \"Reservations\": [\n    {\n      \"ReservationId\": \"r-0a1b2c3d4e5f67890\",\n      \"OwnerId\": \"123456789012\",\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abcd1234efgh5678\",\n          \"InstanceType\": \"t3.micro\",\n          \"State\": {\n            \"Code\": 16,\n            \"Name\": \"running\"\n          },\n          \"LaunchTime\": \"2026-03-14T08:21:05+00:00\",\n          \"Placement\": {\n            \"AvailabilityZone\": \"ap-southeast-1a\",\n            \"Tenancy\": \"default\"\n          },\n          \"Tags\": [\n            {\n              \"Key\": \"Name\",\n              \"Value\": \"web-1\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -58,7 +58,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "View recent Spot price history for an instance type",
       command: "aws ec2 describe-spot-price-history --instance-types t3.micro --product-descriptions Linux/UNIX --max-results 5",
       sampleOutput:
-        "{\n  \"SpotPriceHistory\": [\n    {\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"InstanceType\": \"t3.micro\",\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"SpotPrice\": \"0.003100\",\n      \"Timestamp\": \"2026-03-14T09:12:41+00:00\"\n    },\n    {\n      \"AvailabilityZone\": \"us-east-1b\",\n      \"InstanceType\": \"t3.micro\",\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"SpotPrice\": \"0.003300\",\n      \"Timestamp\": \"2026-03-14T08:47:10+00:00\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
+        "{\n  \"SpotPriceHistory\": [\n    {\n      \"AvailabilityZone\": \"ap-southeast-1a\",\n      \"InstanceType\": \"t3.micro\",\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"SpotPrice\": \"0.003100\",\n      \"Timestamp\": \"2026-03-14T09:12:41+00:00\"\n    },\n    {\n      \"AvailabilityZone\": \"ap-southeast-1b\",\n      \"InstanceType\": \"t3.micro\",\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"SpotPrice\": \"0.003300\",\n      \"Timestamp\": \"2026-03-14T08:47:10+00:00\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
     },
   },
   {
@@ -88,7 +88,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "List available Reserved Instance offerings for an instance type",
       command: "aws ec2 describe-reserved-instances-offerings --instance-type t3.micro --product-description Linux/UNIX --max-results 5",
       sampleOutput:
-        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a6ce8269-7b8c-42cd-a7f5-0cd78f5f0b37\",\n      \"InstanceType\": \"t3.micro\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"Duration\": 94608000,\n      \"FixedPrice\": 140.0,\n      \"UsagePrice\": 0.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
+        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a6ce8269-7b8c-42cd-a7f5-0cd78f5f0b37\",\n      \"InstanceType\": \"t3.micro\",\n      \"AvailabilityZone\": \"ap-southeast-1a\",\n      \"Duration\": 94608000,\n      \"FixedPrice\": 140.0,\n      \"UsagePrice\": 0.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
     },
   },
   {
@@ -292,7 +292,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Get EC2 right-sizing recommendations to help cut costs",
       command: "aws compute-optimizer get-ec2-instance-recommendations",
       sampleOutput:
-        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234efgh5678\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"web-1\",\n      \"currentInstanceType\": \"m5.xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"utilizationMetrics\": [\n        {\n          \"name\": \"CPU\",\n          \"statistic\": \"MAXIMUM\",\n          \"value\": 11.4\n        }\n      ],\n      \"lookBackPeriodInDays\": 14.0,\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        },\n        {\n          \"instanceType\": \"t3.large\",\n          \"performanceRisk\": 2.0,\n          \"rank\": 2\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-03-14T06:30:00+00:00\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
+        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abcd1234efgh5678\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"web-1\",\n      \"currentInstanceType\": \"m5.xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"utilizationMetrics\": [\n        {\n          \"name\": \"CPU\",\n          \"statistic\": \"MAXIMUM\",\n          \"value\": 11.4\n        }\n      ],\n      \"lookBackPeriodInDays\": 14.0,\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        },\n        {\n          \"instanceType\": \"t3.large\",\n          \"performanceRisk\": 2.0,\n          \"rank\": 2\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-03-14T06:30:00+00:00\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
     },
   },
   {
@@ -446,7 +446,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
   Need --> None[No Isolation Needed] --> Shared[Default Shared Tenancy]`,
     cliExample: {
       description: "Allocate a Dedicated Host for a specific instance family in one Availability Zone",
-      command: "aws ec2 allocate-hosts --instance-family m5 --availability-zone us-east-1a --quantity 1 --auto-placement off",
+      command: "aws ec2 allocate-hosts --instance-family m5 --availability-zone ap-southeast-1a --quantity 1 --auto-placement off",
       sampleOutput:
         "{\n  \"HostIds\": [\n    \"h-0123456789abcdef0\"\n  ]\n}",
     },
@@ -760,7 +760,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Search for one-year All Upfront Standard Reserved Instance offerings for a given instance type",
       command: "aws ec2 describe-reserved-instances-offerings --instance-type m5.large --offering-class standard --offering-type \"All Upfront\" --product-description \"Linux/UNIX\" --min-duration 31536000 --max-duration 31536000 --max-results 1",
       sampleOutput:
-        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"InstanceType\": \"m5.large\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"Duration\": 31536000,\n      \"UsagePrice\": 0.0,\n      \"FixedPrice\": 496.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [\n        {\n          \"Amount\": 0.0,\n          \"Frequency\": \"Hourly\"\n        }\n      ],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ]\n}",
+        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"InstanceType\": \"m5.large\",\n      \"AvailabilityZone\": \"ap-southeast-1a\",\n      \"Duration\": 31536000,\n      \"UsagePrice\": 0.0,\n      \"FixedPrice\": 496.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [\n        {\n          \"Amount\": 0.0,\n          \"Frequency\": \"Hourly\"\n        }\n      ],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ]\n}",
     },
   },
   {
@@ -829,7 +829,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Launch an instance with dedicated tenancy so it runs on single-tenant hardware",
       command: "aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type m5.large --placement Tenancy=dedicated --subnet-id subnet-0abc123def4567890",
       sampleOutput:
-        "{\n  \"Groups\": [],\n  \"Instances\": [\n    {\n      \"AmiLaunchIndex\": 0,\n      \"ImageId\": \"ami-0abcdef1234567890\",\n      \"InstanceId\": \"i-0fedcba9876543210\",\n      \"InstanceType\": \"m5.large\",\n      \"LaunchTime\": \"2026-04-08T09:12:44+00:00\",\n      \"Placement\": {\n        \"AvailabilityZone\": \"us-east-1b\",\n        \"GroupName\": \"\",\n        \"Tenancy\": \"dedicated\"\n      },\n      \"State\": {\n        \"Code\": 0,\n        \"Name\": \"pending\"\n      },\n      \"SubnetId\": \"subnet-0abc123def4567890\",\n      \"VpcId\": \"vpc-0123abcd4567efgh8\"\n    }\n  ],\n  \"OwnerId\": \"123456789012\",\n  \"ReservationId\": \"r-0a1b2c3d4e5f67890\"\n}",
+        "{\n  \"Groups\": [],\n  \"Instances\": [\n    {\n      \"AmiLaunchIndex\": 0,\n      \"ImageId\": \"ami-0abcdef1234567890\",\n      \"InstanceId\": \"i-0fedcba9876543210\",\n      \"InstanceType\": \"m5.large\",\n      \"LaunchTime\": \"2026-04-08T09:12:44+00:00\",\n      \"Placement\": {\n        \"AvailabilityZone\": \"ap-southeast-1b\",\n        \"GroupName\": \"\",\n        \"Tenancy\": \"dedicated\"\n      },\n      \"State\": {\n        \"Code\": 0,\n        \"Name\": \"pending\"\n      },\n      \"SubnetId\": \"subnet-0abc123def4567890\",\n      \"VpcId\": \"vpc-0123abcd4567efgh8\"\n    }\n  ],\n  \"OwnerId\": \"123456789012\",\n  \"ReservationId\": \"r-0a1b2c3d4e5f67890\"\n}",
     },
   },
   {
@@ -1321,7 +1321,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  CW[CloudWatch metrics] --> CO[Compute Optimizer ML analysis]\n  CO --> Rec[\"Recommendation: m5.2xlarge to m6g.xlarge\"]\n  Rec --> Save[Projected monthly savings]",
     cliExample: {
       description: "Retrieve rightsizing recommendations for an EC2 instance",
-      command: "aws compute-optimizer get-ec2-instance-recommendations --instance-arns arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234efgh5678 --query \"instanceRecommendations[0].{Current:currentInstanceType,Finding:finding,Recommended:recommendationOptions[0].instanceType}\"",
+      command: "aws compute-optimizer get-ec2-instance-recommendations --instance-arns arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abcd1234efgh5678 --query \"instanceRecommendations[0].{Current:currentInstanceType,Finding:finding,Recommended:recommendationOptions[0].instanceType}\"",
       sampleOutput: "{\n  \"Current\": \"m5.2xlarge\",\n  \"Finding\": \"OVER_PROVISIONED\",\n  \"Recommended\": \"m6g.xlarge\"\n}",
     },
   },
@@ -1497,7 +1497,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  Need[\"Need: guaranteed capacity, short term\"] --> CR[On-Demand Capacity Reservation]\n  CR --> AZ[\"Capacity held in one AZ\"]\n  AZ --> Bill[\"Billed at On-Demand rate, no discount\"]",
     cliExample: {
       description: "Reserve capacity for 200 instances in one Availability Zone",
-      command: "aws ec2 create-capacity-reservation --instance-type c6i.large --instance-platform Linux/UNIX --availability-zone us-east-1a --instance-count 200 --end-date-type limited --end-date 2026-11-08T00:00:00Z --query \"CapacityReservation.{Id:CapacityReservationId,State:State,Count:TotalInstanceCount}\"",
+      command: "aws ec2 create-capacity-reservation --instance-type c6i.large --instance-platform Linux/UNIX --availability-zone ap-southeast-1a --instance-count 200 --end-date-type limited --end-date 2026-11-08T00:00:00Z --query \"CapacityReservation.{Id:CapacityReservationId,State:State,Count:TotalInstanceCount}\"",
       sampleOutput: "{\n  \"Id\": \"cr-0123456789abcdef0\",\n  \"State\": \"active\",\n  \"Count\": 200\n}",
     },
   },
@@ -1675,7 +1675,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  Term[\"1 or 3 year commitment\"] --> RDS[RDS Reserved DB Instances]\n  Term --> DDB[DynamoDB reserved capacity]\n  Term --> Cache[ElastiCache reserved nodes]\n  Term --> RS[Redshift reserved nodes]",
     cliExample: {
       description: "Find Reserved DB Instance offerings for a PostgreSQL instance class",
-      command: "aws rds describe-reserved-db-instances-offerings --db-instance-class db.r6g.large --product-description postgresql --duration 31536000 --region us-east-1 --query \"ReservedDBInstancesOfferings[].{Offering:OfferingType,FixedPrice:FixedPrice,MultiAZ:MultiAZ}\"",
+      command: "aws rds describe-reserved-db-instances-offerings --db-instance-class db.r6g.large --product-description postgresql --duration 31536000 --region ap-southeast-1 --query \"ReservedDBInstancesOfferings[].{Offering:OfferingType,FixedPrice:FixedPrice,MultiAZ:MultiAZ}\"",
       sampleOutput: "[\n  {\n    \"Offering\": \"All Upfront\",\n    \"FixedPrice\": 1098.0,\n    \"MultiAZ\": false\n  },\n  {\n    \"Offering\": \"No Upfront\",\n    \"FixedPrice\": 0.0,\n    \"MultiAZ\": false\n  }\n]",
     },
   },
@@ -1741,10 +1741,10 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill57",
     domain: "billing-pricing-and-support",
-    text: "A media company stores 20 TB of new video files in an S3 bucket in us-east-1 each month and enables S3 Cross-Region Replication to a bucket in eu-west-1 for disaster recovery. Which cost should the company expect on its bill IN ADDITION to storage in both Regions and replication PUT requests?",
+    text: "A media company stores 20 TB of new video files in an S3 bucket in ap-southeast-1 each month and enables S3 Cross-Region Replication to a bucket in eu-west-1 for disaster recovery. Which cost should the company expect on its bill IN ADDITION to storage in both Regions and replication PUT requests?",
     options: [
       { id: "a", text: "No additional cost, because data transfer between AWS Regions is always free" },
-      { id: "b", text: "Inter-Region data transfer charges for the 20 TB copied from us-east-1 to eu-west-1 each month" },
+      { id: "b", text: "Inter-Region data transfer charges for the 20 TB copied from ap-southeast-1 to eu-west-1 each month" },
       { id: "c", text: "Data transfer IN charges for the 20 TB arriving in eu-west-1" },
       { id: "d", text: "A one-time replication setup fee per bucket" },
     ],
@@ -1760,10 +1760,10 @@ export const billingPricingAndSupportQuestions: Question[] = [
     referenceLabel: "Replicating objects within and across Regions - Amazon S3",
     consoleUrl: "https://console.aws.amazon.com/s3/bucket/compliance-archive/property/replication",
     consoleLabel: "Amazon S3 > Bucket > Management > Replication rules",
-    diagram: "flowchart LR\n  Upload[Internet upload] -->|Free inbound| Src[S3 bucket us-east-1]\n  Src -->|Inter-Region transfer OUT charged| Dst[S3 bucket eu-west-1]\n  Src --> S1[Storage charge]\n  Dst --> S2[Storage plus replication PUTs]",
+    diagram: "flowchart LR\n  Upload[Internet upload] -->|Free inbound| Src[S3 bucket ap-southeast-1]\n  Src -->|Inter-Region transfer OUT charged| Dst[S3 bucket eu-west-1]\n  Src --> S1[Storage charge]\n  Dst --> S2[Storage plus replication PUTs]",
     cliExample: {
       description: "View the replication configuration on the source bucket",
-      command: "aws s3api get-bucket-replication --bucket media-source-use1",
+      command: "aws s3api get-bucket-replication --bucket media-source-apse1",
       sampleOutput:
         "{\n  \"ReplicationConfiguration\": {\n    \"Role\": \"arn:aws:iam::123456789012:role/s3-crr-role\",\n    \"Rules\": [\n      {\n        \"ID\": \"dr-to-eu-west-1\",\n        \"Priority\": 1,\n        \"Status\": \"Enabled\",\n        \"Filter\": {\n          \"Prefix\": \"\"\n        },\n        \"Destination\": {\n          \"Bucket\": \"arn:aws:s3:::media-dr-euw1\",\n          \"StorageClass\": \"STANDARD_IA\"\n        },\n        \"DeleteMarkerReplication\": {\n          \"Status\": \"Disabled\"\n        }\n      }\n    ]\n  }\n}",
     },

@@ -54,7 +54,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List Auto Scaling groups, which implement elasticity for EC2 capacity",
       command: "aws autoscaling describe-auto-scaling-groups",
-      sampleOutput: "{\n  \"AutoScalingGroups\": [\n    {\n      \"AutoScalingGroupName\": \"web-asg\",\n      \"AutoScalingGroupARN\": \"arn:aws:autoscaling:us-east-1:123456789012:autoScalingGroup:6f9a1b2c-3d4e-5f60-7a8b-9c0d1e2f3a4b:autoScalingGroupName/web-asg\",\n      \"LaunchTemplate\": {\n        \"LaunchTemplateId\": \"lt-0123456789abcdef0\",\n        \"Version\": \"$Latest\"\n      },\n      \"MinSize\": 2,\n      \"MaxSize\": 10,\n      \"DesiredCapacity\": 4,\n      \"AvailabilityZones\": [\n        \"us-east-1a\",\n        \"us-east-1b\"\n      ],\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abc123def456789a\",\n          \"AvailabilityZone\": \"us-east-1a\",\n          \"LifecycleState\": \"InService\",\n          \"HealthStatus\": \"Healthy\"\n        }\n      ],\n      \"CreatedTime\": \"2026-03-02T09:15:30.000Z\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"AutoScalingGroups\": [\n    {\n      \"AutoScalingGroupName\": \"web-asg\",\n      \"AutoScalingGroupARN\": \"arn:aws:autoscaling:ap-southeast-1:123456789012:autoScalingGroup:6f9a1b2c-3d4e-5f60-7a8b-9c0d1e2f3a4b:autoScalingGroupName/web-asg\",\n      \"LaunchTemplate\": {\n        \"LaunchTemplateId\": \"lt-0123456789abcdef0\",\n        \"Version\": \"$Latest\"\n      },\n      \"MinSize\": 2,\n      \"MaxSize\": 10,\n      \"DesiredCapacity\": 4,\n      \"AvailabilityZones\": [\n        \"ap-southeast-1a\",\n        \"ap-southeast-1b\"\n      ],\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abc123def456789a\",\n          \"AvailabilityZone\": \"ap-southeast-1a\",\n          \"LifecycleState\": \"InService\",\n          \"HealthStatus\": \"Healthy\"\n        }\n      ],\n      \"CreatedTime\": \"2026-03-02T09:15:30.000Z\"\n    }\n  ]\n}",
     },
   },
   {
@@ -162,8 +162,8 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart TD\n    R[AWS Region] --> AZ1[Availability Zone 1]\n    R --> AZ2[Availability Zone 2]\n    R --> AZ3[Availability Zone 3]\n    AZ1 --> DC1[Data Center]\n    AZ2 --> DC2[Data Center]\n    AZ3 --> DC3[Data Center]",
     cliExample: {
       description: "List the Availability Zones available in a Region",
-      command: "aws ec2 describe-availability-zones --region us-east-1",
-      sampleOutput: "{\n  \"AvailabilityZones\": [\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"us-east-1\",\n      \"ZoneName\": \"us-east-1a\",\n      \"ZoneId\": \"use1-az6\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"us-east-1\"\n    },\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"us-east-1\",\n      \"ZoneName\": \"us-east-1b\",\n      \"ZoneId\": \"use1-az1\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"us-east-1\"\n    }\n  ]\n}",
+      command: "aws ec2 describe-availability-zones --region ap-southeast-1",
+      sampleOutput: "{\n  \"AvailabilityZones\": [\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"ap-southeast-1\",\n      \"ZoneName\": \"ap-southeast-1a\",\n      \"ZoneId\": \"apse1-az3\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"ap-southeast-1\"\n    },\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"ap-southeast-1\",\n      \"ZoneName\": \"ap-southeast-1b\",\n      \"ZoneId\": \"apse1-az1\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"ap-southeast-1\"\n    }\n  ]\n}",
     },
   },
   {
@@ -339,7 +339,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List load balancer target groups, used to monitor health and support high availability",
       command: "aws elbv2 describe-target-groups",
-      sampleOutput: "{\n  \"TargetGroups\": [\n    {\n      \"TargetGroupArn\": \"arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/web-tg/73e2d6bc24d8a067\",\n      \"TargetGroupName\": \"web-tg\",\n      \"Protocol\": \"HTTP\",\n      \"Port\": 80,\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"HealthCheckProtocol\": \"HTTP\",\n      \"HealthCheckPath\": \"/health\",\n      \"HealthCheckIntervalSeconds\": 30,\n      \"HealthyThresholdCount\": 5,\n      \"UnhealthyThresholdCount\": 2,\n      \"LoadBalancerArns\": [\n        \"arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/web-alb/50dc6c495c0c9188\"\n      ],\n      \"TargetType\": \"instance\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"TargetGroups\": [\n    {\n      \"TargetGroupArn\": \"arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:targetgroup/web-tg/73e2d6bc24d8a067\",\n      \"TargetGroupName\": \"web-tg\",\n      \"Protocol\": \"HTTP\",\n      \"Port\": 80,\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"HealthCheckProtocol\": \"HTTP\",\n      \"HealthCheckPath\": \"/health\",\n      \"HealthCheckIntervalSeconds\": 30,\n      \"HealthyThresholdCount\": 5,\n      \"UnhealthyThresholdCount\": 2,\n      \"LoadBalancerArns\": [\n        \"arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:loadbalancer/app/web-alb/50dc6c495c0c9188\"\n      ],\n      \"TargetType\": \"instance\"\n    }\n  ]\n}",
     },
   },
   {
@@ -414,8 +414,8 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart TD\n    Region[AWS Region] --> AZ1[Availability Zone A]\n    Region --> AZ2[Availability Zone B]\n    Region --> AZ3[Availability Zone C]",
     cliExample: {
       description: "List the Availability Zones that make up a Region",
-      command: "aws ec2 describe-availability-zones --region us-east-1",
-      sampleOutput: "{\n  \"AvailabilityZones\": [\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"us-east-1\",\n      \"ZoneName\": \"us-east-1a\",\n      \"ZoneId\": \"use1-az6\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"us-east-1\"\n    },\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"us-east-1\",\n      \"ZoneName\": \"us-east-1b\",\n      \"ZoneId\": \"use1-az1\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"us-east-1\"\n    }\n  ]\n}",
+      command: "aws ec2 describe-availability-zones --region ap-southeast-1",
+      sampleOutput: "{\n  \"AvailabilityZones\": [\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"ap-southeast-1\",\n      \"ZoneName\": \"ap-southeast-1a\",\n      \"ZoneId\": \"apse1-az3\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"ap-southeast-1\"\n    },\n    {\n      \"State\": \"available\",\n      \"OptInStatus\": \"opt-in-not-required\",\n      \"RegionName\": \"ap-southeast-1\",\n      \"ZoneName\": \"ap-southeast-1b\",\n      \"ZoneId\": \"apse1-az1\",\n      \"ZoneType\": \"availability-zone\",\n      \"NetworkBorderGroup\": \"ap-southeast-1\"\n    }\n  ]\n}",
     },
   },
   {
@@ -551,7 +551,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List workloads registered in the AWS Well-Architected Tool",
       command: "aws wellarchitected list-workloads",
-      sampleOutput: "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"5f2c1a9b8e7d6c5b4a3f2e1d0c9b8a7f\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:us-east-1:123456789012:workload/5f2c1a9b8e7d6c5b4a3f2e1d0c9b8a7f\",\n      \"WorkloadName\": \"retail-web-platform\",\n      \"Owner\": \"platform-team@example.com\",\n      \"UpdatedAt\": \"2026-06-09T11:30:00.000Z\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"UNANSWERED\": 12,\n        \"HIGH\": 3,\n        \"MEDIUM\": 5,\n        \"NONE\": 26,\n        \"NOT_APPLICABLE\": 0\n      },\n      \"ImprovementStatus\": \"IN_PROGRESS\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"5f2c1a9b8e7d6c5b4a3f2e1d0c9b8a7f\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:ap-southeast-1:123456789012:workload/5f2c1a9b8e7d6c5b4a3f2e1d0c9b8a7f\",\n      \"WorkloadName\": \"retail-web-platform\",\n      \"Owner\": \"platform-team@example.com\",\n      \"UpdatedAt\": \"2026-06-09T11:30:00.000Z\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"UNANSWERED\": 12,\n        \"HIGH\": 3,\n        \"MEDIUM\": 5,\n        \"NONE\": 26,\n        \"NOT_APPLICABLE\": 0\n      },\n      \"ImprovementStatus\": \"IN_PROGRESS\"\n    }\n  ]\n}",
     },
   },
   {
@@ -607,7 +607,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Retrieve EC2 right-sizing recommendations from AWS Compute Optimizer to reduce over-provisioned resources",
       command: "aws compute-optimizer get-ec2-instance-recommendations",
-      sampleOutput: "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abc123def456789a\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"batch-worker-1\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"projectedUtilizationMetrics\": [\n            {\n              \"name\": \"CPU\",\n              \"statistic\": \"MAXIMUM\",\n              \"value\": 38.5\n            }\n          ],\n          \"performanceRisk\": 1.0,\n          \"rank\": 1,\n          \"savingsOpportunity\": {\n            \"savingsOpportunityPercentage\": 75.0,\n            \"estimatedMonthlySavings\": {\n              \"currency\": \"USD\",\n              \"value\": 210.24\n            }\n          }\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-07-01T00:12:44.000Z\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
+      sampleOutput: "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abc123def456789a\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"batch-worker-1\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"projectedUtilizationMetrics\": [\n            {\n              \"name\": \"CPU\",\n              \"statistic\": \"MAXIMUM\",\n              \"value\": 38.5\n            }\n          ],\n          \"performanceRisk\": 1.0,\n          \"rank\": 1,\n          \"savingsOpportunity\": {\n            \"savingsOpportunityPercentage\": 75.0,\n            \"estimatedMonthlySavings\": {\n              \"currency\": \"USD\",\n              \"value\": 210.24\n            }\n          }\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-07-01T00:12:44.000Z\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
     },
   },
   {
@@ -665,7 +665,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List AWS Outposts installed for the account",
       command: "aws outposts list-outposts",
-      sampleOutput: "{\n  \"Outposts\": [\n    {\n      \"OutpostId\": \"op-0123456789abcdef0\",\n      \"OwnerId\": \"123456789012\",\n      \"OutpostArn\": \"arn:aws:outposts:us-east-1:123456789012:outpost/op-0123456789abcdef0\",\n      \"SiteId\": \"os-0123456789abcdef0\",\n      \"Name\": \"nyc-dc1-rack\",\n      \"LifeCycleStatus\": \"ACTIVE\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"AvailabilityZoneId\": \"use1-az6\",\n      \"SiteArn\": \"arn:aws:outposts:us-east-1:123456789012:site/os-0123456789abcdef0\",\n      \"SupportedHardwareType\": \"RACK\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"Outposts\": [\n    {\n      \"OutpostId\": \"op-0123456789abcdef0\",\n      \"OwnerId\": \"123456789012\",\n      \"OutpostArn\": \"arn:aws:outposts:ap-southeast-1:123456789012:outpost/op-0123456789abcdef0\",\n      \"SiteId\": \"os-0123456789abcdef0\",\n      \"Name\": \"nyc-dc1-rack\",\n      \"LifeCycleStatus\": \"ACTIVE\",\n      \"AvailabilityZone\": \"ap-southeast-1a\",\n      \"AvailabilityZoneId\": \"apse1-az3\",\n      \"SiteArn\": \"arn:aws:outposts:ap-southeast-1:123456789012:site/os-0123456789abcdef0\",\n      \"SupportedHardwareType\": \"RACK\"\n    }\n  ]\n}",
     },
   },
   {
@@ -722,8 +722,8 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart LR\n    BR[Backup and Restore] --> PL[Pilot Light]\n    PL --> WS[Warm Standby]\n    WS --> MS[Multi-site Active/Active]\n    BR -.Lower cost, slower recovery.-> MS\n    PL --> Core[Core data replicated, app servers off until failover]",
     cliExample: {
       description: "Create a cross-Region read replica so core data is always replicated for a pilot light strategy",
-      command: "aws rds create-db-instance-read-replica --db-instance-identifier dr-replica --source-db-instance-identifier arn:aws:rds:us-east-1:123456789012:db:prod-db --region us-west-2",
-      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"dr-replica\",\n    \"DBInstanceClass\": \"db.r6g.large\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"creating\",\n    \"DBInstanceArn\": \"arn:aws:rds:us-west-2:123456789012:db:dr-replica\",\n    \"ReadReplicaSourceDBInstanceIdentifier\": \"arn:aws:rds:us-east-1:123456789012:db:prod-db\",\n    \"AvailabilityZone\": \"us-west-2a\",\n    \"MultiAZ\": false,\n    \"EngineVersion\": \"8.0.36\",\n    \"StorageEncrypted\": true,\n    \"KmsKeyId\": \"arn:aws:kms:us-west-2:123456789012:key/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d\",\n    \"StorageType\": \"gp3\",\n    \"AllocatedStorage\": 100\n  }\n}",
+      command: "aws rds create-db-instance-read-replica --db-instance-identifier dr-replica --source-db-instance-identifier arn:aws:rds:ap-southeast-1:123456789012:db:prod-db --region ap-northeast-1",
+      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"dr-replica\",\n    \"DBInstanceClass\": \"db.r6g.large\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"creating\",\n    \"DBInstanceArn\": \"arn:aws:rds:ap-northeast-1:123456789012:db:dr-replica\",\n    \"ReadReplicaSourceDBInstanceIdentifier\": \"arn:aws:rds:ap-southeast-1:123456789012:db:prod-db\",\n    \"AvailabilityZone\": \"ap-northeast-1a\",\n    \"MultiAZ\": false,\n    \"EngineVersion\": \"8.0.36\",\n    \"StorageEncrypted\": true,\n    \"KmsKeyId\": \"arn:aws:kms:ap-northeast-1:123456789012:key/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d\",\n    \"StorageType\": \"gp3\",\n    \"AllocatedStorage\": 100\n  }\n}",
     },
   },
   {
@@ -753,7 +753,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Create an Elastic Beanstalk application, a PaaS offering that manages the underlying platform",
       command: "aws elasticbeanstalk create-application --application-name my-web-app",
-      sampleOutput: "{\n  \"Application\": {\n    \"ApplicationArn\": \"arn:aws:elasticbeanstalk:us-east-1:123456789012:application/my-web-app\",\n    \"ApplicationName\": \"my-web-app\",\n    \"DateCreated\": \"2026-08-12T10:05:22.113Z\",\n    \"DateUpdated\": \"2026-08-12T10:05:22.113Z\",\n    \"ConfigurationTemplates\": [],\n    \"ResourceLifecycleConfig\": {\n      \"VersionLifecycleConfig\": {\n        \"MaxCountRule\": {\n          \"Enabled\": false,\n          \"MaxCount\": 200,\n          \"DeleteSourceFromS3\": false\n        },\n        \"MaxAgeRule\": {\n          \"Enabled\": false,\n          \"MaxAgeInDays\": 180,\n          \"DeleteSourceFromS3\": false\n        }\n      }\n    }\n  }\n}",
+      sampleOutput: "{\n  \"Application\": {\n    \"ApplicationArn\": \"arn:aws:elasticbeanstalk:ap-southeast-1:123456789012:application/my-web-app\",\n    \"ApplicationName\": \"my-web-app\",\n    \"DateCreated\": \"2026-08-12T10:05:22.113Z\",\n    \"DateUpdated\": \"2026-08-12T10:05:22.113Z\",\n    \"ConfigurationTemplates\": [],\n    \"ResourceLifecycleConfig\": {\n      \"VersionLifecycleConfig\": {\n        \"MaxCountRule\": {\n          \"Enabled\": false,\n          \"MaxCount\": 200,\n          \"DeleteSourceFromS3\": false\n        },\n        \"MaxAgeRule\": {\n          \"Enabled\": false,\n          \"MaxAgeInDays\": 180,\n          \"DeleteSourceFromS3\": false\n        }\n      }\n    }\n  }\n}",
     },
   },
   {
@@ -785,7 +785,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List source servers registered with AWS Application Migration Service for rehosting",
       command: "aws mgn describe-source-servers",
-      sampleOutput: "{\n  \"items\": [\n    {\n      \"sourceServerID\": \"s-0123456789abcdef0\",\n      \"arn\": \"arn:aws:mgn:us-east-1:123456789012:source-server/s-0123456789abcdef0\",\n      \"isArchived\": false,\n      \"dataReplicationInfo\": {\n        \"dataReplicationState\": \"CONTINUOUS\",\n        \"lagDuration\": \"PT0S\",\n        \"replicatedDisks\": [\n          {\n            \"deviceName\": \"/dev/sda1\",\n            \"totalStorageBytes\": 107374182400,\n            \"replicatedStorageBytes\": 107374182400,\n            \"backloggedStorageBytes\": 0\n          }\n        ]\n      },\n      \"lifeCycle\": {\n        \"state\": \"READY_FOR_TEST\",\n        \"addedToServiceDateTime\": \"2026-05-20T09:12:30.000Z\"\n      },\n      \"sourceProperties\": {\n        \"identificationHints\": {\n          \"hostname\": \"erp-app-01\"\n        },\n        \"os\": {\n          \"fullString\": \"Ubuntu 22.04.4 LTS\"\n        },\n        \"cpus\": [\n          {\n            \"cores\": 4,\n            \"modelName\": \"Intel(R) Xeon(R) CPU E5-2686 v4\"\n          }\n        ],\n        \"ramBytes\": 17179869184\n      },\n      \"replicationType\": \"AGENT_BASED\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"items\": [\n    {\n      \"sourceServerID\": \"s-0123456789abcdef0\",\n      \"arn\": \"arn:aws:mgn:ap-southeast-1:123456789012:source-server/s-0123456789abcdef0\",\n      \"isArchived\": false,\n      \"dataReplicationInfo\": {\n        \"dataReplicationState\": \"CONTINUOUS\",\n        \"lagDuration\": \"PT0S\",\n        \"replicatedDisks\": [\n          {\n            \"deviceName\": \"/dev/sda1\",\n            \"totalStorageBytes\": 107374182400,\n            \"replicatedStorageBytes\": 107374182400,\n            \"backloggedStorageBytes\": 0\n          }\n        ]\n      },\n      \"lifeCycle\": {\n        \"state\": \"READY_FOR_TEST\",\n        \"addedToServiceDateTime\": \"2026-05-20T09:12:30.000Z\"\n      },\n      \"sourceProperties\": {\n        \"identificationHints\": {\n          \"hostname\": \"erp-app-01\"\n        },\n        \"os\": {\n          \"fullString\": \"Ubuntu 22.04.4 LTS\"\n        },\n        \"cpus\": [\n          {\n            \"cores\": 4,\n            \"modelName\": \"Intel(R) Xeon(R) CPU E5-2686 v4\"\n          }\n        ],\n        \"ramBytes\": 17179869184\n      },\n      \"replicationType\": \"AGENT_BASED\"\n    }\n  ]\n}",
     },
   },
   {
@@ -845,7 +845,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Create an SQS queue to decouple the order and inventory services",
       command: "aws sqs create-queue --queue-name order-events",
-      sampleOutput: "{\n  \"QueueUrl\": \"https://sqs.us-east-1.amazonaws.com/123456789012/order-events\"\n}",
+      sampleOutput: "{\n  \"QueueUrl\": \"https://sqs.ap-southeast-1.amazonaws.com/123456789012/order-events\"\n}",
     },
   },
   {
@@ -877,7 +877,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List Lambda functions, which run without any servers to manage",
       command: "aws lambda list-functions",
-      sampleOutput: "{\n  \"Functions\": [\n    {\n      \"FunctionName\": \"orders-api\",\n      \"FunctionArn\": \"arn:aws:lambda:us-east-1:123456789012:function:orders-api\",\n      \"Runtime\": \"nodejs22.x\",\n      \"Role\": \"arn:aws:iam::123456789012:role/orders-api-role\",\n      \"Handler\": \"index.handler\",\n      \"CodeSize\": 48213,\n      \"Description\": \"Order API backend\",\n      \"Timeout\": 10,\n      \"MemorySize\": 256,\n      \"LastModified\": \"2026-08-30T15:20:11.000+0000\",\n      \"Version\": \"$LATEST\",\n      \"PackageType\": \"Zip\",\n      \"Architectures\": [\n        \"arm64\"\n      ],\n      \"EphemeralStorage\": {\n        \"Size\": 512\n      }\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"Functions\": [\n    {\n      \"FunctionName\": \"orders-api\",\n      \"FunctionArn\": \"arn:aws:lambda:ap-southeast-1:123456789012:function:orders-api\",\n      \"Runtime\": \"nodejs22.x\",\n      \"Role\": \"arn:aws:iam::123456789012:role/orders-api-role\",\n      \"Handler\": \"index.handler\",\n      \"CodeSize\": 48213,\n      \"Description\": \"Order API backend\",\n      \"Timeout\": 10,\n      \"MemorySize\": 256,\n      \"LastModified\": \"2026-08-30T15:20:11.000+0000\",\n      \"Version\": \"$LATEST\",\n      \"PackageType\": \"Zip\",\n      \"Architectures\": [\n        \"arm64\"\n      ],\n      \"EphemeralStorage\": {\n        \"Size\": 512\n      }\n    }\n  ]\n}",
     },
   },
   {
@@ -945,7 +945,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Deploy an environment from a CloudFormation template instead of configuring it manually",
       command: "aws cloudformation create-stack --stack-name web-env-dev --template-body file://web-env.yaml",
-      sampleOutput: "{\n  \"StackId\": \"arn:aws:cloudformation:us-east-1:123456789012:stack/web-env-dev/a1b2c3d4-5e6f-7a8b-9c0d-e1f2a3b4c5d6\"\n}",
+      sampleOutput: "{\n  \"StackId\": \"arn:aws:cloudformation:ap-southeast-1:123456789012:stack/web-env-dev/a1b2c3d4-5e6f-7a8b-9c0d-e1f2a3b4c5d6\"\n}",
     },
   },
   {
@@ -979,7 +979,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Get right-sizing recommendations for over-provisioned EC2 instances",
       command: "aws compute-optimizer get-ec2-instance-recommendations --filters name=Finding,values=Overprovisioned",
-      sampleOutput: "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234ef567890\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"app-server-01\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        }\n      ]\n    }\n  ],\n  \"errors\": []\n}",
+      sampleOutput: "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abcd1234ef567890\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"app-server-01\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        }\n      ]\n    }\n  ],\n  \"errors\": []\n}",
     },
   },
   {
@@ -1215,7 +1215,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Create a backup plan with a 15-minute schedule to meet the RPO",
       command: "aws backup create-backup-plan --backup-plan '{\"BackupPlanName\":\"portal-dr\",\"Rules\":[{\"RuleName\":\"every-15-min\",\"TargetBackupVaultName\":\"Default\",\"ScheduleExpression\":\"cron(0/15 * * * ? *)\"}]}'",
-      sampleOutput: "{\n  \"BackupPlanId\": \"5d1a2b3c-4e5f-6a7b-8c9d-0e1f2a3b4c5d\",\n  \"BackupPlanArn\": \"arn:aws:backup:us-east-1:123456789012:backup-plan:5d1a2b3c-4e5f-6a7b-8c9d-0e1f2a3b4c5d\",\n  \"CreationDate\": \"2026-09-12T10:15:00+00:00\",\n  \"VersionId\": \"NjQ2ZjE4ZDMtNmM5MS00YjZk\"\n}",
+      sampleOutput: "{\n  \"BackupPlanId\": \"5d1a2b3c-4e5f-6a7b-8c9d-0e1f2a3b4c5d\",\n  \"BackupPlanArn\": \"arn:aws:backup:ap-southeast-1:123456789012:backup-plan:5d1a2b3c-4e5f-6a7b-8c9d-0e1f2a3b4c5d\",\n  \"CreationDate\": \"2026-09-12T10:15:00+00:00\",\n  \"VersionId\": \"NjQ2ZjE4ZDMtNmM5MS00YjZk\"\n}",
     },
   },
   {
@@ -1247,7 +1247,7 @@ export const cloudConceptsQuestions: Question[] = [
     Warm -->|scale up on disaster| Full[Full Production Capacity]`,
     cliExample: {
       description: "Scale up the warm standby Auto Scaling group to full production capacity during failover",
-      command: "aws autoscaling update-auto-scaling-group --auto-scaling-group-name retail-web-dr --min-size 6 --desired-capacity 6 --max-size 12 --region us-west-2",
+      command: "aws autoscaling update-auto-scaling-group --auto-scaling-group-name retail-web-dr --min-size 6 --desired-capacity 6 --max-size 12 --region ap-southeast-1",
       sampleOutput: "",
     },
   },
@@ -1316,8 +1316,8 @@ export const cloudConceptsQuestions: Question[] = [
     Skills --> Ready[Cloud-Ready Organization]`,
     cliExample: {
       description: "Create a Well-Architected Tool workload to track readiness as the organization adopts the cloud",
-      command: "aws wellarchitected create-workload --workload-name cloud-adoption-pilot --description 'First workload of the cloud adoption program' --environment PREPRODUCTION --aws-regions us-east-1 --lenses wellarchitected --review-owner platform-team@example.com",
-      sampleOutput: "{\n  \"WorkloadId\": \"a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n  \"WorkloadArn\": \"arn:aws:wellarchitected:us-east-1:123456789012:workload/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\"\n}",
+      command: "aws wellarchitected create-workload --workload-name cloud-adoption-pilot --description 'First workload of the cloud adoption program' --environment PREPRODUCTION --aws-regions ap-southeast-1 --lenses wellarchitected --review-owner platform-team@example.com",
+      sampleOutput: "{\n  \"WorkloadId\": \"a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n  \"WorkloadArn\": \"arn:aws:wellarchitected:ap-southeast-1:123456789012:workload/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\"\n}",
     },
   },
   {
@@ -1388,7 +1388,7 @@ export const cloudConceptsQuestions: Question[] = [
     ELB -->|traffic continues| AZ2`,
     cliExample: {
       description: "Create an Auto Scaling group spanning two Availability Zones with ELB health checks",
-      command: "aws autoscaling create-auto-scaling-group --auto-scaling-group-name web-asg --launch-template LaunchTemplateName=web-lt,Version='$Latest' --min-size 2 --max-size 6 --desired-capacity 2 --vpc-zone-identifier \"subnet-0a1b2c3d,subnet-4e5f6a7b\" --target-group-arns arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/web-tg/73e2d6bc24d8a067 --health-check-type ELB --health-check-grace-period 120",
+      command: "aws autoscaling create-auto-scaling-group --auto-scaling-group-name web-asg --launch-template LaunchTemplateName=web-lt,Version='$Latest' --min-size 2 --max-size 6 --desired-capacity 2 --vpc-zone-identifier \"subnet-0a1b2c3d,subnet-4e5f6a7b\" --target-group-arns arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:targetgroup/web-tg/73e2d6bc24d8a067 --health-check-type ELB --health-check-grace-period 120",
       sampleOutput: "",
     },
   },
@@ -1458,7 +1458,7 @@ export const cloudConceptsQuestions: Question[] = [
       description: "List the workloads defined in the AWS Well-Architected Tool along with their risk counts",
       command: "aws wellarchitected list-workloads",
       sampleOutput:
-        "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:us-east-1:123456789012:workload/a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n      \"WorkloadName\": \"order-platform-prod\",\n      \"Owner\": \"platform-team\",\n      \"UpdatedAt\": \"2026-04-10T14:22:07.000Z\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"HIGH\": 3,\n        \"MEDIUM\": 7,\n        \"NONE\": 25,\n        \"NOT_APPLICABLE\": 2,\n        \"UNANSWERED\": 9\n      },\n      \"ImprovementStatus\": \"IMPROVEMENT_IN_PROGRESS\"\n    }\n  ]\n}",
+        "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:ap-southeast-1:123456789012:workload/a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n      \"WorkloadName\": \"order-platform-prod\",\n      \"Owner\": \"platform-team\",\n      \"UpdatedAt\": \"2026-04-10T14:22:07.000Z\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"HIGH\": 3,\n        \"MEDIUM\": 7,\n        \"NONE\": 25,\n        \"NOT_APPLICABLE\": 2,\n        \"UNANSWERED\": 9\n      },\n      \"ImprovementStatus\": \"IMPROVEMENT_IN_PROGRESS\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1572,7 +1572,7 @@ export const cloudConceptsQuestions: Question[] = [
       description: "Create a DynamoDB table with TTL-friendly design to hold user sessions outside of the EC2 instances",
       command: "aws dynamodb create-table --table-name user-sessions --attribute-definitions AttributeName=sessionId,AttributeType=S --key-schema AttributeName=sessionId,KeyType=HASH --billing-mode PAY_PER_REQUEST",
       sampleOutput:
-        "{\n  \"TableDescription\": {\n    \"AttributeDefinitions\": [\n      {\n        \"AttributeName\": \"sessionId\",\n        \"AttributeType\": \"S\"\n      }\n    ],\n    \"TableName\": \"user-sessions\",\n    \"KeySchema\": [\n      {\n        \"AttributeName\": \"sessionId\",\n        \"KeyType\": \"HASH\"\n      }\n    ],\n    \"TableStatus\": \"CREATING\",\n    \"CreationDateTime\": \"2026-02-18T11:05:33.412000+00:00\",\n    \"TableArn\": \"arn:aws:dynamodb:us-east-1:123456789012:table/user-sessions\",\n    \"TableId\": \"8c2f1a4e-6b7d-4e5f-9a0b-1c2d3e4f5a6b\",\n    \"BillingModeSummary\": {\n      \"BillingMode\": \"PAY_PER_REQUEST\"\n    }\n  }\n}",
+        "{\n  \"TableDescription\": {\n    \"AttributeDefinitions\": [\n      {\n        \"AttributeName\": \"sessionId\",\n        \"AttributeType\": \"S\"\n      }\n    ],\n    \"TableName\": \"user-sessions\",\n    \"KeySchema\": [\n      {\n        \"AttributeName\": \"sessionId\",\n        \"KeyType\": \"HASH\"\n      }\n    ],\n    \"TableStatus\": \"CREATING\",\n    \"CreationDateTime\": \"2026-02-18T11:05:33.412000+00:00\",\n    \"TableArn\": \"arn:aws:dynamodb:ap-southeast-1:123456789012:table/user-sessions\",\n    \"TableId\": \"8c2f1a4e-6b7d-4e5f-9a0b-1c2d3e4f5a6b\",\n    \"BillingModeSummary\": {\n      \"BillingMode\": \"PAY_PER_REQUEST\"\n    }\n  }\n}",
     },
   },
   {
@@ -1605,7 +1605,7 @@ export const cloudConceptsQuestions: Question[] = [
   CF -->|cache hit| Reader`,
     cliExample: {
       description: "Check the CloudFront cache hit rate for a distribution to measure how much traffic is served from the edge",
-      command: "aws cloudwatch get-metric-statistics --namespace AWS/CloudFront --metric-name CacheHitRate --dimensions Name=DistributionId,Value=E2EXAMPLE1ABCD Name=Region,Value=Global --start-time 2026-06-01T00:00:00Z --end-time 2026-06-02T00:00:00Z --period 86400 --statistics Average --region us-east-1",
+      command: "aws cloudwatch get-metric-statistics --namespace AWS/CloudFront --metric-name CacheHitRate --dimensions Name=DistributionId,Value=E2EXAMPLE1ABCD Name=Region,Value=Global --start-time 2026-06-01T00:00:00Z --end-time 2026-06-02T00:00:00Z --period 86400 --statistics Average --region ap-southeast-1",
       sampleOutput:
         "{\n  \"Label\": \"CacheHitRate\",\n  \"Datapoints\": [\n    {\n      \"Timestamp\": \"2026-06-01T00:00:00+00:00\",\n      \"Average\": 93.7,\n      \"Unit\": \"Percent\"\n    }\n  ]\n}",
     },
@@ -1642,7 +1642,7 @@ export const cloudConceptsQuestions: Question[] = [
       description: "Get right-sizing recommendations for EC2 instances from AWS Compute Optimizer",
       command: "aws compute-optimizer get-ec2-instance-recommendations --max-results 1",
       sampleOutput:
-        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abc123def4567890\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"batch-worker-07\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-07-09T06:00:00.000Z\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
+        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abc123def4567890\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"batch-worker-07\",\n      \"currentInstanceType\": \"m5.2xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-07-09T06:00:00.000Z\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
     },
   },
   {
@@ -1747,7 +1747,7 @@ export const cloudConceptsQuestions: Question[] = [
       description: "Describe the replication tasks in DMS to check full-load and CDC progress",
       command: "aws dms describe-replication-tasks --without-settings",
       sampleOutput:
-        "{\n  \"ReplicationTasks\": [\n    {\n      \"ReplicationTaskIdentifier\": \"oracle-to-aurora-orders\",\n      \"SourceEndpointArn\": \"arn:aws:dms:us-east-1:123456789012:endpoint:ABCDEFGHIJKLMNOPQRSTUVWXYZ012345\",\n      \"TargetEndpointArn\": \"arn:aws:dms:us-east-1:123456789012:endpoint:ZYXWVUTSRQPONMLKJIHGFEDCBA543210\",\n      \"ReplicationInstanceArn\": \"arn:aws:dms:us-east-1:123456789012:rep:REPLICATIONINSTANCE0123456789ABC\",\n      \"MigrationType\": \"full-load-and-cdc\",\n      \"Status\": \"running\",\n      \"ReplicationTaskCreationDate\": \"2026-04-21T08:30:12.000Z\",\n      \"ReplicationTaskStats\": {\n        \"FullLoadProgressPercent\": 100,\n        \"TablesLoaded\": 42,\n        \"TablesLoading\": 0,\n        \"TablesQueued\": 0,\n        \"TablesErrored\": 0\n      },\n      \"ReplicationTaskArn\": \"arn:aws:dms:us-east-1:123456789012:task:TASK0123456789ABCDEFGHIJKLMNOPQR\"\n    }\n  ]\n}",
+        "{\n  \"ReplicationTasks\": [\n    {\n      \"ReplicationTaskIdentifier\": \"oracle-to-aurora-orders\",\n      \"SourceEndpointArn\": \"arn:aws:dms:ap-southeast-1:123456789012:endpoint:ABCDEFGHIJKLMNOPQRSTUVWXYZ012345\",\n      \"TargetEndpointArn\": \"arn:aws:dms:ap-southeast-1:123456789012:endpoint:ZYXWVUTSRQPONMLKJIHGFEDCBA543210\",\n      \"ReplicationInstanceArn\": \"arn:aws:dms:ap-southeast-1:123456789012:rep:REPLICATIONINSTANCE0123456789ABC\",\n      \"MigrationType\": \"full-load-and-cdc\",\n      \"Status\": \"running\",\n      \"ReplicationTaskCreationDate\": \"2026-04-21T08:30:12.000Z\",\n      \"ReplicationTaskStats\": {\n        \"FullLoadProgressPercent\": 100,\n        \"TablesLoaded\": 42,\n        \"TablesLoading\": 0,\n        \"TablesQueued\": 0,\n        \"TablesErrored\": 0\n      },\n      \"ReplicationTaskArn\": \"arn:aws:dms:ap-southeast-1:123456789012:task:TASK0123456789ABCDEFGHIJKLMNOPQR\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1852,9 +1852,9 @@ export const cloudConceptsQuestions: Question[] = [
   Deploy --> Data[Data Stays in Selected Region]`,
     cliExample: {
       description: "Check whether a service is available in a Region by listing its endpoint in the Systems Manager global infrastructure parameters",
-      command: "aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda --region us-east-1",
+      command: "aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda --region ap-southeast-1",
       sampleOutput:
-        "{\n  \"Parameters\": [\n    {\n      \"Name\": \"/aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda\",\n      \"Type\": \"String\",\n      \"Value\": \"lambda\",\n      \"Version\": 1,\n      \"LastModifiedDate\": \"2026-01-15T10:00:00.000000+00:00\",\n      \"ARN\": \"arn:aws:ssm:us-east-1::parameter/aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda\",\n      \"DataType\": \"text\"\n    }\n  ]\n}",
+        "{\n  \"Parameters\": [\n    {\n      \"Name\": \"/aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda\",\n      \"Type\": \"String\",\n      \"Value\": \"lambda\",\n      \"Version\": 1,\n      \"LastModifiedDate\": \"2026-01-15T10:00:00.000000+00:00\",\n      \"ARN\": \"arn:aws:ssm:ap-southeast-1::parameter/aws/service/global-infrastructure/regions/ap-southeast-3/services/lambda\",\n      \"DataType\": \"text\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1923,7 +1923,7 @@ export const cloudConceptsQuestions: Question[] = [
       description: "List the AWS Fault Injection Service experiment templates used to rehearse failures",
       command: "aws fis list-experiment-templates",
       sampleOutput:
-        "{\n  \"experimentTemplates\": [\n    {\n      \"id\": \"EXT7abCdEfGhIjKlM\",\n      \"arn\": \"arn:aws:fis:us-east-1:123456789012:experiment-template/EXT7abCdEfGhIjKlM\",\n      \"description\": \"Terminate one EC2 instance in the web tier and verify Auto Scaling replaces it\",\n      \"creationTime\": \"2026-03-11T13:45:02.000Z\",\n      \"lastUpdateTime\": \"2026-03-11T13:45:02.000Z\",\n      \"tags\": {\n        \"Name\": \"web-tier-az-failure\"\n      }\n    }\n  ]\n}",
+        "{\n  \"experimentTemplates\": [\n    {\n      \"id\": \"EXT7abCdEfGhIjKlM\",\n      \"arn\": \"arn:aws:fis:ap-southeast-1:123456789012:experiment-template/EXT7abCdEfGhIjKlM\",\n      \"description\": \"Terminate one EC2 instance in the web tier and verify Auto Scaling replaces it\",\n      \"creationTime\": \"2026-03-11T13:45:02.000Z\",\n      \"lastUpdateTime\": \"2026-03-11T13:45:02.000Z\",\n      \"tags\": {\n        \"Name\": \"web-tier-az-failure\"\n      }\n    }\n  ]\n}",
     },
   },
   {
@@ -2010,7 +2010,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Create an Elastic Beanstalk application, where AWS manages the platform layer for you",
       command: "aws elasticbeanstalk create-application --application-name orders-api --description \"PaaS-managed orders service\"",
-      sampleOutput: "{\n  \"Application\": {\n    \"ApplicationArn\": \"arn:aws:elasticbeanstalk:us-east-1:123456789012:application/orders-api\",\n    \"ApplicationName\": \"orders-api\",\n    \"Description\": \"PaaS-managed orders service\",\n    \"DateCreated\": \"2026-09-17T02:11:40.512Z\"\n  }\n}",
+      sampleOutput: "{\n  \"Application\": {\n    \"ApplicationArn\": \"arn:aws:elasticbeanstalk:ap-southeast-1:123456789012:application/orders-api\",\n    \"ApplicationName\": \"orders-api\",\n    \"Description\": \"PaaS-managed orders service\",\n    \"DateCreated\": \"2026-09-17T02:11:40.512Z\"\n  }\n}",
     },
   },
   {
@@ -2298,7 +2298,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List the landing zone managed by AWS Control Tower",
       command: "aws controltower list-landing-zones",
-      sampleOutput: "{\n  \"landingZones\": [\n    {\n      \"arn\": \"arn:aws:controltower:us-east-1:123456789012:landingzone/1A2B3C4D5E6F7G8H\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"landingZones\": [\n    {\n      \"arn\": \"arn:aws:controltower:ap-southeast-1:123456789012:landingzone/1A2B3C4D5E6F7G8H\"\n    }\n  ]\n}",
     },
   },
   {
@@ -2385,7 +2385,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Retrieve Compute Optimizer recommendations to identify underutilized instances that could be downsized",
       command: "aws compute-optimizer get-ec2-instance-recommendations --query \"instanceRecommendations[].{Id:instanceArn,Finding:finding}\"",
-      sampleOutput: "[\n  {\n    \"Id\": \"arn:aws:ec2:us-east-1:123456789012:instance/i-0abc123def456789a\",\n    \"Finding\": \"OVER_PROVISIONED\"\n  }\n]",
+      sampleOutput: "[\n  {\n    \"Id\": \"arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abc123def456789a\",\n    \"Finding\": \"OVER_PROVISIONED\"\n  }\n]",
     },
   },
   {
@@ -2442,7 +2442,7 @@ export const cloudConceptsQuestions: Question[] = [
     diagram: "flowchart LR\n  Src[On-premises MySQL] --> Rep[DMS replication instance]\n  Rep -->|full load| RDS[Amazon RDS for MySQL]\n  Rep -.->|ongoing CDC| RDS\n  RDS --> Cut[Cutover with minutes of downtime]",
     cliExample: {
       description: "Create a DMS task that performs a full load followed by continuous change data capture",
-      command: "aws dms create-replication-task --replication-task-identifier mysql-to-rds --source-endpoint-arn arn:aws:dms:us-east-1:123456789012:endpoint:SRCABCDEFGHIJKLMNOPQRSTUVWXYZ --target-endpoint-arn arn:aws:dms:us-east-1:123456789012:endpoint:TGTABCDEFGHIJKLMNOPQRSTUVWXYZ --replication-instance-arn arn:aws:dms:us-east-1:123456789012:rep:RIABCDEFGHIJKLMNOPQRSTUVWXYZ --migration-type full-load-and-cdc --table-mappings file://mappings.json",
+      command: "aws dms create-replication-task --replication-task-identifier mysql-to-rds --source-endpoint-arn arn:aws:dms:ap-southeast-1:123456789012:endpoint:SRCABCDEFGHIJKLMNOPQRSTUVWXYZ --target-endpoint-arn arn:aws:dms:ap-southeast-1:123456789012:endpoint:TGTABCDEFGHIJKLMNOPQRSTUVWXYZ --replication-instance-arn arn:aws:dms:ap-southeast-1:123456789012:rep:RIABCDEFGHIJKLMNOPQRSTUVWXYZ --migration-type full-load-and-cdc --table-mappings file://mappings.json",
       sampleOutput: "{\n  \"ReplicationTask\": {\n    \"ReplicationTaskIdentifier\": \"mysql-to-rds\",\n    \"MigrationType\": \"full-load-and-cdc\",\n    \"Status\": \"creating\"\n  }\n}",
     },
   },
@@ -2618,8 +2618,8 @@ export const cloudConceptsQuestions: Question[] = [
     diagram: "flowchart LR\n  R[Region us-east-1] --> A[AZ a - one or more data centers]\n  R --> B[AZ b - one or more data centers]\n  R --> C[AZ c - one or more data centers]\n  A -->|low-latency private links| B\n  B -->|low-latency private links| C",
     cliExample: {
       description: "List the Availability Zones available to the account in a Region",
-      command: "aws ec2 describe-availability-zones --region us-east-1 --query \"AvailabilityZones[].{Zone:ZoneName,State:State,Type:ZoneType}\"",
-      sampleOutput: "[\n  {\n    \"Zone\": \"us-east-1a\",\n    \"State\": \"available\",\n    \"Type\": \"availability-zone\"\n  },\n  {\n    \"Zone\": \"us-east-1b\",\n    \"State\": \"available\",\n    \"Type\": \"availability-zone\"\n  }\n]",
+      command: "aws ec2 describe-availability-zones --region ap-southeast-1 --query \"AvailabilityZones[].{Zone:ZoneName,State:State,Type:ZoneType}\"",
+      sampleOutput: "[\n  {\n    \"Zone\": \"ap-southeast-1a\",\n    \"State\": \"available\",\n    \"Type\": \"availability-zone\"\n  },\n  {\n    \"Zone\": \"ap-southeast-1b\",\n    \"State\": \"available\",\n    \"Type\": \"availability-zone\"\n  }\n]",
     },
   },
   {
@@ -2647,8 +2647,8 @@ export const cloudConceptsQuestions: Question[] = [
     diagram: "flowchart LR\n  Prod[Production Region] -->|scheduled backups| Vault[Backup vault in DR Region]\n  Vault -->|disaster - restore within hours| Rebuild[Rebuild infrastructure from IaC]\n  Rebuild --> App[Application restored]",
     cliExample: {
       description: "Create a backup plan that copies daily backups to a vault in a second Region",
-      command: "aws backup create-backup-plan --backup-plan '{\"BackupPlanName\":\"daily-dr\",\"Rules\":[{\"RuleName\":\"daily\",\"TargetBackupVaultName\":\"primary-vault\",\"ScheduleExpression\":\"cron(0 3 * * ? *)\",\"CopyActions\":[{\"DestinationBackupVaultArn\":\"arn:aws:backup:us-west-2:123456789012:backup-vault:dr-vault\"}]}]}'",
-      sampleOutput: "{\n  \"BackupPlanId\": \"6e1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c\",\n  \"BackupPlanArn\": \"arn:aws:backup:us-east-1:123456789012:backup-plan:6e1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c\",\n  \"CreationDate\": \"2026-09-17T03:10:44.000Z\",\n  \"VersionId\": \"Nzk3NjQ1ZTMtMTIzNC00YWJj\"\n}",
+      command: "aws backup create-backup-plan --backup-plan '{\"BackupPlanName\":\"daily-dr\",\"Rules\":[{\"RuleName\":\"daily\",\"TargetBackupVaultName\":\"primary-vault\",\"ScheduleExpression\":\"cron(0 3 * * ? *)\",\"CopyActions\":[{\"DestinationBackupVaultArn\":\"arn:aws:backup:ap-northeast-1:123456789012:backup-vault:dr-vault\"}]}]}'",
+      sampleOutput: "{\n  \"BackupPlanId\": \"6e1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c\",\n  \"BackupPlanArn\": \"arn:aws:backup:ap-southeast-1:123456789012:backup-plan:6e1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c\",\n  \"CreationDate\": \"2026-09-17T03:10:44.000Z\",\n  \"VersionId\": \"Nzk3NjQ1ZTMtMTIzNC00YWJj\"\n}",
     },
   },
   {
@@ -2737,7 +2737,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Attach a target tracking scaling policy so capacity follows CPU demand automatically",
       command: "aws autoscaling put-scaling-policy --auto-scaling-group-name web-asg --policy-name cpu-target --policy-type TargetTrackingScaling --target-tracking-configuration '{\"PredefinedMetricSpecification\":{\"PredefinedMetricType\":\"ASGAverageCPUUtilization\"},\"TargetValue\":50.0}'",
-      sampleOutput: "{\n  \"PolicyARN\": \"arn:aws:autoscaling:us-east-1:123456789012:scalingPolicy:1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d:autoScalingGroupName/web-asg:policyName/cpu-target\",\n  \"Alarms\": [\n    {\n      \"AlarmName\": \"TargetTracking-web-asg-AlarmHigh-1a2b3c4d\",\n      \"AlarmARN\": \"arn:aws:cloudwatch:us-east-1:123456789012:alarm:TargetTracking-web-asg-AlarmHigh-1a2b3c4d\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"PolicyARN\": \"arn:aws:autoscaling:ap-southeast-1:123456789012:scalingPolicy:1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d:autoScalingGroupName/web-asg:policyName/cpu-target\",\n  \"Alarms\": [\n    {\n      \"AlarmName\": \"TargetTracking-web-asg-AlarmHigh-1a2b3c4d\",\n      \"AlarmARN\": \"arn:aws:cloudwatch:ap-southeast-1:123456789012:alarm:TargetTracking-web-asg-AlarmHigh-1a2b3c4d\"\n    }\n  ]\n}",
     },
   },
   {
@@ -2765,8 +2765,8 @@ export const cloudConceptsQuestions: Question[] = [
     diagram: "flowchart LR\n  NFS[On-premises NFS server] --> Agent[DataSync agent]\n  Agent -->|Direct Connect 10 Gbps| DS[DataSync service]\n  DS -->|encrypted and verified| S3[Amazon S3]",
     cliExample: {
       description: "Start a DataSync task that copies from the NFS location to S3",
-      command: "aws datasync start-task-execution --task-arn arn:aws:datasync:us-east-1:123456789012:task/task-0abc123def456789a",
-      sampleOutput: "{\n  \"TaskExecutionArn\": \"arn:aws:datasync:us-east-1:123456789012:task/task-0abc123def456789a/execution/exec-0123456789abcdef0\"\n}",
+      command: "aws datasync start-task-execution --task-arn arn:aws:datasync:ap-southeast-1:123456789012:task/task-0abc123def456789a",
+      sampleOutput: "{\n  \"TaskExecutionArn\": \"arn:aws:datasync:ap-southeast-1:123456789012:task/task-0abc123def456789a/execution/exec-0123456789abcdef0\"\n}",
     },
   },
   {
@@ -2823,8 +2823,8 @@ export const cloudConceptsQuestions: Question[] = [
     diagram: "flowchart LR\n  Change[Config or patch change] --> AMI[Build new AMI]\n  AMI --> New[Launch new instances]\n  New --> Old[Terminate old instances]\n  Old -.-x InPlace[Never patch running servers]",
     cliExample: {
       description: "Start an EC2 Image Builder pipeline to produce a new golden AMI",
-      command: "aws imagebuilder start-image-pipeline-execution --image-pipeline-arn arn:aws:imagebuilder:us-east-1:123456789012:image-pipeline/web-golden-ami",
-      sampleOutput: "{\n  \"requestId\": \"4b7c1d2e-3f4a-5b6c-7d8e-9f0a1b2c3d4e\",\n  \"clientToken\": \"1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d\",\n  \"imageBuildVersionArn\": \"arn:aws:imagebuilder:us-east-1:123456789012:image/web-golden-ami/1.0.3/1\"\n}",
+      command: "aws imagebuilder start-image-pipeline-execution --image-pipeline-arn arn:aws:imagebuilder:ap-southeast-1:123456789012:image-pipeline/web-golden-ami",
+      sampleOutput: "{\n  \"requestId\": \"4b7c1d2e-3f4a-5b6c-7d8e-9f0a1b2c3d4e\",\n  \"clientToken\": \"1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d\",\n  \"imageBuildVersionArn\": \"arn:aws:imagebuilder:ap-southeast-1:123456789012:image/web-golden-ami/1.0.3/1\"\n}",
     },
   },
   {
@@ -3035,30 +3035,30 @@ export const cloudConceptsQuestions: Question[] = [
   {
     id: "cc101",
     domain: "cloud-concepts",
-    text: "Two AWS accounts in the same company both deploy resources to the Availability Zone named us-east-1a, yet an engineer notices that latency between them suggests they are in different physical locations. What explains this?",
+    text: "Two AWS accounts in the same company both deploy resources to the Availability Zone named ap-southeast-1a, yet an engineer notices that latency between them suggests they are in different physical locations. What explains this?",
     options: [
-      { id: "a", text: "AZ names are mapped independently for each account; the AZ ID (such as use1-az1) identifies the physical location" },
+      { id: "a", text: "AZ names are mapped independently for each account; the AZ ID (such as apse1-az1) identifies the physical location" },
       { id: "b", text: "Availability Zones are logical only and have no fixed physical location" },
       { id: "c", text: "One account must be using a Local Zone instead of an Availability Zone" },
       { id: "d", text: "The two accounts are in different Regions with the same AZ name" },
     ],
     correctOptionIds: ["a"],
-    explanation: "AWS randomly maps AZ names such as us-east-1a to physical zones for each account to balance resource usage. The AZ ID (for example use1-az1) is consistent across accounts and identifies the same physical zone, so teams coordinating across accounts should use AZ IDs.",
+    explanation: "AWS randomly maps AZ names such as ap-southeast-1a to physical zones for each account to balance resource usage. The AZ ID (for example apse1-az1) is consistent across accounts and identifies the same physical zone, so teams coordinating across accounts should use AZ IDs.",
     optionRationale: {
       a: "AZ names differ per account, while AZ IDs are the stable identifier for the physical zone.",
       b: "Each AZ is a set of real, physically separated data centers.",
-      c: "Local Zones have distinct names such as us-east-1-bos-1a and are not called us-east-1a.",
-      d: "Both accounts are in the us-east-1 Region; the name simply maps differently.",
+      c: "Local Zones have distinct names such as ap-southeast-1-bos-1a and are not called ap-southeast-1a.",
+      d: "Both accounts are in the ap-southeast-1 Region; the name simply maps differently.",
     },
     referenceUrl: "https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html",
     referenceLabel: "AWS RAM – Availability Zone IDs for your AWS resources",
     consoleUrl: "https://console.aws.amazon.com/ram/home#Home",
     consoleLabel: "AWS Resource Access Manager > Your AZ ID",
-    diagram: "flowchart LR\n  A[Account A us-east-1a] --> Z1[AZ ID use1-az2]\n  B[Account B us-east-1a] --> Z2[AZ ID use1-az4]\n  Z1 --> Note[Same name but different physical zone]\n  Z2 --> Note",
+    diagram: "flowchart LR\n  A[Account A ap-southeast-1a] --> Z1[AZ ID apse1-az2]\n  B[Account B ap-southeast-1a] --> Z2[AZ ID apse1-az3]\n  Z1 --> Note[Same name but different physical zone]\n  Z2 --> Note",
     cliExample: {
       description: "Show the mapping between AZ names and AZ IDs for the current account",
-      command: "aws ec2 describe-availability-zones --region us-east-1 --query \"AvailabilityZones[].{Name:ZoneName,Id:ZoneId}\"",
-      sampleOutput: "[\n  { \"Name\": \"us-east-1a\", \"Id\": \"use1-az2\" },\n  { \"Name\": \"us-east-1b\", \"Id\": \"use1-az4\" },\n  { \"Name\": \"us-east-1c\", \"Id\": \"use1-az6\" }\n]",
+      command: "aws ec2 describe-availability-zones --region ap-southeast-1 --query \"AvailabilityZones[].{Name:ZoneName,Id:ZoneId}\"",
+      sampleOutput: "[\n  { \"Name\": \"ap-southeast-1a\", \"Id\": \"apse1-az2\" },\n  { \"Name\": \"ap-southeast-1b\", \"Id\": \"apse1-az3\" },\n  { \"Name\": \"ap-southeast-1c\", \"Id\": \"apse1-az1\" }\n]",
     },
   },
   {
@@ -3087,7 +3087,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List Direct Connect connections in the account",
       command: "aws directconnect describe-connections",
-      sampleOutput: "{\n  \"connections\": [\n    {\n      \"ownerAccount\": \"123456789012\",\n      \"connectionId\": \"dxcon-fg1a2b3c\",\n      \"connectionName\": \"hq-to-us-east-1\",\n      \"connectionState\": \"available\",\n      \"region\": \"us-east-1\",\n      \"location\": \"EqDC2\",\n      \"bandwidth\": \"10Gbps\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"connections\": [\n    {\n      \"ownerAccount\": \"123456789012\",\n      \"connectionId\": \"dxcon-fg1a2b3c\",\n      \"connectionName\": \"hq-to-ap-southeast-1\",\n      \"connectionState\": \"available\",\n      \"region\": \"ap-southeast-1\",\n      \"location\": \"EqDC2\",\n      \"bandwidth\": \"10Gbps\"\n    }\n  ]\n}",
     },
   },
   {
@@ -3147,7 +3147,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Create a custom EventBridge event bus for order events",
       command: "aws events create-event-bus --name orders-bus",
-      sampleOutput: "{\n  \"EventBusArn\": \"arn:aws:events:us-east-1:123456789012:event-bus/orders-bus\"\n}",
+      sampleOutput: "{\n  \"EventBusArn\": \"arn:aws:events:ap-southeast-1:123456789012:event-bus/orders-bus\"\n}",
     },
   },
   {
@@ -3207,7 +3207,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Create an ElastiCache Serverless cache to place in front of the database",
       command: "aws elasticache create-serverless-cache --serverless-cache-name orders-cache --engine valkey",
-      sampleOutput: "{\n  \"ServerlessCache\": {\n    \"ServerlessCacheName\": \"orders-cache\",\n    \"Status\": \"creating\",\n    \"Engine\": \"valkey\",\n    \"MajorEngineVersion\": \"8\",\n    \"ARN\": \"arn:aws:elasticache:us-east-1:123456789012:serverlesscache:orders-cache\"\n  }\n}",
+      sampleOutput: "{\n  \"ServerlessCache\": {\n    \"ServerlessCacheName\": \"orders-cache\",\n    \"Status\": \"creating\",\n    \"Engine\": \"valkey\",\n    \"MajorEngineVersion\": \"8\",\n    \"ARN\": \"arn:aws:elasticache:ap-southeast-1:123456789012:serverlesscache:orders-cache\"\n  }\n}",
     },
   },
   {
@@ -3385,7 +3385,7 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart LR\n    Users[Users] --> Facade[Routing Facade]\n    Facade --> Mono[Legacy Monolith]\n    Facade --> Svc1[New Orders Service]\n    Facade --> Svc2[New Catalog Service]\n    Mono -.-> Retire[Retired Over Time]",
     cliExample: {
       description: "List Migration Hub Refactor Spaces environments used to route traffic between a monolith and new services",
-      command: "aws migration-hub-refactor-spaces list-environments --region us-east-1",
+      command: "aws migration-hub-refactor-spaces list-environments --region ap-southeast-1",
       sampleOutput: "{\n  \"EnvironmentSummaryList\": [\n    {\n      \"EnvironmentId\": \"env-0a1b2c3d4e\",\n      \"Name\": \"orders-modernization\",\n      \"NetworkFabricType\": \"NONE\",\n      \"OwnerAccountId\": \"123456789012\",\n      \"State\": \"ACTIVE\",\n      \"CreatedTime\": \"2026-02-18T10:04:52.000Z\"\n    }\n  ]\n}",
     },
   },
@@ -3415,8 +3415,8 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart LR\n    Order[Order Service] --> Topic[SNS Topic OrderPlaced]\n    Topic --> WH[Warehouse Queue]\n    Topic --> Analytics[Analytics Pipeline]\n    Topic --> Email[Email Lambda]",
     cliExample: {
       description: "List the subscriptions that fan out from an SNS topic",
-      command: "aws sns list-subscriptions-by-topic --topic-arn arn:aws:sns:us-east-1:123456789012:OrderPlaced",
-      sampleOutput: "{\n  \"Subscriptions\": [\n    {\n      \"SubscriptionArn\": \"arn:aws:sns:us-east-1:123456789012:OrderPlaced:3c2f9a1e-7b4d-4e8a-9f1c-2d5b6a7e8f90\",\n      \"Owner\": \"123456789012\",\n      \"Protocol\": \"sqs\",\n      \"Endpoint\": \"arn:aws:sqs:us-east-1:123456789012:warehouse-queue\",\n      \"TopicArn\": \"arn:aws:sns:us-east-1:123456789012:OrderPlaced\"\n    },\n    {\n      \"SubscriptionArn\": \"arn:aws:sns:us-east-1:123456789012:OrderPlaced:8e1d4b6a-2c9f-4a7e-b5d3-6f0a1c2e3d47\",\n      \"Owner\": \"123456789012\",\n      \"Protocol\": \"lambda\",\n      \"Endpoint\": \"arn:aws:lambda:us-east-1:123456789012:function:send-order-email\",\n      \"TopicArn\": \"arn:aws:sns:us-east-1:123456789012:OrderPlaced\"\n    }\n  ]\n}",
+      command: "aws sns list-subscriptions-by-topic --topic-arn arn:aws:sns:ap-southeast-1:123456789012:OrderPlaced",
+      sampleOutput: "{\n  \"Subscriptions\": [\n    {\n      \"SubscriptionArn\": \"arn:aws:sns:ap-southeast-1:123456789012:OrderPlaced:3c2f9a1e-7b4d-4e8a-9f1c-2d5b6a7e8f90\",\n      \"Owner\": \"123456789012\",\n      \"Protocol\": \"sqs\",\n      \"Endpoint\": \"arn:aws:sqs:ap-southeast-1:123456789012:warehouse-queue\",\n      \"TopicArn\": \"arn:aws:sns:ap-southeast-1:123456789012:OrderPlaced\"\n    },\n    {\n      \"SubscriptionArn\": \"arn:aws:sns:ap-southeast-1:123456789012:OrderPlaced:8e1d4b6a-2c9f-4a7e-b5d3-6f0a1c2e3d47\",\n      \"Owner\": \"123456789012\",\n      \"Protocol\": \"lambda\",\n      \"Endpoint\": \"arn:aws:lambda:ap-southeast-1:123456789012:function:send-order-email\",\n      \"TopicArn\": \"arn:aws:sns:ap-southeast-1:123456789012:OrderPlaced\"\n    }\n  ]\n}",
     },
   },
   {
@@ -3447,7 +3447,7 @@ export const cloudConceptsQuestions: Question[] = [
       "flowchart LR\n    Self[Self-Managed Kafka on EC2] --> Move[Migrate to Amazon MSK]\n    Move --> AWS[AWS Handles Patching and Broker Recovery]\n    Move --> Cust[Customer Keeps Topic Design and Code]\n    Cust --> Focus[More Time on Features]",
     cliExample: {
       description: "Describe an MSK cluster to see the managed configuration AWS maintains",
-      command: "aws kafka describe-cluster-v2 --cluster-arn arn:aws:kafka:us-east-1:123456789012:cluster/orders-stream/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d-3",
+      command: "aws kafka describe-cluster-v2 --cluster-arn arn:aws:kafka:ap-southeast-1:123456789012:cluster/orders-stream/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d-3",
       sampleOutput: "{\n  \"ClusterInfo\": {\n    \"ClusterName\": \"orders-stream\",\n    \"ClusterType\": \"PROVISIONED\",\n    \"State\": \"ACTIVE\",\n    \"CurrentVersion\": \"K3AEGXETSR30VB\",\n    \"Provisioned\": {\n      \"NumberOfBrokerNodes\": 3,\n      \"CurrentBrokerSoftwareInfo\": {\n        \"KafkaVersion\": \"3.8.x\"\n      },\n      \"BrokerNodeGroupInfo\": {\n        \"InstanceType\": \"kafka.m7g.large\"\n      },\n      \"EnhancedMonitoring\": \"PER_BROKER\"\n    },\n    \"CreationTime\": \"2026-01-22T14:03:11.000Z\"\n  }\n}",
     },
   },
@@ -3478,13 +3478,13 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List tasks running on Fargate in an ECS cluster",
       command: "aws ecs list-tasks --cluster web-cluster --launch-type FARGATE",
-      sampleOutput: "{\n  \"taskArns\": [\n    \"arn:aws:ecs:us-east-1:123456789012:task/web-cluster/2f7b9e1c4a6d48f0b3e5c7d9a1f2b4c6\",\n    \"arn:aws:ecs:us-east-1:123456789012:task/web-cluster/8a1c3e5f7b9d4a2c6e8f0b1d3c5a7e9f\",\n    \"arn:aws:ecs:us-east-1:123456789012:task/web-cluster/c4e6a8b0d2f14c3e5a7b9d1f3e5c7a9b\"\n  ]\n}",
+      sampleOutput: "{\n  \"taskArns\": [\n    \"arn:aws:ecs:ap-southeast-1:123456789012:task/web-cluster/2f7b9e1c4a6d48f0b3e5c7d9a1f2b4c6\",\n    \"arn:aws:ecs:ap-southeast-1:123456789012:task/web-cluster/8a1c3e5f7b9d4a2c6e8f0b1d3c5a7e9f\",\n    \"arn:aws:ecs:ap-southeast-1:123456789012:task/web-cluster/c4e6a8b0d2f14c3e5a7b9d1f3e5c7a9b\"\n  ]\n}",
     },
   },
   {
     id: "cc116",
     domain: "cloud-concepts",
-    text: "An engineer tries to attach an existing Amazon EBS volume in us-east-1a to an EC2 instance running in us-east-1b and receives an error. Which AWS infrastructure concept explains this behavior?",
+    text: "An engineer tries to attach an existing Amazon EBS volume in ap-southeast-1a to an EC2 instance running in ap-southeast-1b and receives an error. Which AWS infrastructure concept explains this behavior?",
     options: [
       { id: "a", text: "EBS volumes and EC2 instances are Availability Zone-scoped resources and must be in the same AZ" },
       { id: "b", text: "EBS volumes are global resources that must first be enabled per Region" },
@@ -3504,11 +3504,11 @@ export const cloudConceptsQuestions: Question[] = [
     consoleUrl: "https://console.aws.amazon.com/ec2/home#Volumes:",
     consoleLabel: "Amazon EC2 > Volumes",
     diagram:
-      "flowchart TD\n    Global[Global Scope - IAM and Route 53] --> Region[Regional Scope - S3 Bucket and VPC]\n    Region --> AZa[AZ us-east-1a - EBS Volume]\n    Region --> AZb[AZ us-east-1b - EC2 Instance]\n    AZa -.->|Attach fails across AZs| AZb",
+      "flowchart TD\n    Global[Global Scope - IAM and Route 53] --> Region[Regional Scope - S3 Bucket and VPC]\n    Region --> AZa[AZ ap-southeast-1a - EBS Volume]\n    Region --> AZb[AZ ap-southeast-1b - EC2 Instance]\n    AZa -.->|Attach fails across AZs| AZb",
     cliExample: {
       description: "Check the Availability Zone of a volume before attaching it",
       command: "aws ec2 describe-volumes --volume-ids vol-0a1b2c3d4e5f67890 --query 'Volumes[0].{Id:VolumeId,AZ:AvailabilityZone,State:State}'",
-      sampleOutput: "{\n  \"Id\": \"vol-0a1b2c3d4e5f67890\",\n  \"AZ\": \"us-east-1a\",\n  \"State\": \"available\"\n}",
+      sampleOutput: "{\n  \"Id\": \"vol-0a1b2c3d4e5f67890\",\n  \"AZ\": \"ap-southeast-1a\",\n  \"State\": \"available\"\n}",
     },
   },
   {
@@ -3538,7 +3538,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "List resilience policies that define RTO and RPO targets",
       command: "aws resiliencehub list-resiliency-policies",
-      sampleOutput: "{\n  \"resiliencyPolicies\": [\n    {\n      \"policyArn\": \"arn:aws:resiliencehub:us-east-1:123456789012:resiliency-policy/5b2e8c1a-9d4f-4e7b-a3c6-1f8d2b7e9a04\",\n      \"policyName\": \"mission-critical\",\n      \"tier\": \"MissionCritical\",\n      \"policy\": {\n        \"AZ\": {\n          \"rtoInSecs\": 300,\n          \"rpoInSecs\": 60\n        },\n        \"Region\": {\n          \"rtoInSecs\": 3600,\n          \"rpoInSecs\": 900\n        }\n      },\n      \"creationTime\": \"2026-03-05T11:42:09.000Z\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"resiliencyPolicies\": [\n    {\n      \"policyArn\": \"arn:aws:resiliencehub:ap-southeast-1:123456789012:resiliency-policy/5b2e8c1a-9d4f-4e7b-a3c6-1f8d2b7e9a04\",\n      \"policyName\": \"mission-critical\",\n      \"tier\": \"MissionCritical\",\n      \"policy\": {\n        \"AZ\": {\n          \"rtoInSecs\": 300,\n          \"rpoInSecs\": 60\n        },\n        \"Region\": {\n          \"rtoInSecs\": 3600,\n          \"rpoInSecs\": 900\n        }\n      },\n      \"creationTime\": \"2026-03-05T11:42:09.000Z\"\n    }\n  ]\n}",
     },
   },
   {
@@ -3688,7 +3688,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Check whether an RDS instance is deployed as Multi-AZ",
       command: "aws rds describe-db-instances --db-instance-identifier orders-db --query 'DBInstances[0].{Id:DBInstanceIdentifier,MultiAZ:MultiAZ,AZ:AvailabilityZone,SecondaryAZ:SecondaryAvailabilityZone}'",
-      sampleOutput: "{\n  \"Id\": \"orders-db\",\n  \"MultiAZ\": true,\n  \"AZ\": \"us-east-1a\",\n  \"SecondaryAZ\": \"us-east-1c\"\n}",
+      sampleOutput: "{\n  \"Id\": \"orders-db\",\n  \"MultiAZ\": true,\n  \"AZ\": \"ap-southeast-1a\",\n  \"SecondaryAZ\": \"ap-southeast-1c\"\n}",
     },
   },
   {
@@ -3780,7 +3780,7 @@ export const cloudConceptsQuestions: Question[] = [
     cliExample: {
       description: "Configure the AWS CLI to use the adaptive retry mode with backoff and more attempts",
       command: "aws configure set retry_mode adaptive && aws configure set max_attempts 5 && aws configure list",
-      sampleOutput: "      Name                    Value             Type    Location\n      ----                    -----             ----    --------\n   profile                <not set>             None    None\naccess_key     ****************ABCD shared-credentials-file\nsecret_key     ****************WXYZ shared-credentials-file\n    region                us-east-1      config-file    ~/.aws/config",
+      sampleOutput: "      Name                    Value             Type    Location\n      ----                    -----             ----    --------\n   profile                <not set>             None    None\naccess_key     ****************ABCD shared-credentials-file\nsecret_key     ****************WXYZ shared-credentials-file\n    region                ap-southeast-1      config-file    ~/.aws/config",
     },
   },
 ];
