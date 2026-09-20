@@ -2540,7 +2540,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/marketplace/latest/buyerguide/buyer-private-offers.html",
     referenceLabel: "Private offers in AWS Marketplace - AWS Marketplace Buyer Guide",
-    consoleUrl: "https://aws.amazon.com/marketplace/privateoffers",
+    consoleUrl: "https://docs.aws.amazon.com/marketplace/latest/buyerguide/buyer-private-offers.html",
     consoleLabel: "AWS Marketplace > Private offers",
     diagram: "flowchart LR\n  Negotiate[Buyer and seller negotiate price] --> Offer[Seller creates private offer for account 123456789012]\n  Offer --> Accept[Buyer accepts on Private offers page]\n  Accept --> Bill[Charges on the AWS invoice]",
     cliExample: {
@@ -4617,7 +4617,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/directconnect/pricing/",
     referenceLabel: "AWS Direct Connect pricing",
-    consoleUrl: "https://console.aws.amazon.com/directconnect/home",
+    consoleUrl: "https://console.aws.amazon.com/directconnect/v2/home",
     consoleLabel: "AWS Direct Connect",
     diagram: "flowchart LR\n  A[AWS Region] -->|Internet egress high per GB| D[Data center]\n  A -->|Direct Connect lower per GB plus port hours| D",
     cliExample: {

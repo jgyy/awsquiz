@@ -6386,7 +6386,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/waf-rule-statement-type-geo-match.html",
     referenceLabel: "AWS WAF geographic match rule statement",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=ap-southeast-1",
+    consoleUrl: "https://console.aws.amazon.com/wafv2/homev2/web-acls",
     consoleLabel: "WAF > Web ACLs",
     diagram: "flowchart LR\n  Req[Incoming request] --> WAF[AWS WAF web ACL]\n  WAF -->|country SG or MY| Allow[Forward to ALB]\n  WAF -->|other country| Block[403 blocked]",
     cliExample: {
@@ -7092,8 +7092,8 @@ export const securityAndComplianceQuestions: Question[] = [
       g: "AWS does not permit customer site visits to data centers; independent audit reports serve that purpose.",
       h: "Trusted Advisor has no compliance category for downloading audit reports; that is AWS Artifact's role.",
     },
-    referenceUrl: "https://aws.amazon.com/compliance/mtcs/",
-    referenceLabel: "MTCS Tier 3 Certification - AWS Compliance",
+    referenceUrl: "https://aws.amazon.com/compliance/programs/",
+    referenceLabel: "AWS Compliance Programs (including MTCS)",
     consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact > Reports",
     diagram: "flowchart LR\n  Auditor[Regulated company auditor] --> Artifact[AWS Artifact]\n  Artifact --> MTCS[MTCS SS 584 certificate]\n  Artifact --> OSPAR[ABS OSPAR report]\n  Artifact --> ISO[ISO, SOC, PCI reports]",
@@ -8116,7 +8116,7 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-testing.html",
     referenceLabel: "Testing and tuning your AWS WAF protections",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=ap-southeast-1",
+    consoleUrl: "https://console.aws.amazon.com/wafv2/homev2/web-acls",
     consoleLabel: "AWS WAF > Web ACLs",
     diagram: "flowchart LR\n  Req[Live requests] --> Rule[Custom rule: action = Count]\n  Rule -->|matches counted, request continues| App[Application]\n  Rule --> Metrics[CloudWatch metrics + sampled requests]\n  Metrics -->|no false positives| Block[Change action to Block]",
     cliExample: {
