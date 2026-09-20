@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "dev": "node scripts/dev.mjs"
+    "dev": "node scripts/dev.mts"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
