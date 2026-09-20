@@ -85,15 +85,31 @@ window.addEventListener("online", syncOnlineState);
 window.addEventListener("offline", syncOnlineState);
 syncOnlineState();
 
+// Matches the mobile breakpoint in styles.css.
+const narrowViewport = window.matchMedia("(max-width: 600px)");
+
+/**
+ * On narrow screens a left-to-right flowchart gets squeezed into an unreadable strip,
+ * so rewrite the top-level direction to top-down. Only the first declaration is touched;
+ * question sources contain no subgraph `direction` lines.
+ */
+function orientDiagramSource(source: string): string {
+  if (!narrowViewport.matches) return source;
+  return source.replace(/^(\s*(?:flowchart|graph)\s+)(LR|RL)\b/, "$1TD");
+}
+
+let lastRenderedDiagrams: { id: string; source: string }[] = [];
+
 async function renderMermaidDiagrams(diagrams: { id: string; source: string }[]): Promise<void> {
   if (diagrams.length === 0) return;
+  lastRenderedDiagrams = diagrams;
   try {
     const mermaid = await loadMermaid();
     for (const { id, source } of diagrams) {
       const target = document.getElementById(id);
       if (!target) continue;
       try {
-        const { svg } = await mermaid.render(`${id}-svg`, source);
+        const { svg } = await mermaid.render(`${id}-svg`, orientDiagramSource(source));
         target.innerHTML = svg;
       } catch {
         target.textContent = "Diagram unavailable.";
@@ -106,6 +122,12 @@ async function renderMermaidDiagrams(diagrams: { id: string; source: string }[])
     }
   }
 }
+
+// Re-render when the viewport crosses the breakpoint (e.g. phone rotation) so orientation stays correct.
+narrowViewport.addEventListener("change", () => {
+  const stillMounted = lastRenderedDiagrams.filter(({ id }) => document.getElementById(id));
+  if (stillMounted.length > 0) void renderMermaidDiagrams(stillMounted);
+});
 
 function wireCopyButtons(): void {
   document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
