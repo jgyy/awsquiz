@@ -1,4 +1,5 @@
 import { Domain, Question } from "./types.js";
+import { videoAssignments } from "./video-assignments.js";
 
 /** A curated YouTube video covering one CLF-C02 topic. */
 export interface VideoEntry {
@@ -22,28 +23,28 @@ export const videoCatalog: VideoEntry[] = [
   { id: "0hlZvybbaGk", label: "AWS Global Infrastructure Overview", keywords: ["region", "regions", "global infrastructure", "data center", "data centers", "geographic", "closest to"] },
   { id: "PHjYRn_mrs0", label: "AWS Edge Locations and CloudFront", keywords: ["edge location", "edge locations", "points of presence", "point of presence", "regional edge cache"] },
   { id: "bJCmZn9fASM", label: "7 Rs Migration Strategies and AWS Migration Services", keywords: ["migration", "migrate", "migrating", "replatform", "refactor", "repurchase", "retire", "retain", "relocate", "7 rs", "six rs", "seven rs", "migration strategy", "migration strategies"] },
-  { id: "ppG2FFB0mMQ", label: "AWS Outposts: Overview and How It Works", keywords: ["outposts", "hybrid", "on-premises hardware", "own data center"] },
+  { id: "ppG2FFB0mMQ", label: "AWS Outposts: Overview and How It Works", keywords: ["outposts", "hybrid", "on-premises hardware", "own data center", "own facility", "own building", "inside its own", "aws-designed hardware"] },
   { id: "QMcqZ_vIXfE", label: "Console, CLI, or SDK Explained", keywords: ["aws cli", "command line interface", "sdk", "software development kit", "management console", "cloudshell", "infrastructure as code", "programmatic access"] },
   { id: "BtJAsvJOlhM", label: "168 AWS Services in 2 Minutes", keywords: [] },
 
   // Security and compliance
   { id: "9Pk2J_5qnlk", label: "Learn AWS IAM in Less Than 10 Minutes (AWS)", keywords: ["iam", "identity and access management", "least privilege", "permissions", "principal", "authentication", "authorization"] },
   { id: "miij_0HkBws", label: "AWS IAM Roles (AWS)", keywords: ["iam role", "iam roles", "iam user", "iam users", "iam group", "iam groups", "access key", "access keys", "temporary credentials", "sts", "assume role"] },
-  { id: "MiPItT74ZLs", label: "Service Control Policies (SCPs) Explained", keywords: ["service control polic", "scp", "scps", "restrict what", "maximum permissions", "guardrails across"] },
-  { id: "zbI8owkUDrc", label: "AWS Root User Explained in 5 Minutes", keywords: ["root user", "root account"] },
-  { id: "di95GQdEc0w", label: "AWS Multi-Factor Authentication (MFA) Explained", keywords: ["mfa", "multi-factor", "multi factor", "password policy", "access analyzer", "phishing-resistant", "passkey", "passkeys", "fido"] },
-  { id: "zSUUBAxjIbk", label: "AWS Key Management Service (KMS)", keywords: ["kms", "key management service", "encryption key", "encryption keys", "cloudhsm", "hsm", "encryption at rest", "encrypt", "envelope encryption"] },
-  { id: "jcE2gyVkhYo", label: "AWS Shield Explained: DDoS Protection, Standard vs Advanced", keywords: ["shield", "waf", "web application firewall", "ddos", "sql injection", "cross-site scripting", "layer 7", "layer 3", "layer 4"] },
+  { id: "MiPItT74ZLs", label: "Service Control Policies (SCPs) Explained", keywords: ["service control policy", "service control policies", "scp", "scps", "restrict what", "maximum permissions", "guardrails across"] },
+  { id: "zbI8owkUDrc", label: "AWS Root User Explained in 5 Minutes", keywords: ["root user", "root account", "alternate contact", "alternate contacts", "account contacts", "root user email", "close the account", "closing the aws account"] },
+  { id: "di95GQdEc0w", label: "AWS Multi-Factor Authentication (MFA) Explained", keywords: ["mfa", "multi-factor", "multi factor", "phishing-resistant", "passkey", "passkeys", "fido", "fido2", "hardware security key", "virtual mfa"] },
+  { id: "zSUUBAxjIbk", label: "AWS Key Management Service (KMS)", keywords: ["kms", "key management service", "encryption key", "encryption keys", "encryption at rest", "envelope encryption", "data key", "asymmetric", "sign and verify", "kms key pair", "custom key store"] },
+  { id: "jcE2gyVkhYo", label: "AWS Shield Explained: DDoS Protection, Standard vs Advanced", keywords: ["shield", "shield advanced", "shield standard", "waf", "web application firewall", "ddos", "ddos response team", "sql injection", "cross-site scripting", "layer 7", "layer 3", "layer 4", "protected resource", "protected resources"] },
   { id: "M4aOKikd7-s", label: "Amazon GuardDuty Deep Dive", keywords: ["guardduty", "threat detection", "malicious", "compromised", "unusual api"] },
   { id: "Cn1ss-YZa9E", label: "Amazon Inspector: 7 Things You Need To Know", keywords: ["inspector", "vulnerability", "vulnerabilities"] },
-  { id: "S5X0PnBwp9I", label: "CloudWatch vs CloudTrail: What's the Difference?", keywords: ["cloudwatch vs cloudtrail", "cloudwatch and cloudtrail", "cloudtrail and cloudwatch", "difference between cloudwatch"] },
+  { id: "S5X0PnBwp9I", label: "CloudWatch vs CloudTrail: What's the Difference?", keywords: ["cloudwatch vs cloudtrail", "cloudwatch and cloudtrail", "cloudtrail and cloudwatch", "difference between cloudwatch", "cloudwatch, aws cloudtrail, and aws config", "cloudtrail, and aws config", "roles of amazon cloudwatch", "config records the configuration"] },
   { id: "qHdFoYSrUvk", label: "AWS Config Tutorial (Stephane Maarek)", keywords: ["aws config", "config rule", "config rules", "configuration history", "configuration change", "configuration changes", "compliance of resources"] },
-  { id: "O307zdIOmWo", label: "Using AWS Artifact to Retrieve Compliance Reports", keywords: ["artifact", "compliance report", "compliance reports", "soc", "pci", "hipaa", "iso 27001", "audit report", "audit reports", "attestation"] },
+  { id: "O307zdIOmWo", label: "Using AWS Artifact to Retrieve Compliance Reports", keywords: ["artifact", "compliance report", "compliance reports", "soc", "soc 1", "soc 2", "soc 3", "iso 27001", "audit report", "audit reports", "attestation", "mtcs", "ospar", "agreements", "download aws"] },
   { id: "ItzzgWe7elE", label: "AWS Secrets Manager Step-by-Step", keywords: ["secrets manager", "rotate", "rotation", "database credentials", "secret", "secrets"] },
   { id: "nBusvrDEjdk", label: "AWS Security Hub Demo", keywords: ["security hub", "security findings", "security posture", "cis benchmark"] },
   { id: "RR4MtDl09Vk", label: "What is Amazon Macie?", keywords: ["macie", "sensitive data", "personally identifiable", "pii"] },
   { id: "EAWWTjjQWz8", label: "Amazon Cognito: User Pool vs Identity Pool", keywords: ["cognito", "user pool", "identity pool", "sign-up", "sign-in", "social identity"] },
-  { id: "Nk77te-cksQ", label: "What is AWS Certificate Manager?", keywords: ["certificate manager", "acm", "ssl", "tls", "certificate", "certificates", "in transit"] },
+  { id: "Nk77te-cksQ", label: "What is AWS Certificate Manager?", keywords: ["certificate manager", "acm", "public certificate", "public tls certificate", "certificate renewal", "renew the certificate", "dns validation", "imported certificate", "imported certificates", "https on its application load balancer"] },
   { id: "pyiJbkJROTE", label: "Understanding AWS Control Tower", keywords: ["control tower", "landing zone", "guardrail", "guardrails", "multi-account"] },
 
   // Compute
@@ -51,7 +52,7 @@ export const videoCatalog: VideoEntry[] = [
   { id: "4gQ5SOfBUm4", label: "EC2 Instance Types Explained", keywords: ["instance type", "instance types", "compute optimized", "memory optimized", "storage optimized", "accelerated computing", "general purpose", "burstable"] },
   { id: "rcWgcFMlwFw", label: "EC2 Auto Scaling: How it Works", keywords: ["auto scaling", "autoscaling", "scale out", "scale in", "scaling policy", "scaling policies", "horizontal scaling", "vertical scaling", "launch template"] },
   { id: "WBUS5777CYw", label: "AWS ELB: The 3 Elastic Load Balancer Types", keywords: ["load balancer", "load balancing", "elb", "alb", "nlb", "application load balancer", "network load balancer", "health check", "health checks"] },
-  { id: "eOBq__h4OJ4", label: "Introduction to AWS Lambda", keywords: ["lambda", "serverless", "function", "functions", "event-driven"] },
+  { id: "eOBq__h4OJ4", label: "Introduction to AWS Lambda", keywords: ["lambda", "serverless", "run code without provisioning", "without provisioning or managing servers", "no servers to provision", "lambda and amazon api gateway", "pay-per-use", "serverless services"] },
   { id: "aOZD7gsyxLM", label: "ECS vs EKS vs Fargate", keywords: ["ecs", "elastic container service", "container", "containers", "docker", "task definition", "cluster"] },
   { id: "SrwxAScdyT0", label: "Introduction to AWS Elastic Beanstalk", keywords: ["elastic beanstalk", "beanstalk", "platform as a service", "paas"] },
   { id: "FRN27b1VLXg", label: "AWS Lightsail Explained: Simplified Cloud VPS", keywords: ["lightsail"] },
@@ -62,7 +63,7 @@ export const videoCatalog: VideoEntry[] = [
   { id: "R0fqpQd9mSM", label: "Amazon S3 Explained in 10 Minutes", keywords: ["s3", "simple storage service", "bucket", "buckets", "object storage", "unlimited storage", "objects"] },
   { id: "w5ocEIDR5WE", label: "Amazon S3 Storage Classes", keywords: ["storage class", "storage classes", "s3 standard", "infrequent access", "intelligent-tiering", "intelligent tiering", "one zone"] },
   { id: "Fo_cTVelDKk", label: "S3 Storage Classes Explained (Demo)", keywords: ["s3 standard-ia", "s3 one zone-ia", "s3 express", "reduced redundancy"] },
-  { id: "Uw_bGnIr1B8", label: "Amazon S3 Lifecycle Rules: Transition and Expiration", keywords: ["lifecycle", "lifecycle policy", "lifecycle rule", "transition", "expire", "expiration"] },
+  { id: "Uw_bGnIr1B8", label: "Amazon S3 Lifecycle Rules: Transition and Expiration", keywords: ["lifecycle", "lifecycle policy", "lifecycle rule", "lifecycle configuration", "transition", "transitions objects", "expire", "expiration", "rarely after that", "queried frequently for 30 days"] },
   { id: "gMzVi7Z8zBo", label: "Amazon S3 Glacier Storage Classes", keywords: ["glacier", "archive", "archival", "deep archive", "retrieval", "vault lock"] },
   { id: "smF92POVrhE", label: "EBS vs EFS vs Instance Store", keywords: ["instance store", "ephemeral", "fsx", "fsx for windows", "fsx for lustre", "ebs vs efs", "storage options", "storage types"] },
   { id: "zxlV86Wh7EQ", label: "AWS Storage Gateway Explained", keywords: ["storage gateway", "file gateway", "volume gateway", "tape gateway", "on-premises storage"] },
@@ -96,7 +97,7 @@ export const videoCatalog: VideoEntry[] = [
   // Monitoring and support
   { id: "3qXSHMTZPKM", label: "AWS CloudWatch Explained: Metrics, Alarms and Monitoring", keywords: ["cloudwatch", "metric", "metrics", "monitor", "monitoring", "dashboard", "custom metric", "custom metrics"] },
   { id: "Ueh7vyXNtog", label: "AWS X-Ray: Distributed Tracing for Beginners", keywords: ["x-ray", "xray", "tracing", "trace", "traces", "distributed application", "microservices", "bottleneck", "bottlenecks"] },
-  { id: "uEIrFbesvP8", label: "AWS Trusted Advisor", keywords: ["trusted advisor", "best practice checks", "best-practice checks", "service limits", "service quotas", "quota"] },
+  { id: "uEIrFbesvP8", label: "AWS Trusted Advisor", keywords: ["trusted advisor", "best practice checks", "best-practice checks", "trusted advisor priority", "core checks", "trusted advisor checks", "fault tolerance checks", "cost optimization checks"] },
   { id: "mHIba-3Cedo", label: "AWS Health Dashboard and Trusted Advisor", keywords: ["health dashboard", "personal health", "service health", "scheduled maintenance", "planned maintenance", "aws health"] },
   { id: "gkkcM37m5Zc", label: "AWS Support Plans: Everything You Need To Know", keywords: ["support plan", "support plans", "enterprise support", "enterprise on-ramp", "infrastructure event management", "support case", "support cases", "aws iq", "support tier", "support tiers"] },
 
@@ -104,15 +105,15 @@ export const videoCatalog: VideoEntry[] = [
   { id: "-t148tYgnJU", label: "EC2 Pricing: On-Demand, Spot, Reserved, Savings Plans", keywords: ["on-demand", "on demand", "dedicated host", "dedicated hosts", "dedicated instance", "dedicated instances", "capacity reservation", "pricing model", "pricing models", "purchasing option", "purchasing options", "pay by the second", "per-second"] },
   { id: "uCGgXw1o2Ks", label: "EC2 Costs: On-Demand vs Savings Plans vs Reserved", keywords: ["all upfront", "partial upfront", "no upfront", "upfront payment", "payment option", "payment options"] },
   { id: "xjq-1CdvgQ8", label: "Savings Plans: Pricing Model for AWS Compute", keywords: ["savings plan", "savings plans", "compute savings", "ec2 instance savings", "hourly commitment"] },
-  { id: "YAet7EnpvYI", label: "AWS Free Tier Explained in 2 Minutes", keywords: ["free tier", "always free", "12 months free", "12-month", "trial", "free credits"] },
+  { id: "YAet7EnpvYI", label: "AWS Free Tier Explained in 2 Minutes", keywords: ["free tier", "always free", "12 months free", "12-month", "trial", "free credits", "free plan", "paid plan", "$200 in credits", "free tier usage alerts", "free tier offers"] },
   { id: "oE8TNKGmc40", label: "AWS Cost Explorer", keywords: ["cost explorer", "cost categories", "visualize", "spending trends", "forecast", "billing conductor", "cost anomaly", "anomaly detection", "usage over time"] },
   { id: "O0sofGVT7uw", label: "AWS Budgets: Set Up Billing Alerts", keywords: ["aws budgets", "budget", "budgets", "billing alarm", "billing alert", "billing alerts", "alert when", "exceeds", "spending limit", "monthly spend"] },
-  { id: "PQFztryprPQ", label: "Estimate Costs with the AWS Pricing Calculator", keywords: ["pricing calculator", "estimate", "estimates", "total cost of ownership", "tco", "cost estimate"] },
+  { id: "PQFztryprPQ", label: "Estimate Costs with the AWS Pricing Calculator", keywords: ["pricing calculator", "estimate", "estimates", "total cost of ownership", "tco", "cost estimate", "price list api", "price list", "bulk api and query api", "current on-demand price"] },
   { id: "Rpf-_k0lQEQ", label: "Consolidated Billing for AWS", keywords: ["consolidated billing", "single bill", "volume discount", "volume discounts", "tiered pricing", "aggregate usage", "payer account", "multiple accounts"] },
   { id: "4obiejTAlFQ", label: "What is AWS Marketplace", keywords: ["marketplace", "third-party software", "third party software", "isv", "software vendor", "private offer", "saas subscription"] },
 
   // Analytics, AI and ML
-  { id: "Qv_Tr_BCFCQ", label: "Introduction to Amazon SageMaker", keywords: ["sagemaker", "machine learning", "ml model", "ml models", "train and deploy", "kendra", "personalize", "forecast service", "fraud detector", "build, train", "jupyter", "notebook"] },
+  { id: "Qv_Tr_BCFCQ", label: "Introduction to Amazon SageMaker", keywords: ["sagemaker", "machine learning", "ml model", "ml models", "train and deploy", "build, train", "jupyter", "notebook", "sagemaker jumpstart", "jumpstart", "pre-trained", "inference endpoint", "sagemaker savings"] },
   { id: "_vdK5PgcNvc", label: "Introducing Amazon Bedrock", keywords: ["bedrock", "generative ai", "foundation model", "foundation models", "large language model", "llm", "titan", "claude", "anthropic", "prompt"] },
   { id: "S0XXbFp5Lf0", label: "Athena, Kinesis, and Glue Explained", keywords: ["data lake", "lake formation", "opensearch", "elasticsearch", "msk", "managed streaming for kafka", "kafka", "big data analytics"] },
   { id: "QuwaBOESGiU", label: "An Introduction to Amazon EMR", keywords: ["emr", "elastic mapreduce", "hadoop", "spark", "big data", "data pipeline"] },
@@ -199,6 +200,135 @@ export const videoCatalog: VideoEntry[] = [
 
   { id: "ROshw2gIdB8", label: "What is AWS CloudWatch? Monitoring and Alerts Explained", keywords: ["cloudwatch alarm", "cloudwatch alarms", "alarm", "alarms", "cpu utilization", "metric alarm", "alarm state", "trigger an action", "above a threshold"] },
   { id: "F6CpeUOPEPA", label: "AWS CloudWatch Logs Explained", keywords: ["cloudwatch logs", "log group", "log groups", "log stream", "log streams", "application logs", "logs insights", "log data", "log files", "centralize logs", "retention period"] },
+  // Added: dedicated videos for topics that previously fell back to a neighbouring service
+  // AI and machine learning services
+  { id: "59kbpMnncC8", label: "What is Amazon Kendra? (AWS)", keywords: ["kendra", "intelligent search", "enterprise search", "sharepoint", "confluence", "search across", "natural language search", "hunting for answers"] },
+  { id: "xFZ3HMleYYE", label: "Improve Engagement with Amazon Personalize (AWS)", keywords: ["personalize", "personalized recommendations", "recommended for you", "recommendation", "recommendations", "viewing history", "similar users"] },
+  { id: "SYhGxn6ML0k", label: "Introduction to Amazon Fraud Detector (AWS)", keywords: ["fraud detector", "fraud", "fraudulent", "fake account", "fake accounts", "stolen-card", "stolen card", "payment fraud"] },
+  { id: "Sy3GDQT6Lnk", label: "Amazon SageMaker Canvas: No-Code ML Predictions (AWS)", keywords: ["sagemaker canvas", "canvas", "no-code", "no code", "no coding", "business analyst", "business analysts", "spreadsheet", "predicts customer churn", "churn"] },
+  { id: "gjiozYXHKc8", label: "Introducing Amazon SageMaker Ground Truth (AWS)", keywords: ["ground truth", "labeling", "label", "labels", "annotated", "annotate", "bounding boxes", "unlabeled", "labeled training data", "training dataset"] },
+  { id: "ilw19zqZCR4", label: "Meet Amazon Q Business (AWS)", keywords: ["q business", "amazon q business", "assistant for employees", "company documents", "enterprise data", "summarize documents", "draft emails", "answer questions"] },
+  { id: "nMvJzJlhqws", label: "What is Amazon Augmented AI? (AWS)", keywords: ["augmented ai", "a2i", "human review", "human reviewer", "human reviewers", "low confidence", "confidence for a field", "human-in-the-loop", "human in the loop"] },
+  { id: "-9wCZQ6L9FY", label: "Amazon Comprehend Medical Overview (Sahil Mahajan)", keywords: ["comprehend medical", "medical conditions", "medications", "dosages", "clinical notes", "medical text", "protected health information from text"] },
+  { id: "-vY2XIgXJ9A", label: "Introduction to Amazon Braket (AWS)", keywords: ["braket", "quantum", "quantum computing", "quantum hardware", "quantum algorithms"] },
+  { id: "8ZqMSVVaGPA", label: "Introduction to Amazon Location Service (AWS)", keywords: ["location service", "maps", "geocod", "geocoding", "driving routes", "geofence", "geofencing", "coordinates", "map data"] },
+
+  // Operations, developer tools and observability
+  { id: "Gh99mb3e7V8", label: "What is Amazon DevOps Guru (AWS)", keywords: ["devops guru", "operational issues", "operational anomalies", "anomalies that precede", "spot the few anomalies", "ml-powered operations", "hundreds of cloudwatch alarms"] },
+  { id: "Ddf5WG5I0Qo", label: "How Do I Manage My Service Quotas? (AWS)", keywords: ["service quotas", "service quota", "quota", "quotas", "quota increase", "limit increase", "vcpu limit", "vcpulimitexceeded", "account limit", "account limits", "reached the maximum number", "service limits"] },
+  { id: "AThR8dFmPP4", label: "Chaos Engineering with AWS Fault Injection Simulator (AWS)", keywords: ["fault injection", "fault injection service", "fault injection simulator", "fis", "chaos engineering", "chaos experiments", "game day", "game days", "injects failures", "injecting failures", "deliberately injects", "survive the loss of an availability zone"] },
+  { id: "X-NfwLUBco4", label: "Blue-Green Deployment on AWS (KodeKloud)", keywords: ["blue/green", "blue-green", "blue green", "canary deployment", "canary release", "5% of users", "shift traffic", "shifting traffic", "rolling deployment", "deployment strategy", "deployment strategies", "alongside the current"] },
+  { id: "lBrCNwaf_N4", label: "Immutable Infrastructure Explained (DevopsCube)", keywords: ["immutable infrastructure", "immutable", "replace rather than patch", "replaced rather than", "never modified after", "rebuilt from", "configuration drift", "drift apart", "updates in place", "patched in place"] },
+  { id: "efRu7odnEQo", label: "Infrastructure as Code Explained in 5 Minutes", keywords: ["infrastructure as code", "iac", "define the environments as", "defined as code", "version-controlled", "version controlled", "clicking through the aws management console", "built by hand", "inconsistent deployments"] },
+  { id: "VLB5GkjVCGw", label: "AWS CloudShell Explained", keywords: ["cloudshell", "browser-based shell", "browser-based command", "pre-authenticated", "command-line environment", "without installing", "locked-down corporate laptop", "installing software is not allowed"] },
+  { id: "qKJ5U1ETDJI", label: "Getting Started with AWS SDKs (AWS)", keywords: ["sdk", "sdks", "software development kit", "boto3", "aws sdk for python", "aws sdk for javascript", "programmatically from application code", "from within application code", "call aws services from code"] },
+  { id: "E7QAhLHOUu8", label: "AWS SAM Explainer Video (AWS)", keywords: ["serverless application model", "aws sam", "sam template", "sam cli", "shorthand syntax", "shorthand template", "define serverless applications"] },
+  { id: "rL_e6W6SlMM", label: "What is AWS AppConfig? (AWS)", keywords: ["appconfig", "feature flag", "feature flags", "feature toggle", "turn a new feature on for", "gradually increase the rollout", "roll back the feature", "dynamic configuration"] },
+  { id: "UiJo_PEZkD4", label: "Introduction to AWS Device Farm (AWS)", keywords: ["device farm", "real devices", "physical devices", "physical phones", "android and ios", "ios and android", "mobile app testing", "test suite against", "real, physical"] },
+  { id: "ZdWm5CqOcm4", label: "Introduction to Amazon Managed Grafana (AWS)", keywords: ["managed grafana", "grafana", "prometheus", "managed service for prometheus", "open-source prometheus", "kubernetes metrics"] },
+  { id: "PT5JVFP8hY4", label: "What is AWS Cloud Map? (TechBitsBytesX)", keywords: ["cloud map", "service discovery", "discover each other", "ip addresses change", "registry of service", "service registry", "find each other"] },
+  { id: "-T6mvivmmfA", label: "Meet the AWS Managed Services Team (AWS)", keywords: ["aws managed services", "ams", "take over the day-to-day operation", "day-to-day operation", "operate its aws infrastructure", "operates the infrastructure on the company's behalf", "managed operations"] },
+  { id: "AWjUiuASpJc", label: "What is AWS Launch Wizard? (CLF-C02)", keywords: ["launch wizard", "sql server always on", "always on availability groups", "sizes, configures, and deploys", "guided deployment", "sap deployment", "deploy sql server on ec2"] },
+  { id: "ZET50M20hkU", label: "Amazon Managed Workflows for Apache Airflow: Getting Started (AWS)", keywords: ["managed workflows for apache airflow", "mwaa", "airflow", "apache airflow", "dags", "self-managed airflow"] },
+
+  // Architecture patterns and resilience
+  { id: "PAfcUzkugHM", label: "Retries, Backoff and Jitter: Handling AWS Throttling (Cloud Explainers)", keywords: ["exponential backoff", "backoff", "jitter", "retry with", "retries with", "retry failed requests", "transient error", "transient errors", "throttling or transient", "retry storm"] },
+  { id: "gy1RITZ7N7s", label: "Static Stability Using a Circuit Breaker Pattern (AWS)", keywords: ["circuit breaker", "timeouts on calls", "set timeouts", "timeout", "request threads wait", "threads wait", "unresponsive dependency", "downstream dependency", "becomes unresponsive", "cascading failure", "cascading failures"] },
+  { id: "9nlZ7R7lNgw", label: "What Is Graceful Degradation in Cloud Systems?", keywords: ["graceful degradation", "degrade gracefully", "degrades gracefully", "fallback", "fall back to", "static list", "non-critical dependency", "still loads without", "customers also bought"] },
+  { id: "ddVRChiGDj0", label: "API Rate Limiting vs Throttling (apiguru)", keywords: ["rate limit", "rate limiting", "rate limits", "request throttling", "per-client rate", "per-client", "misconfigured script", "tens of thousands of requests per second", "overwhelmed when", "protect the api from"] },
+  { id: "6-Wu178sOEE", label: "Microservices vs Monolithic Architecture (Drawing Boxes)", keywords: ["microservices architecture", "microservice", "microservices", "monolith", "monolithic", "compiled as one", "deployed and updated independently", "scaled independently", "redeployed in full", "single large application"] },
+  { id: "2I3-lbnMXec", label: "Bulkhead Pattern Explained: Resilience in Microservices (ByteMonk)", keywords: ["bulkhead", "cell-based", "cell based", "cell-based architecture", "cells", "isolated cells", "blast radius of a bug", "one customer's data recently", "partition customers"] },
+  { id: "dZTkBeB_dmg", label: "Idempotency in APIs Explained (Arkynate)", keywords: ["idempotent", "idempotency", "idempotency key", "charged twice", "duplicate charge", "duplicate charges", "exactly once even if", "safely retried", "retries requests automatically", "same request twice"] },
+  { id: "gwu3lVUvIqQ", label: "Strangler Fig Pattern Explained (Java Guides)", keywords: ["strangler fig", "strangler", "incrementally replace", "incrementally migrate", "big-bang rewrite", "big bang rewrite", "piece by piece", "route a slice of", "gradually replacing"] },
+  { id: "dvRFHG2-uYs", label: "Vertical vs Horizontal Scaling: Key Differences (ByteByteGo)", keywords: ["vertical scaling", "horizontal scaling", "scale horizontally", "scale vertically", "scaling up", "scaling out", "larger instance is vertical", "more smaller instances", "two very large ec2 instances", "half of all users are affected", "aggregate workload availability"] },
+  { id: "_OTTCOjWqPo", label: "Introduction to AWS Resilience Hub (AWS)", keywords: ["resilience hub", "resilience assessment", "resiliency assessment", "continuously evaluates", "meets its rto and rpo", "resilience score", "rto and rpo targets"] },
+  { id: "PurBJoYkh-I", label: "RTO vs RPO: What's the Difference? (Eye on Tech)", keywords: ["rpo", "rto", "recovery point objective", "recovery time objective", "recovery point objectives", "recovery time objectives", "restored within 4 hours", "lose no more than", "hours of data", "minutes of data loss", "data loss of at most"] },
+  { id: "QSz6pFfHQfg", label: "Disaster Recovery: Pilot Light vs Warm Standby (Go Cloud Architects)", keywords: ["pilot light", "warm standby", "scaled-down but fully functional", "scaled-down copy", "minimal version of its core", "core environment", "replicated database but no", "scale up quickly"] },
+  { id: "36zducUX16w", label: "Cloud Service Models: IaaS, PaaS and SaaS Explained", keywords: ["iaas", "paas", "saas", "infrastructure as a service", "platform as a service", "software as a service", "service model", "service models", "cloud service models", "ec2 is infrastructure as a service", "operating system tuning"] },
+
+  // Security services and controls
+  { id: "SJQSWeogUWs", label: "How to Use IAM Access Analyzer Policy Generation (AWS)", keywords: ["access analyzer", "iam access analyzer", "policy generation", "unused access", "unused access analyzer", "external access", "external access findings", "not been used for 90 days", "custom policy checks", "checknonewaccess", "generate a least-privilege policy", "based on cloudtrail activity"] },
+  { id: "KD-2KR-s-uU", label: "AWS IAM Access Analyzer Explained (Cloud Security Podcast)", keywords: ["shared with an external", "granted to an external", "grants access to a principal outside", "outside the organization", "outside your organization", "outside its organization", "resources shared with", "shared with another account", "public or cross-account access", "cross-account access to resources"] },
+  { id: "5zPHweQAFOw", label: "Configure an IAM Password Policy in 5 Minutes (CentLinux)", keywords: ["password policy", "account password policy", "password length", "minimum password", "password complexity", "short, simple passwords", "password requirements", "passwords expire", "password expiration"] },
+  { id: "BLnuUtjJNLE", label: "What is AWS CloudHSM? (AWS)", keywords: ["cloudhsm", "hsm", "hardware security module", "hardware security modules", "fips 140-2 level 3", "fips 140-3 level 3", "single-tenant", "single tenant", "dedicated hardware", "dedicated, single-tenant", "customer controls the keys entirely", "aws has no access to the keys"] },
+  { id: "1CvZRwwiXJY", label: "AWS KMS vs CloudHSM Explained (Cloud Explainers)", keywords: ["kms vs cloudhsm", "kms or cloudhsm", "cloudhsm cluster", "custom key store backed by", "backed by an aws cloudhsm", "keys never leave the hsm", "hsm-backed"] },
+  { id: "5wIHu27Rr7Y", label: "Encryption at Rest vs Encryption in Transit Explained", keywords: ["in transit", "encryption in transit", "encrypted in transit", "encrypt data in transit", "data in transit", "while it moves", "moves across the network", "over the network", "eavesdropping", "intercepted", "aws:securetransport", "securetransport", "force_ssl", "require tls", "rds.force_ssl", "ssl connection"] },
+  { id: "9-Mj7NNEzlY", label: "What is AWS Private Certificate Authority? (AWS)", keywords: ["private certificate authority", "private ca", "acm private ca", "private certificates", "internal microservices", "never exposed to the public internet", "internal endpoints", "certificate authority", "issue thousands of tls certificates", "own certificate authority"] },
+  { id: "1hYXiYbXoZ8", label: "AWS Nitro Explained in 3 Minutes (Seamus Walsh)", keywords: ["nitro system", "nitro", "nitro hypervisor", "nitro cards", "isolates customer workloads", "dedicated hardware and software", "offloads virtualization", "aws operators", "from aws operators"] },
+  { id: "tRL7Y0mJqU4", label: "AWS Nitro Enclaves Overview (AWS)", keywords: ["nitro enclaves", "enclave", "enclaves", "isolated compute environment", "isolated compute environments", "hardened environment", "highly sensitive card data", "no persistent storage, no interactive access", "attestation"] },
+  { id: "3RBITHCH4xI", label: "AWS Verified Access: Animated Explainer (AWS)", keywords: ["verified access", "without a vpn", "without connecting to a vpn", "zero trust", "zero-trust", "device posture", "device security posture", "each request is evaluated", "identity and device", "internal web applications hosted in"] },
+  { id: "j6IxULE7_4k", label: "What is Amazon Security Lake? (AWS)", keywords: ["security lake", "ocsf", "open cybersecurity schema", "centralize security data", "centralizes security logs", "security data lake", "third-party security tools", "third-party security products", "normalized security data", "security logs from"] },
+  { id: "ymSG5MpN6Do", label: "Overview of AWS Security Incident Response (AWS)", keywords: ["security incident response", "incident response", "incident response service", "incident response plan", "ransomware incident", "ransomware attack", "customer incident response team", "handle a serious event", "24/7 access to the aws customer incident"] },
+  { id: "1e-Hxt5ABVM", label: "AWS Control Tower Controls (Cybr)", keywords: ["preventive control", "preventive controls", "detective control", "detective controls", "proactive control", "proactive controls", "preventive (stop", "before it happens", "identify non-compliant", "identify noncompliant", "three kinds of controls", "control tower control", "controls (guardrails)", "landing zone control", "mandatory control"] },
+  { id: "eq5xbHJpWLw", label: "Security Token Service (STS) Overview", keywords: ["security token service", "session duration", "session credentials", "how long the temporary", "credentials expire", "expire after", "maximum session duration", "temporary security credentials", "sts:assumerole", "duration of the session"] },
+  { id: "zHXWH2ImwKM", label: "IAM Authentication to RDS for PostgreSQL or Aurora (AWS)", keywords: ["iam database authentication", "iam db authentication", "iam authentication", "authentication token", "database passwords in application", "forbids storing database passwords", "authenticate to the database using iam", "connect to rds without a password", "short-lived database token"] },
+  { id: "5JXNWANrVqE", label: "Amazon S3 Server Access Logs (Cybr)", keywords: ["server access logging", "server access logs", "s3 access logs", "every request made to a specific amazon s3 bucket", "requester, bucket name, request time", "detailed record of every request", "request logs for the bucket", "access log records"] },
+  { id: "CSmQ2TttjEw", label: "Disable ACLs on S3 Buckets: Object Ownership (Dennis Traub)", keywords: ["object ownership", "bucket owner enforced", "bucket owner", "acls are disabled", "disable acls", "owned by the bucket owner", "every object in an amazon s3 bucket is owned"] },
+  { id: "uweeumMAif4", label: "GuardDuty Malware Protection for S3 (AWS)", keywords: ["malware protection for s3", "malware protection", "scan uploaded objects", "scans new objects", "external partners upload files", "uploaded files for malware", "malware scanning", "scan objects for malware", "malicious files uploaded"] },
+  { id: "t3rVVilJWEk", label: "GuardDuty EKS Runtime Monitoring (AWS)", keywords: ["runtime monitoring", "runtime behavior", "lightweight agent", "security agent", "container runtime", "inside the containers", "process-level", "os-level events", "eks and amazon ecs on fargate"] },
+  { id: "g3PZWstxHYY", label: "CloudWatch Logs Data Protection Policies (Cybr)", keywords: ["data protection policy", "data protection policies", "mask sensitive data in logs", "masks sensitive data", "credit card numbers, to amazon cloudwatch", "log full customer records", "sensitive data in logs", "redact", "redacted"] },
+  { id: "CFKYeCvX4K0", label: "VPC Traffic Mirroring Recap (Chris Callas)", keywords: ["traffic mirroring", "mirror traffic", "mirrors network traffic", "full packet", "full packet payloads", "packet capture", "packet payloads", "copy of network traffic", "intrusion detection appliance"] },
+  { id: "4XeqotTYBtY", label: "Introduction to AWS Directory Service (AWS)", keywords: ["directory service", "managed microsoft ad", "aws managed microsoft active directory", "managed active directory", "microsoft active directory on-premises", "active directory", "domain join", "domain-join", "windows file servers", "ad trust", "trust relationship with its on-premises"] },
+  { id: "WHBw9QxYQkY", label: "How Do I Use IAM Identity Center Permission Sets? (AWS)", keywords: ["permission set", "permission sets", "define once and assign", "define a set of permissions once", "assigned to users or groups across accounts", "identity center provisions", "provisions as roles", "aws access portal", "access portal", "aws configure sso"] },
+  { id: "A7GVeqFvqFM", label: "SAML vs OpenID Connect (OIDC): What's the Difference? (JumpCloud)", keywords: ["saml 2.0", "saml", "scim", "external identity provider", "external idp", "okta", "azure ad", "entra id", "identity provider that supports saml", "federate with", "authenticate users through the identity provider", "corporate identity provider"] },
+  { id: "Rezh4V9kE30", label: "AWS Control Tower: Multi-Account Governance at Scale (Network Intelligence)", keywords: ["account factory", "landing zone with preconfigured", "prescriptive landing zone", "governed multi-account", "multi-account environment based on aws best practices", "secure, multi-account environment", "sets up a multi-account", "enrolling accounts", "enroll accounts"] },
+  { id: "ubdJlHrxlXE", label: "Back to Basics: Multi-Account Organization Design Patterns (AWS)", keywords: ["organizational unit", "organizational units", "ou structure", "workloads ou", "security ou", "sandbox ou", "infrastructure ou", "account structure", "structure its accounts", "organize accounts into", "grouping accounts", "group accounts"] },
+  { id: "mEO05mmbSms", label: "Enforce Preventive Guardrails Using Service Control Policies (AWS)", keywords: ["deny actions in", "denies actions in", "deny all actions", "denies all actions", "denies the creation of", "outside approved regions", "prevent member accounts from", "prevent any account from", "guarantee that no account can", "applies to every account in", "applies to all principals", "scp applies", "scps do not affect the management account", "management account is not affected", "declarative polic", "resource control polic", "rcp", "rcps"] },
+  { id: "cCFVzs-vRMk", label: "GDPR: How AWS Can Help You (AWS)", keywords: ["gdpr", "general data protection regulation", "eu region", "eu regions", "european company", "personal data of eu", "data protection regulation", "must comply with gdpr", "eu-central-1", "eu-west-1 region such"] },
+  { id: "JcPcOKsil3Y", label: "Build for HIPAA Compliance on AWS (AWS How to Build This)", keywords: ["hipaa", "business associate addendum", "business associate agreement", "baa", "protected health information", "phi", "hipaa-eligible", "hipaa eligible", "healthcare provider", "patient records", "health information"] },
+  { id: "Is6Q8FoUvog", label: "Generating a PCI DSS Report Using AWS Artifact (KnoDAX)", keywords: ["pci", "pci dss", "pci-dss", "payment card", "card data", "cardholder data", "attestation of compliance", "aoc", "pci dss certification", "credit card payments", "payment application"] },
+  { id: "05OxVrncZ1c", label: "AWS Dedicated Local Zones Explainer (AWS)", keywords: ["dedicated local zones", "dedicated local zone", "physically dedicated", "exclusively for the use of", "classified workloads", "public-sector agency", "dedicated to a single customer", "dedicated infrastructure for"] },
+
+  // Compute, containers and storage
+  { id: "DBbvFA6Up98", label: "AWS App Runner (AWS)", keywords: ["app runner", "directly from a source code repository", "from a source code repository or container image", "deploy a containerized web api directly", "no infrastructure to manage", "web applications and apis at scale", "fully managed container application service"] },
+  { id: "uCH04Mlg0yU", label: "Amazon WorkSpaces Animated Explainer (AWS)", keywords: ["workspaces", "virtual desktop", "virtual desktops", "persistent virtual desktop", "persistent desktop", "desktop as a service", "daas", "cloud desktops", "cloud desktop", "personal laptops", "seasonal call-center", "contractors who work from home", "secure browser", "workspaces secure browser", "unmanaged laptops"] },
+  { id: "hVGQ87-Uhrc", label: "Amazon AppStream 2.0 User Workflow (AWS)", keywords: ["appstream", "appstream 2.0", "application streaming", "stream applications", "streams individual desktop applications", "run a licensed engineering application from any device", "through a web browser", "cad and simulation software", "from their own laptops and chromebooks", "without installing the application"] },
+  { id: "Wj54oVi2OWQ", label: "The AWS Graviton Advantage (Arm)", keywords: ["graviton", "arm-based", "arm based", "arm processors", "trainium", "inferentia", "custom silicon", "aws-designed processors", "aws-designed chips", "price-performance", "price performance", "m6g", "t4g"] },
+  { id: "ue_o5spSWoE", label: "Amazon EC2 T3 Burstable Instances Overview (AWS)", keywords: ["burstable", "burstable performance", "t3", "t4g", "t family", "cpu credits", "cpu credit", "baseline cpu", "baseline performance", "burst above the baseline", "near idle most of the day", "occasional short bursts", "sits near idle"] },
+  { id: "zrT4d0DKsko", label: "AWS EC2 Hibernate Feature Explained (Network Rhinos)", keywords: ["hibernate", "hibernation", "hibernated", "in-memory state", "contents of memory", "save the ram", "saves the contents of", "20 minutes to load", "in-memory dataset", "resume where they left off", "ram to the ebs root volume"] },
+  { id: "DT0JkCHNqkU", label: "AWS Transfer Family Explained (Everything at Cloud)", keywords: ["transfer family", "sftp", "ftps", "as2", "managed sftp", "over sftp", "sftp server", "partner organizations that can only", "exchange files over sftp", "settlement files", "file transfer protocol"] },
+  { id: "4v08-CzjH1U", label: "Amazon FSx for Lustre: High-Performance File System (AWS)", keywords: ["fsx for lustre", "lustre", "high-performance file system", "high performance file system", "hpc file system", "machine learning training pipeline", "hundreds of ec2 instances that must all read", "throughput of hundreds of gigabytes", "linked to an s3 bucket", "training data in s3 exposed as a file system"] },
+  { id: "epP_GU6rnkE", label: "Amazon FSx Overview (CloudWolf)", keywords: ["fsx", "fsx for windows", "fsx for windows file server", "fsx for netapp ontap", "netapp ontap", "fsx for openzfs", "openzfs", "smb", "smb file share", "windows-based application", "windows file share", "netapp", "zfs", "multi-protocol"] },
+  { id: "Y699Gjx2rNw", label: "Amazon S3: Introduction to S3 Intelligent-Tiering (AWS)", keywords: ["intelligent-tiering", "intelligent tiering", "access patterns are unpredictable", "access patterns are unknown", "unknown or changing access patterns", "changing access patterns", "monitoring and automation fee", "no retrieval fees", "automatically moves objects between access tiers", "access tiers", "frequent access tier", "infrequent access tier"] },
+  { id: "H_IwcosB3qU", label: "Introducing the Amazon S3 One Zone-IA Storage Class (AWS)", keywords: ["one zone-ia", "one zone-infrequent access", "one zone infrequent access", "single availability zone", "in a single az", "secondary copies", "easily re-creatable", "can be re-created", "reproducible data", "20% less than standard-ia"] },
+  { id: "IGQtG-7kbbM", label: "Introduction to Amazon S3 Express One Zone (AWS)", keywords: ["express one zone", "s3 express", "directory bucket", "directory buckets", "single-digit millisecond data access", "millions of small objects per second", "colocated with the compute", "colocate", "lowest latency object storage", "performance-critical"] },
+  { id: "E2vy1yhJSHE", label: "Amazon S3 Storage Lens: Organization-Wide Visibility (AWS)", keywords: ["storage lens", "organization-wide visibility", "hundreds of s3 buckets spread across", "single dashboard showing storage usage", "storage usage and activity trends", "object storage usage across accounts", "storage metrics across all accounts"] },
+  { id: "xOX7lubTR0w", label: "Advanced S3: Requester Pays Explained (CloudWolf)", keywords: ["requester pays", "requester-pays", "requesters pay", "external researchers download", "external organizations download", "downloader pays", "the requester is charged", "pays for the data transfer", "public dataset"] },
+  { id: "k8De2AfAN3k", label: "AWS Cost Optimisation Series: CloudFront (AWS)", keywords: ["price class", "price classes", "cloudfront price class", "s3 to cloudfront", "data transfer from s3 to cloudfront", "serve through cloudfront to reduce", "surprised by the size of its data transfer", "directly from an amazon s3 bucket to users worldwide", "cheaper edge locations", "cheaper price class"] },
+  { id: "YpmUwaqKT9E", label: "AWS Data Transfer Costs Explained: Complete Breakdown (Cloudperceptor)", keywords: ["between availability zones", "cross-az", "cross-az data transfer", "inter-az", "same region data transfer", "traffic between azs", "over direct connect is charged", "direct connect data transfer", "port-hour", "port hour", "free data transfer out", "data transfer out waiver", "leaving aws", "another cloud provider"] },
+  { id: "4EvktMxjyxU", label: "AWS Public IPv4 Address Charges Explained (Digital Cloud Training)", keywords: ["public ipv4", "public ipv4 address", "public ipv4 addresses", "ipv4 charge", "ipv4 addresses charge", "hourly rate for every public ipv4", "idle elastic ip", "elastic ip that is not associated", "line item for public ipv4", "ipv6 to avoid"] },
+
+  // Networking and integration
+  { id: "Vt_t4hCjvuc", label: "Amazon VPC IP Address Manager (IPAM) (AWS)", keywords: ["ip address manager", "ipam", "overlapping cidr", "overlapping cidr blocks", "overlapping ip", "cidr allocation", "plan and track ip", "ip address planning", "allocate cidr", "ip address space across accounts"] },
+  { id: "6GoU4HAebAM", label: "What is AWS Cloud WAN (TechBitsBytesX)", keywords: ["cloud wan", "global wide area network", "global network across regions", "wide area network", "core network", "vpcs in six aws regions", "offices on three continents", "single global network", "unified global network"] },
+  { id: "6NSxo5syl40", label: "What is Amazon AppFlow? (AWS)", keywords: ["appflow", "salesforce", "saas data", "saas applications such as salesforce", "copy salesforce", "servicenow", "zendesk data", "transfer data between saas", "no-code integration", "saas integration"] },
+  { id: "Lu9QVJ0Rml4", label: "AWS Data Exchange (AWS)", keywords: ["data exchange", "third-party datasets", "third-party data", "subscribe to datasets", "data providers", "licensed data", "weather history, demographics", "external datasets", "find and subscribe to data"] },
+  { id: "-h2LOQZzRfI", label: "AWS Clean Rooms (AWS)", keywords: ["clean rooms", "clean room", "joint analysis", "without sharing raw data", "without exposing raw data", "each hold customer datasets", "collaborate on data", "share underlying data", "advertising partner", "analyze combined data"] },
+  { id: "pWzDdmASlA8", label: "Introduction to AWS Ground Station (AWS)", keywords: ["ground station", "satellite", "satellites", "satellite imagery", "downlink", "antenna", "antennas", "low-earth-orbit", "low earth orbit", "download data from its satellites"] },
+  { id: "8osJ6KI3I7c", label: "Amazon OpenSearch Service Tutorial (CloudWolf)", keywords: ["opensearch", "opensearch service", "elasticsearch", "full-text search", "full text search", "log analytics", "index application and security logs", "search and analyze logs", "kibana", "opensearch dashboards"] },
+  { id: "4k7Rra0DE7w", label: "AWS Elemental MediaConvert Explained (AWS)", keywords: ["mediaconvert", "elemental", "medialive", "mediapackage", "transcode video", "video transcoding service", "convert each file into multiple formats", "broadcast-grade", "file-based video", "video processing service", "multiple formats and bitrates"] },
+  { id: "9xbtq362Scs", label: "What is Blockchain on AWS? (AWS)", keywords: ["managed blockchain", "blockchain", "hyperledger", "hyperledger fabric", "ethereum", "tamper-evident transaction ledger", "consortium of banks", "multiple independent organizations", "decentralized ledger", "shared ledger"] },
+  { id: "ZfIkcCaPm14", label: "Amazon EventBridge Explainer Video (AWS)", keywords: ["eventbridge pipes", "pipes", "point-to-point integration", "point to point", "filter and enrich", "forward only records where", "eventbridge scheduler", "event pattern", "event patterns", "custom event bus"] },
+  { id: "pfJwvpSr9pM", label: "Amazon Connect Explained: AWS Contact Center (KnoDAX)", keywords: ["amazon connect", "contact center", "contact centre", "call center", "call centre", "inbound phone calls", "agents should handle", "customer service agents", "ivr", "omnichannel"] },
+
+  // Billing and account management
+  { id: "or7Phc2y5R0", label: "Build with AWS for Startups: AWS Activate (AWS)", keywords: ["activate", "aws activate", "activate credits", "startup", "startups", "seed funding", "early-stage startup", "accelerator", "venture", "startup program", "promotional credits for startups"] },
+  { id: "-tWo5cCoqBc", label: "Cost Optimization Hub Overview (Tony FinOps)", keywords: ["cost optimization hub", "optimization hub", "consolidates cost optimization", "single place to see all cost", "recommendations from trusted advisor, compute optimizer", "all savings opportunities", "idle resources, rightsizing, and savings plans", "consolidated view of cost recommendations"] },
+  { id: "ts78-VwKkmk", label: "AWS Cost Anomaly Detection Overview (Tony FinOps)", keywords: ["cost anomaly detection", "cost anomaly", "cost anomalies", "unexpected cost spike", "unusual spend", "unusual spending", "deviate unexpectedly from historical", "misconfigured job started launching", "anomalous spend", "spending patterns deviate"] },
+  { id: "8oF4yDWA3qA", label: "How Can I Use Cost Explorer to Analyze My Spending? (AWS)", keywords: ["hourly and resource-level granularity", "hourly granularity", "resource-level", "resource level", "unblended", "amortized", "amortized costs", "net amortized", "cost type", "cost explorer forecasting", "project what the company's total bill", "forecast the bill"] },
+  { id: "9BZVvZcyc1k", label: "AWS Savings Plans Explained: EC2 and Compute (Harness)", keywords: ["savings plans utilization", "savings plans coverage", "savings plan utilization", "utilization budgets", "coverage budgets", "commitment is used below", "purchase recommendations", "savings plans recommendations", "recommendations are calculated", "pays the full commitment", "unused commitment"] },
+  { id: "-RYEEsvmusE", label: "Amazon EC2 Reserved Instance Marketplace (AWS)", keywords: ["reserved instance marketplace", "ri marketplace", "sell the remaining term", "sell reserved instances", "sell the reserved", "project that was cancelled", "unused reserved instances", "resell", "sell them to other"] },
+  { id: "Yg7obU5MY78", label: "Reserved Instances Explained (Answers for AWS)", keywords: ["ri utilization", "ri coverage", "utilization and coverage", "reserved instance utilization", "coverage report", "coverage reports", "zonal", "zonal scope", "regional scope", "reserved db instance", "reserved db instances", "reserved capacity for", "reserved nodes", "elasticache reserved"] },
+  { id: "tgt09Vpvebk", label: "Manage Your AWS Purchase Orders (AWS)", keywords: ["purchase order", "purchase orders", "po number", "approved purchase order", "supplier invoice", "supplier invoices", "invoices that reference", "accounts payable", "reference an internal purchase order"] },
+  { id: "xFy7x6xqn6U", label: "Managing AWS Costs in a Multi-Account Environment (Everything at Cloud)", keywords: ["billing conductor", "pro forma", "pro-forma", "custom billing", "custom pricing rules", "resells aws", "reseller", "managed service provider", "msp", "separate invoices for each customer", "show-back"] },
+  { id: "lZJaNPVuYJY", label: "How to Enable Billing Management in AWS (CBT Nuggets)", keywords: ["iam access to billing", "activate iam access", "iam user and role access to billing", "billing console access", "access to the billing console", "billing job function", "billing permissions", "payment currency", "currency preference", "invoice currency", "exchange rate", "billing preferences", "tax settings", "tax registration", "gst registration", "tax inheritance"] },
+  { id: "SDRimsx0yJY", label: "AWS Support Plans: Basic vs Developer vs Business vs Enterprise (Cloud Explainers)", keywords: ["enterprise on-ramp", "on-ramp", "30-minute response", "30 minute response", "pooled access", "pool of technical account managers", "pooled technical account", "response time", "response times", "initial response", "guaranteed initial response", "faster response times"] },
+  { id: "c2EJxGfIxJo", label: "AWS Support Plans Explained: Basic, Developer, Business, Enterprise (Cram Exam)", keywords: ["basic support", "developer support", "business support", "least expensive paid support", "cheapest paid", "12 business hours", "system impaired", "general guidance", "one primary contact", "unlimited contacts", "support api", "support center", "open a support case", "raise a technical case", "support case programmatically"] },
+  { id: "KimOlqNxs3w", label: "AWS Business Support (AWS)", keywords: ["third-party software", "third party software support", "help troubleshoot configuration", "commercial database on ec2", "windows server and a commercial database", "operating system and third-party", "24/7 phone, chat, and email", "production system down", "production workload on aws", "cloud support engineers"] },
+  { id: "aOucA-SIm-M", label: "AWS Support Incident Detection and Response (AWS)", keywords: ["incident detection and response", "aws countdown", "countdown", "infrastructure event management", "iem", "major sales event", "ten times its normal traffic", "planned event", "product launch support", "event planning with aws"] },
+  { id: "Zdtk8U_TMYs", label: "AWS Client VPN vs Site-to-Site VPN (KnoDAX)", keywords: ["client vpn", "aws client vpn", "remote employees", "work remotely", "from their laptops", "from home and coffee shops", "openvpn", "openvpn-based", "vpn client", "remote access vpn", "direct network access to private ec2"] },
+  { id: "WqhAnLdg3rg", label: "AWS Customer Carbon Footprint Tool Overview (AWS)", keywords: ["customer carbon footprint tool", "carbon footprint tool", "carbon emissions", "estimated carbon emissions", "report the estimated carbon", "emissions associated with", "carbon footprint of its cloud", "emissions report", "carbon data"] },
+
   // Added: every video below is under 10 minutes; more specific topics so fewer questions share a link
   // Cloud concepts and global infrastructure
   { id: "Kv3b48fKcUY", label: "How to Choose the Right AWS Region", keywords: ["choose a region", "choosing a region", "which aws region", "which region", "data residency", "data sovereignty", "gdpr", "sovereignty", "never leaves", "proximity", "close to its users", "close to customers", "service availability", "govcloud", "china", "partition", "opt-in", "disabled by default"] },
@@ -228,10 +358,10 @@ export const videoCatalog: VideoEntry[] = [
   { id: "FNbHpOTwifQ", label: "Test IAM Policies with the IAM Policy Simulator", keywords: ["policy simulator", "simulate", "simulator", "test a policy", "test the policy", "before attaching", "which api calls", "confirm exactly which"] },
 
   // Encryption, detection and audit
-  { id: "MWhKuoHV57Q", label: "KMS Key Types: AWS Owned vs AWS Managed vs Customer Managed", keywords: ["aws owned key", "aws owned keys", "aws managed key", "aws managed keys", "customer managed key", "customer managed keys", "key policy", "key policies", "cmk", "key material", "import key material", "rotation of the key", "automatic key rotation", "schedule key deletion", "delete a kms key", "kms key deletion", "retire a customer managed"] },
+  { id: "MWhKuoHV57Q", label: "KMS Key Types: AWS Owned vs AWS Managed vs Customer Managed", keywords: ["aws owned key", "aws owned keys", "aws managed key", "aws managed keys", "customer managed key", "customer managed keys", "key policy", "key policies", "bucket key", "bucket keys", "s3 bucket keys", "kms request charges", "cmk", "key material", "import key material", "rotation of the key", "automatic key rotation", "schedule key deletion", "delete a kms key", "kms key deletion", "retire a customer managed"] },
   { id: "Nvim7tQ22_k", label: "Multi-Region KMS Keys Explained", keywords: ["multi-region key", "multi-region keys", "replicate the key", "replica key", "kms key in another region", "keys are regional", "kms keys are regional", "decrypt in another region", "re-encrypt"] },
   { id: "FvWQlMVY4g4", label: "EBS Encryption: Secure Data at Rest", keywords: ["ebs encryption", "encrypted ebs", "encrypted snapshot", "encrypted snapshots", "unencrypted volume", "unencrypted snapshot", "encrypt an existing", "share a snapshot", "share the snapshot", "snapshot with another account", "copy the snapshot"] },
-  { id: "nUI7G9UzyN8", label: "What is AWS WAF? (AWS)", keywords: ["rate-based", "rate based", "rate limit", "rate limiting", "requests per minute", "credential-stuffing", "credential stuffing", "bots", "bot control", "geo match", "geo-match", "geographic match", "block requests from", "block web requests", "ip set", "ip address ranges"] },
+  { id: "nUI7G9UzyN8", label: "What is AWS WAF? (AWS)", keywords: ["rate-based", "rate based", "requests per minute", "credential-stuffing", "credential stuffing", "bots", "bot control", "geo match", "geo-match", "count mode", "action to count", "web acl rule", "managed rules rule group", "managed rules rule groups", "geographic match", "block requests from", "block web requests", "ip set", "ip address ranges"] },
   { id: "FupObkKT2Uo", label: "AWS CloudTrail Advanced Features", keywords: ["cloudtrail lake", "sql-style queries", "sql-style", "event data store", "seven years", "retain aws api activity", "retain events", "query across", "immutable event"] },
   { id: "rk0RHxQCD8Q", label: "CloudTrail Log File Integrity Validation", keywords: ["integrity validation", "log file integrity", "integrity of the log", "not been modified", "have not been modified", "modified or deleted", "tampered", "tampering", "digest", "digest file", "digest files", "sha-256"] },
   { id: "mSMlxUJERdg", label: "AWS Audit Manager in 5 Minutes", keywords: ["audit manager", "collecting evidence", "collect evidence", "evidence collection", "audit evidence", "assessment report", "audit-ready", "continuously audit", "audit preparation", "prepare for audits", "collecting screenshots"] },
@@ -288,7 +418,7 @@ export const videoCatalog: VideoEntry[] = [
 
   // Identity, policies and credentials
   { id: "GUou0EGif-o", label: "IAM Permissions Boundaries: Limit Maximum Permissions", keywords: ["maximum permissions a role", "developers create their own iam roles", "create their own iam roles", "create iam roles for their applications", "no role a developer", "cap the permissions", "upper limit on permissions", "never exceed", "cannot exceed", "let developers create"] },
-  { id: "83K8imcWnrc", label: "Identity vs Resource Policies (Cloud Bart)", keywords: ["identity-based polic", "resource-based polic", "identity-based and resource-based", "trust policy", "trust policies", "two kinds of policies", "permissions policy and a trust", "who can assume", "attached directly to an aws resource", "attached to a resource"] },
+  { id: "83K8imcWnrc", label: "Identity vs Resource Policies (Cloud Bart)", keywords: ["identity-based policy", "identity-based policies", "resource-based policy", "resource-based policies", "resource policy", "identity-based and resource-based", "trust policy", "trust policies", "two kinds of policies", "permissions policy and a trust", "who can assume", "attached directly to an aws resource", "attached to a resource"] },
   { id: "h7Z2l_9Sq8Y", label: "AWS IAM: PassRole or AssumeRole", keywords: ["passrole", "pass role", "iam:passrole", "sts:assumerole", "assumerole", "pass a role", "passing a role", "session policy", "session policies", "scoped-down", "scope down", "narrower than the role"] },
   { id: "iWJKlf411WY", label: "Service-Linked Roles and PassRole in AWS", keywords: ["service-linked role", "service linked role", "service-linked roles", "awsservicerolefor", "predefined by the service", "linked to a service", "created automatically by", "role that nobody", "owned by the service"] },
   { id: "Y2xAwDC_QIg", label: "Introduction to Amazon Verified Permissions (AWS)", keywords: ["verified permissions", "cedar", "fine-grained authorization", "fine-grained, policy-based authorization", "authorization inside the application", "authorization inside their application", "application-level permissions", "who can do what within the application", "document-sharing", "document-management"] },
@@ -311,7 +441,7 @@ export const videoCatalog: VideoEntry[] = [
   // Availability zones, placement and capacity
   { id: "_MROZtLtCcA", label: "Introduction to Amazon RDS Multi-AZ Deployments (AWS)", keywords: ["primary database instance", "primary instance or its", "minimal downtime if the primary", "automatic failover", "synchronous standby", "standby replica", "standby in another", "standby in a different", "fails over", "promotes the standby", "automatically fail over"] },
   { id: "n5bDDofU6JE", label: "EC2 Placement Groups: Cluster, Spread, Partition", keywords: ["placement group", "placement groups", "cluster placement", "spread placement", "partition placement", "tightly coupled", "tightly-coupled", "low-latency network", "low network latency", "high-bandwidth", "node-to-node", "hpc", "high performance computing", "high-performance computing", "same rack", "separate racks", "computational fluid", "exchanges large volumes"] },
-  { id: "wczSf-hg3qU", label: "EC2 Capacity Reservations (CloudWolf)", keywords: ["capacity reservation", "capacity reservations", "on-demand capacity reservation", "reserve capacity", "guarantee capacity", "guaranteed capacity", "insufficient capacity", "insufficientinstancecapacity", "capacity is available", "disaster recovery exercise", "certain it can launch", "be certain", "must be certain", "launch 200 ec2", "capacity will be available"] },
+  { id: "wczSf-hg3qU", label: "EC2 Capacity Reservations (CloudWolf)", keywords: ["capacity reservation", "capacity reservations", "on-demand capacity reservation", "reserve capacity", "guarantee capacity", "guaranteed capacity", "insufficient capacity", "capacity blocks", "capacity blocks for ml", "gpu capacity", "insufficientinstancecapacity", "capacity is available", "disaster recovery exercise", "certain it can launch", "be certain", "must be certain", "launch 200 ec2", "capacity will be available"] },
   { id: "LKhwz-1O7zY", label: "What the Nines Really Mean: 99.9% Uptime Explained", keywords: ["99.9%", "99.99%", "99.999%", "nines", "downtime per year", "downtime per month", "availability target", "availability targets", "minutes of downtime", "hours of downtime", "roughly how much", "availability promise", "promises customers"] },
   { id: "miEHdzqlRsY", label: "High Availability vs Fault Tolerance (Cloud Academy)", keywords: ["n+1", "one more than", "extra instance", "keep handling peak", "still handle peak", "handle peak traffic if", "loses an availability zone", "loss of one availability zone", "tolerate the loss", "tolerate losing", "survive the loss of", "two very large", "many smaller instances", "smaller instances instead"] },
   { id: "hoECEWGFJMk", label: "What is Auto Scaling and Elasticity (360Learning)", keywords: ["not limited to adding and removing", "beyond ec2", "elasticity on aws", "sticky session", "sticky sessions", "session in the memory", "session state", "stateless web tier", "stateless application", "externalize session", "store session", "session store"] },
@@ -333,7 +463,7 @@ export const videoCatalog: VideoEntry[] = [
 
   // Serverless and event-driven
   { id: "i6ls3qinMM4", label: "AWS Lambda Environment Variables: 8 Things to Know", keywords: ["environment variable", "environment variables", "api token", "third-party api token", "store the token", "plaintext in the function", "store secrets", "secure string", "securestring", "ssm parameter", "secret in plaintext", "instead of environment variables"] },
-  { id: "R1wRuPhvu90", label: "AWS Lambda Concurrency: Reserved vs Provisioned", keywords: ["reserved concurrency", "concurrent executions", "concurrency", "too many invocations", "limit the number of concurrent", "each open a connection", "hundreds of concurrent"] },
+  { id: "R1wRuPhvu90", label: "AWS Lambda Concurrency: Reserved vs Provisioned", keywords: ["reserved concurrency", "concurrent executions", "concurrency", "too many invocations", "limit the number of concurrent", "hundreds of concurrent"] },
   { id: "yj-BRhfr9z8", label: "SQS Standard vs FIFO Queues (LearnCantrill)", keywords: ["fifo queue", "fifo queues", "standard queue", "standard queues", "exactly-once", "exactly once", "at-least-once", "at least once", "message ordering", "in the order", "order of messages", "duplicate messages", "deduplication", "strict ordering", "processed in order"] },
   { id: "beV1AYyhgYA", label: "Connecting a Lambda Function to a VPC (Digital Cloud Training)", keywords: ["lambda function must query", "lambda in a vpc", "lambda to a vpc", "function to the vpc", "attach the function to", "private subnet with no public", "no public endpoint", "not publicly accessible", "rds in a private subnet", "database that sits in a private subnet", "vpc configuration for the function", "connect the lambda function to the vpc"] },
   { id: "xKFA6PJgp0o", label: "Amazon Aurora Serverless (AWS)", keywords: ["aurora serverless", "serverless v2", "sporadic", "hours of no activity", "hours with no activity", "idle for hours", "scales to zero", "pause when idle", "automatically start", "unpredictable database", "capacity units", "acu", "acus", "database-per-tenant", "separate database for each of its"] },
@@ -362,7 +492,7 @@ export const videoCatalog: VideoEntry[] = [
 
   // Cloud concepts and economics
   { id: "e8F2ls3n_Wo", label: "Scalability vs Elasticity in 99 Seconds", keywords: ["scalability", "scalable", "scale up or down", "scale up and down", "scale resources", "acquire resources", "release resources", "match demand", "matches demand", "as demand changes", "only what you need", "grow and shrink", "acquire and release"] },
-  { id: "5T_LL0-3VqY", label: "The Six Advantages of AWS Cloud Computing", keywords: ["six advantages", "6 advantages", "benefit from massive economies", "massive economies of scale", "stop guessing capacity", "guessing capacity", "guess capacity", "increase speed and agility", "speed and agility", "stop spending money running and maintaining", "running and maintaining data centers", "trade fixed expense", "trade capital expense", "fixed expense for variable", "upfront expense for variable", "capital expenses for variable"] },
+  { id: "5T_LL0-3VqY", label: "The Six Advantages of AWS Cloud Computing", keywords: ["six advantages", "6 advantages", "benefit from massive economies", "massive economies of scale", "stop guessing capacity", "guessing capacity", "guess capacity", "undifferentiated heavy lifting", "heavy lifting", "racking servers", "increase speed and agility", "speed and agility", "stop spending money running and maintaining", "running and maintaining data centers", "trade fixed expense", "trade capital expense", "fixed expense for variable", "upfront expense for variable", "capital expenses for variable"] },
   { id: "wxTznCzs2ts", label: "Economies of Scale in Cloud Computing", keywords: ["lower pay-as-you-go prices", "hundreds of thousands of customers", "aggregated usage", "lower variable cost", "achieve a lower variable cost", "usage from hundreds of thousands", "buys in bulk", "bulk purchasing", "purchasing power"] },
   { id: "2pMhRe9iVxI", label: "What is Cloud Computing? Benefits Explained", keywords: ["definition of cloud computing", "on-demand delivery", "on demand delivery", "it resources over the internet", "over the internet", "pay-as-you-go pricing", "compute power, database", "compute, database, storage", "via the internet", "delivered over the internet", "definition that aws uses"] },
   { id: "mNo-zmFu5Zw", label: "AWS SES Explained for Beginners", keywords: ["simple email service", "send email", "sending email", "send emails", "transactional email", "transactional emails", "marketing email", "marketing emails", "bulk email", "newsletter", "order confirmations", "password reset messages", "email sending", "outbound email", "email delivery"] },
@@ -423,48 +553,110 @@ export function videoUrlFor(id: string): string {
   return `https://www.youtube.com/watch?v=${id}`;
 }
 
-/** Text a keyword must match against: the question, its explanation, and the correct options. */
-function searchableText(question: Question): string {
+/**
+ * The three text fields a keyword is matched against. The question stem is weighted highest
+ * because it names the topic being tested; the explanation often name-drops neighbouring
+ * services (for example "unlike Lambda, ...") that must not steal the match.
+ */
+export interface Haystacks {
+  stem: string;
+  answers: string;
+  explanation: string;
+}
+
+const STEM_WEIGHT = 3;
+/** The correct answer names the tested service or concept outright, so it is the strongest signal. */
+const ANSWER_WEIGHT = 4;
+const EXPLANATION_WEIGHT = 1;
+/** Hits per keyword per field are capped so a service mentioned ten times does not swamp a more specific phrase. */
+const MAX_HITS_PER_KEYWORD = 2;
+/** Long phrases are more specific than single words, but beyond this length extra characters add no certainty. */
+const MAX_KEYWORD_LENGTH_CREDIT = 15;
+
+export function haystacksFor(question: Question): Haystacks {
   const correctOptions = question.options
     .filter((o) => question.correctOptionIds.includes(o.id))
     .map((o) => o.text);
-  return [question.text, question.explanation, ...correctOptions].join(" \n ").toLowerCase();
+  return {
+    stem: question.text.toLowerCase(),
+    answers: correctOptions.join(" \n ").toLowerCase(),
+    explanation: question.explanation.toLowerCase(),
+  };
 }
 
 function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/**
- * Scores a keyword against the haystack. Whole-word matches only, so "ec2" does not match
- * "ec2-classic"'s neighbour text incorrectly and "scp" does not match "scope".
- * Each hit is worth the keyword's length so multi-word phrases dominate single words.
- */
-function keywordScore(keyword: string, haystack: string): number {
-  const pattern = new RegExp(`(^|[^a-z0-9])${escapeRegExp(keyword)}(?=$|[^a-z0-9])`, "g");
-  const hits = haystack.match(pattern)?.length ?? 0;
-  return hits * keyword.length;
+const patternCache = new Map<string, RegExp>();
+
+function patternFor(keyword: string): RegExp {
+  let pattern = patternCache.get(keyword);
+  if (!pattern) {
+    pattern = new RegExp(`(^|[^a-z0-9])${escapeRegExp(keyword)}(?=$|[^a-z0-9])`, "g");
+    patternCache.set(keyword, pattern);
+  }
+  return pattern;
+}
+
+/** Whole-word occurrences of `keyword` in `text`, so "scp" does not match "scope". */
+export function countHits(keyword: string, text: string): number {
+  const hits = text.match(patternFor(keyword))?.length ?? 0;
+  return Math.min(hits, MAX_HITS_PER_KEYWORD);
 }
 
 /**
- * Picks the best curated video for a question. An explicit `videoUrl` on the question wins;
- * otherwise the catalog entry with the highest keyword score is used, falling back to a
- * domain-level video so every question has a link.
+ * Scores a keyword against the question. Each hit is worth the keyword's length so multi-word
+ * phrases dominate single words, scaled by where the hit occurred.
+ */
+export function keywordScore(keyword: string, h: Haystacks): number {
+  const weighted =
+    countHits(keyword, h.stem) * STEM_WEIGHT +
+    countHits(keyword, h.answers) * ANSWER_WEIGHT +
+    countHits(keyword, h.explanation) * EXPLANATION_WEIGHT;
+  return weighted * Math.min(keyword.length, MAX_KEYWORD_LENGTH_CREDIT);
+}
+
+/**
+ * Total score of a catalog entry for a question. `weightFor` lets the offline assignment
+ * script scale each keyword by its rarity across the whole bank; at runtime every keyword
+ * weighs 1.
+ */
+export function entryScore(entry: VideoEntry, h: Haystacks, weightFor: (keyword: string) => number = () => 1): number {
+  let score = 0;
+  for (const keyword of entry.keywords) {
+    const k = keyword.toLowerCase();
+    score += keywordScore(k, h) * weightFor(k);
+  }
+  return score;
+}
+
+/**
+ * Picks the best curated video for a question, in priority order:
+ * 1. an explicit `videoUrl` on the question;
+ * 2. the reviewed assignment generated by `scripts/assign-videos.mts`, which scores every
+ *    question against the whole catalog with keyword-rarity weighting and spreads questions
+ *    across videos so few share a link;
+ * 3. live keyword scoring, for questions added since the assignments were last generated;
+ * 4. a domain-level video, so every question has a link.
  */
 export function resolveVideo(question: Question): { url: string; label: string } {
   if (question.videoUrl) {
     return { url: question.videoUrl, label: question.videoLabel ?? "YouTube" };
   }
 
-  const haystack = searchableText(question);
+  const assignedId = videoAssignments[question.id];
+  const assigned = assignedId ? videoCatalog.find((v) => v.id === assignedId) : undefined;
+  if (assigned) {
+    return { url: videoUrlFor(assigned.id), label: assigned.label };
+  }
+
+  const haystacks = haystacksFor(question);
   let best: VideoEntry | undefined;
   let bestScore = 0;
 
   for (const entry of videoCatalog) {
-    let score = 0;
-    for (const keyword of entry.keywords) {
-      score += keywordScore(keyword.toLowerCase(), haystack);
-    }
+    const score = entryScore(entry, haystacks);
     if (score > bestScore) {
       bestScore = score;
       best = entry;

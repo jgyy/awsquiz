@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && node scripts/vendor.mts && node scripts/build-sw.mts",
     "watch": "tsc --watch",
-    "dev": "node scripts/dev.mts"
+    "dev": "node scripts/dev.mts",
+    "videos:assign": "tsc && node scripts/assign-videos.mts && tsc"
   },
   "devDependencies": {
     "mermaid": "^12.0.0",

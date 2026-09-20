@@ -14,6 +14,10 @@ For a one-off production build without the dev server:
 
 `npm run build` compiles the TypeScript, copies the Mermaid bundle into `vendor/`, and generates `sw.js` with a precache list of every asset. Both `vendor/` and `sw.js` are build outputs and are not committed.
 
+    npm run videos:assign
+
+`npm run videos:assign` recomputes which YouTube video each question links to. It scores every question against the curated catalog in `src/videos.ts` (weighting the correct answer and question stem over the explanation, and rare keywords over common ones), spreads questions across videos so few share a link, and writes the result to `src/video-assignments.ts`, which is committed. Run it after adding questions or videos and check the printed report for weak or unmatched questions. Questions not in the map fall back to live keyword matching at runtime.
+
 ## Offline and PWA
 
 The app is an installable Progressive Web App. On first visit the service worker caches the app shell, all question modules, the self-hosted fonts in `fonts/`, and the vendored Mermaid bundle, so every screen, diagram, and CLI example works with no network. While offline the docs, console, and YouTube links are hidden and replaced with a short note, since they cannot be opened anyway.
