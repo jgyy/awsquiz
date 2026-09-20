@@ -62,6 +62,13 @@ export function isAnswerCorrect(question: Question, selectedOptionIds: string[])
   return [...selectedSet].every((id) => correctSet.has(id));
 }
 
+/** AWS-style scaled score: 100 + (fraction correct x 900). Pass mark is 700. */
+export function scaledScoreFor(correct: number, total: number): number {
+  return total === 0 ? 100 : Math.round((correct / total) * 900) + 100;
+}
+
+export const PASS_SCALED_SCORE = 700;
+
 export function scoreSession(
   questions: Question[],
   answers: Record<string, string[]>
@@ -77,9 +84,8 @@ export function scoreSession(
 
   const correctCount = perQuestion.filter((pq) => pq.isCorrect).length;
   const totalCount = questions.length;
-  const scaledScore =
-    totalCount === 0 ? 100 : Math.round((correctCount / totalCount) * 900) + 100;
-  const passed = scaledScore >= 700;
+  const scaledScore = scaledScoreFor(correctCount, totalCount);
+  const passed = scaledScore >= PASS_SCALED_SCORE;
 
   const domainBreakdown: DomainBreakdownEntry[] = DOMAIN_ORDER.map((domain) => {
     const inDomain = perQuestion.filter((pq) => pq.question.domain === domain);

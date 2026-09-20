@@ -6,6 +6,8 @@ import {
   sampleQuestionOptions,
   isAnswerCorrect,
   scoreSession,
+  scaledScoreFor,
+  PASS_SCALED_SCORE,
   DOMAIN_LABELS,
 } from "./scoring.js";
 
@@ -256,6 +258,19 @@ function startTimer(): void {
   }, 1000);
 }
 
+/** Live running score for practice mode: raw tally, percentage, and pass/fail at the exam's 700 mark. */
+function renderPracticeStats(correct: number, answered: number): string {
+  if (answered === 0) {
+    return `<span class="practice-stats">0/0 correct</span>`;
+  }
+  const pct = Math.round((correct / answered) * 100);
+  const passing = scaledScoreFor(correct, answered) >= PASS_SCALED_SCORE;
+  return `<span class="practice-stats">
+      ${correct}/${answered} correct &middot; ${pct}%
+      <span class="pass-badge ${passing ? "pass" : "fail"}">${passing ? "PASS" : "FAIL"}</span>
+    </span>`;
+}
+
 function stopTimer(): void {
   if (session?.timerId != null) {
     window.clearInterval(session.timerId);
@@ -391,7 +406,7 @@ function renderQuestionScreen(): void {
         ${
           session.mode === "full-exam"
             ? `<span class="timer" id="timer">--:--</span>`
-            : `<span class="practice-stats">${session.correctSoFar}/${session.answeredSoFar} correct</span>`
+            : renderPracticeStats(session.correctSoFar, session.answeredSoFar)
         }
       </header>
       <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width: ${progressPct}%"></div></div>
