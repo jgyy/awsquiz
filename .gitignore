@@ -60,3 +60,7 @@ dkms.conf
 # Build output and dependencies
 node_modules/
 dist/
+
+# Generated at build time
+vendor/
+sw.js

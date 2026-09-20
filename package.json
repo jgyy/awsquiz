@@ -4,11 +4,13 @@
   "private": true,
   "description": "Static AWS Certified Cloud Practitioner (CLF-C02) exam simulator.",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node scripts/vendor.mts && node scripts/build-sw.mts",
     "watch": "tsc --watch",
     "dev": "node scripts/dev.mts"
   },
   "devDependencies": {
+    "mermaid": "^12.0.0",
     "typescript": "^5.9.3"
-  }
+  },
+  "type": "module"
 }

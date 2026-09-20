@@ -14,6 +14,12 @@
   --incorrect-soft: #fbe9e4;
   --code-bg: #1b2320;
   --code-ink: #e7ece8;
+  --docs-link: #2b5fa8;
+  --docs-link-soft: #e6eef9;
+  --console-link: #b85c0a;
+  --console-link-soft: #fbeedd;
+  --video-link: #b8302a;
+  --video-link-soft: #fae5e3;
   --font-serif: "Lora", Georgia, serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   color-scheme: light;
@@ -36,6 +42,12 @@
     --incorrect-soft: #3a231e;
     --code-bg: #0f1613;
     --code-ink: #d9e3dc;
+    --docs-link: #7fb1f0;
+    --docs-link-soft: #1a2739;
+    --console-link: #f0a35a;
+    --console-link-soft: #3a2712;
+    --video-link: #f07b74;
+    --video-link-soft: #3b1f1d;
     color-scheme: dark;
   }
 }
@@ -410,12 +422,64 @@ a:focus-visible {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   text-decoration: none;
-  border-bottom: 1px solid currentColor;
   align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--link-color);
+  border-radius: 999px;
+  color: var(--link-color);
+  background: var(--link-soft);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.reference-link:hover {
+  background: var(--link-color);
+  color: var(--accent-contrast);
+}
+
+.reference-link .link-kind {
+  font-weight: 600;
+}
+
+.reference-link .icon-external {
+  opacity: 0.7;
+  font-size: 0.85em;
+}
+
+/* Each link kind gets its own hue so the three are distinguishable at a glance. */
+.docs-link {
+  --link-color: var(--docs-link);
+  --link-soft: var(--docs-link-soft);
+}
+
+.console-link {
+  --link-color: var(--console-link);
+  --link-soft: var(--console-link-soft);
 }
 
 .video-link {
-  color: #c4302b;
+  --link-color: var(--video-link);
+  --link-soft: var(--video-link-soft);
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+}
+
+.option-icon .icon,
+.feedback-icon .icon,
+.review-icon .icon {
+  stroke-width: 3;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .cli-card {
@@ -732,4 +796,165 @@ body.modal-open {
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 0.25rem;
+}
+
+/* ---------- Offline state ---------- */
+
+.offline-note,
+.offline-hint {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  background: var(--surface-sunken);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+/* While offline the external links are useless, so swap them for a short note. */
+body.is-offline .offline-note,
+body.is-offline .offline-hint {
+  display: inline-flex;
+}
+
+body.is-offline .reference-link {
+  display: none;
+}
+
+/* ---------- Touch and mobile ---------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+.option,
+select {
+  touch-action: manipulation;
+}
+
+.btn {
+  min-height: 44px;
+}
+
+.option {
+  min-height: 44px;
+}
+
+.option input {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.reference-link {
+  max-width: 100%;
+  flex-wrap: wrap;
+  line-height: 1.35;
+}
+
+.progress-text {
+  white-space: nowrap;
+}
+
+/* Hover colors only on devices that actually hover; on touch the tap state would stick. */
+@media (hover: none) {
+  .reference-link:hover {
+    background: var(--link-soft);
+    color: var(--link-color);
+  }
+}
+
+@media (min-width: 720px) {
+  .mode-cards {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .mode-cards .card {
+    flex: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  #app {
+    padding: 1rem 0.9rem 3rem;
+    padding-left: max(0.9rem, env(safe-area-inset-left));
+    padding-right: max(0.9rem, env(safe-area-inset-right));
+    padding-bottom: max(3rem, env(safe-area-inset-bottom));
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .question-text {
+    font-size: 1.125rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .card .btn {
+    width: 100%;
+  }
+
+  .app-bar {
+    font-size: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .option {
+    padding: 0.7rem 0.75rem;
+  }
+
+  .option-rationale {
+    padding-left: 0;
+  }
+
+  .reference-link {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.7rem;
+  }
+
+  .cli-card {
+    max-width: 100%;
+  }
+
+  .cli-card > .cli-card-header:first-child::before {
+    margin-right: 1.6rem;
+  }
+
+  .cli-command,
+  .cli-output {
+    font-size: 0.75rem;
+  }
+
+  .domain-breakdown {
+    font-size: 0.75rem;
+  }
+
+  .domain-breakdown th,
+  .domain-breakdown td {
+    padding: 0.35rem 0.3rem;
+  }
+
+  .scaled-score {
+    font-size: 2rem;
+  }
+
+  .diagram-modal {
+    padding-top: max(3rem, calc(env(safe-area-inset-top) + 2.5rem));
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .diagram-modal-close {
+    top: max(0.6rem, env(safe-area-inset-top));
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }

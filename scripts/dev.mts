@@ -15,6 +15,10 @@ const MIME_TYPES: Record<string, string> = {
   ".mts": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".map": "application/json; charset=utf-8",
+  ".webmanifest": "application/manifest+json",
+  ".woff2": "font/woff2",
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
 };
 
 const server = createServer(async (req: IncomingMessage, res: ServerResponse) => {

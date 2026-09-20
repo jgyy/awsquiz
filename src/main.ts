@@ -1,4 +1,5 @@
 import { questionBank } from "./questions/index.js";
+import { icons } from "./icons.js";
 import { resolveVideo } from "./videos.js";
 import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";
 import {
@@ -14,7 +15,8 @@ import {
 
 const FULL_EXAM_SECONDS = 90 * 60;
 const OPTION_LETTERS = "ABCDEFGH";
-const MERMAID_CDN_URL = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+/** Vendored UMD bundle (copied from node_modules at build time) so diagrams render offline. */
+const MERMAID_URL = "vendor/mermaid.min.js";
 
 interface Session {
   mode: Mode;
@@ -48,14 +50,40 @@ function escapeHtml(text: string): string {
 
 function loadMermaid(): Promise<any> {
   if (!mermaidModulePromise) {
-    const cdnUrl = MERMAID_CDN_URL;
-    mermaidModulePromise = import(cdnUrl).then((mod: any) => {
-      mod.default.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "strict" });
-      return mod.default;
+    mermaidModulePromise = new Promise<any>((resolve, reject) => {
+      const existing = (window as any).mermaid;
+      if (existing) {
+        resolve(existing);
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = MERMAID_URL;
+      script.async = true;
+      script.onload = () => resolve((window as any).mermaid);
+      script.onerror = () => reject(new Error("Failed to load Mermaid"));
+      document.head.appendChild(script);
+    }).then((mermaid: any) => {
+      mermaid.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "strict" });
+      return mermaid;
+    });
+    mermaidModulePromise.catch(() => {
+      // Allow a retry on the next render if the script failed to load.
+      mermaidModulePromise = null;
     });
   }
   return mermaidModulePromise;
 }
+
+/**
+ * Tracks connectivity so external links (docs, console, YouTube) can be hidden while offline.
+ * navigator.onLine is a hint, not a guarantee, but it is the best signal the browser offers.
+ */
+function syncOnlineState(): void {
+  document.body.classList.toggle("is-offline", !navigator.onLine);
+}
+window.addEventListener("online", syncOnlineState);
+window.addEventListener("offline", syncOnlineState);
+syncOnlineState();
 
 async function renderMermaidDiagrams(diagrams: { id: string; source: string }[]): Promise<void> {
   if (diagrams.length === 0) return;
@@ -116,7 +144,7 @@ function openDiagramModal(svg: SVGSVGElement): void {
   closeBtn.type = "button";
   closeBtn.className = "diagram-modal-close";
   closeBtn.setAttribute("aria-label", "Close");
-  closeBtn.textContent = "×";
+  closeBtn.innerHTML = icons.cross;
   closeBtn.addEventListener("click", closeDiagramModal);
 
   const body = document.createElement("div");
@@ -181,6 +209,7 @@ function renderModeSelection(): void {
   app.innerHTML = `
     <section class="screen">
       <h1>AWS Cloud Practitioner Exam Simulator</h1>
+      <p class="offline-note">${icons.offline} You are offline. Questions, diagrams, and CLI examples still work; external links are hidden.</p>
       <div class="mode-cards">
         <div class="card">
           <h2>Full Exam Simulation</h2>
@@ -189,7 +218,7 @@ function renderModeSelection(): void {
         </div>
         <div class="card">
           <h2>Practice Mode</h2>
-          <p>Untimed. Submit each answer to see what's right, what's wrong, and why &mdash; with reference links, diagrams, and CLI examples where relevant.</p>
+          <p>Untimed. Submit each answer to see what's right, what's wrong, and why - with reference links, diagrams, and CLI examples where relevant.</p>
           <label for="practice-domain">Domain</label>
           <select id="practice-domain">
             <option value="all">All domains (${questionBank.length})</option>
@@ -267,7 +296,7 @@ function renderPracticeStats(correct: number, answered: number): string {
   const pct = Math.round((correct / answered) * 100);
   const passing = scaledScoreFor(correct, answered) >= PASS_SCALED_SCORE;
   return `<span class="practice-stats">
-      ${correct}/${answered} correct &middot; ${pct}%
+      ${correct}/${answered} correct | ${pct}%
       <span class="pass-badge ${passing ? "pass" : "fail"}">${passing ? "PASS" : "FAIL"}</span>
     </span>`;
 }
@@ -298,10 +327,10 @@ function renderOptionRow(question: Question, opt: { id: string; text: string }, 
   if (revealed) {
     if (isCorrectOption) {
       stateClass = " option-correct";
-      icon = `<span class="option-icon" aria-hidden="true">&check;</span>`;
+      icon = `<span class="option-icon">${icons.check}</span>`;
     } else if (isChecked) {
       stateClass = " option-incorrect";
-      icon = `<span class="option-icon" aria-hidden="true">&cross;</span>`;
+      icon = `<span class="option-icon">${icons.cross}</span>`;
     }
   }
 
@@ -327,25 +356,28 @@ function renderFeedbackExtras(question: Question, uid: string): string {
 
   if (question.referenceUrl) {
     parts.push(
-      `<a class="reference-link" href="${escapeHtml(question.referenceUrl)}" target="_blank" rel="noopener noreferrer">Learn more: ${escapeHtml(
+      `<a class="reference-link docs-link" href="${escapeHtml(question.referenceUrl)}" target="_blank" rel="noopener noreferrer">${icons.book}<span class="link-kind">Learn more:</span> ${escapeHtml(
         question.referenceLabel ?? "AWS Documentation"
-      )} &rarr;</a>`
+      )}${icons.external}</a>`
     );
   }
 
   if (question.consoleUrl && question.consoleUrl !== question.referenceUrl) {
     parts.push(
-      `<a class="reference-link console-link" href="${escapeHtml(question.consoleUrl)}" target="_blank" rel="noopener noreferrer">Open in AWS Console: ${escapeHtml(
+      `<a class="reference-link console-link" href="${escapeHtml(question.consoleUrl)}" target="_blank" rel="noopener noreferrer">${icons.terminal}<span class="link-kind">Open in AWS Console:</span> ${escapeHtml(
         question.consoleLabel ?? "AWS Management Console"
-      )} &rarr;</a>`
+      )}${icons.external}</a>`
     );
   }
 
   const video = resolveVideo(question);
   parts.push(
-    `<a class="reference-link video-link" href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">Watch on YouTube: ${escapeHtml(
+    `<span class="offline-hint">${icons.offline} Reference links hidden while offline</span>`
+  );
+  parts.push(
+    `<a class="reference-link video-link" href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">${icons.play}<span class="link-kind">Watch on YouTube:</span> ${escapeHtml(
       video.label
-    )} &rarr;</a>`
+    )}${icons.external}</a>`
   );
 
   if (question.cliExample) {
@@ -374,7 +406,7 @@ function renderFeedbackExtras(question: Question, uid: string): string {
           <p class="diagram-caption">Diagram</p>
           <button type="button" class="diagram-expand-btn" data-expand-target="${diagramId}">Expand</button>
         </div>
-        <div class="mermaid-target" id="${diagramId}" title="Click to expand">Rendering diagram&hellip;</div>
+        <div class="mermaid-target" id="${diagramId}" title="Click to expand">Rendering diagram...</div>
       </div>`);
   }
 
@@ -385,7 +417,7 @@ function renderFeedbackPanel(question: Question, selected: string[]): string {
   const correct = isAnswerCorrect(question, selected);
   return `
     <div class="feedback-banner ${correct ? "feedback-correct" : "feedback-incorrect"}">
-      <span class="feedback-icon" aria-hidden="true">${correct ? "&check;" : "&cross;"}</span>
+      <span class="feedback-icon" aria-hidden="true">${correct ? icons.check : icons.cross}</span>
       <span>${correct ? "Correct" : "Not quite"}</span>
     </div>
     <p class="explanation">${escapeHtml(question.explanation)}</p>
@@ -409,7 +441,7 @@ function renderQuestionScreen(): void {
   app.innerHTML = `
     <section class="screen quiz-screen">
       <header class="app-bar">
-        ${session.mode === "practice" ? `<button class="link-btn" id="exit-session" type="button">&larr; Exit</button>` : `<span></span>`}
+        ${session.mode === "practice" ? `<button class="link-btn" id="exit-session" type="button">${icons.arrowLeft} Exit</button>` : `<span></span>`}
         <span class="progress-text">Question ${session.currentIndex + 1} of ${session.questions.length}</span>
         ${
           session.mode === "full-exam"
@@ -520,7 +552,7 @@ function renderReviewItem(pq: PerQuestionResult, index: number): string {
   return `
     <details class="review-item ${pq.isCorrect ? "review-correct" : "review-incorrect"}" ${pq.isCorrect ? "" : "open"}>
       <summary class="review-summary">
-        <span class="review-icon" aria-hidden="true">${pq.isCorrect ? "&check;" : "&cross;"}</span>
+        <span class="review-icon" aria-hidden="true">${pq.isCorrect ? icons.check : icons.cross}</span>
         <span class="review-question">${index + 1}. ${escapeHtml(question.text)}</span>
       </summary>
       <div class="review-body">
@@ -540,7 +572,7 @@ function renderResultsScreen(result: SessionResult): void {
       <h1>Results</h1>
       <p class="scaled-score">${result.scaledScore} / 1000</p>
       <p class="pass-fail ${result.passed ? "pass" : "fail"}">
-        ${result.passed ? "Passed" : "Not passed"} &mdash; approximate score, not AWS's official scoring algorithm
+        ${result.passed ? "Passed" : "Not passed"} - approximate score, not AWS's official scoring algorithm
       </p>
       <table class="domain-breakdown">
         <thead>
