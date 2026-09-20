@@ -30,6 +30,9 @@ export interface Question {
   /** Deep link to the specific AWS Console page for the concept being tested. */
   consoleUrl?: string;
   consoleLabel?: string;
+  /** Explicit YouTube video for this question; when absent, one is resolved from the curated catalog. */
+  videoUrl?: string;
+  videoLabel?: string;
   /** Mermaid diagram definition, rendered only when present. */
   diagram?: string;
   cliExample?: CliExample;

@@ -1,4 +1,5 @@
 import { questionBank } from "./questions/index.js";
+import { resolveVideo } from "./videos.js";
 import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";
 import {
   sampleFullExam,
@@ -339,6 +340,13 @@ function renderFeedbackExtras(question: Question, uid: string): string {
       )} &rarr;</a>`
     );
   }
+
+  const video = resolveVideo(question);
+  parts.push(
+    `<a class="reference-link video-link" href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">Watch on YouTube: ${escapeHtml(
+      video.label
+    )} &rarr;</a>`
+  );
 
   if (question.cliExample) {
     const cliId = `cli-${uid}`;

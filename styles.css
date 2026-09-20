@@ -414,6 +414,10 @@ a:focus-visible {
   align-self: flex-start;
 }
 
+.video-link {
+  color: #c4302b;
+}
+
 .cli-card {
   /* Terminal look: monospace metrics on the card so 80ch matches the shell text. */
   font-family: var(--font-mono);
