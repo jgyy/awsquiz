@@ -680,6 +680,11 @@ export function resolveVideo(question: Question, certId: CertificationId): { url
   }
 
   const catalog = catalogFor(certId);
+  if (catalog.length === 0) {
+    const query = encodeURIComponent(`AWS ${question.text.slice(0, 80)}`);
+    return { url: `https://www.youtube.com/results?search_query=${query}`, label: "Search YouTube" };
+  }
+
   const assignedId = videoAssignments[question.id];
   const assigned = assignedId ? catalog.find((v) => v.id === assignedId) : undefined;
   if (assigned) {
