@@ -690,6 +690,7 @@ function renderReviewItem(pq: PerQuestionResult, index: number): string {
 }
 
 function renderResultsScreen(result: SessionResult): void {
+  session = null;
   pendingDiagrams = [];
 
   app.innerHTML = `

@@ -4,7 +4,7 @@
   "private": true,
   "description": "Static AWS certification exam simulator (Cloud Practitioner CLF-C02, AI Practitioner AIF-C01).",
   "scripts": {
-    "build": "tsc && node scripts/vendor.mts && node scripts/build-sw.mts",
+    "build": "tsc && node -e \"import('./dist/certifications.js')\" && node scripts/vendor.mts && node scripts/build-sw.mts",
     "watch": "tsc --watch",
     "dev": "node scripts/dev.mts",
     "videos:assign": "tsc && node scripts/assign-videos.mts && tsc"

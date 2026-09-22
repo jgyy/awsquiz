@@ -639,11 +639,12 @@ export const videoCatalog: VideoEntry[] = [
 ];
 
 /** Domain-level fallback used when no keyword matches. Keyed by domain id across all certs. */
+// Every id here must exist in videoCatalog for the matching cert.
 const domainFallback: Record<string, string> = {
-  "cloud-concepts": "a9__D53WsUs",
-  "security-and-compliance": "9Pk2J_5qnlk",
+  "cloud-concepts": "N0SYCyS2xZA",
+  "security-and-compliance": "crBcr6Nobs8",
   "cloud-technology-and-services": "BtJAsvJOlhM",
-  "billing-pricing-and-support": "-t148tYgnJU",
+  "billing-pricing-and-support": "op_9NfAVedY",
   "ai-ml-fundamentals": "EhExK4JgXvE",
   "genai-fundamentals": "qWSFcRXpjxQ",
   "foundation-model-applications": "mhItmKsB5tQ",
