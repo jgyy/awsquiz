@@ -16,7 +16,7 @@ For a one-off production build without the dev server:
 
     npm run videos:assign
 
-`npm run videos:assign` recomputes which YouTube video each question links to. It scores every question against the curated catalog in `src/videos.ts` (weighting the correct answer and question stem over the explanation, and rare keywords over common ones), spreads questions across videos so few share a link, and writes the result to `src/video-assignments.ts`, which is committed. Run it after adding questions or videos and check the printed report for weak or unmatched questions. Questions not in the map fall back to live keyword matching at runtime.
+`npm run videos:assign` recomputes which YouTube video each question links to. It scores every question against the curated catalog in `src/videos.ts` (weighting the correct answer and question stem over the explanation, and rare keywords over common ones), spreads questions across videos so few share a link, and writes the result to `src/video-assignments.ts`, which is committed. Run it after adding questions or videos and check the printed report for weak or unmatched questions. Questions not in the map fall back to live keyword matching at runtime. The catalog is tagged per certification, so an AI Practitioner question is never matched to a Cloud Practitioner video and vice versa.
 
 ## Offline and PWA
 
