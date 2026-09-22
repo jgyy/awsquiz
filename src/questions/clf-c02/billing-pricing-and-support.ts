@@ -1,4 +1,4 @@
-import { Question } from "../types.js";
+import { Question } from "../../types.js";
 
 export const billingPricingAndSupportQuestions: Question[] = [
   {

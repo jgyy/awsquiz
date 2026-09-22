@@ -14,7 +14,8 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { questionBank } from "../dist/questions/index.js";
+import { allQuestions } from "../dist/certifications.js";
+const questionBank = allQuestions();
 import { countHits, entryScore, haystacksFor, videoCatalog, type VideoEntry } from "../dist/videos.js";
 import type { Question } from "../dist/types.js";
 

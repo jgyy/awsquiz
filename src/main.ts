@@ -1,4 +1,5 @@
-import { questionBank } from "./questions/index.js";
+import { certifications } from "./certifications.js";
+const questionBank = certifications[0].questions;
 import { icons } from "./icons.js";
 import { resolveVideo } from "./videos.js";
 import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";

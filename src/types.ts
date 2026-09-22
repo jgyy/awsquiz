@@ -1,8 +1,5 @@
-export type Domain =
-  | "cloud-concepts"
-  | "security-and-compliance"
-  | "cloud-technology-and-services"
-  | "billing-pricing-and-support";
+/** A domain id declared by one certification in src/certifications.ts. */
+export type Domain = string;
 
 export interface Option {
   id: string;
