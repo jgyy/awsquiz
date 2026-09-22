@@ -45,27 +45,42 @@ interface Candidate {
 const haystacks = new Map<Question, ReturnType<typeof haystacksFor>>();
 for (const q of questionBank) haystacks.set(q, haystacksFor(q));
 
-// Document frequency of each keyword across the bank.
-const df = new Map<string, number>();
-for (const entry of videoCatalog) {
-  for (const keyword of entry.keywords) {
-    const k = keyword.toLowerCase();
-    if (df.has(k)) continue;
-    let n = 0;
-    for (const h of haystacks.values()) {
-      if (countHits(k, h.stem) + countHits(k, h.answers) + countHits(k, h.explanation) > 0) n++;
+/**
+ * Document frequency of each keyword, counted per certification rather than across the whole bank.
+ * Rarity only means anything inside the bank a question is drawn from, and keeping the count local
+ * also keeps certifications independent: with a shared count, adding questions to one cert would
+ * move every other cert's IDF weights and silently re-assign videos that did not change.
+ * Only the keywords in a cert's own catalog need counting for that cert.
+ */
+const dfByCert = new Map<string, Map<string, number>>();
+const nByCert = new Map<string, number>();
+for (const cert of certifications) {
+  const certHaystacks = cert.questions.map((q) => haystacks.get(q)!);
+  const df = new Map<string, number>();
+  for (const entry of catalogFor(cert.id)) {
+    for (const keyword of entry.keywords) {
+      const k = keyword.toLowerCase();
+      if (df.has(k)) continue;
+      let n = 0;
+      for (const h of certHaystacks) {
+        if (countHits(k, h.stem) + countHits(k, h.answers) + countHits(k, h.explanation) > 0) n++;
+      }
+      df.set(k, n);
     }
-    df.set(k, n);
   }
+  dfByCert.set(cert.id, df);
+  nByCert.set(cert.id, cert.questions.length);
 }
-const N = questionBank.length;
-const idf = (k: string) => Math.log(1 + N / ((df.get(k) ?? 0) + 1));
+const idfFor = (certId: string, k: string) =>
+  Math.log(1 + nByCert.get(certId)! / ((dfByCert.get(certId)!.get(k) ?? 0) + 1));
 
 const candidates = new Map<Question, Candidate[]>();
 for (const q of questionBank) {
   const h = haystacks.get(q)!;
+  const certId = certOf.get(q)!.id;
+  const idf = (k: string) => idfFor(certId, k);
   const scored: Candidate[] = [];
-  for (const entry of catalogFor(certOf.get(q)!.id)) {
+  for (const entry of catalogFor(certId)) {
     let score = entryScore(entry, h, idf);
     if (score <= 0) continue;
     const hitsAnswer = entry.keywords.some((k) => countHits(k.toLowerCase(), h.answers) > 0);
@@ -138,7 +153,7 @@ const unmatched = questionBank.filter((q) => !assignment.has(q));
 const weak = questionBank.filter((q) => assignment.has(q) && assignment.get(q)!.score < WEAK_SCORE);
 const unused = videoCatalog.filter((v) => !byVideo.has(v.id));
 
-console.log(`questions ${N}, catalog ${videoCatalog.length}, videos used ${byVideo.size}, moved ${moved}`);
+console.log(`questions ${questionBank.length}, catalog ${videoCatalog.length}, videos used ${byVideo.size}, moved ${moved}`);
 console.log(`unique (1 question): ${[...byVideo.values()].filter((l) => l.length === 1).length}`);
 for (const cert of certifications) {
   const qs = cert.questions;
