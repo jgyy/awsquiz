@@ -10,8 +10,7 @@ import {
   isAnswerCorrect,
   scoreSession,
   scaledScoreFor,
-  PASS_SCALED_SCORE,
-  DOMAIN_LABELS,
+  domainLabel,
 } from "./scoring.js";
 
 const FULL_EXAM_SECONDS = 90 * 60;
@@ -223,10 +222,11 @@ function wireDiagramExpand(): void {
 
 function renderModeSelection(): void {
   session = null;
-  const domainCounts = (Object.entries(DOMAIN_LABELS) as [Domain, string][]).map(([value, label]) => ({
-    value,
-    label,
-    count: questionBank.filter((q) => q.domain === value).length,
+  const cert = certifications[0];
+  const domainCounts = cert.domains.map((d) => ({
+    value: d.id,
+    label: d.label,
+    count: cert.questions.filter((q) => q.domain === d.id).length,
   }));
 
   app.innerHTML = `
@@ -263,7 +263,7 @@ function renderModeSelection(): void {
 }
 
 function startFullExam(): void {
-  const questions = sampleFullExam(questionBank).map(sampleQuestionOptions);
+  const questions = sampleFullExam(certifications[0]).map(sampleQuestionOptions);
   session = {
     mode: "full-exam",
     questions,
@@ -317,7 +317,7 @@ function renderPracticeStats(correct: number, answered: number): string {
     return `<span class="practice-stats">0/0 correct</span>`;
   }
   const pct = Math.round((correct / answered) * 100);
-  const passing = scaledScoreFor(correct, answered) >= PASS_SCALED_SCORE;
+  const passing = scaledScoreFor(correct, answered) >= certifications[0].passScaledScore;
   return `<span class="practice-stats">
       ${correct}/${answered} correct | ${pct}%
       <span class="pass-badge ${passing ? "pass" : "fail"}">${passing ? "PASS" : "FAIL"}</span>
@@ -475,7 +475,7 @@ function renderQuestionScreen(): void {
       <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width: ${progressPct}%"></div></div>
 
       <p class="domain-label">
-        <span class="domain-pill">${DOMAIN_LABELS[question.domain]}</span>
+        <span class="domain-pill">${domainLabel(certifications[0], question.domain)}</span>
         ${isMulti ? `<span class="multi-hint">Select two</span>` : ""}
       </p>
       <h2 class="question-text">${escapeHtml(question.text)}</h2>
@@ -565,7 +565,7 @@ function goToNextQuestion(): void {
 function finishSession(): void {
   if (!session) return;
   stopTimer();
-  const result = scoreSession(session.questions, session.answers);
+  const result = scoreSession(certifications[0], session.questions, session.answers);
   renderResultsScreen(result);
 }
 
@@ -606,7 +606,7 @@ function renderResultsScreen(result: SessionResult): void {
             .map(
               (entry) => `
             <tr>
-              <td>${DOMAIN_LABELS[entry.domain]}</td>
+              <td>${domainLabel(certifications[0], entry.domain)}</td>
               <td>${entry.correct} / ${entry.total}</td>
               <td>${Math.round((entry.correct / entry.total) * 100)}%</td>
             </tr>`

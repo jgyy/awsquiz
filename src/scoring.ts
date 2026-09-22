@@ -1,25 +1,9 @@
-import { Domain, DomainBreakdownEntry, Question, SessionResult } from "./types.js";
+import { Certification } from "./certifications.js";
+import { DomainBreakdownEntry, Question, SessionResult } from "./types.js";
 
-export const DOMAIN_LABELS: Record<Domain, string> = {
-  "cloud-concepts": "Cloud Concepts",
-  "security-and-compliance": "Security and Compliance",
-  "cloud-technology-and-services": "Cloud Technology and Services",
-  "billing-pricing-and-support": "Billing, Pricing, and Support",
-};
-
-export const FULL_EXAM_DOMAIN_COUNTS: Record<Domain, number> = {
-  "cloud-concepts": 16,
-  "security-and-compliance": 20,
-  "cloud-technology-and-services": 22,
-  "billing-pricing-and-support": 7,
-};
-
-const DOMAIN_ORDER: Domain[] = [
-  "cloud-concepts",
-  "security-and-compliance",
-  "cloud-technology-and-services",
-  "billing-pricing-and-support",
-];
+export function domainLabel(cert: Certification, domainId: string): string {
+  return cert.domains.find((d) => d.id === domainId)?.label ?? domainId;
+}
 
 export function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -30,10 +14,9 @@ export function shuffle<T>(items: T[]): T[] {
   return copy;
 }
 
-export function sampleFullExam(pool: Question[]): Question[] {
-  const byDomain = (domain: Domain) => pool.filter((q) => q.domain === domain);
-  const picked = DOMAIN_ORDER.flatMap((domain) =>
-    shuffle(byDomain(domain)).slice(0, FULL_EXAM_DOMAIN_COUNTS[domain])
+export function sampleFullExam(cert: Certification): Question[] {
+  const picked = cert.domains.flatMap((domain) =>
+    shuffle(cert.questions.filter((q) => q.domain === domain.id)).slice(0, domain.fullExamCount)
   );
   return shuffle(picked);
 }
@@ -67,9 +50,8 @@ export function scaledScoreFor(correct: number, total: number): number {
   return total === 0 ? 100 : Math.round((correct / total) * 900) + 100;
 }
 
-export const PASS_SCALED_SCORE = 700;
-
 export function scoreSession(
+  cert: Certification,
   questions: Question[],
   answers: Record<string, string[]>
 ): SessionResult {
@@ -85,16 +67,18 @@ export function scoreSession(
   const correctCount = perQuestion.filter((pq) => pq.isCorrect).length;
   const totalCount = questions.length;
   const scaledScore = scaledScoreFor(correctCount, totalCount);
-  const passed = scaledScore >= PASS_SCALED_SCORE;
+  const passed = scaledScore >= cert.passScaledScore;
 
-  const domainBreakdown: DomainBreakdownEntry[] = DOMAIN_ORDER.map((domain) => {
-    const inDomain = perQuestion.filter((pq) => pq.question.domain === domain);
-    return {
-      domain,
-      correct: inDomain.filter((pq) => pq.isCorrect).length,
-      total: inDomain.length,
-    };
-  }).filter((entry) => entry.total > 0);
+  const domainBreakdown: DomainBreakdownEntry[] = cert.domains
+    .map((domain) => {
+      const inDomain = perQuestion.filter((pq) => pq.question.domain === domain.id);
+      return {
+        domain: domain.id,
+        correct: inDomain.filter((pq) => pq.isCorrect).length,
+        total: inDomain.length,
+      };
+    })
+    .filter((entry) => entry.total > 0);
 
   return { correctCount, totalCount, scaledScore, passed, domainBreakdown, perQuestion };
 }
