@@ -308,6 +308,9 @@ function renderModeSelection(): void {
     renderCertPicker();
     return;
   }
+  if (certIdFromHash() !== cert.id) {
+    history.replaceState(null, "", `#/${cert.id}`);
+  }
   document.title = `${cert.shortName} Exam Simulator`;
   const domainCounts = cert.domains.map((d) => ({
     value: d.id,
@@ -347,6 +350,14 @@ function renderModeSelection(): void {
   document.getElementById("start-practice")!.addEventListener("click", () => {
     const select = document.getElementById("practice-domain") as HTMLSelectElement;
     startPractice(select.value === "all" ? "all" : (select.value as Domain));
+  });
+  document.getElementById("change-cert")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (location.hash === "#/" || location.hash === "") {
+      renderCertPicker();
+    } else {
+      location.hash = "#/";
+    }
   });
 }
 
@@ -408,7 +419,7 @@ function renderPracticeStats(correct: number, answered: number): string {
     return `<span class="practice-stats">0/0 correct</span>`;
   }
   const pct = Math.round((correct / answered) * 100);
-  const passing = scaledScoreFor(correct, answered) >= (currentCert?.passScaledScore ?? 700);
+  const passing = scaledScoreFor(correct, answered) >= currentCert!.passScaledScore;
   return `<span class="practice-stats">
       ${correct}/${answered} correct | ${pct}%
       <span class="pass-badge ${passing ? "pass" : "fail"}">${passing ? "PASS" : "FAIL"}</span>
@@ -731,7 +742,7 @@ function describeOptions(question: Question, ids: string[]): string {
 
 window.addEventListener("hashchange", route);
 
-if (!certIdFromHash()) {
+if (location.hash === "" || location.hash === "#") {
   const remembered = findCertification(readStoredCertId());
   if (remembered) {
     history.replaceState(null, "", `#/${remembered.id}`);
