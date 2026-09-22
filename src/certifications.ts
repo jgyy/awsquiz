@@ -92,9 +92,7 @@ function validate(): void {
     for (const d of cert.domains) {
       const available = cert.questions.filter((q) => q.domain === d.id).length;
       if (available < d.fullExamCount) {
-        // TEMPORARY: warn instead of throwing while the AIF-C01 bank is still being written.
-        // Restored to a throw once every AIF domain has at least fullExamCount questions.
-        console.warn(`${cert.id}: domain ${d.id} has ${available} questions, needs at least ${d.fullExamCount}`);
+        throw new Error(`${cert.id}: domain ${d.id} has ${available} questions, needs at least ${d.fullExamCount}`);
       }
     }
   }
