@@ -495,7 +495,7 @@ function renderFeedbackExtras(question: Question, uid: string): string {
     );
   }
 
-  const video = resolveVideo(question);
+  const video = resolveVideo(question, currentCert!.id);
   parts.push(
     `<span class="offline-hint">${icons.offline} Reference links hidden while offline</span>`
   );

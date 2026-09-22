@@ -14,12 +14,16 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allQuestions } from "../dist/certifications.js";
-const questionBank = allQuestions();
-import { countHits, entryScore, haystacksFor, videoCatalog, type VideoEntry } from "../dist/videos.js";
+import { certifications } from "../dist/certifications.js";
+import { catalogFor, countHits, entryScore, haystacksFor, videoCatalog, type VideoEntry } from "../dist/videos.js";
 import type { Question } from "../dist/types.js";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+
+/** Which cert a question belongs to, so candidates are drawn only from that cert's catalog. */
+const certOf = new Map<Question, (typeof certifications)[number]>();
+for (const cert of certifications) for (const q of cert.questions) certOf.set(q, cert);
+const questionBank: Question[] = certifications.flatMap((c) => c.questions);
 
 /** A video may serve at most this many questions before we look for alternatives. */
 const MAX_PER_VIDEO = 5;
@@ -61,7 +65,7 @@ const candidates = new Map<Question, Candidate[]>();
 for (const q of questionBank) {
   const h = haystacks.get(q)!;
   const scored: Candidate[] = [];
-  for (const entry of videoCatalog) {
+  for (const entry of catalogFor(certOf.get(q)!.id)) {
     let score = entryScore(entry, h, idf);
     if (score <= 0) continue;
     const hitsAnswer = entry.keywords.some((k) => countHits(k.toLowerCase(), h.answers) > 0);
@@ -136,6 +140,11 @@ const unused = videoCatalog.filter((v) => !byVideo.has(v.id));
 
 console.log(`questions ${N}, catalog ${videoCatalog.length}, videos used ${byVideo.size}, moved ${moved}`);
 console.log(`unique (1 question): ${[...byVideo.values()].filter((l) => l.length === 1).length}`);
+for (const cert of certifications) {
+  const qs = cert.questions;
+  const done = qs.filter((q) => assignment.has(q)).length;
+  console.log(`${cert.id}: ${done}/${qs.length} assigned`);
+}
 console.log(`\nMost shared videos:`);
 for (const [id, qs] of [...byVideo.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 25)) {
   console.log(`  ${String(qs.length).padStart(3)}  ${label(id)}  [${qs.map((q) => q.id).join(" ")}]`);
