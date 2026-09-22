@@ -48,7 +48,7 @@ export interface Certification {
   description: string;          // one line for the picker card
   domains: CertDomain[];        // order = display order
   fullExamQuestionCount: number;   // 65
-  fullExamMinutes: number;         // 90 (CLF) / 120 (AIF)
+  fullExamMinutes: number;         // 90 (CLF) / 90 (AIF)
   passScaledScore: number;         // 700
   questions: Question[];
 }
@@ -68,7 +68,7 @@ CLF-C02, 65 questions, 90 minutes:
 | cloud-technology-and-services | Cloud Technology and Services | 34% | 22 |
 | billing-pricing-and-support | Billing, Pricing, and Support | 12% | 7 |
 
-AIF-C01, 65 questions, 120 minutes:
+AIF-C01, 65 questions, 90 minutes:
 
 | Domain id | Label | Weight | Count |
 |---|---|---:|---:|
@@ -172,7 +172,7 @@ No test framework is introduced, matching the existing project. Verification:
   question's `domain` is not one of its cert's domain ids, or if any
   question id is duplicated across certs.
 - Manual browser run-through: picker shows both certs; each cert runs a
-  full exam and a practice session; AIF timer starts at 120:00 and the
+  full exam and a practice session; AIF timer starts at 90:00 and the
   results table shows five domain rows; CLF behavior is unchanged; back
   button returns from mode selection to the picker; reload after choosing
   a cert lands on that cert; offline mode still loads both banks.

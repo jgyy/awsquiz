@@ -15,7 +15,7 @@
 - No new runtime or dev dependencies. `package.json` devDependencies stay `mermaid` and `typescript` only.
 - `Question` interface is unchanged except `domain: string`. Existing CLF question content is moved, never edited.
 - Question ids are globally unique. AIF ids use prefixes `aif-ml`, `aif-gen`, `aif-fm`, `aif-ra`, `aif-sec` followed by a number starting at 1.
-- Cert ids are exactly `clf-c02` and `aif-c01`. Pass mark is 700 for both. Both full exams are 65 questions. CLF is 90 minutes, AIF is 120 minutes.
+- Cert ids are exactly `clf-c02` and `aif-c01`. Pass mark is 700 for both. Both full exams are 65 questions. CLF is 90 minutes, AIF is 90 minutes.
 - Per-domain full-exam counts: CLF 16/20/22/7; AIF 13/16/18/9/9 in the domain order given in Task 1.
 - User-facing name of the app is "AWS Certification Exam Simulator". Apple short name stays "AWS Quiz".
 - `localStorage` key is `awsquiz.cert`. Hash routes are `#/` (picker) and `#/<cert-id>`.
@@ -984,7 +984,7 @@ Add `import { aifQuestions } from "./questions/aif-c01/index.js";` and append th
       { id: "ai-security-governance", label: "Security, Compliance, and Governance for AI Solutions", fullExamCount: 9 },
     ],
     fullExamQuestionCount: 65,
-    fullExamMinutes: 120,
+    fullExamMinutes: 90,
     passScaledScore: 700,
     questions: aifQuestions,
   },
@@ -997,7 +997,7 @@ The validation in `certifications.ts` will now throw at load because three AIF d
 Run: `npm run build && node -e "import('./dist/certifications.js').then(m => console.log(m.certifications.map(c => c.id + ':' + c.questions.length)))"`
 Expected: `[ 'clf-c02:1040', 'aif-c01:50' ]` plus three warnings about domains under their exam count.
 
-Run `npm run dev`, open the app: the picker shows two cards, the AIF card shows `AIF-C01 · 65 questions · 120 min · 50 in bank`. Choose it; the practice dropdown lists five domains.
+Run `npm run dev`, open the app: the picker shows two cards, the AIF card shows `AIF-C01 · 65 questions · 90 min · 50 in bank`. Choose it; the practice dropdown lists five domains.
 
 - [ ] **Step 5: Commit**
 
@@ -1305,9 +1305,9 @@ Expected: no TypeScript errors; `sw.js written: N precached files` where N is la
 
 Run `npm run dev`, open http://localhost:5173/ in a private window (empty storage), and check each item:
 
-1. Picker shows Cloud Practitioner and AI Practitioner cards with correct exam codes, minutes (90 and 120), and bank counts.
+1. Picker shows Cloud Practitioner and AI Practitioner cards with correct exam codes, minutes (90 and 90), and bank counts.
 2. Choose AI Practitioner: URL is `#/aif-c01`, heading is "AWS Certified AI Practitioner", practice dropdown has "All domains (126)" plus five domains.
-3. Start Full Exam: timer reads `120:00` and counts down; question count is 65; the domain pill shows an AIF domain label.
+3. Start Full Exam: timer reads `90:00` and counts down; question count is 65; the domain pill shows an AIF domain label.
 4. Answer a few questions, press browser back: exam remains. End the exam via Submit: results show a 100 to 1000 score, PASS or FAIL, and up to five domain rows.
 5. Back to Menu, then "All certifications": picker returns, URL is `#/`.
 6. Choose Cloud Practitioner, start Practice on "Billing, Pricing, and Support": feedback panel shows explanation, reference link, video link (a CLF video), and the timer is absent.

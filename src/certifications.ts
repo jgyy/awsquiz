@@ -58,7 +58,7 @@ export const certifications: Certification[] = [
       { id: "ai-security-governance", label: "Security, Compliance, and Governance for AI Solutions", fullExamCount: 9 },
     ],
     fullExamQuestionCount: 65,
-    fullExamMinutes: 120,
+    fullExamMinutes: 90,
     passScaledScore: 700,
     questions: aifQuestions,
   },
