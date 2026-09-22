@@ -64,3 +64,4 @@ dist/
 # Generated at build time
 vendor/
 sw.js
+.playwright-mcp/
