@@ -11,6 +11,16 @@ export interface CertDomain {
   fullExamCount: number;
 }
 
+/** A long-form YouTube course that covers the whole exam blueprint. */
+export interface CertCourse {
+  /** YouTube video ID (the `v=` query parameter). Verified live against YouTube's oEmbed endpoint when added. */
+  videoId: string;
+  title: string;
+  author: string;
+  /** Running time, e.g. "14 h 18 min". */
+  duration: string;
+}
+
 export interface Certification {
   id: CertificationId;
   name: string;
@@ -24,6 +34,8 @@ export interface Certification {
   fullExamMinutes: number;
   passScaledScore: number;
   questions: Question[];
+  /** Longest, most detailed free video courses for this exam, shown on the certification landing page. */
+  courses: CertCourse[];
 }
 
 export const certifications: Certification[] = [
@@ -43,6 +55,14 @@ export const certifications: Certification[] = [
     fullExamMinutes: 90,
     passScaledScore: 700,
     questions: clfQuestions,
+    courses: [
+      {
+        videoId: "7HKot-brXFE",
+        title: "AWS Certified Cloud Practitioner Certification Course 2026 (CLF-C02) - Pass the Exam!",
+        author: "freeCodeCamp.org (Andrew Brown)",
+        duration: "13 h 46 min",
+      },
+    ],
   },
   {
     id: "aif-c01",
@@ -61,6 +81,14 @@ export const certifications: Certification[] = [
     fullExamMinutes: 90,
     passScaledScore: 700,
     questions: aifQuestions,
+    courses: [
+      {
+        videoId: "WZeZZ8_W-M4",
+        title: "AWS Certified AI Practitioner (AIF-C01) - Full Course to PASS the Certification Exam",
+        author: "freeCodeCamp.org (Andrew Brown)",
+        duration: "14 h 59 min",
+      },
+    ],
   },
 ];
 

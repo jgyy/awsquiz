@@ -4,7 +4,7 @@ const CERT_STORAGE_KEY = "awsquiz.cert";
 /** The certification the learner picked; null while on the picker screen. */
 let currentCert: Certification | null = null;
 import { icons } from "./icons.js";
-import { resolveVideo } from "./videos.js";
+import { resolveVideo, videoUrlFor } from "./videos.js";
 import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";
 import {
   sampleFullExam,
@@ -341,6 +341,22 @@ function renderModeSelection(): void {
               .join("")}
           </select>
           <button class="btn" id="start-practice" type="button">Start Practice</button>
+        </div>
+        <div class="card">
+          <h2>Recommended Full Course</h2>
+          <p>The longest, most detailed free video course for this exam. Watch it end to end before your first full simulation.</p>
+          <ul class="course-list">
+            ${cert.courses
+              .map(
+                (course) => `<li class="course">
+              <span class="course-title">${escapeHtml(course.title)}</span>
+              <span class="course-meta">${escapeHtml(course.author)} &middot; ${escapeHtml(course.duration)}</span>
+              <a class="btn course-link" href="${escapeHtml(videoUrlFor(course.videoId))}" target="_blank" rel="noopener noreferrer">${icons.play} Watch on YouTube</a>
+              <span class="offline-hint">${icons.offline} Course link hidden while offline</span>
+            </li>`,
+              )
+              .join("")}
+          </ul>
         </div>
       </div>
     </section>
