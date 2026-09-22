@@ -11,6 +11,7 @@ import {
   shuffle,
   sampleQuestionOptions,
   isAnswerCorrect,
+  isMultiAnswer,
   scoreSession,
   scaledScoreFor,
   domainLabel,
@@ -459,7 +460,7 @@ function updateTimerDisplay(): void {
 }
 
 function renderOptionRow(question: Question, opt: { id: string; text: string }, letter: string, selected: string[], revealed: boolean): string {
-  const isMulti = question.correctOptionIds.length > 1;
+  const isMulti = isMultiAnswer(question);
   const isChecked = selected.includes(opt.id);
   const isCorrectOption = question.correctOptionIds.includes(opt.id);
 
@@ -571,7 +572,7 @@ function renderQuestionScreen(): void {
   pendingDiagrams = [];
 
   const question = session.questions[session.currentIndex];
-  const isMulti = question.correctOptionIds.length > 1;
+  const isMulti = isMultiAnswer(question);
   const selected = session.answers[question.id] ?? [];
   const isLast = session.currentIndex === session.questions.length - 1;
   const revealed = session.mode === "practice" && session.revealed;
@@ -648,7 +649,7 @@ function renderQuestionScreen(): void {
 
 function recordAnswer(question: Question, target: HTMLInputElement): void {
   if (!session) return;
-  const isMulti = question.correctOptionIds.length > 1;
+  const isMulti = isMultiAnswer(question);
   const current = session.answers[question.id] ?? [];
   if (isMulti) {
     session.answers[question.id] = target.checked

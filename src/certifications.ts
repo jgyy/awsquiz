@@ -1,6 +1,7 @@
 import { Question } from "./types.js";
 import { clfQuestions } from "./questions/clf-c02/index.js";
 import { aifQuestions } from "./questions/aif-c01/index.js";
+import { displayedOptionCount, isMultiAnswer, requiredCorrectCount } from "./scoring.js";
 
 export type CertificationId = "clf-c02" | "aif-c01";
 
@@ -101,6 +102,23 @@ export function allQuestions(): Question[] {
 }
 
 /**
+ * A multi-answer question needs at least 2 correct ids to pick its 2 shown answers from; a
+ * single-answer question needs at least 1. The option pool must also be large enough to fill
+ * the remaining slots with distractors once the shown correct answers are set aside.
+ */
+function validateQuestion(q: Question): void {
+  const needed = requiredCorrectCount(q);
+  if (q.correctOptionIds.length < needed) {
+    throw new Error(
+      `question ${q.id}: ${isMultiAnswer(q) ? "multi" : "single"}-answer but only ${q.correctOptionIds.length} correct option id(s), needs at least ${needed}`
+    );
+  }
+  if (q.options.length < displayedOptionCount(q)) {
+    throw new Error(`question ${q.id}: only ${q.options.length} options, needs at least ${displayedOptionCount(q)}`);
+  }
+}
+
+/**
  * Fail fast at module load if a cert's blueprint or bank is inconsistent. This runs in the
  * browser on startup and in Node when scripts import the compiled module.
  */
@@ -116,6 +134,7 @@ function validate(): void {
       if (!domainIds.has(q.domain)) throw new Error(`${cert.id}: question ${q.id} has unknown domain ${q.domain}`);
       if (seen.has(q.id)) throw new Error(`duplicate question id ${q.id}`);
       seen.add(q.id);
+      validateQuestion(q);
     }
     for (const d of cert.domains) {
       const available = cert.questions.filter((q) => q.domain === d.id).length;

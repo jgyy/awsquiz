@@ -21,21 +21,45 @@ export function sampleFullExam(cert: Certification): Question[] {
   return shuffle(picked);
 }
 
+/**
+ * Whether a question takes one or two selections. Falls back to inferring from
+ * correctOptionIds.length so existing questions (which never store more correct ids than they
+ * need) require no changes; answerType is only needed when correctOptionIds holds a larger pool
+ * of acceptable answers than are ever shown at once.
+ */
+export function isMultiAnswer(question: Question): boolean {
+  return question.answerType ? question.answerType === "multi" : question.correctOptionIds.length > 1;
+}
+
+/** Number of correct options shown per question: 1 for single-answer, 2 for "Select TWO". */
+export function requiredCorrectCount(question: Question): number {
+  return isMultiAnswer(question) ? 2 : 1;
+}
+
 /** Number of options shown per question: 4 for single-answer, 5 for "Select TWO". */
 export function displayedOptionCount(question: Question): number {
-  return question.correctOptionIds.length > 1 ? 5 : 4;
+  return isMultiAnswer(question) ? 5 : 4;
 }
 
 /**
- * Each question stores a pool of options (up to 8). Every time it is shown, keep all
- * correct options, draw a random subset of the distractors to fill the displayed count,
- * and shuffle the result so the answer position rotates between attempts.
+ * Each question stores a pool of options (up to 8) and, potentially, a pool of correct answers
+ * larger than what's ever shown at once. Every time it's shown: pick a random subset of the
+ * correct pool sized to requiredCorrectCount, draw a random subset of the distractors to fill
+ * the rest of the displayed count, and shuffle the result. Unpicked correct-pool members are
+ * left out of this render entirely — never shown marked as wrong. correctOptionIds on the
+ * returned question is trimmed to just the picked subset, so scoring and review naturally
+ * operate on what was actually shown.
  */
 export function sampleQuestionOptions(question: Question): Question {
-  const correct = question.options.filter((opt) => question.correctOptionIds.includes(opt.id));
+  const correctPool = shuffle(question.options.filter((opt) => question.correctOptionIds.includes(opt.id)));
   const distractors = shuffle(question.options.filter((opt) => !question.correctOptionIds.includes(opt.id)));
+  const correct = correctPool.slice(0, requiredCorrectCount(question));
   const wanted = Math.max(displayedOptionCount(question) - correct.length, 0);
-  return { ...question, options: shuffle([...correct, ...distractors.slice(0, wanted)]) };
+  return {
+    ...question,
+    options: shuffle([...correct, ...distractors.slice(0, wanted)]),
+    correctOptionIds: correct.map((opt) => opt.id),
+  };
 }
 
 export function isAnswerCorrect(question: Question, selectedOptionIds: string[]): boolean {
