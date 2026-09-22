@@ -1,6 +1,6 @@
 # awsquiz
 
-A static, no-backend AWS Certified Cloud Practitioner (CLF-C02) exam simulator.
+A static, no-backend AWS certification exam simulator. Ships with question banks for Cloud Practitioner (CLF-C02) and AI Practitioner (AIF-C01); pick one on the landing screen. Add a certification by dropping a question folder under src/questions/ and an entry in src/certifications.ts.
 
     npm install
     npm run dev

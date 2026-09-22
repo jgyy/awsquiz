@@ -958,3 +958,38 @@ select {
     height: 2.5rem;
   }
 }
+
+.lede {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.cert-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cert-card {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cert-card:hover,
+.cert-card:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.cert-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.cert-switch {
+  margin-bottom: 0.5rem;
+}

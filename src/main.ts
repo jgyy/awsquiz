@@ -1,5 +1,8 @@
-import { certifications } from "./certifications.js";
-const questionBank = certifications[0].questions;
+import { Certification, certifications, findCertification } from "./certifications.js";
+
+const CERT_STORAGE_KEY = "awsquiz.cert";
+/** The certification the learner picked; null while on the picker screen. */
+let currentCert: Certification | null = null;
 import { icons } from "./icons.js";
 import { resolveVideo } from "./videos.js";
 import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";
@@ -13,7 +16,6 @@ import {
   domainLabel,
 } from "./scoring.js";
 
-const FULL_EXAM_SECONDS = 90 * 60;
 const OPTION_LETTERS = "ABCDEFGH";
 /** Vendored UMD bundle (copied from node_modules at build time) so diagrams render offline. */
 const MERMAID_URL = "vendor/mermaid.min.js";
@@ -220,9 +222,93 @@ function wireDiagramExpand(): void {
   });
 }
 
+function readStoredCertId(): string | null {
+  try {
+    return localStorage.getItem(CERT_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function storeCertId(id: string): void {
+  try {
+    localStorage.setItem(CERT_STORAGE_KEY, id);
+  } catch {
+    /* private mode or blocked storage: the hash still carries the choice */
+  }
+}
+
+function certIdFromHash(): string | null {
+  const match = /^#\/([a-z0-9-]+)$/i.exec(location.hash);
+  return match ? match[1].toLowerCase() : null;
+}
+
+function selectCert(cert: Certification): void {
+  storeCertId(cert.id);
+  if (certIdFromHash() !== cert.id) {
+    location.hash = `#/${cert.id}`; // triggers route() via hashchange
+  } else {
+    route();
+  }
+}
+
+function renderCertPicker(): void {
+  session = null;
+  currentCert = null;
+  document.title = "AWS Certification Exam Simulator";
+
+  app.innerHTML = `
+    <section class="screen">
+      <h1>AWS Certification Exam Simulator</h1>
+      <p class="offline-note">${icons.offline} You are offline. Questions, diagrams, and CLI examples still work; external links are hidden.</p>
+      <p class="lede">Choose a certification to practice for.</p>
+      <div class="cert-cards">
+        ${certifications
+          .map(
+            (cert) => `
+          <button class="card cert-card" type="button" data-cert="${cert.id}">
+            <h2>${escapeHtml(cert.name)}</h2>
+            <p class="cert-meta">${escapeHtml(cert.examCode)} · ${cert.fullExamQuestionCount} questions · ${cert.fullExamMinutes} min · ${cert.questions.length} in bank</p>
+            <p>${escapeHtml(cert.description)}</p>
+          </button>`
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+
+  document.querySelectorAll<HTMLButtonElement>(".cert-card").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const cert = findCertification(btn.dataset.cert);
+      if (cert) selectCert(cert);
+    });
+  });
+}
+
+/**
+ * Hash router. `#/<cert-id>` shows that cert's mode screen; anything else shows the picker.
+ * While a session is running the hash is ignored so the back button cannot discard an exam.
+ */
+function route(): void {
+  if (session) return;
+  const cert = findCertification(certIdFromHash());
+  if (cert) {
+    currentCert = cert;
+    storeCertId(cert.id);
+    renderModeSelection();
+  } else {
+    renderCertPicker();
+  }
+}
+
 function renderModeSelection(): void {
   session = null;
-  const cert = certifications[0];
+  const cert = currentCert;
+  if (!cert) {
+    renderCertPicker();
+    return;
+  }
+  document.title = `${cert.shortName} Exam Simulator`;
   const domainCounts = cert.domains.map((d) => ({
     value: d.id,
     label: d.label,
@@ -231,12 +317,14 @@ function renderModeSelection(): void {
 
   app.innerHTML = `
     <section class="screen">
-      <h1>AWS Cloud Practitioner Exam Simulator</h1>
+      <p class="cert-switch"><a href="#/" class="link-btn" id="change-cert">${icons.arrowLeft} All certifications</a></p>
+      <h1>${escapeHtml(cert.name)}</h1>
+      <p class="cert-meta">${escapeHtml(cert.examCode)}</p>
       <p class="offline-note">${icons.offline} You are offline. Questions, diagrams, and CLI examples still work; external links are hidden.</p>
       <div class="mode-cards">
         <div class="card">
           <h2>Full Exam Simulation</h2>
-          <p>65 questions, a 90 minute timer, and scoring modeled on the real exam.</p>
+          <p>${cert.fullExamQuestionCount} questions, a ${cert.fullExamMinutes} minute timer, and scoring modeled on the real exam.</p>
           <button class="btn" id="start-full-exam" type="button">Start Full Exam</button>
         </div>
         <div class="card">
@@ -244,7 +332,7 @@ function renderModeSelection(): void {
           <p>Untimed. Submit each answer to see what's right, what's wrong, and why - with reference links, diagrams, and CLI examples where relevant.</p>
           <label for="practice-domain">Domain</label>
           <select id="practice-domain">
-            <option value="all">All domains (${questionBank.length})</option>
+            <option value="all">All domains (${cert.questions.length})</option>
             ${domainCounts
               .map(({ value, label, count }) => `<option value="${value}">${label} (${count})</option>`)
               .join("")}
@@ -263,15 +351,17 @@ function renderModeSelection(): void {
 }
 
 function startFullExam(): void {
-  const questions = sampleFullExam(certifications[0]).map(sampleQuestionOptions);
+  if (!currentCert) return;
+  const seconds = currentCert.fullExamMinutes * 60;
+  const questions = sampleFullExam(currentCert).map(sampleQuestionOptions);
   session = {
     mode: "full-exam",
     questions,
     currentIndex: 0,
     answers: {},
     timerId: null,
-    remainingSeconds: FULL_EXAM_SECONDS,
-    deadlineAt: Date.now() + FULL_EXAM_SECONDS * 1000,
+    remainingSeconds: seconds,
+    deadlineAt: Date.now() + seconds * 1000,
     revealed: false,
     answeredSoFar: 0,
     correctSoFar: 0,
@@ -281,7 +371,8 @@ function startFullExam(): void {
 }
 
 function startPractice(domain: Domain | "all"): void {
-  const pool = domain === "all" ? questionBank : questionBank.filter((q) => q.domain === domain);
+  if (!currentCert) return;
+  const pool = domain === "all" ? currentCert.questions : currentCert.questions.filter((q) => q.domain === domain);
   const questions = shuffle(pool).map(sampleQuestionOptions);
   session = {
     mode: "practice",
@@ -317,7 +408,7 @@ function renderPracticeStats(correct: number, answered: number): string {
     return `<span class="practice-stats">0/0 correct</span>`;
   }
   const pct = Math.round((correct / answered) * 100);
-  const passing = scaledScoreFor(correct, answered) >= certifications[0].passScaledScore;
+  const passing = scaledScoreFor(correct, answered) >= (currentCert?.passScaledScore ?? 700);
   return `<span class="practice-stats">
       ${correct}/${answered} correct | ${pct}%
       <span class="pass-badge ${passing ? "pass" : "fail"}">${passing ? "PASS" : "FAIL"}</span>
@@ -475,7 +566,7 @@ function renderQuestionScreen(): void {
       <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width: ${progressPct}%"></div></div>
 
       <p class="domain-label">
-        <span class="domain-pill">${domainLabel(certifications[0], question.domain)}</span>
+        <span class="domain-pill">${domainLabel(currentCert!, question.domain)}</span>
         ${isMulti ? `<span class="multi-hint">Select two</span>` : ""}
       </p>
       <h2 class="question-text">${escapeHtml(question.text)}</h2>
@@ -565,7 +656,7 @@ function goToNextQuestion(): void {
 function finishSession(): void {
   if (!session) return;
   stopTimer();
-  const result = scoreSession(certifications[0], session.questions, session.answers);
+  const result = scoreSession(currentCert!, session.questions, session.answers);
   renderResultsScreen(result);
 }
 
@@ -606,7 +697,7 @@ function renderResultsScreen(result: SessionResult): void {
             .map(
               (entry) => `
             <tr>
-              <td>${domainLabel(certifications[0], entry.domain)}</td>
+              <td>${domainLabel(currentCert!, entry.domain)}</td>
               <td>${entry.correct} / ${entry.total}</td>
               <td>${Math.round((entry.correct / entry.total) * 100)}%</td>
             </tr>`
@@ -638,4 +729,12 @@ function describeOptions(question: Question, ids: string[]): string {
     .join(", ");
 }
 
-renderModeSelection();
+window.addEventListener("hashchange", route);
+
+if (!certIdFromHash()) {
+  const remembered = findCertification(readStoredCertId());
+  if (remembered) {
+    history.replaceState(null, "", `#/${remembered.id}`);
+  }
+}
+route();

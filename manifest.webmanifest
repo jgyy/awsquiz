@@ -1,7 +1,7 @@
 {
-  "name": "AWS Cloud Practitioner Exam Simulator",
+  "name": "AWS Certification Exam Simulator",
   "short_name": "AWS Quiz",
-  "description": "Practice and full-exam simulator for the AWS Certified Cloud Practitioner (CLF-C02). Works fully offline.",
+  "description": "Practice and full-exam simulator for AWS certifications: Cloud Practitioner (CLF-C02) and AI Practitioner (AIF-C01). Works fully offline.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

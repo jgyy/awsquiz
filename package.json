@@ -1,8 +1,8 @@
 {
-  "name": "aws-cloud-practitioner-quiz",
+  "name": "aws-certification-quiz",
   "version": "1.0.0",
   "private": true,
-  "description": "Static AWS Certified Cloud Practitioner (CLF-C02) exam simulator.",
+  "description": "Static AWS certification exam simulator (Cloud Practitioner CLF-C02, AI Practitioner AIF-C01).",
   "scripts": {
     "build": "tsc && node scripts/vendor.mts && node scripts/build-sw.mts",
     "watch": "tsc --watch",
