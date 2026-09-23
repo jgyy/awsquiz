@@ -9,6 +9,7 @@
     "test": "tsc && node --test \"tests/**/*.test.mts\"",
     "dev": "node scripts/dev.mts",
     "videos:assign": "tsc && node scripts/assign-videos.mts && tsc",
+    "videos:check": "tsc && node scripts/check-videos.mts",
     "youtube": "tsc && node scripts/youtube.mts"
   },
   "devDependencies": {
