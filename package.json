@@ -8,7 +8,8 @@
     "watch": "tsc --watch",
     "test": "tsc && node --test \"tests/**/*.test.mts\"",
     "dev": "node scripts/dev.mts",
-    "videos:assign": "tsc && node scripts/assign-videos.mts && tsc"
+    "videos:assign": "tsc && node scripts/assign-videos.mts && tsc",
+    "youtube": "tsc && node scripts/youtube.mts"
   },
   "devDependencies": {
     "mermaid": "^12.0.0",

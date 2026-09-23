@@ -3,6 +3,11 @@ import { CertificationId } from "./certifications.js";
 import { videoAssignments } from "./video-assignments.js";
 import { entryScore, haystacksFor } from "./matching.js";
 
+/** The official Amazon Web Services YouTube channel. Its videos are exempt from the length cap. */
+export const OFFICIAL_AWS_CHANNEL_ID = "UCd6MoB9NC6uYN2grvUNT-Zg";
+/** Per-question videos may run at most this long, unless they come from the official AWS channel. */
+export const MAX_VIDEO_SECONDS = 180;
+
 /** A curated YouTube video covering one topic for a specific certification. */
 export interface VideoEntry {
   /** YouTube video ID (the `v=` query parameter). */
