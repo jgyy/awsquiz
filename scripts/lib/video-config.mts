@@ -1,12 +1,12 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { videoCatalog, type VideoEntry } from "../../dist/videos.js";
+import { officialPreference, videoCatalog, type VideoEntry } from "../../dist/videos.js";
 import type { AssignConfig } from "./assign-media.mts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
 /** A video may serve at most this many questions before the rebalance looks for alternatives. */
-const MAX_PER_VIDEO = 5;
+const MAX_PER_VIDEO = 3;
 /** A runner-up must score at least this fraction of the best match to be used instead. */
 const RUNNER_UP_RATIO = 0.75;
 /** Matches scoring below this are reported as weak so new videos can be sourced. */
@@ -26,6 +26,7 @@ export function videoAssignConfig(extra: VideoEntry[] = []): AssignConfig<VideoE
     runnerUpRatio: RUNNER_UP_RATIO,
     weakScore: WEAK_SCORE,
     answerHitBonus: ANSWER_HIT_BONUS,
+    bonus: officialPreference,
     outPath: path.join(root, "src", "video-assignments.ts"),
     constName: "videoAssignments",
     header: [

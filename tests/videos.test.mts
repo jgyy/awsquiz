@@ -1,6 +1,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { MAX_VIDEO_SECONDS, OFFICIAL_AWS_CHANNEL_ID, isOfficialAws, videoCatalog, videoCatalogProblems } from "../dist/videos.js";
+import {
+  MAX_VIDEO_SECONDS,
+  OFFICIAL_AWS_CHANNEL_ID,
+  OFFICIAL_BONUS,
+  isOfficialAws,
+  officialPreference,
+  videoCatalog,
+  videoCatalogProblems,
+} from "../dist/videos.js";
 import { videoCheckProblems } from "../scripts/lib/video-check.mts";
 
 const THIRD_PARTY = "UCaCZnknpM1TpUnJHl0fv0OA";
@@ -69,4 +77,16 @@ test("videoCheckProblems reports changed metadata and the length rule", () => {
   assert.deepEqual(videoCheckProblems(entry, 200, { ...meta, seconds: 200 }), ["length is 200s, catalog says 150s"]);
   const over = video("v", { seconds: 200 });
   assert.match(videoCheckProblems(over, 200, { ...meta, seconds: 200 }).join("\n"), /200s is over the 180s cap/);
+});
+
+const baseQuestion = { id: "q", domain: "cloud-concepts", text: "t", answerType: "single", explanation: "e" };
+
+test("official videos get the bonus on service questions only", () => {
+  const service = { ...baseQuestion, options: [{ id: "a", text: "Amazon S3" }], correctOptionIds: ["a"] };
+  const concept = { ...baseQuestion, options: [{ id: "a", text: "Elasticity" }], correctOptionIds: ["a"] };
+  const official = video("o", { channelId: OFFICIAL_AWS_CHANNEL_ID });
+  assert.equal(officialPreference(official, service), OFFICIAL_BONUS);
+  assert.equal(officialPreference(official, concept), 1);
+  assert.equal(officialPreference(video("t"), service), 1);
+  assert.equal(OFFICIAL_BONUS, 1.35);
 });

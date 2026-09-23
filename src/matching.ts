@@ -84,3 +84,11 @@ export function entryScore(entry: KeywordEntry, h: Haystacks, weightFor: (keywor
   }
   return score;
 }
+
+/** A capitalised name straight after "Amazon" or "AWS", as in "Amazon S3" or "AWS Shield". */
+const AWS_SERVICE_NAME = /\b(?:Amazon|AWS)\s+[A-Z]/;
+
+/** True when a correct option names an AWS service or feature. */
+export function namesAwsService(question: Question): boolean {
+  return question.options.some((o) => question.correctOptionIds.includes(o.id) && AWS_SERVICE_NAME.test(o.text));
+}

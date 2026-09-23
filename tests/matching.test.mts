@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { countHits, entryScore, haystacksFor, keywordScore } from "../dist/matching.js";
+import { countHits, entryScore, haystacksFor, keywordScore, namesAwsService } from "../dist/matching.js";
 
 const question = {
   id: "t1",
@@ -39,4 +39,18 @@ test("entryScore sums lowercased keywords and applies weightFor", () => {
   const base = entryScore(entry, h);
   assert.equal(base, keywordScore("s3", h) + keywordScore("object storage", h));
   assert.equal(entryScore(entry, h, () => 2), base * 2);
+});
+
+const withAnswers = (texts: string[], correct = ["a"]) => ({
+  ...question,
+  options: texts.map((text, i) => ({ id: "abc"[i], text })),
+  correctOptionIds: correct,
+});
+
+test("namesAwsService reads only the correct answers", () => {
+  assert.equal(namesAwsService(withAnswers(["Amazon S3", "Tape"])), true);
+  assert.equal(namesAwsService(withAnswers(["Enable AWS Shield Advanced"])), true);
+  assert.equal(namesAwsService(withAnswers(["Pay-as-you-go pricing", "Amazon S3"])), false);
+  assert.equal(namesAwsService(withAnswers(["It is AWS's responsibility"])), false);
+  assert.equal(namesAwsService(withAnswers(["AWS manages the hardware"])), false);
 });

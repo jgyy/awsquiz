@@ -1,7 +1,7 @@
 import { Question } from "./types.js";
 import { Certification, CertificationId } from "./certifications.js";
 import { videoAssignments } from "./video-assignments.js";
-import { entryScore, haystacksFor } from "./matching.js";
+import { entryScore, haystacksFor, namesAwsService } from "./matching.js";
 
 /** The official Amazon Web Services YouTube channel. Its videos are exempt from the length cap. */
 export const OFFICIAL_AWS_CHANNEL_ID = "UCd6MoB9NC6uYN2grvUNT-Zg";
@@ -668,6 +668,17 @@ export function videoUrlFor(id: string): string {
 
 export function isOfficialAws(entry: Pick<VideoEntry, "channelId">): boolean {
   return entry.channelId === OFFICIAL_AWS_CHANNEL_ID;
+}
+
+/** How much an official AWS video's score is raised on a question whose answer names an AWS service. */
+export const OFFICIAL_BONUS = 1.35;
+
+/**
+ * Score multiplier for the offline assignment. On a question whose correct answer names an AWS
+ * service, an official AWS video wins unless a third-party video scores about a third higher.
+ */
+export function officialPreference(entry: VideoEntry, question: Question): number {
+  return isOfficialAws(entry) && namesAwsService(question) ? OFFICIAL_BONUS : 1;
 }
 
 /**
