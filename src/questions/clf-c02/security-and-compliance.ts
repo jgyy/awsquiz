@@ -256,7 +256,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Retrieve current Security Hub findings",
       command: "aws securityhub get-findings --max-results 10",
-      sampleOutput: "{\n  \"Findings\": [\n    {\n      \"SchemaVersion\": \"2018-10-08\",\n      \"Id\": \"arn:aws:securityhub:ap-southeast-1:123456789012:security-control/IAM.6/finding/1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"ProductArn\": \"arn:aws:securityhub:ap-southeast-1::product/aws/securityhub\",\n      \"GeneratorId\": \"security-control/IAM.6\",\n      \"AwsAccountId\": \"123456789012\",\n      \"CreatedAt\": \"2026-04-02T06:15:22.000Z\",\n      \"Severity\": {\n        \"Label\": \"CRITICAL\",\n        \"Normalized\": 90\n      },\n      \"Title\": \"Hardware MFA should be enabled for the root user\",\n      \"Compliance\": {\n        \"Status\": \"FAILED\"\n      },\n      \"Workflow\": {\n        \"Status\": \"NEW\"\n      },\n      \"RecordState\": \"ACTIVE\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"Findings\": [\n    {\n      \"SchemaVersion\": \"2018-10-08\",\n      \"Id\": \"arn:aws:securityhub:sa-east-1:123456789012:security-control/IAM.6/finding/1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"ProductArn\": \"arn:aws:securityhub:sa-east-1::product/aws/securityhub\",\n      \"GeneratorId\": \"security-control/IAM.6\",\n      \"AwsAccountId\": \"123456789012\",\n      \"CreatedAt\": \"2026-04-02T06:15:22.000Z\",\n      \"Severity\": {\n        \"Label\": \"CRITICAL\",\n        \"Normalized\": 90\n      },\n      \"Title\": \"Hardware MFA should be enabled for the root user\",\n      \"Compliance\": {\n        \"Status\": \"FAILED\"\n      },\n      \"Workflow\": {\n        \"Status\": \"NEW\"\n      },\n      \"RecordState\": \"ACTIVE\"\n    }\n  ]\n}",
     },
   },
   {
@@ -386,7 +386,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List vulnerability findings from Amazon Inspector",
       command: "aws inspector2 list-findings --max-results 10",
-      sampleOutput: "{\n  \"findings\": [\n    {\n      \"findingArn\": \"arn:aws:inspector2:ap-southeast-1:123456789012:finding/1234abcd12ab34cd56ef1234567890ab\",\n      \"awsAccountId\": \"123456789012\",\n      \"type\": \"PACKAGE_VULNERABILITY\",\n      \"severity\": \"HIGH\",\n      \"status\": \"ACTIVE\",\n      \"title\": \"CVE-2026-1234 - openssl\",\n      \"inspectorScore\": 8.1,\n      \"firstObservedAt\": \"2026-05-11T13:04:51+00:00\",\n      \"resources\": [\n        {\n          \"type\": \"AWS_EC2_INSTANCE\",\n          \"id\": \"i-0123456789abcdef0\",\n          \"region\": \"ap-southeast-1\"\n        }\n      ]\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"findings\": [\n    {\n      \"findingArn\": \"arn:aws:inspector2:us-east-1:123456789012:finding/1234abcd12ab34cd56ef1234567890ab\",\n      \"awsAccountId\": \"123456789012\",\n      \"type\": \"PACKAGE_VULNERABILITY\",\n      \"severity\": \"HIGH\",\n      \"status\": \"ACTIVE\",\n      \"title\": \"CVE-2026-1234 - openssl\",\n      \"inspectorScore\": 8.1,\n      \"firstObservedAt\": \"2026-05-11T13:04:51+00:00\",\n      \"resources\": [\n        {\n          \"type\": \"AWS_EC2_INSTANCE\",\n          \"id\": \"i-0123456789abcdef0\",\n          \"region\": \"us-east-1\"\n        }\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -510,7 +510,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List AWS WAF web ACLs protecting regional resources",
       command: "aws wafv2 list-web-acls --scope REGIONAL",
-      sampleOutput: "{\n  \"NextMarker\": \"web-app-acl\",\n  \"WebACLs\": [\n    {\n      \"Name\": \"web-app-acl\",\n      \"Id\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"Description\": \"Blocks SQLi and XSS\",\n      \"LockToken\": \"a1b2c3d4-0000-1111-2222-333344445555\",\n      \"ARN\": \"arn:aws:wafv2:ap-southeast-1:123456789012:regional/webacl/web-app-acl/1234abcd-12ab-34cd-56ef-1234567890ab\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"NextMarker\": \"web-app-acl\",\n  \"WebACLs\": [\n    {\n      \"Name\": \"web-app-acl\",\n      \"Id\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"Description\": \"Blocks SQLi and XSS\",\n      \"LockToken\": \"a1b2c3d4-0000-1111-2222-333344445555\",\n      \"ARN\": \"arn:aws:wafv2:sa-east-1:123456789012:regional/webacl/web-app-acl/1234abcd-12ab-34cd-56ef-1234567890ab\"\n    }\n  ]\n}",
     },
   },
   {
@@ -553,7 +553,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List customer master keys managed in KMS",
       command: "aws kms list-keys",
-      sampleOutput: "{\n  \"Keys\": [\n    {\n      \"KeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"KeyArn\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n    },\n    {\n      \"KeyId\": \"0987fedc-98fe-76dc-54ba-0987654321fe\",\n      \"KeyArn\": \"arn:aws:kms:ap-southeast-1:123456789012:key/0987fedc-98fe-76dc-54ba-0987654321fe\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"Keys\": [\n    {\n      \"KeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"KeyArn\": \"arn:aws:kms:ap-northeast-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n    },\n    {\n      \"KeyId\": \"0987fedc-98fe-76dc-54ba-0987654321fe\",\n      \"KeyArn\": \"arn:aws:kms:ap-northeast-2:123456789012:key/0987fedc-98fe-76dc-54ba-0987654321fe\"\n    }\n  ]\n}",
     },
   },
   {
@@ -637,7 +637,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List IAM Access Analyzer instances used to find overly permissive access",
       command: "aws accessanalyzer list-analyzers",
-      sampleOutput: "{\n  \"analyzers\": [\n    {\n      \"arn\": \"arn:aws:access-analyzer:ap-southeast-1:123456789012:analyzer/account-analyzer\",\n      \"name\": \"account-analyzer\",\n      \"type\": \"ACCOUNT\",\n      \"createdAt\": \"2026-02-01T09:00:00+00:00\",\n      \"lastResourceAnalyzed\": \"arn:aws:s3:::my-bucket\",\n      \"lastResourceAnalyzedAt\": \"2026-09-16T22:10:05+00:00\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"analyzers\": [\n    {\n      \"arn\": \"arn:aws:access-analyzer:us-east-1:123456789012:analyzer/account-analyzer\",\n      \"name\": \"account-analyzer\",\n      \"type\": \"ACCOUNT\",\n      \"createdAt\": \"2026-02-01T09:00:00+00:00\",\n      \"lastResourceAnalyzed\": \"arn:aws:s3:::my-bucket\",\n      \"lastResourceAnalyzedAt\": \"2026-09-16T22:10:05+00:00\",\n      \"status\": \"ACTIVE\"\n    }\n  ]\n}",
     },
   },
   {
@@ -769,7 +769,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List AWS Config rules and their compliance state",
       command: "aws configservice describe-config-rules",
-      sampleOutput: "{\n  \"ConfigRules\": [\n    {\n      \"ConfigRuleName\": \"s3-bucket-server-side-encryption-enabled\",\n      \"ConfigRuleArn\": \"arn:aws:config:ap-southeast-1:123456789012:config-rule/config-rule-abcd12\",\n      \"ConfigRuleId\": \"config-rule-abcd12\",\n      \"Source\": {\n        \"Owner\": \"AWS\",\n        \"SourceIdentifier\": \"S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED\"\n      },\n      \"ConfigRuleState\": \"ACTIVE\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"ConfigRules\": [\n    {\n      \"ConfigRuleName\": \"s3-bucket-server-side-encryption-enabled\",\n      \"ConfigRuleArn\": \"arn:aws:config:eu-west-1:123456789012:config-rule/config-rule-abcd12\",\n      \"ConfigRuleId\": \"config-rule-abcd12\",\n      \"Source\": {\n        \"Owner\": \"AWS\",\n        \"SourceIdentifier\": \"S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED\"\n      },\n      \"ConfigRuleState\": \"ACTIVE\"\n    }\n  ]\n}",
     },
   },
   {
@@ -940,7 +940,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List ACM certificates used to enable TLS for data in transit",
       command: "aws acm list-certificates",
-      sampleOutput: "{\n  \"CertificateSummaryList\": [\n    {\n      \"CertificateArn\": \"arn:aws:acm:ap-southeast-1:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"DomainName\": \"www.example.com\",\n      \"SubjectAlternativeNameSummaries\": [\n        \"www.example.com\",\n        \"example.com\"\n      ],\n      \"Status\": \"ISSUED\",\n      \"Type\": \"AMAZON_ISSUED\",\n      \"KeyAlgorithm\": \"RSA-2048\",\n      \"InUse\": true,\n      \"RenewalEligibility\": \"ELIGIBLE\",\n      \"NotAfter\": \"2027-04-15T23:59:59+00:00\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"CertificateSummaryList\": [\n    {\n      \"CertificateArn\": \"arn:aws:acm:us-west-2:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab\",\n      \"DomainName\": \"www.example.com\",\n      \"SubjectAlternativeNameSummaries\": [\n        \"www.example.com\",\n        \"example.com\"\n      ],\n      \"Status\": \"ISSUED\",\n      \"Type\": \"AMAZON_ISSUED\",\n      \"KeyAlgorithm\": \"RSA-2048\",\n      \"InUse\": true,\n      \"RenewalEligibility\": \"ELIGIBLE\",\n      \"NotAfter\": \"2027-04-15T23:59:59+00:00\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1111,7 +1111,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Check the default encryption configuration on an S3 bucket",
       command: "aws s3api get-bucket-encryption --bucket my-bucket",
-      sampleOutput: "{\n  \"ServerSideEncryptionConfiguration\": {\n    \"Rules\": [\n      {\n        \"ApplyServerSideEncryptionByDefault\": {\n          \"SSEAlgorithm\": \"aws:kms\",\n          \"KMSMasterKeyID\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n        },\n        \"BucketKeyEnabled\": true\n      }\n    ]\n  }\n}",
+      sampleOutput: "{\n  \"ServerSideEncryptionConfiguration\": {\n    \"Rules\": [\n      {\n        \"ApplyServerSideEncryptionByDefault\": {\n          \"SSEAlgorithm\": \"aws:kms\",\n          \"KMSMasterKeyID\": \"arn:aws:kms:eu-north-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n        },\n        \"BucketKeyEnabled\": true\n      }\n    ]\n  }\n}",
     },
   },
   {
@@ -1338,7 +1338,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List CloudHSM clusters in the account",
       command: "aws cloudhsmv2 describe-clusters",
-      sampleOutput: "{\n  \"Clusters\": [\n    {\n      \"ClusterId\": \"cluster-1234abcd5678ef90\",\n      \"State\": \"ACTIVE\",\n      \"StateMessage\": \"The cluster is ready for use.\",\n      \"HsmType\": \"hsm2m.medium\",\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"SubnetMapping\": {\n        \"ap-southeast-1a\": \"subnet-0abc123def456789a\"\n      },\n      \"SecurityGroup\": \"sg-0abc123def456789a\",\n      \"Hsms\": [\n        {\n          \"HsmId\": \"hsm-1234abcd5678ef90\",\n          \"State\": \"ACTIVE\",\n          \"AvailabilityZone\": \"ap-southeast-1a\",\n          \"EniIp\": \"10.0.1.25\"\n        }\n      ],\n      \"BackupPolicy\": \"DEFAULT\",\n      \"CreateTimestamp\": \"2026-03-12T08:00:00+00:00\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"Clusters\": [\n    {\n      \"ClusterId\": \"cluster-1234abcd5678ef90\",\n      \"State\": \"ACTIVE\",\n      \"StateMessage\": \"The cluster is ready for use.\",\n      \"HsmType\": \"hsm2m.medium\",\n      \"VpcId\": \"vpc-0123456789abcdef0\",\n      \"SubnetMapping\": {\n        \"eu-north-1a\": \"subnet-0abc123def456789a\"\n      },\n      \"SecurityGroup\": \"sg-0abc123def456789a\",\n      \"Hsms\": [\n        {\n          \"HsmId\": \"hsm-1234abcd5678ef90\",\n          \"State\": \"ACTIVE\",\n          \"AvailabilityZone\": \"eu-north-1a\",\n          \"EniIp\": \"10.0.1.25\"\n        }\n      ],\n      \"BackupPolicy\": \"DEFAULT\",\n      \"CreateTimestamp\": \"2026-03-12T08:00:00+00:00\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1381,7 +1381,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Request a public TLS certificate with DNS validation",
       command: "aws acm request-certificate --domain-name www.example.com --validation-method DNS",
-      sampleOutput: "{\n  \"CertificateArn\": \"arn:aws:acm:ap-southeast-1:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
+      sampleOutput: "{\n  \"CertificateArn\": \"arn:aws:acm:eu-west-3:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
     },
   },
   {
@@ -1426,7 +1426,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List Cognito user pools in the current region",
       command: "aws cognito-idp list-user-pools --max-results 20",
-      sampleOutput: "{\n  \"UserPools\": [\n    {\n      \"Id\": \"ap-southeast-1_AbCdEfGhI\",\n      \"Name\": \"mobile-app-users\",\n      \"LambdaConfig\": {},\n      \"LastModifiedDate\": \"2026-06-04T11:20:00+00:00\",\n      \"CreationDate\": \"2026-05-30T09:10:00+00:00\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"UserPools\": [\n    {\n      \"Id\": \"ap-southeast-2_AbCdEfGhI\",\n      \"Name\": \"mobile-app-users\",\n      \"LambdaConfig\": {},\n      \"LastModifiedDate\": \"2026-06-04T11:20:00+00:00\",\n      \"CreationDate\": \"2026-05-30T09:10:00+00:00\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1469,7 +1469,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List AWS Network Firewall firewalls in the region",
       command: "aws network-firewall list-firewalls",
-      sampleOutput: "{\n  \"Firewalls\": [\n    {\n      \"FirewallName\": \"prod-vpc-firewall\",\n      \"FirewallArn\": \"arn:aws:network-firewall:ap-southeast-1:123456789012:firewall/prod-vpc-firewall\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"Firewalls\": [\n    {\n      \"FirewallName\": \"prod-vpc-firewall\",\n      \"FirewallArn\": \"arn:aws:network-firewall:ap-south-1:123456789012:firewall/prod-vpc-firewall\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1690,7 +1690,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create an RDS instance with storage encryption enabled using KMS",
       command: "aws rds create-db-instance --db-instance-identifier mydb --db-instance-class db.t3.micro --engine mysql --master-username admin --master-user-password ExamplePassword123 --allocated-storage 20 --storage-encrypted",
-      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"mydb\",\n    \"DBInstanceClass\": \"db.t3.micro\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"creating\",\n    \"MasterUsername\": \"admin\",\n    \"AllocatedStorage\": 20,\n    \"EngineVersion\": \"8.0.40\",\n    \"StorageEncrypted\": true,\n    \"KmsKeyId\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"PubliclyAccessible\": false,\n    \"VpcSecurityGroups\": [\n      {\n        \"VpcSecurityGroupId\": \"sg-0abc123def456789a\",\n        \"Status\": \"active\"\n      }\n    ],\n    \"DBInstanceArn\": \"arn:aws:rds:ap-southeast-1:123456789012:db:mydb\"\n  }\n}",
+      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"mydb\",\n    \"DBInstanceClass\": \"db.t3.micro\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"creating\",\n    \"MasterUsername\": \"admin\",\n    \"AllocatedStorage\": 20,\n    \"EngineVersion\": \"8.0.40\",\n    \"StorageEncrypted\": true,\n    \"KmsKeyId\": \"arn:aws:kms:us-east-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"PubliclyAccessible\": false,\n    \"VpcSecurityGroups\": [\n      {\n        \"VpcSecurityGroupId\": \"sg-0abc123def456789a\",\n        \"Status\": \"active\"\n      }\n    ],\n    \"DBInstanceArn\": \"arn:aws:rds:us-east-2:123456789012:db:mydb\"\n  }\n}",
     },
   },
   {
@@ -1782,7 +1782,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create an Access Analyzer with the AWS Organization as the zone of trust",
       command: "aws accessanalyzer create-analyzer --analyzer-name org-analyzer --type ORGANIZATION",
-      sampleOutput: "{\n  \"arn\": \"arn:aws:access-analyzer:ap-southeast-1:123456789012:analyzer/org-analyzer\"\n}",
+      sampleOutput: "{\n  \"arn\": \"arn:aws:access-analyzer:ap-northeast-2:123456789012:analyzer/org-analyzer\"\n}",
     },
   },
   {
@@ -1913,7 +1913,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Enable Amazon Detective by creating a behavior graph",
       command: "aws detective create-graph",
-      sampleOutput: "{\n  \"GraphArn\": \"arn:aws:detective:ap-southeast-1:123456789012:graph:1234abcd5678efgh1234abcd5678efgh\"\n}",
+      sampleOutput: "{\n  \"GraphArn\": \"arn:aws:detective:us-east-2:123456789012:graph:1234abcd5678efgh1234abcd5678efgh\"\n}",
     },
   },
   {
@@ -1957,7 +1957,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List Firewall Manager policies in the administrator account",
       command: "aws fms list-policies",
-      sampleOutput: "{\n  \"PolicyList\": [\n    {\n      \"PolicyArn\": \"arn:aws:fms:ap-southeast-1:123456789012:policy/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"PolicyId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"PolicyName\": \"org-waf-baseline\",\n      \"ResourceType\": \"AWS::ElasticLoadBalancingV2::LoadBalancer\",\n      \"SecurityServiceType\": \"WAFV2\",\n      \"RemediationEnabled\": true,\n      \"DeleteUnusedFMManagedResources\": false\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"PolicyList\": [\n    {\n      \"PolicyArn\": \"arn:aws:fms:us-west-2:123456789012:policy/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"PolicyId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"PolicyName\": \"org-waf-baseline\",\n      \"ResourceType\": \"AWS::ElasticLoadBalancingV2::LoadBalancer\",\n      \"SecurityServiceType\": \"WAFV2\",\n      \"RemediationEnabled\": true,\n      \"DeleteUnusedFMManagedResources\": false\n    }\n  ]\n}",
     },
   },
   {
@@ -2047,8 +2047,8 @@ export const securityAndComplianceQuestions: Question[] = [
   F -->|No| H[Tampering detected]`,
     cliExample: {
       description: "Validate CloudTrail log files delivered during a time range",
-      command: "aws cloudtrail validate-logs --trail-arn arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/management-trail --start-time 2025-06-01T00:00:00Z --end-time 2025-06-02T00:00:00Z",
-      sampleOutput: "Validating log files for trail arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/management-trail between 2025-06-01T00:00:00Z and 2025-06-02T00:00:00Z\n\nResults requested for 2025-06-01T00:00:00Z to 2025-06-02T00:00:00Z\nResults found for 2025-06-01T00:03:12Z to 2025-06-01T23:58:44Z:\n\n24/24 digest files valid\n1436/1436 log files valid",
+      command: "aws cloudtrail validate-logs --trail-arn arn:aws:cloudtrail:eu-west-2:123456789012:trail/management-trail --start-time 2025-06-01T00:00:00Z --end-time 2025-06-02T00:00:00Z",
+      sampleOutput: "Validating log files for trail arn:aws:cloudtrail:eu-west-2:123456789012:trail/management-trail between 2025-06-01T00:00:00Z and 2025-06-02T00:00:00Z\n\nResults requested for 2025-06-01T00:00:00Z to 2025-06-02T00:00:00Z\nResults found for 2025-06-01T00:03:12Z to 2025-06-01T23:58:44Z:\n\n24/24 digest files valid\n1436/1436 log files valid",
     },
   },
   {
@@ -2229,7 +2229,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create a customer managed key and enable automatic rotation",
       command: "aws kms create-key --description \"S3 data key\" && aws kms enable-key-rotation --key-id 1234abcd-12ab-34cd-56ef-1234567890ab",
-      sampleOutput: "{\n  \"KeyMetadata\": {\n    \"AWSAccountId\": \"123456789012\",\n    \"KeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"Arn\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"CreationDate\": \"2025-06-01T10:15:22.000Z\",\n    \"Enabled\": true,\n    \"Description\": \"S3 data key\",\n    \"KeyUsage\": \"ENCRYPT_DECRYPT\",\n    \"KeyState\": \"Enabled\",\n    \"Origin\": \"AWS_KMS\",\n    \"KeyManager\": \"CUSTOMER\",\n    \"KeySpec\": \"SYMMETRIC_DEFAULT\"\n  }\n}",
+      sampleOutput: "{\n  \"KeyMetadata\": {\n    \"AWSAccountId\": \"123456789012\",\n    \"KeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"Arn\": \"arn:aws:kms:eu-west-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n    \"CreationDate\": \"2025-06-01T10:15:22.000Z\",\n    \"Enabled\": true,\n    \"Description\": \"S3 data key\",\n    \"KeyUsage\": \"ENCRYPT_DECRYPT\",\n    \"KeyState\": \"Enabled\",\n    \"Origin\": \"AWS_KMS\",\n    \"KeyManager\": \"CUSTOMER\",\n    \"KeySpec\": \"SYMMETRIC_DEFAULT\"\n  }\n}",
     },
   },
   {
@@ -2595,7 +2595,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create an EventBridge rule that matches high-severity GuardDuty findings",
       command: "aws events put-rule --name guardduty-high-severity --event-pattern '{\"source\":[\"aws.guardduty\"],\"detail-type\":[\"GuardDuty Finding\"],\"detail\":{\"severity\":[7,7.5,8,8.5,9]}}'",
-      sampleOutput: "{\n  \"RuleArn\": \"arn:aws:events:ap-southeast-1:123456789012:rule/guardduty-high-severity\"\n}",
+      sampleOutput: "{\n  \"RuleArn\": \"arn:aws:events:ap-northeast-2:123456789012:rule/guardduty-high-severity\"\n}",
     },
   },
   {
@@ -2642,7 +2642,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create an unused access analyzer with a 90-day tracking period for the whole organization",
       command: "aws accessanalyzer create-analyzer --analyzer-name org-unused-access --type ORGANIZATION_UNUSED_ACCESS --configuration '{\"unusedAccess\":{\"unusedAccessAge\":90}}'",
-      sampleOutput: "{\n  \"arn\": \"arn:aws:access-analyzer:ap-southeast-1:123456789012:analyzer/org-unused-access\"\n}",
+      sampleOutput: "{\n  \"arn\": \"arn:aws:access-analyzer:eu-west-3:123456789012:analyzer/org-unused-access\"\n}",
     },
   },
   {
@@ -2733,7 +2733,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List the security standards available to enable in Security Hub",
       command: "aws securityhub describe-standards --query 'Standards[].{Name:Name,Arn:StandardsArn}'",
-      sampleOutput: "[\n  {\n    \"Name\": \"CIS AWS Foundations Benchmark v1.4.0\",\n    \"Arn\": \"arn:aws:securityhub:ap-southeast-1::standards/cis-aws-foundations-benchmark/v/1.4.0\"\n  },\n  {\n    \"Name\": \"AWS Foundational Security Best Practices v1.0.0\",\n    \"Arn\": \"arn:aws:securityhub:ap-southeast-1::standards/aws-foundational-security-best-practices/v/1.0.0\"\n  },\n  {\n    \"Name\": \"PCI DSS v3.2.1\",\n    \"Arn\": \"arn:aws:securityhub:ap-southeast-1::standards/pci-dss/v/3.2.1\"\n  }\n]",
+      sampleOutput: "[\n  {\n    \"Name\": \"CIS AWS Foundations Benchmark v1.4.0\",\n    \"Arn\": \"arn:aws:securityhub:ap-south-1::standards/cis-aws-foundations-benchmark/v/1.4.0\"\n  },\n  {\n    \"Name\": \"AWS Foundational Security Best Practices v1.0.0\",\n    \"Arn\": \"arn:aws:securityhub:ap-south-1::standards/aws-foundational-security-best-practices/v/1.0.0\"\n  },\n  {\n    \"Name\": \"PCI DSS v3.2.1\",\n    \"Arn\": \"arn:aws:securityhub:ap-south-1::standards/pci-dss/v/3.2.1\"\n  }\n]",
     },
   },
   {
@@ -2910,8 +2910,8 @@ export const securityAndComplianceQuestions: Question[] = [
   A -.-x E[Internet gateway or NAT not used]`,
     cliExample: {
       description: "Create a gateway endpoint for S3 attached to the private route table",
-      command: "aws ec2 create-vpc-endpoint --vpc-id vpc-0a1b2c3d4e5f67890 --service-name com.amazonaws.ap-southeast-1.s3 --vpc-endpoint-type Gateway --route-table-ids rtb-0123456789abcdef0",
-      sampleOutput: "{\n  \"VpcEndpoint\": {\n    \"VpcEndpointId\": \"vpce-0fedcba9876543210\",\n    \"VpcEndpointType\": \"Gateway\",\n    \"VpcId\": \"vpc-0a1b2c3d4e5f67890\",\n    \"ServiceName\": \"com.amazonaws.ap-southeast-1.s3\",\n    \"State\": \"available\",\n    \"RouteTableIds\": [\n      \"rtb-0123456789abcdef0\"\n    ],\n    \"CreationTimestamp\": \"2026-03-14T09:12:44.000Z\",\n    \"OwnerId\": \"123456789012\"\n  }\n}",
+      command: "aws ec2 create-vpc-endpoint --vpc-id vpc-0a1b2c3d4e5f67890 --service-name com.amazonaws.us-east-1.s3 --vpc-endpoint-type Gateway --route-table-ids rtb-0123456789abcdef0",
+      sampleOutput: "{\n  \"VpcEndpoint\": {\n    \"VpcEndpointId\": \"vpce-0fedcba9876543210\",\n    \"VpcEndpointType\": \"Gateway\",\n    \"VpcId\": \"vpc-0a1b2c3d4e5f67890\",\n    \"ServiceName\": \"com.amazonaws.us-east-1.s3\",\n    \"State\": \"available\",\n    \"RouteTableIds\": [\n      \"rtb-0123456789abcdef0\"\n    ],\n    \"CreationTimestamp\": \"2026-03-14T09:12:44.000Z\",\n    \"OwnerId\": \"123456789012\"\n  }\n}",
     },
   },
   {
@@ -3188,7 +3188,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create a Signer signing profile for Lambda deployment packages",
       command: "aws signer put-signing-profile --profile-name prod-release-team --platform-id AWSLambda-SHA384-ECDSA",
-      sampleOutput: "{\n  \"arn\": \"arn:aws:signer:ap-southeast-1:123456789012:/signing-profiles/prod-release-team\",\n  \"profileVersion\": \"a1b2c3d4e5\",\n  \"profileVersionArn\": \"arn:aws:signer:ap-southeast-1:123456789012:/signing-profiles/prod-release-team/a1b2c3d4e5\"\n}",
+      sampleOutput: "{\n  \"arn\": \"arn:aws:signer:us-east-2:123456789012:/signing-profiles/prod-release-team\",\n  \"profileVersion\": \"a1b2c3d4e5\",\n  \"profileVersionArn\": \"arn:aws:signer:us-east-2:123456789012:/signing-profiles/prod-release-team/a1b2c3d4e5\"\n}",
     },
   },
   {
@@ -3548,7 +3548,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List private certificate authorities in the account",
       command: "aws acm-pca list-certificate-authorities --query \"CertificateAuthorities[].{Arn:Arn,Status:Status,Type:Type}\"",
-      sampleOutput: "[\n  {\n    \"Arn\": \"arn:aws:acm-pca:ap-southeast-1:123456789012:certificate-authority/12345678-1234-1234-1234-123456789012\",\n    \"Status\": \"ACTIVE\",\n    \"Type\": \"SUBORDINATE\"\n  }\n]",
+      sampleOutput: "[\n  {\n    \"Arn\": \"arn:aws:acm-pca:eu-west-2:123456789012:certificate-authority/12345678-1234-1234-1234-123456789012\",\n    \"Status\": \"ACTIVE\",\n    \"Type\": \"SUBORDINATE\"\n  }\n]",
     },
   },
   {
@@ -3588,7 +3588,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create a presigned URL valid for five minutes",
       command: "aws s3 presign s3://customer-invoices/2026/inv-10422.pdf --expires-in 300",
-      sampleOutput: "https://customer-invoices.s3.amazonaws.com/2026/inv-10422.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20260917%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20260917T023000Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=EXAMPLE",
+      sampleOutput: "https://customer-invoices.s3.amazonaws.com/2026/inv-10422.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20260917%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20260917T023000Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=EXAMPLE",
     },
   },
   {
@@ -3670,7 +3670,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Find when each of a user's access keys was last used to decide whether to rotate or delete them",
       command: "aws iam get-access-key-last-used --access-key-id AKIAIOSFODNN7EXAMPLE",
-      sampleOutput: "{\n  \"UserName\": \"dev-bob\",\n  \"AccessKeyLastUsed\": {\n    \"LastUsedDate\": \"2024-01-09T14:22:31+00:00\",\n    \"ServiceName\": \"s3\",\n    \"Region\": \"ap-southeast-1\"\n  }\n}",
+      sampleOutput: "{\n  \"UserName\": \"dev-bob\",\n  \"AccessKeyLastUsed\": {\n    \"LastUsedDate\": \"2024-01-09T14:22:31+00:00\",\n    \"ServiceName\": \"s3\",\n    \"Region\": \"eu-west-3\"\n  }\n}",
     },
   },
   {
@@ -3830,7 +3830,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Enable S3 data event logging for a specific bucket on an existing trail",
       command: "aws cloudtrail put-event-selectors --trail-name org-trail --event-selectors '[{\"ReadWriteType\":\"All\",\"IncludeManagementEvents\":true,\"DataResources\":[{\"Type\":\"AWS::S3::Object\",\"Values\":[\"arn:aws:s3:::sensitive-data/\"]}]}]'",
-      sampleOutput: "{\n  \"TrailARN\": \"arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/org-trail\",\n  \"EventSelectors\": [\n    {\n      \"ReadWriteType\": \"All\",\n      \"IncludeManagementEvents\": true,\n      \"DataResources\": [\n        {\n          \"Type\": \"AWS::S3::Object\",\n          \"Values\": [\n            \"arn:aws:s3:::sensitive-data/\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"TrailARN\": \"arn:aws:cloudtrail:ap-northeast-2:123456789012:trail/org-trail\",\n  \"EventSelectors\": [\n    {\n      \"ReadWriteType\": \"All\",\n      \"IncludeManagementEvents\": true,\n      \"DataResources\": [\n        {\n          \"Type\": \"AWS::S3::Object\",\n          \"Values\": [\n            \"arn:aws:s3:::sensitive-data/\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -3909,8 +3909,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  Net[Networking account] -->|shares via RAM| Share[Resource share: subnets, TGW]\n  Share --> A[App account A launches EC2 in shared subnet]\n  Share --> B[App account B attaches to TGW]",
     cliExample: {
       description: "Create a resource share that offers a subnet to the whole organization",
-      command: "aws ram create-resource-share --name shared-app-subnets --resource-arns arn:aws:ec2:ap-southeast-1:111122223333:subnet/subnet-0a1b2c3d4e5f6a7b8 --principals arn:aws:organizations::111122223333:organization/o-exampleorgid",
-      sampleOutput: "{\n  \"resourceShare\": {\n    \"resourceShareArn\": \"arn:aws:ram:ap-southeast-1:111122223333:resource-share/7ab63972-b505-7e2a-8a1b-3c4d5e6f7a8b\",\n    \"name\": \"shared-app-subnets\",\n    \"owningAccountId\": \"111122223333\",\n    \"allowExternalPrincipals\": false,\n    \"status\": \"ACTIVE\"\n  }\n}",
+      command: "aws ram create-resource-share --name shared-app-subnets --resource-arns arn:aws:ec2:us-east-1:111122223333:subnet/subnet-0a1b2c3d4e5f6a7b8 --principals arn:aws:organizations::111122223333:organization/o-exampleorgid",
+      sampleOutput: "{\n  \"resourceShare\": {\n    \"resourceShareArn\": \"arn:aws:ram:us-east-1:111122223333:resource-share/7ab63972-b505-7e2a-8a1b-3c4d5e6f7a8b\",\n    \"name\": \"shared-app-subnets\",\n    \"owningAccountId\": \"111122223333\",\n    \"allowExternalPrincipals\": false,\n    \"status\": \"ACTIVE\"\n  }\n}",
     },
   },
   {
@@ -4152,7 +4152,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create an EventBridge rule that matches root user console sign-ins",
       command: "aws events put-rule --name root-signin-alert --event-pattern '{\"detail-type\":[\"AWS Console Sign In via CloudTrail\"],\"detail\":{\"userIdentity\":{\"type\":[\"Root\"]}}}'",
-      sampleOutput: "{\n  \"RuleArn\": \"arn:aws:events:ap-southeast-1:123456789012:rule/root-signin-alert\"\n}",
+      sampleOutput: "{\n  \"RuleArn\": \"arn:aws:events:us-east-2:123456789012:rule/root-signin-alert\"\n}",
     },
   },
   {
@@ -4275,7 +4275,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  AWS[\"AWS: hardware, OS, service software\"] --> DDB[DynamoDB table]\n  Cust[\"Customer: IAM policies, data classification, encryption choice\"] --> DDB",
     cliExample: {
       description: "Attach a least-privilege policy so an application role can only read one table",
-      command: "aws iam put-role-policy --role-name orders-app-role --policy-name orders-read --policy-document '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Resource\":\"arn:aws:dynamodb:ap-southeast-1:123456789012:table/Orders\"}]}'",
+      command: "aws iam put-role-policy --role-name orders-app-role --policy-name orders-read --policy-document '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Resource\":\"arn:aws:dynamodb:eu-west-2:123456789012:table/Orders\"}]}'",
       sampleOutput: "",
     },
   },
@@ -4396,7 +4396,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create a multi-Region organization trail from the management account",
       command: "aws cloudtrail create-trail --name org-trail --s3-bucket-name central-cloudtrail-logs-123456789012 --is-organization-trail --is-multi-region-trail",
-      sampleOutput: "{\n  \"Name\": \"org-trail\",\n  \"S3BucketName\": \"central-cloudtrail-logs-123456789012\",\n  \"IncludeGlobalServiceEvents\": true,\n  \"IsMultiRegionTrail\": true,\n  \"TrailARN\": \"arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/org-trail\",\n  \"LogFileValidationEnabled\": false,\n  \"IsOrganizationTrail\": true\n}",
+      sampleOutput: "{\n  \"Name\": \"org-trail\",\n  \"S3BucketName\": \"central-cloudtrail-logs-123456789012\",\n  \"IncludeGlobalServiceEvents\": true,\n  \"IsMultiRegionTrail\": true,\n  \"TrailARN\": \"arn:aws:cloudtrail:eu-north-1:123456789012:trail/org-trail\",\n  \"LogFileValidationEnabled\": false,\n  \"IsOrganizationTrail\": true\n}",
     },
   },
   {
@@ -4478,13 +4478,13 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Create a user pool that requires email verification for new sign-ups",
       command: "aws cognito-idp create-user-pool --pool-name photo-app-users --auto-verified-attributes email --username-attributes email",
-      sampleOutput: "{\n  \"UserPool\": {\n    \"Id\": \"ap-southeast-1_AbCdEfGhI\",\n    \"Name\": \"photo-app-users\",\n    \"AutoVerifiedAttributes\": [\n      \"email\"\n    ],\n    \"UsernameAttributes\": [\n      \"email\"\n    ],\n    \"Arn\": \"arn:aws:cognito-idp:ap-southeast-1:123456789012:userpool/ap-southeast-1_AbCdEfGhI\"\n  }\n}",
+      sampleOutput: "{\n  \"UserPool\": {\n    \"Id\": \"ap-southeast-2_AbCdEfGhI\",\n    \"Name\": \"photo-app-users\",\n    \"AutoVerifiedAttributes\": [\n      \"email\"\n    ],\n    \"UsernameAttributes\": [\n      \"email\"\n    ],\n    \"Arn\": \"arn:aws:cognito-idp:ap-southeast-2:123456789012:userpool/ap-southeast-2_AbCdEfGhI\"\n  }\n}",
     },
   },
   {
     id: "sec104",
     domain: "security-and-compliance",
-    text: "An administrator attaches a Service Control Policy (SCP) to a member account in AWS Organizations that denies all actions in the ap-southeast-1 Region. The member account's root user then signs in and tries to launch an EC2 instance in ap-southeast-1. What is the result?",
+    text: "An administrator attaches a Service Control Policy (SCP) to a member account in AWS Organizations that denies all actions in the eu-north-1 Region. The member account's root user then signs in and tries to launch an EC2 instance in eu-north-1. What is the result?",
     options: [
       { id: "a", text: "The request is denied, because SCPs apply to all principals in a member account, including its root user" },
       { id: "b", text: "The request succeeds, because the root user is never restricted by any policy" },
@@ -4493,7 +4493,7 @@ export const securityAndComplianceQuestions: Question[] = [
       { id: "e", text: "The request succeeds, because SCPs apply only to IAM roles created after the SCP was attached" },
       { id: "f", text: "The request is denied, but only after AWS Config evaluates the launch and terminates the instance" },
       { id: "g", text: "The request succeeds, because Region restrictions can only be enforced with IAM policies, not SCPs" },
-      { id: "h", text: "The request is denied, because the SCP automatically disables the ap-southeast-1 Region for the account" },
+      { id: "h", text: "The request is denied, because the SCP automatically disables the eu-north-1 Region for the account" },
       { id: "i", text: "The request is denied; only the organization's management account is exempt from SCPs" },
     ],
     correctOptionIds: ["a", "i"],
@@ -4514,7 +4514,7 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "Service control policies (SCPs)",
     consoleUrl: "https://console.aws.amazon.com/organizations/v2/home/policies/service-control-policy",
     consoleLabel: "AWS Organizations > Service control policies",
-    diagram: "flowchart TD\n  Org[Organization SCP: deny ap-southeast-1] --> Member[Member account]\n  Member --> Root[Root user]\n  Member --> Users[IAM users and roles]\n  Root -.-x EC2[\"RunInstances in ap-southeast-1\"]\n  Users -.-x EC2\n  Mgmt[Management account] -->|not affected by SCPs| EC2",
+    diagram: "flowchart TD\n  Org[Organization SCP: deny eu-north-1] --> Member[Member account]\n  Member --> Root[Root user]\n  Member --> Users[IAM users and roles]\n  Root -.-x EC2[\"RunInstances in eu-north-1\"]\n  Users -.-x EC2\n  Mgmt[Management account] -->|not affected by SCPs| EC2",
     cliExample: {
       description: "Attach a Region-restriction SCP to a member account",
       command: "aws organizations attach-policy --policy-id p-examplepolicyid1 --target-id 123456789012",
@@ -4678,7 +4678,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Turn on Insights for API call rate and error rate anomalies on an existing trail",
       command: "aws cloudtrail put-insight-selectors --trail-name org-trail --insight-selectors '[{\"InsightType\":\"ApiCallRateInsight\"},{\"InsightType\":\"ApiErrorRateInsight\"}]'",
-      sampleOutput: "{\n  \"TrailARN\": \"arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/org-trail\",\n  \"InsightSelectors\": [\n    {\n      \"InsightType\": \"ApiCallRateInsight\"\n    },\n    {\n      \"InsightType\": \"ApiErrorRateInsight\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"TrailARN\": \"arn:aws:cloudtrail:us-east-1:123456789012:trail/org-trail\",\n  \"InsightSelectors\": [\n    {\n      \"InsightType\": \"ApiCallRateInsight\"\n    },\n    {\n      \"InsightType\": \"ApiErrorRateInsight\"\n    }\n  ]\n}",
     },
   },
   {
@@ -4718,7 +4718,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "List Well-Architected workloads to review against the Security pillar",
       command: "aws wellarchitected list-workloads",
-      sampleOutput: "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:ap-southeast-1:123456789012:workload/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n      \"WorkloadName\": \"payments-api\",\n      \"Owner\": \"123456789012\",\n      \"UpdatedAt\": \"2026-09-10T09:30:00+00:00\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"HIGH\": 2,\n        \"MEDIUM\": 5,\n        \"NONE\": 30\n      },\n      \"ImprovementStatus\": \"IN_PROGRESS\"\n    }\n  ]\n}",
+      sampleOutput: "{\n  \"WorkloadSummaries\": [\n    {\n      \"WorkloadId\": \"a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n      \"WorkloadArn\": \"arn:aws:wellarchitected:us-east-2:123456789012:workload/a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6\",\n      \"WorkloadName\": \"payments-api\",\n      \"Owner\": \"123456789012\",\n      \"UpdatedAt\": \"2026-09-10T09:30:00+00:00\",\n      \"Lenses\": [\n        \"wellarchitected\"\n      ],\n      \"RiskCounts\": {\n        \"HIGH\": 2,\n        \"MEDIUM\": 5,\n        \"NONE\": 30\n      },\n      \"ImprovementStatus\": \"IN_PROGRESS\"\n    }\n  ]\n}",
     },
   },
   {
@@ -4959,7 +4959,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  WAF[AWS WAF web ACL] --> CF[CloudFront]\n  WAF --> ALB[Application Load Balancer]\n  WAF --> APIGW[API Gateway REST API]\n  WAF -.-x EC2[EC2 instance directly]\n  WAF -.-x NLB[Network Load Balancer]",
     cliExample: {
       description: "Associate a Regional web ACL with an Application Load Balancer",
-      command: "aws wafv2 associate-web-acl --web-acl-arn arn:aws:wafv2:ap-southeast-1:123456789012:regional/webacl/prod-acl/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111 --resource-arn arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:loadbalancer/app/prod-alb/50dc6c495c0c9188",
+      command: "aws wafv2 associate-web-acl --web-acl-arn arn:aws:wafv2:us-west-2:123456789012:regional/webacl/prod-acl/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111 --resource-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/prod-alb/50dc6c495c0c9188",
       sampleOutput: "",
     },
   },
@@ -4999,7 +4999,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  User[IAM principal] -->|GetObject| S3[S3 bucket with SSE-KMS]\n  S3 -->|Decrypt call| KMS[Customer managed key]\n  KMS --> CT[CloudTrail: who used the key]\n  Admin[Disable key] -.-x KMS",
     cliExample: {
       description: "Set SSE-KMS with a customer managed key as the bucket's default encryption",
-      command: "aws s3api put-bucket-encryption --bucket audit-data-123456789012 --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"aws:kms\",\"KMSMasterKeyID\":\"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"},\"BucketKeyEnabled\":true}]}'",
+      command: "aws s3api put-bucket-encryption --bucket audit-data-123456789012 --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"aws:kms\",\"KMSMasterKeyID\":\"arn:aws:kms:eu-west-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"},\"BucketKeyEnabled\":true}]}'",
       sampleOutput: "",
     },
   },
@@ -5079,8 +5079,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  CT[CloudTrail] --> SL[Amazon Security Lake]\n  VPC[VPC Flow Logs] --> SL\n  R53[Route 53 resolver logs] --> SL\n  Third[Third-party tools] --> SL\n  SL --> OCSF[\"OCSF data in S3\"]\n  OCSF --> Athena[Athena or SIEM]",
     cliExample: {
       description: "List the log sources currently enabled in Security Lake",
-      command: "aws securitylake list-log-sources --regions ap-southeast-1",
-      sampleOutput: "{\n  \"sources\": [\n    {\n      \"account\": \"123456789012\",\n      \"region\": \"ap-southeast-1\",\n      \"sources\": [\n        { \"awsLogSource\": { \"sourceName\": \"CLOUD_TRAIL_MGMT\", \"sourceVersion\": \"2.0\" } },\n        { \"awsLogSource\": { \"sourceName\": \"VPC_FLOW\", \"sourceVersion\": \"2.0\" } }\n      ]\n    }\n  ]\n}",
+      command: "aws securitylake list-log-sources --regions eu-central-1",
+      sampleOutput: "{\n  \"sources\": [\n    {\n      \"account\": \"123456789012\",\n      \"region\": \"eu-central-1\",\n      \"sources\": [\n        { \"awsLogSource\": { \"sourceName\": \"CLOUD_TRAIL_MGMT\", \"sourceVersion\": \"2.0\" } },\n        { \"awsLogSource\": { \"sourceName\": \"VPC_FLOW\", \"sourceVersion\": \"2.0\" } }\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -5120,7 +5120,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Generate a 256-bit data key protected by a KMS key for envelope encryption",
       command: "aws kms generate-data-key --key-id alias/app-data --key-spec AES_256",
-      sampleOutput: "{\n  \"CiphertextBlob\": \"AQIDAHh...EXAMPLE...==\",\n  \"Plaintext\": \"K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols=\",\n  \"KeyId\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
+      sampleOutput: "{\n  \"CiphertextBlob\": \"AQIDAHh...EXAMPLE...==\",\n  \"Plaintext\": \"K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols=\",\n  \"KeyId\": \"arn:aws:kms:eu-north-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
     },
   },
   {
@@ -5201,8 +5201,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TB\n  Cust[Customer] --> Img[Container image and libraries]\n  Cust --> Role[IAM task role]\n  Cust --> SG[Security groups]\n  AWS[AWS] --> Host[Fargate host OS and kernel]\n  AWS --> Hyp[Isolation and hypervisor]\n  AWS --> DC[Physical data center]",
     cliExample: {
       description: "Register a Fargate task definition that runs with a least-privilege task role",
-      command: "aws ecs register-task-definition --family web-api --requires-compatibilities FARGATE --network-mode awsvpc --cpu 256 --memory 512 --task-role-arn arn:aws:iam::123456789012:role/WebApiTaskRole --execution-role-arn arn:aws:iam::123456789012:role/ecsTaskExecutionRole --container-definitions '[{\"name\":\"api\",\"image\":\"123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/web-api:1.4.2\",\"essential\":true}]'",
-      sampleOutput: "{\n  \"taskDefinition\": {\n    \"taskDefinitionArn\": \"arn:aws:ecs:ap-southeast-1:123456789012:task-definition/web-api:7\",\n    \"family\": \"web-api\",\n    \"revision\": 7,\n    \"status\": \"ACTIVE\",\n    \"requiresCompatibilities\": [\"FARGATE\"]\n  }\n}",
+      command: "aws ecs register-task-definition --family web-api --requires-compatibilities FARGATE --network-mode awsvpc --cpu 256 --memory 512 --task-role-arn arn:aws:iam::123456789012:role/WebApiTaskRole --execution-role-arn arn:aws:iam::123456789012:role/ecsTaskExecutionRole --container-definitions '[{\"name\":\"api\",\"image\":\"123456789012.dkr.ecr.eu-west-1.amazonaws.com/web-api:1.4.2\",\"essential\":true}]'",
+      sampleOutput: "{\n  \"taskDefinition\": {\n    \"taskDefinitionArn\": \"arn:aws:ecs:eu-west-1:123456789012:task-definition/web-api:7\",\n    \"family\": \"web-api\",\n    \"revision\": 7,\n    \"status\": \"ACTIVE\",\n    \"requiresCompatibilities\": [\"FARGATE\"]\n  }\n}",
     },
   },
   {
@@ -5282,7 +5282,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Check which Regions are opted in and enabled for the account",
       command: "aws account list-regions --region-opt-status-contains ENABLED ENABLED_BY_DEFAULT --query 'Regions[?contains(RegionName, `ap-southeast`)]'",
-      sampleOutput: "[\n  { \"RegionName\": \"ap-southeast-1\", \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\" },\n  { \"RegionName\": \"ap-southeast-2\", \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\" },\n  { \"RegionName\": \"ap-southeast-4\", \"RegionOptStatus\": \"ENABLED\" }\n]",
+      sampleOutput: "[\n  { \"RegionName\": \"eu-central-1\", \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\" },\n  { \"RegionName\": \"ap-southeast-2\", \"RegionOptStatus\": \"ENABLED_BY_DEFAULT\" },\n  { \"RegionName\": \"ap-southeast-4\", \"RegionOptStatus\": \"ENABLED\" }\n]",
     },
   },
   {
@@ -5403,8 +5403,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  C1[Customer VPC A] --> EP1[Interface endpoint]\n  C2[Customer VPC B] --> EP2[Interface endpoint]\n  EP1 --> PL[PrivateLink endpoint service]\n  EP2 --> PL\n  PL --> NLB[Vendor Network Load Balancer]\n  NLB --> API[Vendor API]",
     cliExample: {
       description: "Publish the vendor NLB as a PrivateLink endpoint service that requires consumer approval",
-      command: "aws ec2 create-vpc-endpoint-service-configuration --network-load-balancer-arns arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:loadbalancer/net/vendor-api-nlb/1a2b3c4d5e6f7a8b --acceptance-required",
-      sampleOutput: "{\n  \"ServiceConfiguration\": {\n    \"ServiceType\": [{ \"ServiceType\": \"Interface\" }],\n    \"ServiceId\": \"vpce-svc-0123456789abcdef0\",\n    \"ServiceName\": \"com.amazonaws.vpce.ap-southeast-1.vpce-svc-0123456789abcdef0\",\n    \"ServiceState\": \"Available\",\n    \"AcceptanceRequired\": true\n  }\n}",
+      command: "aws ec2 create-vpc-endpoint-service-configuration --network-load-balancer-arns arn:aws:elasticloadbalancing:ap-southeast-2:123456789012:loadbalancer/net/vendor-api-nlb/1a2b3c4d5e6f7a8b --acceptance-required",
+      sampleOutput: "{\n  \"ServiceConfiguration\": {\n    \"ServiceType\": [{ \"ServiceType\": \"Interface\" }],\n    \"ServiceId\": \"vpce-svc-0123456789abcdef0\",\n    \"ServiceName\": \"com.amazonaws.vpce.ap-southeast-2.vpce-svc-0123456789abcdef0\",\n    \"ServiceState\": \"Available\",\n    \"AcceptanceRequired\": true\n  }\n}",
     },
   },
   {
@@ -5523,8 +5523,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  DB[Unencrypted RDS instance] --> Snap[Snapshot]\n  Snap -->|copy with KMS key| EncSnap[Encrypted snapshot]\n  EncSnap --> NewDB[New encrypted RDS instance]\n  NewDB --> App[Repoint application]",
     cliExample: {
       description: "Copy an unencrypted RDS snapshot into an encrypted snapshot using a KMS key",
-      command: "aws rds copy-db-snapshot --source-db-snapshot-identifier orders-db-snap-20260918 --target-db-snapshot-identifier orders-db-snap-20260918-encrypted --kms-key-id arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-      sampleOutput: "{\n  \"DBSnapshot\": {\n    \"DBSnapshotIdentifier\": \"orders-db-snap-20260918-encrypted\",\n    \"DBInstanceIdentifier\": \"orders-db\",\n    \"Engine\": \"postgres\",\n    \"Status\": \"creating\",\n    \"Encrypted\": true,\n    \"KmsKeyId\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n  }\n}",
+      command: "aws rds copy-db-snapshot --source-db-snapshot-identifier orders-db-snap-20260918 --target-db-snapshot-identifier orders-db-snap-20260918-encrypted --kms-key-id arn:aws:kms:ap-northeast-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+      sampleOutput: "{\n  \"DBSnapshot\": {\n    \"DBSnapshotIdentifier\": \"orders-db-snap-20260918-encrypted\",\n    \"DBInstanceIdentifier\": \"orders-db\",\n    \"Engine\": \"postgres\",\n    \"Status\": \"creating\",\n    \"Encrypted\": true,\n    \"KmsKeyId\": \"arn:aws:kms:ap-northeast-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n  }\n}",
     },
   },
   {
@@ -5808,7 +5808,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Confirm a DynamoDB table's encryption at rest status and key type",
       command: "aws dynamodb describe-table --table-name Orders --query 'Table.SSEDescription'",
-      sampleOutput: "{\n  \"Status\": \"ENABLED\",\n  \"SSEType\": \"KMS\",\n  \"KMSMasterKeyArn\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
+      sampleOutput: "{\n  \"Status\": \"ENABLED\",\n  \"SSEType\": \"KMS\",\n  \"KMSMasterKeyArn\": \"arn:aws:kms:us-east-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
     },
   },
   {
@@ -5848,7 +5848,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Switch an existing RDS instance to a Secrets Manager managed master password",
       command: "aws rds modify-db-instance --db-instance-identifier orders-db --manage-master-user-password --apply-immediately",
-      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"orders-db\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"available\",\n    \"MasterUserSecret\": {\n      \"SecretArn\": \"arn:aws:secretsmanager:ap-southeast-1:123456789012:secret:rds!db-a1b2c3d4-5678-90ab-cdef-EXAMPLE33333-AbCdEf\",\n      \"SecretStatus\": \"creating\",\n      \"KmsKeyId\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n    }\n  }\n}",
+      sampleOutput: "{\n  \"DBInstance\": {\n    \"DBInstanceIdentifier\": \"orders-db\",\n    \"Engine\": \"mysql\",\n    \"DBInstanceStatus\": \"available\",\n    \"MasterUserSecret\": {\n      \"SecretArn\": \"arn:aws:secretsmanager:us-east-2:123456789012:secret:rds!db-a1b2c3d4-5678-90ab-cdef-EXAMPLE33333-AbCdEf\",\n      \"SecretStatus\": \"creating\",\n      \"KmsKeyId\": \"arn:aws:kms:us-east-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n    }\n  }\n}",
     },
   },
   {
@@ -6089,7 +6089,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  Role[Over permissioned role] -->|API calls| CT[CloudTrail events]\n  CT --> AA[IAM Access Analyzer policy generation]\n  AA --> Draft[Draft least privilege policy]\n  Draft -->|review and attach| Role",
     cliExample: {
       description: "Start generating a policy from the last 60 days of CloudTrail activity for a role",
-      command: "aws accessanalyzer start-policy-generation --policy-generation-details principalArn=arn:aws:iam::123456789012:role/PocAppRole --cloud-trail-details trails=[{cloudTrailArn=arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/org-trail,allRegions=true}],accessRole=arn:aws:iam::123456789012:role/AccessAnalyzerRole,startTime=2026-07-20T00:00:00Z",
+      command: "aws accessanalyzer start-policy-generation --policy-generation-details principalArn=arn:aws:iam::123456789012:role/PocAppRole --cloud-trail-details trails=[{cloudTrailArn=arn:aws:cloudtrail:us-west-2:123456789012:trail/org-trail,allRegions=true}],accessRole=arn:aws:iam::123456789012:role/AccessAnalyzerRole,startTime=2026-07-20T00:00:00Z",
       sampleOutput: "{\n  \"jobId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\"\n}",
     },
   },
@@ -6250,7 +6250,7 @@ export const securityAndComplianceQuestions: Question[] = [
     cliExample: {
       description: "Schedule a key for deletion with the minimum 7 day waiting period",
       command: "aws kms schedule-key-deletion --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --pending-window-in-days 7",
-      sampleOutput: "{\n  \"KeyId\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n  \"DeletionDate\": \"2026-09-26T08:00:00+00:00\",\n  \"KeyState\": \"PendingDeletion\",\n  \"PendingWindowInDays\": 7\n}",
+      sampleOutput: "{\n  \"KeyId\": \"arn:aws:kms:eu-north-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\",\n  \"DeletionDate\": \"2026-09-26T08:00:00+00:00\",\n  \"KeyState\": \"PendingDeletion\",\n  \"PendingWindowInDays\": 7\n}",
     },
   },
   {
@@ -6264,7 +6264,7 @@ export const securityAndComplianceQuestions: Question[] = [
       { id: "d", text: "ACM public certificates cannot be used with CloudFront" },
       { id: "e", text: "eu-west-2 (London), because it is the closest Region to the origin that supports CloudFront" },
       { id: "f", text: "The certificate must be requested in every Region where CloudFront has an edge location" },
-      { id: "g", text: "ap-southeast-1, because CloudFront's control plane runs from Asia Pacific" },
+      { id: "g", text: "ap-northeast-1, because CloudFront's control plane runs from Asia Pacific" },
       { id: "h", text: "us-west-2 (Oregon), because CloudFront is managed from the Oregon Region" },
       { id: "i", text: "US East (N. Virginia), regardless of which Region hosts the origin" },
     ],
@@ -6278,7 +6278,7 @@ export const securityAndComplianceQuestions: Question[] = [
       d: "ACM integrates directly with CloudFront; it is one of the most common uses.",
       e: "CloudFront reads ACM certificates only from us-east-1, regardless of where the origin is.",
       f: "ACM certificates for CloudFront are requested once, in us-east-1, and CloudFront distributes them to edge locations.",
-      g: "CloudFront's certificate integration is with us-east-1, not ap-southeast-1.",
+      g: "CloudFront's certificate integration is with us-east-1, not ap-northeast-1.",
       h: "us-west-2 is not the Region CloudFront uses for ACM certificates; us-east-1 is.",
       i: "CloudFront uses ACM certificates only from us-east-1, whatever Region the origin runs in.",
     },
@@ -6770,13 +6770,13 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-mgmt",
     referenceLabel: "AWS KMS key types: customer managed, AWS managed, AWS owned",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/kms/home?region=ap-southeast-1#/kms/defaultKeys",
+    consoleUrl: "https://ap-south-1.console.aws.amazon.com/kms/home?region=ap-south-1#/kms/defaultKeys",
     consoleLabel: "KMS > AWS managed keys",
     diagram: "flowchart LR\n  O[AWS owned key] -->|not visible, no cost| S[Service default encryption]\n  M[AWS managed key aws/s3] -->|visible, CloudTrail logged| Acct[Your account]\n  C[Customer managed key] -->|you set key policy and rotation| Acct",
     cliExample: {
       description: "List the AWS managed and customer managed keys visible in the account for the Region",
-      command: "aws kms list-aliases --region ap-southeast-1",
-      sampleOutput: "{\n  \"Aliases\": [\n    {\n      \"AliasName\": \"alias/aws/s3\",\n      \"AliasArn\": \"arn:aws:kms:ap-southeast-1:123456789012:alias/aws/s3\",\n      \"TargetKeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\"\n    },\n    {\n      \"AliasName\": \"alias/payments-cmk\",\n      \"AliasArn\": \"arn:aws:kms:ap-southeast-1:123456789012:alias/payments-cmk\",\n      \"TargetKeyId\": \"0987dcba-09fe-87dc-65ba-ba0987654321\"\n    }\n  ]\n}",
+      command: "aws kms list-aliases --region ap-south-1",
+      sampleOutput: "{\n  \"Aliases\": [\n    {\n      \"AliasName\": \"alias/aws/s3\",\n      \"AliasArn\": \"arn:aws:kms:ap-south-1:123456789012:alias/aws/s3\",\n      \"TargetKeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\"\n    },\n    {\n      \"AliasName\": \"alias/payments-cmk\",\n      \"AliasArn\": \"arn:aws:kms:ap-south-1:123456789012:alias/payments-cmk\",\n      \"TargetKeyId\": \"0987dcba-09fe-87dc-65ba-ba0987654321\"\n    }\n  ]\n}",
     },
   },
   {
@@ -6812,12 +6812,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_data-sources.html",
     referenceLabel: "GuardDuty foundational data sources",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/guardduty/home?region=ap-southeast-1#/settings",
+    consoleUrl: "https://sa-east-1.console.aws.amazon.com/guardduty/home?region=sa-east-1#/settings",
     consoleLabel: "GuardDuty > Settings",
     diagram: "flowchart LR\n  CT[CloudTrail management events] --> GD[Amazon GuardDuty]\n  FL[VPC Flow Logs] --> GD\n  DNS[Route 53 DNS logs] --> GD\n  GD --> F[Findings]\n  F --> SH[Security Hub or EventBridge]",
     cliExample: {
       description: "Describe the detector and which protection plans are enabled",
-      command: "aws guardduty get-detector --detector-id 12abc34d567e8fa901bc2d34e56789f0 --region ap-southeast-1",
+      command: "aws guardduty get-detector --detector-id 12abc34d567e8fa901bc2d34e56789f0 --region sa-east-1",
       sampleOutput: "{\n  \"CreatedAt\": \"2026-01-10T03:12:44.512Z\",\n  \"FindingPublishingFrequency\": \"SIX_HOURS\",\n  \"ServiceRole\": \"arn:aws:iam::123456789012:role/aws-service-role/guardduty.amazonaws.com/AWSServiceRoleForAmazonGuardDuty\",\n  \"Status\": \"ENABLED\",\n  \"UpdatedAt\": \"2026-01-10T03:12:44.512Z\",\n  \"Features\": [\n    { \"Name\": \"S3_DATA_EVENTS\", \"Status\": \"ENABLED\" },\n    { \"Name\": \"EBS_MALWARE_PROTECTION\", \"Status\": \"DISABLED\" }\n  ]\n}",
     },
   },
@@ -6854,12 +6854,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html",
     referenceLabel: "VPC Flow Logs: publishing destinations",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#vpcs:",
+    consoleUrl: "https://ap-northeast-2.console.aws.amazon.com/vpcconsole/home?region=ap-northeast-2#vpcs:",
     consoleLabel: "VPC > Your VPCs > Flow logs",
     diagram: "flowchart LR\n  VPC[VPC network interfaces] --> FL[VPC Flow Log]\n  FL --> S3[Amazon S3 long term]\n  FL --> CW[CloudWatch Logs alarms]\n  FL --> FH[Amazon Data Firehose]\n  FH --> SIEM[Third party SIEM]",
     cliExample: {
       description: "Create a flow log that delivers to an S3 bucket",
-      command: "aws ec2 create-flow-logs --resource-type VPC --resource-ids vpc-0a1b2c3d4e5f67890 --traffic-type ALL --log-destination-type s3 --log-destination arn:aws:s3:::example-flowlogs-sg --region ap-southeast-1",
+      command: "aws ec2 create-flow-logs --resource-type VPC --resource-ids vpc-0a1b2c3d4e5f67890 --traffic-type ALL --log-destination-type s3 --log-destination arn:aws:s3:::example-flowlogs-sg --region ap-northeast-2",
       sampleOutput: "{\n  \"ClientToken\": \"3f2a1b4c-5d6e-7f80-9a1b-2c3d4e5f6a7b\",\n  \"FlowLogIds\": [\n    \"fl-0123456789abcdef0\"\n  ],\n  \"Unsuccessful\": []\n}",
     },
   },
@@ -6906,13 +6906,13 @@ export const securityAndComplianceQuestions: Question[] = [
   {
     id: "sec164",
     domain: "security-and-compliance",
-    text: "An online retailer ships only to customers in Singapore and Malaysia and wants to block web requests to its Application Load Balancer that originate from every other country, to reduce fraud and bot traffic. Which AWS WAF feature accomplishes this?",
+    text: "An online retailer ships only to customers in South Korea and Japan and wants to block web requests to its Application Load Balancer that originate from every other country, to reduce fraud and bot traffic. Which AWS WAF feature accomplishes this?",
     options: [
       { id: "a", text: "A geographic match rule statement in a web ACL" },
       { id: "b", text: "A rate-based rule" },
       { id: "c", text: "An Amazon Route 53 health check" },
       { id: "d", text: "A network ACL deny rule for each foreign IP range" },
-      { id: "e", text: "An IP set match rule listing all Singapore and Malaysia IP ranges" },
+      { id: "e", text: "An IP set match rule listing all South Korea and Japan IP ranges" },
       { id: "f", text: "A regex pattern set matching the Accept-Language header" },
       { id: "g", text: "An AWS Shield Advanced protection group" },
       { id: "h", text: "Amazon CloudFront Origin Shield" },
@@ -6936,11 +6936,11 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "AWS WAF geographic match rule statement",
     consoleUrl: "https://console.aws.amazon.com/wafv2/homev2/web-acls",
     consoleLabel: "WAF > Web ACLs",
-    diagram: "flowchart LR\n  Req[Incoming request] --> WAF[AWS WAF web ACL]\n  WAF -->|country SG or MY| Allow[Forward to ALB]\n  WAF -->|other country| Block[403 blocked]",
+    diagram: "flowchart LR\n  Req[Incoming request] --> WAF[AWS WAF web ACL]\n  WAF -->|country KR or JP| Allow[Forward to ALB]\n  WAF -->|other country| Block[403 blocked]",
     cliExample: {
-      description: "List regional web ACLs in the Singapore Region",
-      command: "aws wafv2 list-web-acls --scope REGIONAL --region ap-southeast-1",
-      sampleOutput: "{\n  \"NextMarker\": \"retail-geo-acl\",\n  \"WebACLs\": [\n    {\n      \"Name\": \"retail-geo-acl\",\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE22222\",\n      \"Description\": \"Allow only SG and MY\",\n      \"LockToken\": \"1c2d3e4f-5a6b-7c8d-9e0f-EXAMPLE33333\",\n      \"ARN\": \"arn:aws:wafv2:ap-southeast-1:123456789012:regional/webacl/retail-geo-acl/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222\"\n    }\n  ]\n}",
+      description: "List regional web ACLs in the Seoul Region",
+      command: "aws wafv2 list-web-acls --scope REGIONAL --region ap-northeast-2",
+      sampleOutput: "{\n  \"NextMarker\": \"retail-geo-acl\",\n  \"WebACLs\": [\n    {\n      \"Name\": \"retail-geo-acl\",\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE22222\",\n      \"Description\": \"Allow only KR and JP\",\n      \"LockToken\": \"1c2d3e4f-5a6b-7c8d-9e0f-EXAMPLE33333\",\n      \"ARN\": \"arn:aws:wafv2:ap-northeast-2:123456789012:regional/webacl/retail-geo-acl/a1b2c3d4-5678-90ab-cdef-EXAMPLE22222\"\n    }\n  ]\n}",
     },
   },
   {
@@ -7014,12 +7014,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
     referenceLabel: "Use IMDSv2",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Instances:",
+    consoleUrl: "https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#Instances:",
     consoleLabel: "EC2 > Instances",
     diagram: "flowchart LR\n  App[Vulnerable web app] -->|SSRF GET only| IMDS[Instance metadata 169.254.169.254]\n  IMDS -->|IMDSv2 required: no token| Deny[401 rejected]\n  Legit[Trusted SDK] -->|PUT token then GET with header| IMDS\n  IMDS -->|credentials| Legit",
     cliExample: {
       description: "Require IMDSv2 on an existing instance",
-      command: "aws ec2 modify-instance-metadata-options --instance-id i-0abcdef1234567890 --http-tokens required --http-endpoint enabled --region ap-southeast-1",
+      command: "aws ec2 modify-instance-metadata-options --instance-id i-0abcdef1234567890 --http-tokens required --http-endpoint enabled --region us-west-2",
       sampleOutput: "{\n  \"InstanceId\": \"i-0abcdef1234567890\",\n  \"InstanceMetadataOptions\": {\n    \"State\": \"pending\",\n    \"HttpTokens\": \"required\",\n    \"HttpPutResponseHopLimit\": 1,\n    \"HttpEndpoint\": \"enabled\",\n    \"HttpProtocolIpv6\": \"disabled\",\n    \"InstanceMetadataTags\": \"disabled\"\n  }\n}",
     },
   },
@@ -7054,12 +7054,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html",
     referenceLabel: "Controlling ownership of objects and disabling ACLs",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/s3/buckets?region=ap-southeast-1",
+    consoleUrl: "https://eu-west-1.console.aws.amazon.com/s3/buckets?region=eu-west-1",
     consoleLabel: "S3 > Buckets > Permissions",
     diagram: "flowchart LR\n  Other[Other AWS account] -->|PutObject| B[Bucket: Object Ownership = Bucket owner enforced]\n  B --> Own[Object owned by bucket owner]\n  B -.->|ACLs disabled| X[ACLs ignored]\n  Pol[Bucket policy and IAM] -->|only access control| B",
     cliExample: {
       description: "Set Object Ownership to bucket owner enforced on a bucket",
-      command: "aws s3api put-bucket-ownership-controls --bucket example-docs-sg --ownership-controls 'Rules=[{ObjectOwnership=BucketOwnerEnforced}]' --region ap-southeast-1",
+      command: "aws s3api put-bucket-ownership-controls --bucket example-docs-sg --ownership-controls 'Rules=[{ObjectOwnership=BucketOwnerEnforced}]' --region eu-west-1",
       sampleOutput: "",
     },
   },
@@ -7094,13 +7094,13 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html",
     referenceLabel: "IAM database authentication for RDS",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/rds/home?region=ap-southeast-1#databases:",
+    consoleUrl: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#databases:",
     consoleLabel: "RDS > Databases",
     diagram: "flowchart LR\n  Role[EC2 instance role] -->|rds-db:connect allowed| App[Application]\n  App -->|GenerateDBAuthToken| Tok[15 minute token]\n  App -->|SSL connect with token as password| RDS[RDS for MySQL]",
     cliExample: {
       description: "Generate a short-lived IAM authentication token for an RDS instance",
-      command: "aws rds generate-db-auth-token --hostname orders-db.abcdefghijkl.ap-southeast-1.rds.amazonaws.com --port 3306 --username app_user --region ap-southeast-1",
-      sampleOutput: "orders-db.abcdefghijkl.ap-southeast-1.rds.amazonaws.com:3306/?Action=connect&DBUser=app_user&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20260919%2Fap-southeast-1%2Frds-db%2Faws4_request&X-Amz-Date=20260919T031500Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=4b3a2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b",
+      command: "aws rds generate-db-auth-token --hostname orders-db.abcdefghijkl.eu-west-2.rds.amazonaws.com --port 3306 --username app_user --region eu-west-2",
+      sampleOutput: "orders-db.abcdefghijkl.eu-west-2.rds.amazonaws.com:3306/?Action=connect&DBUser=app_user&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20260919%2Feu-west-2%2Frds-db%2Faws4_request&X-Amz-Date=20260919T031500Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=4b3a2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b",
     },
   },
   {
@@ -7181,7 +7181,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  SOC1[SOC 1 restricted] --> Art[AWS Artifact under terms]\n  SOC2[SOC 2 restricted] --> Art\n  SOC3[SOC 3 general use] --> Pub[Public website and prospects]",
     cliExample: {
       description: "List the reports available in AWS Artifact",
-      command: "aws artifact list-reports --region ap-southeast-1",
+      command: "aws artifact list-reports --region us-east-2",
       sampleOutput: "{\n  \"reports\": [\n    {\n      \"id\": \"report-abcdef0123456789\",\n      \"name\": \"System and Organization Controls (SOC) 3 Report\",\n      \"version\": 12,\n      \"category\": \"Certifications And Attestations\",\n      \"series\": \"SOC\",\n      \"state\": \"PUBLISHED\",\n      \"periodStart\": \"2025-10-01T00:00:00+00:00\",\n      \"periodEnd\": \"2026-03-31T00:00:00+00:00\"\n    }\n  ]\n}",
     },
   },
@@ -7256,12 +7256,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html",
     referenceLabel: "Security group rules: referencing other security groups",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#SecurityGroups:",
+    consoleUrl: "https://eu-west-1.console.aws.amazon.com/vpcconsole/home?region=eu-west-1#SecurityGroups:",
     consoleLabel: "VPC > Security groups",
     diagram: "flowchart LR\n  ALB[ALB] --> Web[Web tier sg-web]\n  Web -->|3306 allowed: source sg-web| DB[Database tier sg-db]\n  New[New instance from Auto Scaling joins sg-web] -->|automatically allowed| DB",
     cliExample: {
       description: "Allow MySQL from the web tier security group into the database security group",
-      command: "aws ec2 authorize-security-group-ingress --group-id sg-0db1234567890abcd --protocol tcp --port 3306 --source-group sg-0web123456789abcd --region ap-southeast-1",
+      command: "aws ec2 authorize-security-group-ingress --group-id sg-0db1234567890abcd --protocol tcp --port 3306 --source-group sg-0web123456789abcd --region eu-west-1",
       sampleOutput: "{\n  \"Return\": true,\n  \"SecurityGroupRules\": [\n    {\n      \"SecurityGroupRuleId\": \"sgr-0123456789abcdef0\",\n      \"GroupId\": \"sg-0db1234567890abcd\",\n      \"GroupOwnerId\": \"123456789012\",\n      \"IsEgress\": false,\n      \"IpProtocol\": \"tcp\",\n      \"FromPort\": 3306,\n      \"ToPort\": 3306,\n      \"ReferencedGroupInfo\": {\n        \"GroupId\": \"sg-0web123456789abcd\"\n      }\n    }\n  ]\n}",
     },
   },
@@ -7296,19 +7296,19 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/mask-sensitive-log-data.html",
     referenceLabel: "Help protect sensitive log data with masking",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/cloudwatch/home?region=ap-southeast-1#logsV2:log-groups",
+    consoleUrl: "https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#logsV2:log-groups",
     consoleLabel: "CloudWatch > Log groups",
     diagram: "flowchart LR\n  App[Application logs] --> LG[Log group with data protection policy]\n  LG -->|detect credit card and email| Mask[Masked events ****]\n  Mask --> Viewer[Normal viewer sees masked]\n  Mask -->|logs:Unmask| Priv[Privileged viewer sees original]",
     cliExample: {
       description: "Show the data protection policy attached to a log group",
-      command: "aws logs get-data-protection-policy --log-group-identifier /app/orders --region ap-southeast-1",
+      command: "aws logs get-data-protection-policy --log-group-identifier /app/orders --region eu-west-2",
       sampleOutput: "{\n  \"logGroupIdentifier\": \"/app/orders\",\n  \"policyDocument\": \"{\\\"Name\\\":\\\"mask-pii\\\",\\\"Version\\\":\\\"2021-06-01\\\",\\\"Statement\\\":[{\\\"Sid\\\":\\\"audit\\\",\\\"DataIdentifier\\\":[\\\"arn:aws:dataprotection::aws:data-identifier/CreditCardNumber\\\",\\\"arn:aws:dataprotection::aws:data-identifier/EmailAddress\\\"],\\\"Operation\\\":{\\\"Audit\\\":{\\\"FindingsDestination\\\":{}}}},{\\\"Sid\\\":\\\"redact\\\",\\\"DataIdentifier\\\":[\\\"arn:aws:dataprotection::aws:data-identifier/CreditCardNumber\\\",\\\"arn:aws:dataprotection::aws:data-identifier/EmailAddress\\\"],\\\"Operation\\\":{\\\"Deidentify\\\":{\\\"MaskConfig\\\":{}}}}]}\",\n  \"lastUpdatedTime\": 1773820800000\n}",
     },
   },
   {
     id: "sec174",
     domain: "security-and-compliance",
-    text: "A security review finds that an engineer once shared an EBS snapshot publicly by mistake, exposing a disk image that contained configuration files. The company wants to make it impossible for anyone in the account to share EBS snapshots publicly in the ap-southeast-1 Region going forward. Which action achieves this?",
+    text: "A security review finds that an engineer once shared an EBS snapshot publicly by mistake, exposing a disk image that contained configuration files. The company wants to make it impossible for anyone in the account to share EBS snapshots publicly in the sa-east-1 Region going forward. Which action achieves this?",
     options: [
       { id: "a", text: "Enable Block Public Access for EBS snapshots in the Region with the block-all-sharing mode" },
       { id: "b", text: "Enable EBS encryption by default" },
@@ -7336,12 +7336,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/ebs/latest/userguide/block-public-access-snapshots.html",
     referenceLabel: "Block public access for Amazon EBS snapshots",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Settings:tab=dataProtectionAndSecurity",
+    consoleUrl: "https://sa-east-1.console.aws.amazon.com/ec2/home?region=sa-east-1#Settings:tab=dataProtectionAndSecurity",
     consoleLabel: "EC2 > Settings > Data protection and security",
     diagram: "flowchart LR\n  Eng[Engineer] -->|ModifySnapshotAttribute group=all| API[EC2 API]\n  BPA[Block Public Access for EBS snapshots: block-all-sharing] --> API\n  API -->|request rejected| Eng\n  BPA -->|existing public snapshots| Priv[Made private]",
     cliExample: {
-      description: "Block all public sharing of EBS snapshots in the Singapore Region",
-      command: "aws ec2 enable-snapshot-block-public-access --state block-all-sharing --region ap-southeast-1",
+      description: "Block all public sharing of EBS snapshots in the São Paulo Region",
+      command: "aws ec2 enable-snapshot-block-public-access --state block-all-sharing --region sa-east-1",
       sampleOutput: "{\n  \"State\": \"block-all-sharing\"\n}",
     },
   },
@@ -7388,7 +7388,7 @@ export const securityAndComplianceQuestions: Question[] = [
   {
     id: "sec176",
     domain: "security-and-compliance",
-    text: "A company enabled Amazon GuardDuty in the ap-southeast-1 Region, where all its workloads run. A penetration tester later creates EC2 instances in us-west-2 that begin cryptocurrency mining, yet GuardDuty produces no findings. What is the MOST likely reason?",
+    text: "A company enabled Amazon GuardDuty in the eu-south-1 Region, where all its workloads run. A penetration tester later creates EC2 instances in us-west-2 that begin cryptocurrency mining, yet GuardDuty produces no findings. What is the MOST likely reason?",
     options: [
       { id: "a", text: "GuardDuty is a Regional service and must be enabled separately in every Region, including Regions where no workloads are expected" },
       { id: "b", text: "GuardDuty cannot detect cryptocurrency mining" },
@@ -7402,7 +7402,7 @@ export const securityAndComplianceQuestions: Question[] = [
     ],
     correctOptionIds: ["a", "i"],
     answerType: "single",
-    explanation: "GuardDuty operates per Region: a detector in ap-southeast-1 analyzes only that Region's CloudTrail, flow log, and DNS activity. AWS recommends enabling GuardDuty in all supported Regions, even unused ones, because attackers deliberately operate in Regions that are not monitored. Using AWS Organizations with a delegated administrator and auto-enable makes this easy across accounts and Regions.",
+    explanation: "GuardDuty operates per Region: a detector in eu-south-1 analyzes only that Region's CloudTrail, flow log, and DNS activity. AWS recommends enabling GuardDuty in all supported Regions, even unused ones, because attackers deliberately operate in Regions that are not monitored. Using AWS Organizations with a delegated administrator and auto-enable makes this easy across accounts and Regions.",
     optionRationale: {
       a: "GuardDuty detection coverage is limited to Regions where a detector exists.",
       b: "CryptoCurrency:EC2/BitcoinTool.B!DNS is a well-known GuardDuty finding type.",
@@ -7418,7 +7418,7 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "Getting started with GuardDuty (enable in all Regions)",
     consoleUrl: "https://us-west-2.console.aws.amazon.com/guardduty/home?region=us-west-2#/",
     consoleLabel: "GuardDuty (us-west-2)",
-    diagram: "flowchart LR\n  SG[ap-southeast-1: detector enabled] --> F[Findings generated]\n  OR[us-west-2: no detector] --> N[No visibility: mining undetected]\n  Fix[Enable GuardDuty in all Regions] --> OR",
+    diagram: "flowchart LR\n  MIL[eu-south-1: detector enabled] --> F[Findings generated]\n  OR[us-west-2: no detector] --> N[No visibility: mining undetected]\n  Fix[Enable GuardDuty in all Regions] --> OR",
     cliExample: {
       description: "Check whether a GuardDuty detector exists in the Oregon Region",
       command: "aws guardduty list-detectors --region us-west-2",
@@ -7497,12 +7497,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/mirroring/what-is-traffic-mirroring.html",
     referenceLabel: "What is Traffic Mirroring? - Amazon VPC",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#TrafficMirrorSessions:",
+    consoleUrl: "https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#TrafficMirrorSessions:",
     consoleLabel: "VPC > Traffic mirror sessions",
     diagram: "flowchart LR\n  Src[EC2 ENI source] -->|copy of packets| Filter[Mirror filter]\n  Filter --> Target[Mirror target: NLB or ENI]\n  Target --> IDS[Intrusion detection appliance]\n  Src -->|original traffic| App[Application traffic continues]",
     cliExample: {
-      description: "List traffic mirror sessions in the Singapore Region",
-      command: "aws ec2 describe-traffic-mirror-sessions --region ap-southeast-1 --query 'TrafficMirrorSessions[].{Id:TrafficMirrorSessionId,Source:NetworkInterfaceId,Target:TrafficMirrorTargetId}'",
+      description: "List traffic mirror sessions in the Frankfurt Region",
+      command: "aws ec2 describe-traffic-mirror-sessions --region eu-central-1 --query 'TrafficMirrorSessions[].{Id:TrafficMirrorSessionId,Source:NetworkInterfaceId,Target:TrafficMirrorTargetId}'",
       sampleOutput:
         "[\n  {\n    \"Id\": \"tms-0a1b2c3d4e5f67890\",\n    \"Source\": \"eni-0123456789abcdef0\",\n    \"Target\": \"tmt-0f9e8d7c6b5a43210\"\n  }\n]",
     },
@@ -7579,12 +7579,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html",
     referenceLabel: "Amazon EBS encryption",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Snapshots:",
+    consoleUrl: "https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1#Snapshots:",
     consoleLabel: "EC2 > Snapshots",
     diagram: "flowchart LR\n  V[Unencrypted volume] --> S[Snapshot]\n  S -->|copy with Encrypted=true| ES[Encrypted snapshot]\n  ES --> EV[New encrypted volume]\n  EV --> Swap[Detach old, attach new]",
     cliExample: {
-      description: "Copy a snapshot within Singapore with encryption enabled using a customer managed key",
-      command: "aws ec2 copy-snapshot --region ap-southeast-1 --source-region ap-southeast-1 --source-snapshot-id snap-0123456789abcdef0 --encrypted --kms-key-id alias/prod-ebs --description \"encrypted copy of prod data volume\"",
+      description: "Copy a snapshot within Ireland with encryption enabled using a customer managed key",
+      command: "aws ec2 copy-snapshot --region eu-west-1 --source-region eu-west-1 --source-snapshot-id snap-0123456789abcdef0 --encrypted --kms-key-id alias/prod-ebs --description \"encrypted copy of prod data volume\"",
       sampleOutput:
         "{\n  \"SnapshotId\": \"snap-0fedcba9876543210\"\n}",
     },
@@ -7620,12 +7620,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html",
     referenceLabel: "Authenticate users using an Application Load Balancer",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#LoadBalancers:",
+    consoleUrl: "https://eu-west-3.console.aws.amazon.com/ec2/home?region=eu-west-3#LoadBalancers:",
     consoleLabel: "EC2 > Load Balancers",
     diagram: "flowchart LR\n  User[Employee] --> ALB[ALB listener rule\nauthenticate-oidc]\n  ALB -->|not signed in| IdP[Corporate identity provider]\n  IdP -->|token| ALB\n  ALB -->|signed in, adds identity headers| App[Legacy application]",
     cliExample: {
       description: "Inspect a listener rule to confirm the authenticate action runs before forwarding",
-      command: "aws elbv2 describe-rules --region ap-southeast-1 --listener-arn arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:listener/app/intranet-alb/50dc6c495c0c9188/f2f7dc8efc522ab2 --query 'Rules[0].Actions[].{Order:Order,Type:Type}'",
+      command: "aws elbv2 describe-rules --region eu-west-3 --listener-arn arn:aws:elasticloadbalancing:eu-west-3:123456789012:listener/app/intranet-alb/50dc6c495c0c9188/f2f7dc8efc522ab2 --query 'Rules[0].Actions[].{Order:Order,Type:Type}'",
       sampleOutput:
         "[\n  {\n    \"Order\": 1,\n    \"Type\": \"authenticate-oidc\"\n  },\n  {\n    \"Order\": 2,\n    \"Type\": \"forward\"\n  }\n]",
     },
@@ -7666,30 +7666,30 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  AWS[AWS notices: abuse, security, operations] --> Root[Root email]\n  AWS --> Sec[Security alternate contact\nsecurity@ list]\n  AWS --> Ops[Operations alternate contact]\n  AWS --> Bill[Billing alternate contact]",
     cliExample: {
       description: "Set the security alternate contact to a monitored distribution list",
-      command: "aws account put-alternate-contact --alternate-contact-type SECURITY --email-address security-alerts@example.sg --name \"Security Operations\" --phone-number \"+65-6123-4567\" --title \"SecOps\"",
+      command: "aws account put-alternate-contact --alternate-contact-type SECURITY --email-address security-alerts@example.mx --name \"Security Operations\" --phone-number \"+52-55-1234-5678\" --title \"SecOps\"",
       sampleOutput: "",
     },
   },
   {
     id: "sec183",
     domain: "security-and-compliance",
-    text: "A financial institution regulated in Singapore must show its auditors that its cloud provider meets the Singapore Multi-Tier Cloud Security (MTCS) standard and the ABS Outsourced Service Provider Audit Report (OSPAR) requirements. How can the company obtain AWS's evidence for these?",
+    text: "A financial institution regulated in Canada must show its auditors that its cloud provider has been assessed by the Canadian Centre for Cyber Security (CCCS) against the CCCS Medium Cloud Security Profile (formerly PBMM). How can the company obtain AWS's evidence for this?",
     options: [
-      { id: "a", text: "Download the MTCS certification and OSPAR report on demand from AWS Artifact" },
-      { id: "b", text: "Ask the Monetary Authority of Singapore to audit the AWS Region on the company's behalf" },
+      { id: "a", text: "Download the CCCS assessment summary report on demand from AWS Artifact" },
+      { id: "b", text: "Ask the Office of the Superintendent of Financial Institutions (OSFI) to audit the AWS Region on the company's behalf" },
       { id: "c", text: "Run Amazon Inspector against the AWS data center" },
       { id: "d", text: "Purchase Enterprise Support, which includes physical audits of AWS facilities" },
       { id: "e", text: "Request the reports through the AWS Personal Health Dashboard" },
       { id: "f", text: "Generate the reports with AWS Audit Manager" },
-      { id: "g", text: "Open an AWS Support case to schedule a site visit to the Singapore data centers" },
+      { id: "g", text: "Open an AWS Support case to schedule a site visit to the Canadian data centers" },
       { id: "h", text: "Download them from AWS Trusted Advisor's compliance category" },
-      { id: "i", text: "Retrieve the MTCS certification and OSPAR report with the AWS Artifact API's GetReport operation" },
+      { id: "i", text: "Retrieve the CCCS assessment summary report with the AWS Artifact API's GetReport operation" },
     ],
     correctOptionIds: ["a", "i"],
     answerType: "single",
-    explanation: "AWS participates in many regional compliance programs, including Singapore's MTCS SS 584 (Level 3) and the ABS OSPAR framework used by financial institutions. Third-party audit reports and certifications are published in AWS Artifact, where customers can download them on demand from the console or through the Artifact API and share them with regulators under the terms shown; customers cannot audit AWS data centers directly.",
+    explanation: "AWS participates in many regional compliance programs, including the Canadian Centre for Cyber Security (CCCS) assessment of AWS services in its Canadian Regions against the CCCS Medium Cloud Security Profile. Third-party audit reports and certifications are published in AWS Artifact, where customers can download them on demand from the console or through the Artifact API and share them with regulators under the terms shown; customers cannot audit AWS data centers directly.",
     optionRationale: {
-      a: "Correct. AWS Artifact is the self-service portal for compliance reports such as MTCS and OSPAR.",
+      a: "Correct. AWS Artifact is the self-service portal for compliance reports such as the CCCS assessment summary.",
       b: "Regulators rely on the third-party assessments AWS provides; they do not audit AWS on individual customers' behalf.",
       c: "Inspector scans the customer's own workloads, not AWS facilities.",
       d: "Support plans do not include facility audits.",
@@ -7703,12 +7703,12 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "AWS Compliance Programs (including MTCS)",
     consoleUrl: "https://console.aws.amazon.com/artifact/reports",
     consoleLabel: "AWS Artifact > Reports",
-    diagram: "flowchart LR\n  Auditor[Regulated company auditor] --> Artifact[AWS Artifact]\n  Artifact --> MTCS[MTCS SS 584 certificate]\n  Artifact --> OSPAR[ABS OSPAR report]\n  Artifact --> ISO[ISO, SOC, PCI reports]",
+    diagram: "flowchart LR\n  Auditor[Regulated company auditor] --> Artifact[AWS Artifact]\n  Artifact --> CCCS[CCCS Medium assessment summary]\n  Artifact --> ISO[ISO, SOC, PCI reports]",
     cliExample: {
       description: "List compliance reports available in AWS Artifact and filter by name",
-      command: "aws artifact list-reports --region ap-southeast-1 --query \"reports[?contains(name, 'MTCS') || contains(name, 'OSPAR')].{Name:name,Id:id,Series:series}\"",
+      command: "aws artifact list-reports --region ca-central-1 --query \"reports[?contains(name, 'CCCS')].{Name:name,Id:id,Series:series}\"",
       sampleOutput:
-        "[\n  {\n    \"Name\": \"MTCS SS 584 Level 3 Certificate\",\n    \"Id\": \"report-abc123def456\",\n    \"Series\": \"Certifications\"\n  },\n  {\n    \"Name\": \"ABS OSPAR Report\",\n    \"Id\": \"report-789ghi012jkl\",\n    \"Series\": \"Regional\"\n  }\n]",
+        "[\n  {\n    \"Name\": \"CCCS Assessment Summary Report\",\n    \"Id\": \"report-abc123def456\",\n    \"Series\": \"Regional\"\n  }\n]",
     },
   },
   {
@@ -7742,14 +7742,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/inspector/latest/user/scanning-cis.html",
     referenceLabel: "CIS scans - Amazon Inspector",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/inspector/v2/home?region=ap-southeast-1#/cis",
+    consoleUrl: "https://us-west-2.console.aws.amazon.com/inspector/v2/home?region=us-west-2#/cis",
     consoleLabel: "Amazon Inspector > CIS scans",
     diagram: "flowchart LR\n  Std[CIS Benchmark profile] --> Insp[Amazon Inspector CIS scan]\n  Insp --> EC2[EC2 instances via SSM Agent]\n  EC2 --> Results[Pass/fail per check]\n  Results --> Hub[Security Hub]",
     cliExample: {
-      description: "Create a weekly CIS Level 1 scan of tagged production instances in Singapore",
-      command: "aws inspector2 create-cis-scan-configuration --region ap-southeast-1 --scan-name prod-cis-weekly --security-level LEVEL_1 --schedule '{\"weekly\":{\"startTime\":{\"timeOfDay\":\"02:00\",\"timezone\":\"Asia/Singapore\"},\"days\":[\"SUN\"]}}' --targets '{\"accountIds\":[\"SELF\"],\"targetResourceTags\":{\"Environment\":[\"prod\"]}}'",
+      description: "Create a weekly CIS Level 1 scan of tagged production instances in Oregon",
+      command: "aws inspector2 create-cis-scan-configuration --region us-west-2 --scan-name prod-cis-weekly --security-level LEVEL_1 --schedule '{\"weekly\":{\"startTime\":{\"timeOfDay\":\"02:00\",\"timezone\":\"America/Los_Angeles\"},\"days\":[\"SUN\"]}}' --targets '{\"accountIds\":[\"SELF\"],\"targetResourceTags\":{\"Environment\":[\"prod\"]}}'",
       sampleOutput:
-        "{\n  \"scanConfigurationArn\": \"arn:aws:inspector2:ap-southeast-1:123456789012:owner/123456789012/cis-configuration/0a1b2c3d-4e5f-6789-abcd-ef0123456789\"\n}",
+        "{\n  \"scanConfigurationArn\": \"arn:aws:inspector2:us-west-2:123456789012:owner/123456789012/cis-configuration/0a1b2c3d-4e5f-6789-abcd-ef0123456789\"\n}",
     },
   },
   {
@@ -7864,12 +7864,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html",
     referenceLabel: "Asymmetric keys in AWS KMS",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/kms/home?region=ap-southeast-1#/kms/keys",
+    consoleUrl: "https://eu-west-2.console.aws.amazon.com/kms/home?region=eu-west-2#/kms/keys",
     consoleLabel: "KMS > Customer managed keys",
     diagram: "flowchart LR\n  Pkg[Update package hash] --> Sign[KMS Sign with private key in HSM]\n  Sign --> Sig[Signature]\n  Pub[Downloaded public key] --> Verify[Customer verifies package + signature]\n  Sig --> Verify",
     cliExample: {
-      description: "Create an RSA signing key in Singapore and fetch its public key",
-      command: "aws kms create-key --region ap-southeast-1 --key-spec RSA_3072 --key-usage SIGN_VERIFY --description \"release signing\" --query 'KeyMetadata.{KeyId:KeyId,Usage:KeyUsage,Spec:KeySpec}'",
+      description: "Create an RSA signing key in London and fetch its public key",
+      command: "aws kms create-key --region eu-west-2 --key-spec RSA_3072 --key-usage SIGN_VERIFY --description \"release signing\" --query 'KeyMetadata.{KeyId:KeyId,Usage:KeyUsage,Spec:KeySpec}'",
       sampleOutput:
         "{\n  \"KeyId\": \"1234abcd-12ab-34cd-56ef-1234567890ab\",\n  \"Usage\": \"SIGN_VERIFY\",\n  \"Spec\": \"RSA_3072\"\n}",
     },
@@ -7907,14 +7907,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/controltower/latest/controlreference/controls.html",
     referenceLabel: "About controls in AWS Control Tower",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/controltower/home/controls?region=ap-southeast-1",
+    consoleUrl: "https://us-east-2.console.aws.amazon.com/controltower/home/controls?region=us-east-2",
     consoleLabel: "AWS Control Tower > Controls",
     diagram: "flowchart TD\n  CT[Control Tower controls] --> P[Preventive: SCP\nblocks the action]\n  CT --> Pr[Proactive: CloudFormation hooks\nchecks before provisioning]\n  CT --> D[Detective: AWS Config rules\nflags after creation]",
     cliExample: {
       description: "List the controls enabled on an organizational unit",
-      command: "aws controltower list-enabled-controls --region ap-southeast-1 --target-identifier arn:aws:organizations::123456789012:ou/o-exampleorgid/ou-abcd-11111111 --query 'enabledControls[].controlIdentifier'",
+      command: "aws controltower list-enabled-controls --region us-east-2 --target-identifier arn:aws:organizations::123456789012:ou/o-exampleorgid/ou-abcd-11111111 --query 'enabledControls[].controlIdentifier'",
       sampleOutput:
-        "[\n  \"arn:aws:controltower:ap-southeast-1::control/AWS-GR_ENCRYPTED_VOLUMES\",\n  \"arn:aws:controltower:ap-southeast-1::control/AWS-GR_RESTRICT_ROOT_USER\"\n]",
+        "[\n  \"arn:aws:controltower:us-east-2::control/AWS-GR_ENCRYPTED_VOLUMES\",\n  \"arn:aws:controltower:us-east-2::control/AWS-GR_RESTRICT_ROOT_USER\"\n]",
     },
   },
   {
@@ -7988,14 +7988,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html",
     referenceLabel: "Services integrated with AWS Certificate Manager",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/acm/home?region=ap-southeast-1#/certificates/list",
+    consoleUrl: "https://eu-west-3.console.aws.amazon.com/acm/home?region=eu-west-3#/certificates/list",
     consoleLabel: "ACM > Certificates",
     diagram: "flowchart LR\n  ACM[ACM public certificate\nprivate key stays in ACM] --> ALB[Application Load Balancer]\n  ACM --> CF[CloudFront]\n  ACM --> APIGW[API Gateway]\n  ALB --> EC2[EC2 Nginx over HTTP or self-managed TLS]",
     cliExample: {
-      description: "Attach an ACM certificate to an HTTPS listener on an ALB in Singapore",
-      command: "aws elbv2 create-listener --region ap-southeast-1 --load-balancer-arn arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:loadbalancer/app/web-alb/50dc6c495c0c9188 --protocol HTTPS --port 443 --certificates CertificateArn=arn:aws:acm:ap-southeast-1:123456789012:certificate/12345678-1234-1234-1234-123456789012 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:targetgroup/web-tg/73e2d6bc24d8a067 --query 'Listeners[0].{Arn:ListenerArn,Port:Port,Protocol:Protocol}'",
+      description: "Attach an ACM certificate to an HTTPS listener on an ALB in Paris",
+      command: "aws elbv2 create-listener --region eu-west-3 --load-balancer-arn arn:aws:elasticloadbalancing:eu-west-3:123456789012:loadbalancer/app/web-alb/50dc6c495c0c9188 --protocol HTTPS --port 443 --certificates CertificateArn=arn:aws:acm:eu-west-3:123456789012:certificate/12345678-1234-1234-1234-123456789012 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:eu-west-3:123456789012:targetgroup/web-tg/73e2d6bc24d8a067 --query 'Listeners[0].{Arn:ListenerArn,Port:Port,Protocol:Protocol}'",
       sampleOutput:
-        "{\n  \"Arn\": \"arn:aws:elasticloadbalancing:ap-southeast-1:123456789012:listener/app/web-alb/50dc6c495c0c9188/0467ef3c8400ae65\",\n  \"Port\": 443,\n  \"Protocol\": \"HTTPS\"\n}",
+        "{\n  \"Arn\": \"arn:aws:elasticloadbalancing:eu-west-3:123456789012:listener/app/web-alb/50dc6c495c0c9188/0467ef3c8400ae65\",\n  \"Port\": 443,\n  \"Protocol\": \"HTTPS\"\n}",
     },
   },
   {
@@ -8072,14 +8072,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html",
     referenceLabel: "Gateway endpoints for Amazon S3 - AWS PrivateLink",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#Endpoints:",
+    consoleUrl: "https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#Endpoints:",
     consoleLabel: "VPC > Endpoints",
     diagram: "flowchart LR\n  EC2[EC2 in private subnet] --> VPCE[Gateway endpoint\nendpoint policy: only company buckets]\n  VPCE --> Bucket[Sensitive bucket\nbucket policy: only from this endpoint]\n  Internet[Internet request] -.->|denied by aws:SourceVpce| Bucket",
     cliExample: {
       description: "Show the policy attached to the S3 gateway endpoint",
-      command: "aws ec2 describe-vpc-endpoints --region ap-southeast-1 --vpc-endpoint-ids vpce-0123456789abcdef0 --query 'VpcEndpoints[0].{Service:ServiceName,Type:VpcEndpointType,Policy:PolicyDocument}'",
+      command: "aws ec2 describe-vpc-endpoints --region us-east-1 --vpc-endpoint-ids vpce-0123456789abcdef0 --query 'VpcEndpoints[0].{Service:ServiceName,Type:VpcEndpointType,Policy:PolicyDocument}'",
       sampleOutput:
-        "{\n  \"Service\": \"com.amazonaws.ap-southeast-1.s3\",\n  \"Type\": \"Gateway\",\n  \"Policy\": \"{\\\"Version\\\":\\\"2012-10-17\\\",\\\"Statement\\\":[{\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":\\\"*\\\",\\\"Action\\\":\\\"s3:*\\\",\\\"Resource\\\":[\\\"arn:aws:s3:::sensitive-data-sg\\\",\\\"arn:aws:s3:::sensitive-data-sg/*\\\"]}]}\"\n}",
+        "{\n  \"Service\": \"com.amazonaws.us-east-1.s3\",\n  \"Type\": \"Gateway\",\n  \"Policy\": \"{\\\"Version\\\":\\\"2012-10-17\\\",\\\"Statement\\\":[{\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":\\\"*\\\",\\\"Action\\\":\\\"s3:*\\\",\\\"Resource\\\":[\\\"arn:aws:s3:::sensitive-data-sg\\\",\\\"arn:aws:s3:::sensitive-data-sg/*\\\"]}]}\"\n}",
     },
   },
   {
@@ -8113,14 +8113,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html",
     referenceLabel: "Control access to a REST API using Amazon Cognito user pools as authorizer",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/apigateway/main/apis?region=ap-southeast-1",
+    consoleUrl: "https://me-central-1.console.aws.amazon.com/apigateway/main/apis?region=me-central-1",
     consoleLabel: "API Gateway > APIs > Authorizers",
     diagram: "flowchart LR\n  App[Mobile app] -->|sign in| Cognito[Cognito user pool]\n  Cognito -->|JWT| App\n  App -->|Authorization: JWT| APIGW[API Gateway]\n  APIGW -->|Cognito authorizer validates token| Lambda[Backend]\n  Key[API key] -.->|usage plan throttling only| APIGW",
     cliExample: {
-      description: "Create a Cognito user pool authorizer for a REST API in Singapore",
-      command: "aws apigateway create-authorizer --region ap-southeast-1 --rest-api-id a1b2c3d4e5 --name cognito-users --type COGNITO_USER_POOLS --provider-arns arn:aws:cognito-idp:ap-southeast-1:123456789012:userpool/ap-southeast-1_AbCdEfGhI --identity-source method.request.header.Authorization",
+      description: "Create a Cognito user pool authorizer for a REST API in the UAE",
+      command: "aws apigateway create-authorizer --region me-central-1 --rest-api-id a1b2c3d4e5 --name cognito-users --type COGNITO_USER_POOLS --provider-arns arn:aws:cognito-idp:me-central-1:123456789012:userpool/me-central-1_AbCdEfGhI --identity-source method.request.header.Authorization",
       sampleOutput:
-        "{\n  \"id\": \"x9y8z7\",\n  \"name\": \"cognito-users\",\n  \"type\": \"COGNITO_USER_POOLS\",\n  \"providerARNs\": [\n    \"arn:aws:cognito-idp:ap-southeast-1:123456789012:userpool/ap-southeast-1_AbCdEfGhI\"\n  ],\n  \"identitySource\": \"method.request.header.Authorization\"\n}",
+        "{\n  \"id\": \"x9y8z7\",\n  \"name\": \"cognito-users\",\n  \"type\": \"COGNITO_USER_POOLS\",\n  \"providerARNs\": [\n    \"arn:aws:cognito-idp:me-central-1:123456789012:userpool/me-central-1_AbCdEfGhI\"\n  ],\n  \"identitySource\": \"method.request.header.Authorization\"\n}",
     },
   },
   {
@@ -8154,12 +8154,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/inspector/latest/user/findings-types.html",
     referenceLabel: "Finding types in Amazon Inspector",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/inspector/v2/home?region=ap-southeast-1#/findings",
+    consoleUrl: "https://ap-southeast-2.console.aws.amazon.com/inspector/v2/home?region=ap-southeast-2#/findings",
     consoleLabel: "Amazon Inspector > Findings",
     diagram: "flowchart LR\n  Cfg[Security groups, NACLs, routes, IGW] --> Insp[Inspector network reachability analysis]\n  Insp --> Finding[Finding: port 3389 reachable from internet]\n  Finding --> Fix[Tighten security group]",
     cliExample: {
-      description: "List network reachability findings for EC2 in Singapore",
-      command: "aws inspector2 list-findings --region ap-southeast-1 --filter-criteria '{\"findingType\":[{\"comparison\":\"EQUALS\",\"value\":\"NETWORK_REACHABILITY\"}]}' --query 'findings[].{Title:title,Severity:severity,Resource:resources[0].id}'",
+      description: "List network reachability findings for EC2 in Sydney",
+      command: "aws inspector2 list-findings --region ap-southeast-2 --filter-criteria '{\"findingType\":[{\"comparison\":\"EQUALS\",\"value\":\"NETWORK_REACHABILITY\"}]}' --query 'findings[].{Title:title,Severity:severity,Resource:resources[0].id}'",
       sampleOutput:
         "[\n  {\n    \"Title\": \"Port 3389 is reachable from an Internet Gateway\",\n    \"Severity\": \"HIGH\",\n    \"Resource\": \"i-0abcd1234efgh5678\"\n  }\n]",
     },
@@ -8204,7 +8204,7 @@ export const securityAndComplianceQuestions: Question[] = [
       description: "Confirm a bucket's Region to document where content is stored",
       command: "aws s3api get-bucket-location --bucket customer-content-sg",
       sampleOutput:
-        "{\n  \"LocationConstraint\": \"ap-southeast-1\"\n}",
+        "{\n  \"LocationConstraint\": \"eu-west-1\"\n}",
     },
   },
   {
@@ -8284,7 +8284,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  PR[Pull request with new policy] --> CI[CI pipeline]\n  CI --> Check1[CheckNoNewAccess\nvs current policy]\n  CI --> Check2[CheckAccessNotGranted\niam:PassRole]\n  Check1 -->|FAIL| Block[Block merge]\n  Check2 -->|PASS| Merge[Allow merge]",
     cliExample: {
       description: "Verify that a policy does not grant iam:PassRole",
-      command: "aws accessanalyzer check-access-not-granted --region ap-southeast-1 --policy-type IDENTITY_POLICY --access '[{\"actions\":[\"iam:PassRole\"]}]' --policy-document file://new-policy.json",
+      command: "aws accessanalyzer check-access-not-granted --region eu-central-1 --policy-type IDENTITY_POLICY --access '[{\"actions\":[\"iam:PassRole\"]}]' --policy-document file://new-policy.json",
       sampleOutput:
         "{\n  \"result\": \"PASS\",\n  \"message\": \"The policy document does not grant access to perform the listed actions or resources.\"\n}",
     },
@@ -8320,12 +8320,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html",
     referenceLabel: "Custom key stores - AWS Key Management Service",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/kms/home?region=ap-southeast-1#/kms/custom-key-stores/cloudhsm",
+    consoleUrl: "https://us-east-1.console.aws.amazon.com/kms/home?region=us-east-1#/kms/custom-key-stores/cloudhsm",
     consoleLabel: "KMS > Custom key stores > AWS CloudHSM key stores",
     diagram: "flowchart LR\n  S3[S3 / EBS / RDS] -->|standard KMS API| KMS[AWS KMS]\n  KMS --> CKS[Custom key store]\n  CKS --> HSM[CloudHSM cluster\nsingle-tenant, customer controlled]",
     cliExample: {
-      description: "List custom key stores in Singapore and their connection state",
-      command: "aws kms describe-custom-key-stores --region ap-southeast-1 --query 'CustomKeyStores[].{Name:CustomKeyStoreName,Type:CustomKeyStoreType,State:ConnectionState}'",
+      description: "List custom key stores in N. Virginia and their connection state",
+      command: "aws kms describe-custom-key-stores --region us-east-1 --query 'CustomKeyStores[].{Name:CustomKeyStoreName,Type:CustomKeyStoreType,State:ConnectionState}'",
       sampleOutput:
         "[\n  {\n    \"Name\": \"bank-hsm-store\",\n    \"Type\": \"AWS_CLOUDHSM\",\n    \"State\": \"CONNECTED\"\n  }\n]",
     },
@@ -8361,12 +8361,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/macie/latest/user/discovery-asdd.html",
     referenceLabel: "Performing automated sensitive data discovery - Amazon Macie",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/macie/home?region=ap-southeast-1#summary",
+    consoleUrl: "https://ap-south-1.console.aws.amazon.com/macie/home?region=ap-south-1#summary",
     consoleLabel: "Amazon Macie > Summary",
     diagram: "flowchart LR\n  Buckets[Hundreds of S3 buckets] --> ASDD[Macie automated discovery\nsamples objects daily]\n  ASDD --> Score[Sensitivity score per bucket]\n  Score -->|high score| Job[Targeted discovery job]",
     cliExample: {
-      description: "Check whether automated sensitive data discovery is enabled in Singapore",
-      command: "aws macie2 get-automated-discovery-configuration --region ap-southeast-1",
+      description: "Check whether automated sensitive data discovery is enabled in Mumbai",
+      command: "aws macie2 get-automated-discovery-configuration --region ap-south-1",
       sampleOutput:
         "{\n  \"autoEnableOrganizationMembers\": \"ALL\",\n  \"classificationScopeId\": \"3ab9c2f1e4d5\",\n  \"firstEnabledAt\": \"2026-03-02T01:10:00+00:00\",\n  \"sensitivityInspectionTemplateId\": \"9f1e2d3c4b5a\",\n  \"status\": \"ENABLED\"\n}",
     },
@@ -8374,7 +8374,7 @@ export const securityAndComplianceQuestions: Question[] = [
   {
     id: "sec200",
     domain: "security-and-compliance",
-    text: "A company runs workloads in ap-southeast-1, ap-northeast-1, and us-east-1 and has enabled AWS Security Hub in each Region. Analysts complain that they must switch Regions in the console to see all findings. Which Security Hub feature lets them view and manage findings from all three Regions in one place?",
+    text: "A company runs workloads in eu-north-1, ap-northeast-1, and us-east-1 and has enabled AWS Security Hub in each Region. Analysts complain that they must switch Regions in the console to see all findings. Which Security Hub feature lets them view and manage findings from all three Regions in one place?",
     options: [
       { id: "a", text: "Security Hub delegated administrator" },
       { id: "b", text: "Security Hub automation rules" },
@@ -8402,14 +8402,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/securityhub/latest/userguide/finding-aggregation.html",
     referenceLabel: "Understanding cross-Region aggregation in Security Hub",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/securityhub/home?region=ap-southeast-1#/settings/regions",
+    consoleUrl: "https://eu-north-1.console.aws.amazon.com/securityhub/home?region=eu-north-1#/settings/regions",
     consoleLabel: "Security Hub > Settings > Regions",
-    diagram: "flowchart LR\n  R1[ap-northeast-1 findings] --> Agg[Aggregation Region\nap-southeast-1]\n  R2[us-east-1 findings] --> Agg\n  R3[ap-southeast-1 findings] --> Agg\n  Agg --> Analyst[Single console view]",
+    diagram: "flowchart LR\n  R1[ap-northeast-1 findings] --> Agg[Aggregation Region\neu-north-1]\n  R2[us-east-1 findings] --> Agg\n  R3[eu-north-1 findings] --> Agg\n  Agg --> Analyst[Single console view]",
     cliExample: {
-      description: "Make Singapore the aggregation Region and link two other Regions",
-      command: "aws securityhub create-finding-aggregator --region ap-southeast-1 --region-linking-mode SPECIFIED_REGIONS --regions ap-northeast-1 us-east-1",
+      description: "Make Stockholm the aggregation Region and link two other Regions",
+      command: "aws securityhub create-finding-aggregator --region eu-north-1 --region-linking-mode SPECIFIED_REGIONS --regions ap-northeast-1 us-east-1",
       sampleOutput:
-        "{\n  \"FindingAggregatorArn\": \"arn:aws:securityhub:ap-southeast-1:123456789012:finding-aggregator/2f4a8c1e-9b3d-4e7f-a6c5-1d2e3f4a5b6c\",\n  \"FindingAggregationRegion\": \"ap-southeast-1\",\n  \"RegionLinkingMode\": \"SPECIFIED_REGIONS\",\n  \"Regions\": [\n    \"ap-northeast-1\",\n    \"us-east-1\"\n  ]\n}",
+        "{\n  \"FindingAggregatorArn\": \"arn:aws:securityhub:eu-north-1:123456789012:finding-aggregator/2f4a8c1e-9b3d-4e7f-a6c5-1d2e3f4a5b6c\",\n  \"FindingAggregationRegion\": \"eu-north-1\",\n  \"RegionLinkingMode\": \"SPECIFIED_REGIONS\",\n  \"Regions\": [\n    \"ap-northeast-1\",\n    \"us-east-1\"\n  ]\n}",
     },
   },
   {
@@ -8443,12 +8443,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring.html",
     referenceLabel: "Runtime Monitoring in GuardDuty",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/guardduty/home?region=ap-southeast-1#/runtime-monitoring",
+    consoleUrl: "https://ap-northeast-1.console.aws.amazon.com/guardduty/home?region=ap-northeast-1#/runtime-monitoring",
     consoleLabel: "GuardDuty > Runtime Monitoring",
     diagram: "flowchart LR\n  Agent[GuardDuty security agent\ninside EKS / ECS Fargate task] -->|process, file, network events| GD[GuardDuty Runtime Monitoring]\n  GD --> Finding[Finding: Execution:Runtime/ReverseShell]\n  Finding --> SH[Security Hub / EventBridge]",
     cliExample: {
-      description: "Enable Runtime Monitoring on the Singapore detector",
-      command: "aws guardduty update-detector --region ap-southeast-1 --detector-id 12abc34d567e8fa901bc2d34e56789f0 --features '[{\"Name\":\"RUNTIME_MONITORING\",\"Status\":\"ENABLED\"}]'",
+      description: "Enable Runtime Monitoring on the Tokyo detector",
+      command: "aws guardduty update-detector --region ap-northeast-1 --detector-id 12abc34d567e8fa901bc2d34e56789f0 --features '[{\"Name\":\"RUNTIME_MONITORING\",\"Status\":\"ENABLED\"}]'",
       sampleOutput: "",
     },
   },
@@ -8489,8 +8489,8 @@ export const securityAndComplianceQuestions: Question[] = [
     consoleLabel: "AWS Shield > Protected resources",
     diagram: "flowchart LR\n  SA[Shield Advanced] --> CF[CloudFront distribution]\n  SA --> R53[Route 53 hosted zone]\n  SA --> GA[Global Accelerator]\n  SA --> ALB[Application Load Balancer]\n  SA --> EIP[Elastic IP: EC2 / NLB]",
     cliExample: {
-      description: "Add a Singapore Elastic IP as a Shield Advanced protected resource",
-      command: "aws shield create-protection --region us-east-1 --name web-eip-sg --resource-arn arn:aws:ec2:ap-southeast-1:123456789012:eip-allocation/eipalloc-0a1b2c3d4e5f67890",
+      description: "Add a Seoul Elastic IP as a Shield Advanced protected resource",
+      command: "aws shield create-protection --region us-east-1 --name web-eip-kr --resource-arn arn:aws:ec2:ap-northeast-2:123456789012:eip-allocation/eipalloc-0a1b2c3d4e5f67890",
       sampleOutput:
         "{\n  \"ProtectionId\": \"7c3e1f2a-4b5d-6e7f-8a9b-0c1d2e3f4a5b\"\n}",
     },
@@ -8526,12 +8526,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/default-security-group.html",
     referenceLabel: "Default security groups for your VPCs",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#SecurityGroups:",
+    consoleUrl: "https://ap-southeast-3.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-3#SecurityGroups:",
     consoleLabel: "VPC > Security groups",
     diagram: "flowchart LR\n  Laptop[Developer laptop] -.->|SSH denied: not in group| SG[Default security group]\n  Peer[Other instance in same default SG] -->|allowed| SG\n  SG -->|all outbound allowed| Internet[Package repository]",
     cliExample: {
-      description: "Show the inbound rules of the default security group in a Singapore VPC",
-      command: "aws ec2 describe-security-groups --region ap-southeast-1 --filters Name=vpc-id,Values=vpc-0abc123def4567890 Name=group-name,Values=default --query 'SecurityGroups[0].IpPermissions'",
+      description: "Show the inbound rules of the default security group in a Jakarta VPC",
+      command: "aws ec2 describe-security-groups --region ap-southeast-3 --filters Name=vpc-id,Values=vpc-0abc123def4567890 Name=group-name,Values=default --query 'SecurityGroups[0].IpPermissions'",
       sampleOutput:
         "[\n  {\n    \"IpProtocol\": \"-1\",\n    \"UserIdGroupPairs\": [\n      {\n        \"GroupId\": \"sg-0fedcba9876543210\",\n        \"UserId\": \"123456789012\"\n      }\n    ],\n    \"IpRanges\": [],\n    \"Ipv6Ranges\": []\n  }\n]",
     },
@@ -8567,12 +8567,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
     referenceLabel: "Locking objects with Object Lock - Amazon S3",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/s3/buckets?region=ap-southeast-1",
+    consoleUrl: "https://sa-east-1.console.aws.amazon.com/s3/buckets?region=sa-east-1",
     consoleLabel: "Amazon S3 > Buckets > Properties > Object Lock",
     diagram: "flowchart LR\n  Case[Lawsuit filed] --> Hold[Put legal hold ON\nno expiry date]\n  Hold --> Obj[Object version: cannot be deleted or overwritten]\n  Close[Case closed] --> Release[Put legal hold OFF\ns3:PutObjectLegalHold]\n  Release --> Obj",
     cliExample: {
-      description: "Place a legal hold on a contract object in a Singapore bucket",
-      command: "aws s3api put-object-legal-hold --region ap-southeast-1 --bucket contracts-sg --key 2026/acme-msa.pdf --legal-hold Status=ON",
+      description: "Place a legal hold on a contract object in a São Paulo bucket",
+      command: "aws s3api put-object-legal-hold --region sa-east-1 --bucket contracts-br --key 2026/acme-msa.pdf --legal-hold Status=ON",
       sampleOutput: "",
     },
   },
@@ -8650,12 +8650,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/PostgreSQL.Concepts.General.SSL.html",
     referenceLabel: "Using SSL with a PostgreSQL DB instance - Amazon RDS",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/rds/home?region=ap-southeast-1#parameter-groups:",
+    consoleUrl: "https://eu-south-1.console.aws.amazon.com/rds/home?region=eu-south-1#parameter-groups:",
     consoleLabel: "RDS > Parameter groups",
     diagram: "flowchart LR\n  App1[App with sslmode=require] -->|TLS| RDS[RDS PostgreSQL\nrds.force_ssl = 1]\n  App2[Legacy app without SSL] -.->|connection rejected| RDS",
     cliExample: {
-      description: "Force SSL on a custom PostgreSQL parameter group in Singapore",
-      command: "aws rds modify-db-parameter-group --region ap-southeast-1 --db-parameter-group-name pg16-force-ssl --parameters \"ParameterName=rds.force_ssl,ParameterValue=1,ApplyMethod=immediate\"",
+      description: "Force SSL on a custom PostgreSQL parameter group in Milan",
+      command: "aws rds modify-db-parameter-group --region eu-south-1 --db-parameter-group-name pg16-force-ssl --parameters \"ParameterName=rds.force_ssl,ParameterValue=1,ApplyMethod=immediate\"",
       sampleOutput:
         "{\n  \"DBParameterGroupName\": \"pg16-force-ssl\"\n}",
     },
@@ -8691,14 +8691,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html",
     referenceLabel: "What is AWS Outposts?",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/outposts/home?region=ap-southeast-1#OutpostsList",
+    consoleUrl: "https://eu-central-1.console.aws.amazon.com/outposts/home?region=eu-central-1#OutpostsList",
     consoleLabel: "AWS Outposts > Outposts",
-    diagram: "flowchart LR\n  Dev[Developers using AWS APIs] --> Region[AWS Region ap-southeast-1\ncontrol plane]\n  Region -->|manages| OP[Outposts rack in hospital data center]\n  OP --> Data[Patient records stay on premises]",
+    diagram: "flowchart LR\n  Dev[Developers using AWS APIs] --> Region[AWS Region eu-central-1\ncontrol plane]\n  Region -->|manages| OP[Outposts rack in hospital data center]\n  OP --> Data[Patient records stay on premises]",
     cliExample: {
-      description: "List Outposts registered to the account in Singapore",
-      command: "aws outposts list-outposts --region ap-southeast-1 --query 'Outposts[].{Id:OutpostId,Name:Name,Site:SiteId,AZ:AvailabilityZone}'",
+      description: "List Outposts registered to the account in Frankfurt",
+      command: "aws outposts list-outposts --region eu-central-1 --query 'Outposts[].{Id:OutpostId,Name:Name,Site:SiteId,AZ:AvailabilityZone}'",
       sampleOutput:
-        "[\n  {\n    \"Id\": \"op-0abc1234def567890\",\n    \"Name\": \"hospital-dc1\",\n    \"Site\": \"os-0123456789abcdef0\",\n    \"AZ\": \"ap-southeast-1a\"\n  }\n]",
+        "[\n  {\n    \"Id\": \"op-0abc1234def567890\",\n    \"Name\": \"hospital-dc1\",\n    \"Site\": \"os-0123456789abcdef0\",\n    \"AZ\": \"eu-central-1a\"\n  }\n]",
     },
   },
   {
@@ -8773,14 +8773,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
     referenceLabel: "What is AWS Secrets Manager?",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/secretsmanager/newsecret?region=ap-southeast-1",
+    consoleUrl: "https://eu-west-1.console.aws.amazon.com/secretsmanager/newsecret?region=eu-west-1",
     consoleLabel: "Secrets Manager > Store a new secret",
     diagram: "flowchart LR\n  Dev[Developer] -->|CreateSecret| SM[Secrets Manager]\n  SM -->|encrypt with key| KMS[AWS KMS key]\n  EC2[EC2 instance role] -->|GetSecretValue| SM\n  SM -->|decrypt via KMS| EC2",
     cliExample: {
-      description: "Store the API token as a secret in Singapore",
-      command: "aws secretsmanager create-secret --region ap-southeast-1 --name prod/payments/api-token --secret-string 'sk_live_51Example' --kms-key-id alias/app-secrets",
+      description: "Store the API token as a secret in Ireland",
+      command: "aws secretsmanager create-secret --region eu-west-1 --name prod/payments/api-token --secret-string 'sk_live_51Example' --kms-key-id alias/app-secrets",
       sampleOutput:
-        "{\n  \"ARN\": \"arn:aws:secretsmanager:ap-southeast-1:123456789012:secret:prod/payments/api-token-Xy12Ab\",\n  \"Name\": \"prod/payments/api-token\",\n  \"VersionId\": \"6b3f2a1c-8d9e-4f0a-b1c2-d3e4f5a6b7c8\"\n}",
+        "{\n  \"ARN\": \"arn:aws:secretsmanager:eu-west-1:123456789012:secret:prod/payments/api-token-Xy12Ab\",\n  \"Name\": \"prod/payments/api-token\",\n  \"VersionId\": \"6b3f2a1c-8d9e-4f0a-b1c2-d3e4f5a6b7c8\"\n}",
     },
   },
   {
@@ -8819,7 +8819,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  Req[Live requests] --> Rule[Custom rule: action = Count]\n  Rule -->|matches counted, request continues| App[Application]\n  Rule --> Metrics[CloudWatch metrics + sampled requests]\n  Metrics -->|no false positives| Block[Change action to Block]",
     cliExample: {
       description: "Retrieve sampled requests that matched the counted rule in the last hour",
-      command: "aws wafv2 get-sampled-requests --region ap-southeast-1 --web-acl-arn arn:aws:wafv2:ap-southeast-1:123456789012:regional/webacl/shop-waf/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d --rule-metric-name SuspiciousHeaderRule --scope REGIONAL --time-window StartTime=2026-09-19T08:00:00Z,EndTime=2026-09-19T09:00:00Z --max-items 100",
+      command: "aws wafv2 get-sampled-requests --region ap-south-1 --web-acl-arn arn:aws:wafv2:ap-south-1:123456789012:regional/webacl/shop-waf/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d --rule-metric-name SuspiciousHeaderRule --scope REGIONAL --time-window StartTime=2026-09-19T08:00:00Z,EndTime=2026-09-19T09:00:00Z --max-items 100",
       sampleOutput:
         "{\n  \"SampledRequests\": [\n    {\n      \"Request\": {\n        \"ClientIP\": \"198.51.100.24\",\n        \"Country\": \"SG\",\n        \"URI\": \"/api/checkout\",\n        \"Method\": \"POST\"\n      },\n      \"Weight\": 1,\n      \"Timestamp\": \"2026-09-19T08:14:07+00:00\",\n      \"Action\": \"COUNT\",\n      \"RuleNameWithinRuleGroup\": \"SuspiciousHeaderRule\"\n    }\n  ],\n  \"PopulationSize\": 37,\n  \"TimeWindow\": {\n    \"StartTime\": \"2026-09-19T08:00:00+00:00\",\n    \"EndTime\": \"2026-09-19T09:00:00+00:00\"\n  }\n}",
     },
@@ -8855,12 +8855,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html",
     referenceLabel: "Configuring IAM Identity Center authentication with the AWS CLI",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/singlesignon/home?region=ap-southeast-1#!/settings",
+    consoleUrl: "https://sa-east-1.console.aws.amazon.com/singlesignon/home?region=sa-east-1#!/settings",
     consoleLabel: "IAM Identity Center > Settings",
     diagram: "flowchart LR\n  Dev[Developer laptop] -->|aws configure sso| Portal[Identity Center access portal]\n  Portal -->|browser sign-in + MFA| IdP[Corporate identity provider]\n  Portal -->|temporary credentials| CLI[AWS CLI profile: account + permission set]\n  CLI --> AWS[AWS APIs]",
     cliExample: {
       description: "Sign in to an existing Identity Center CLI profile and confirm the temporary identity",
-      command: "aws sso login --profile dev-sandbox && aws sts get-caller-identity --profile dev-sandbox --region ap-southeast-1",
+      command: "aws sso login --profile dev-sandbox && aws sts get-caller-identity --profile dev-sandbox --region sa-east-1",
       sampleOutput:
         "{\n  \"UserId\": \"AROAEXAMPLE7XYZ:jeffrey\",\n  \"Account\": \"123456789012\",\n  \"Arn\": \"arn:aws:sts::123456789012:assumed-role/AWSReservedSSO_DeveloperAccess_0a1b2c3d4e5f6a7b/jeffrey\"\n}",
     },
@@ -8984,9 +8984,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  Tester[Security tester] -->|port + vulnerability scan: permitted| EC2[Own EC2 web servers]\n  Tester -.->|DNS zone walking: prohibited| R53[Route 53 hosted zone]\n  Tester -.->|DoS / flooding: prohibited| Any[Any AWS resource]",
     cliExample: {
       description: "Confirm the hosted zone the assessment scope references",
-      command: "aws route53 list-hosted-zones-by-name --region us-east-1 --dns-name shop.example.sg --max-items 1 --query 'HostedZones[0].{Id:Id,Name:Name,Records:ResourceRecordSetCount}'",
+      command: "aws route53 list-hosted-zones-by-name --region us-east-1 --dns-name shop.example.mx --max-items 1 --query 'HostedZones[0].{Id:Id,Name:Name,Records:ResourceRecordSetCount}'",
       sampleOutput:
-        "{\n  \"Id\": \"/hostedzone/Z0123456789ABCDEFGHIJ\",\n  \"Name\": \"shop.example.sg.\",\n  \"Records\": 14\n}",
+        "{\n  \"Id\": \"/hostedzone/Z0123456789ABCDEFGHIJ\",\n  \"Name\": \"shop.example.mx.\",\n  \"Records\": 14\n}",
     },
   },
   {
@@ -9027,7 +9027,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TB\n  Inh[Inherited controls\nphysical, environmental] --> AWS[AWS only]\n  Sh[Shared controls\npatching, config mgmt, training] --> Both[AWS infrastructure + customer layer]\n  Cust[Customer-specific controls\ndata classification, zone security] --> C[Customer only]",
     cliExample: {
       description: "List Systems Manager patch baselines, the customer's side of the shared patch-management control",
-      command: "aws ssm describe-patch-baselines --region ap-southeast-1 --query 'BaselineIdentities[?DefaultBaseline==`true`].{Name:BaselineName,OS:OperatingSystem}'",
+      command: "aws ssm describe-patch-baselines --region us-east-2 --query 'BaselineIdentities[?DefaultBaseline==`true`].{Name:BaselineName,OS:OperatingSystem}'",
       sampleOutput:
         "[\n  {\n    \"Name\": \"AWS-AmazonLinux2023DefaultPatchBaseline\",\n    \"OS\": \"AMAZON_LINUX_2023\"\n  },\n  {\n    \"Name\": \"AWS-WindowsPredefinedPatchBaseline-OS\",\n    \"OS\": \"WINDOWS\"\n  }\n]",
     },
@@ -9104,12 +9104,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html",
     referenceLabel: "Importing certificates into AWS Certificate Manager",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/acm/home?region=ap-southeast-1#/certificates/list",
+    consoleUrl: "https://eu-west-1.console.aws.amazon.com/acm/home?region=eu-west-1#/certificates/list",
     consoleLabel: "ACM > Certificates",
     diagram: "flowchart LR\n  ACMissued[ACM-issued public cert] -->|auto-renewed by ACM| OK[Stays valid]\n  Imported[Imported third-party cert] -->|no auto renewal| Expiry[Expires]\n  Expiry -->|EventBridge expiry event| Team[Team re-imports renewed cert]",
     cliExample: {
       description: "Check the type, expiry date, and renewal eligibility of a certificate",
-      command: "aws acm describe-certificate --region ap-southeast-1 --certificate-arn arn:aws:acm:ap-southeast-1:123456789012:certificate/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d --query 'Certificate.{Type:Type,NotAfter:NotAfter,Renewal:RenewalEligibility}'",
+      command: "aws acm describe-certificate --region eu-west-1 --certificate-arn arn:aws:acm:eu-west-1:123456789012:certificate/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d --query 'Certificate.{Type:Type,NotAfter:NotAfter,Renewal:RenewalEligibility}'",
       sampleOutput:
         "{\n  \"Type\": \"IMPORTED\",\n  \"NotAfter\": \"2026-10-02T23:59:59+00:00\",\n  \"Renewal\": \"INELIGIBLE\"\n}",
     },
@@ -9147,12 +9147,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-threat-protection.html",
     referenceLabel: "Threat protection with Amazon Cognito user pools",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/cognito/v2/idp/user-pools?region=ap-southeast-1",
+    consoleUrl: "https://eu-west-2.console.aws.amazon.com/cognito/v2/idp/user-pools?region=eu-west-2",
     consoleLabel: "Amazon Cognito > User pools",
     diagram: "flowchart LR\n  Login[Sign-in attempt] --> TP[Cognito threat protection]\n  TP -->|password in breach list| CC[Compromised credentials: block / reset]\n  TP -->|new device, odd location| AA[Adaptive auth: require MFA or block]\n  TP -->|low risk| OK[Allow]",
     cliExample: {
       description: "Read the threat protection (risk configuration) settings of a user pool",
-      command: "aws cognito-idp describe-risk-configuration --region ap-southeast-1 --user-pool-id ap-southeast-1_AbCdEfGhI --query 'RiskConfiguration.{Compromised:CompromisedCredentialsRiskConfiguration.Actions.EventAction,HighRisk:AccountTakeoverRiskConfiguration.Actions.HighAction.EventAction}'",
+      command: "aws cognito-idp describe-risk-configuration --region eu-west-2 --user-pool-id eu-west-2_AbCdEfGhI --query 'RiskConfiguration.{Compromised:CompromisedCredentialsRiskConfiguration.Actions.EventAction,HighRisk:AccountTakeoverRiskConfiguration.Actions.HighAction.EventAction}'",
       sampleOutput:
         "{\n  \"Compromised\": \"BLOCK\",\n  \"HighRisk\": \"MFA_REQUIRED\"\n}",
     },
@@ -9188,12 +9188,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/secretsmanager/latest/userguide/vpc-endpoint-overview.html",
     referenceLabel: "Using an AWS Secrets Manager VPC endpoint",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#Endpoints:",
+    consoleUrl: "https://us-west-2.console.aws.amazon.com/vpcconsole/home?region=us-west-2#Endpoints:",
     consoleLabel: "VPC > Endpoints",
-    diagram: "flowchart LR\n  L[Lambda in private subnet] -->|HTTPS to private IP| VPCE[Interface endpoint\ncom.amazonaws.ap-southeast-1.secretsmanager]\n  VPCE -->|AWS PrivateLink| SM[Secrets Manager]\n  L -.->|no route| Internet[Internet]",
+    diagram: "flowchart LR\n  L[Lambda in private subnet] -->|HTTPS to private IP| VPCE[Interface endpoint\ncom.amazonaws.us-west-2.secretsmanager]\n  VPCE -->|AWS PrivateLink| SM[Secrets Manager]\n  L -.->|no route| Internet[Internet]",
     cliExample: {
       description: "Create an interface endpoint for Secrets Manager with private DNS enabled",
-      command: "aws ec2 create-vpc-endpoint --region ap-southeast-1 --vpc-id vpc-0a1b2c3d4e5f67890 --vpc-endpoint-type Interface --service-name com.amazonaws.ap-southeast-1.secretsmanager --subnet-ids subnet-0aaa111bbb222ccc3 subnet-0ddd444eee555fff6 --security-group-ids sg-0123456789abcdef0 --private-dns-enabled --query 'VpcEndpoint.{Id:VpcEndpointId,State:State,Type:VpcEndpointType}'",
+      command: "aws ec2 create-vpc-endpoint --region us-west-2 --vpc-id vpc-0a1b2c3d4e5f67890 --vpc-endpoint-type Interface --service-name com.amazonaws.us-west-2.secretsmanager --subnet-ids subnet-0aaa111bbb222ccc3 subnet-0ddd444eee555fff6 --security-group-ids sg-0123456789abcdef0 --private-dns-enabled --query 'VpcEndpoint.{Id:VpcEndpointId,State:State,Type:VpcEndpointType}'",
       sampleOutput:
         "{\n  \"Id\": \"vpce-0f1e2d3c4b5a69788\",\n  \"State\": \"pending\",\n  \"Type\": \"Interface\"\n}",
     },
@@ -9201,11 +9201,11 @@ export const securityAndComplianceQuestions: Question[] = [
   {
     id: "sec220",
     domain: "security-and-compliance",
-    text: "A company serves its global website through an Amazon CloudFront distribution and wants to protect it with AWS WAF. An engineer working in the ap-southeast-1 console creates a web ACL with the Regional scope but cannot find the CloudFront distribution in the list of resources to associate. What must the engineer do?",
+    text: "A company serves its global website through an Amazon CloudFront distribution and wants to protect it with AWS WAF. An engineer working in the eu-west-2 console creates a web ACL with the Regional scope but cannot find the CloudFront distribution in the list of resources to associate. What must the engineer do?",
     options: [
       { id: "a", text: "Enable AWS Shield Advanced, which is required before WAF can be used with CloudFront" },
       { id: "b", text: "Create the web ACL with the CloudFront (global) scope, which is managed from the US East (N. Virginia) Region, and associate it with the distribution" },
-      { id: "c", text: "Move the CloudFront distribution to ap-southeast-1 so it becomes a regional resource" },
+      { id: "c", text: "Move the CloudFront distribution to eu-west-2 so it becomes a regional resource" },
       { id: "d", text: "Use AWS Network Firewall instead, because WAF does not support CloudFront" },
       { id: "e", text: "Create one regional web ACL in every Region that has an edge location" },
       { id: "f", text: "Attach the web ACL to the S3 origin bucket instead" },
@@ -9231,7 +9231,7 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "AWS WAF resource types and scope",
     consoleUrl: "https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=global",
     consoleLabel: "AWS WAF > Web ACLs (Global / CloudFront)",
-    diagram: "flowchart LR\n  G[Web ACL scope CLOUDFRONT\nmanaged via us-east-1] --> CF[CloudFront distribution]\n  R[Web ACL scope REGIONAL\nap-southeast-1] --> ALB[ALB / API Gateway / Cognito]",
+    diagram: "flowchart LR\n  G[Web ACL scope CLOUDFRONT\nmanaged via us-east-1] --> CF[CloudFront distribution]\n  R[Web ACL scope REGIONAL\neu-west-2] --> ALB[ALB / API Gateway / Cognito]",
     cliExample: {
       description: "List CloudFront-scope web ACLs; the global scope must be called through us-east-1",
       command: "aws wafv2 list-web-acls --scope CLOUDFRONT --region us-east-1 --query 'WebACLs[].{Name:Name,Id:Id}'",
@@ -9272,12 +9272,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html",
     referenceLabel: "Cross-account resource access in IAM",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/s3/buckets?region=ap-southeast-1",
+    consoleUrl: "https://us-west-2.console.aws.amazon.com/s3/buckets?region=us-west-2",
     consoleLabel: "Amazon S3 > Buckets",
     diagram: "flowchart LR\n  subgraph Account B\n    Role[IAM role\nidentity policy: Allow s3:GetObject]\n  end\n  subgraph Account A\n    Bucket[S3 bucket\nbucket policy: Allow role from B]\n  end\n  Role -->|both allows required| Bucket",
     cliExample: {
       description: "Read the bucket policy in account A to confirm it allows the account B role",
-      command: "aws s3api get-bucket-policy --region ap-southeast-1 --bucket shared-reports-a --query 'Policy' --output text",
+      command: "aws s3api get-bucket-policy --region us-west-2 --bucket shared-reports-a --query 'Policy' --output text",
       sampleOutput:
         "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::123456789012:role/report-reader\"},\"Action\":\"s3:GetObject\",\"Resource\":\"arn:aws:s3:::shared-reports-a/*\"}]}",
     },
@@ -9290,8 +9290,8 @@ export const securityAndComplianceQuestions: Question[] = [
       { id: "a", text: "They are operated by local Chinese partners (Sinnet for Beijing and NWCD for Ningxia) under Chinese regulations" },
       { id: "b", text: "They can be selected from the Region menu of any existing AWS account with no additional sign-up" },
       { id: "c", text: "They require a separate AWS China account with its own credentials; IAM users and roles from the global partition cannot be used there" },
-      { id: "d", text: "Data stored in the China Regions is automatically replicated to Singapore for durability" },
-      { id: "e", text: "They are part of the same partition as ap-southeast-1, so a single IAM role covers both" },
+      { id: "d", text: "Data stored in the China Regions is automatically replicated to Paris for durability" },
+      { id: "e", text: "They are part of the same partition as eu-west-3, so a single IAM role covers both" },
       { id: "f", text: "They are only available to AWS Enterprise Support customers" },
       { id: "g", text: "AWS Organizations from the global partition can include China accounts as member accounts" },
       { id: "h", text: "They are free of charge for the first 12 months" },
@@ -9317,7 +9317,7 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "Amazon Web Services in China",
     consoleUrl: "https://console.amazonaws.cn/",
     consoleLabel: "AWS China Management Console",
-    diagram: "flowchart LR\n  subgraph aws partition\n    Acct[Global AWS account\nIAM, Organizations]\n    SG[ap-southeast-1]\n  end\n  subgraph aws-cn partition\n    CN[Separate AWS China account\nBeijing (Sinnet), Ningxia (NWCD)]\n  end\n  Acct -. no shared identities .- CN",
+    diagram: "flowchart LR\n  subgraph aws partition\n    Acct[Global AWS account\nIAM, Organizations]\n    FR[eu-west-3]\n  end\n  subgraph aws-cn partition\n    CN[Separate AWS China account\nBeijing (Sinnet), Ningxia (NWCD)]\n  end\n  Acct -. no shared identities .- CN",
     cliExample: {
       description: "Check the partition of the identity in use; China credentials return an aws-cn ARN",
       command: "aws sts get-caller-identity --query 'Arn'",
@@ -9356,12 +9356,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/inspector/latest/user/scanning-ec2.html",
     referenceLabel: "Scanning Amazon EC2 instances with Amazon Inspector",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/inspector/v2/home?region=ap-southeast-1#/account-management/ec2",
+    consoleUrl: "https://eu-west-2.console.aws.amazon.com/inspector/v2/home?region=eu-west-2#/account-management/ec2",
     consoleLabel: "Amazon Inspector > Account management > EC2 coverage",
     diagram: "flowchart LR\n  EC2[EC2 instance] -->|SSM Agent + instance profile| SSM[Systems Manager\nmanaged instance]\n  SSM -->|package inventory| Insp[Amazon Inspector]\n  EC2 -.->|agentless: EBS snapshot scan| Insp\n  Insp --> F[CVE findings]",
     cliExample: {
       description: "List EC2 instances that Inspector is not covering and why",
-      command: "aws inspector2 list-coverage --region ap-southeast-1 --filter-criteria '{\"resourceType\":[{\"comparison\":\"EQUALS\",\"value\":\"AWS_EC2_INSTANCE\"}],\"scanStatusCode\":[{\"comparison\":\"EQUALS\",\"value\":\"INACTIVE\"}]}' --query 'coveredResources[].{Id:resourceId,Reason:scanStatus.reason}' --max-results 2",
+      command: "aws inspector2 list-coverage --region eu-west-2 --filter-criteria '{\"resourceType\":[{\"comparison\":\"EQUALS\",\"value\":\"AWS_EC2_INSTANCE\"}],\"scanStatusCode\":[{\"comparison\":\"EQUALS\",\"value\":\"INACTIVE\"}]}' --query 'coveredResources[].{Id:resourceId,Reason:scanStatus.reason}' --max-results 2",
       sampleOutput:
         "[\n  {\n    \"Id\": \"i-0abc123def4567890\",\n    \"Reason\": \"UNMANAGED_EC2_INSTANCE\"\n  },\n  {\n    \"Id\": \"i-0fed987cba6543210\",\n    \"Reason\": \"UNMANAGED_EC2_INSTANCE\"\n  }\n]",
     },
@@ -9397,14 +9397,14 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
     referenceLabel: "What is AWS Secrets Manager?",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/secretsmanager/listsecrets?region=ap-southeast-1",
+    consoleUrl: "https://eu-central-1.console.aws.amazon.com/secretsmanager/listsecrets?region=eu-central-1",
     consoleLabel: "AWS Secrets Manager > Secrets",
     diagram: "flowchart LR\n  App[Application] -->|GetSecretValue| SM[Secrets Manager\nstores the password]\n  SM -->|Decrypt data key| KMS[AWS KMS\nmanages the key, not the secret]\n  SM --> Pw[Plaintext password returned over TLS]",
     cliExample: {
       description: "Show which KMS key protects a secret, illustrating the KMS and Secrets Manager relationship",
-      command: "aws secretsmanager describe-secret --region ap-southeast-1 --secret-id prod/orders/db --query '{Name:Name,KmsKey:KmsKeyId,LastChanged:LastChangedDate}'",
+      command: "aws secretsmanager describe-secret --region eu-central-1 --secret-id prod/orders/db --query '{Name:Name,KmsKey:KmsKeyId,LastChanged:LastChangedDate}'",
       sampleOutput:
-        "{\n  \"Name\": \"prod/orders/db\",\n  \"KmsKey\": \"arn:aws:kms:ap-southeast-1:123456789012:key/2b3c4d5e-6f70-4a8b-9c0d-1e2f3a4b5c6d\",\n  \"LastChanged\": \"2026-09-10T08:21:44.113000+08:00\"\n}",
+        "{\n  \"Name\": \"prod/orders/db\",\n  \"KmsKey\": \"arn:aws:kms:eu-central-1:123456789012:key/2b3c4d5e-6f70-4a8b-9c0d-1e2f3a4b5c6d\",\n  \"LastChanged\": \"2026-09-10T08:21:44.113000+00:00\"\n}",
     },
   },
   {
@@ -9479,12 +9479,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/findings_suppression-rule.html",
     referenceLabel: "Suppression rules in GuardDuty",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/guardduty/home?region=ap-southeast-1#/findings",
+    consoleUrl: "https://eu-west-3.console.aws.amazon.com/guardduty/home?region=eu-west-3#/findings",
     consoleLabel: "Amazon GuardDuty > Findings",
     diagram: "flowchart LR\n  GD[GuardDuty finding\nRecon:EC2/Portscan] --> Rule{Suppression rule\ninstance = scanner?}\n  Rule -->|yes| Arch[Archived automatically]\n  Rule -->|no| Active[Active finding -> EventBridge / Security Hub]",
     cliExample: {
       description: "Create a suppression rule (archive filter) for the known scanner instance",
-      command: "aws guardduty create-filter --region ap-southeast-1 --detector-id 12abc34d567e8fa901bc2d34e56789f0 --name suppress-authorized-scanner --action ARCHIVE --finding-criteria '{\"Criterion\":{\"type\":{\"Eq\":[\"Recon:EC2/Portscan\"]},\"resource.instanceDetails.instanceId\":{\"Eq\":[\"i-0abc123def4567890\"]}}}' --query 'Name'",
+      command: "aws guardduty create-filter --region eu-west-3 --detector-id 12abc34d567e8fa901bc2d34e56789f0 --name suppress-authorized-scanner --action ARCHIVE --finding-criteria '{\"Criterion\":{\"type\":{\"Eq\":[\"Recon:EC2/Portscan\"]},\"resource.instanceDetails.instanceId\":{\"Eq\":[\"i-0abc123def4567890\"]}}}' --query 'Name'",
       sampleOutput:
         "\"suppress-authorized-scanner\"",
     },
@@ -9520,12 +9520,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
     referenceLabel: "AWS Shared Responsibility Model",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Images:visibility=owned-by-me",
+    consoleUrl: "https://ap-southeast-2.console.aws.amazon.com/ec2/home?region=ap-southeast-2#Images:visibility=owned-by-me",
     consoleLabel: "EC2 > AMIs",
     diagram: "flowchart LR\n  Vendor[Marketplace seller] -->|publishes patched AMI + advisory| Cust[Customer]\n  Cust -->|patches or relaunches| EC2[Running appliance instances]\n  AWS[AWS] -->|secures hosts, hypervisor, Marketplace platform| Infra[Infrastructure]",
     cliExample: {
       description: "Find newer versions of the Marketplace AMI by product code to relaunch from a patched image",
-      command: "aws ec2 describe-images --region ap-southeast-1 --owners aws-marketplace --filters Name=product-code,Values=abc123def456ghi789jkl0mno --query 'sort_by(Images,&CreationDate)[-1].{Id:ImageId,Name:Name,Created:CreationDate}'",
+      command: "aws ec2 describe-images --region ap-southeast-2 --owners aws-marketplace --filters Name=product-code,Values=abc123def456ghi789jkl0mno --query 'sort_by(Images,&CreationDate)[-1].{Id:ImageId,Name:Name,Created:CreationDate}'",
       sampleOutput:
         "{\n  \"Id\": \"ami-0f9e8d7c6b5a43210\",\n  \"Name\": \"vendor-fw-appliance-11.2.4-hotfix\",\n  \"Created\": \"2026-09-15T02:10:33.000Z\"\n}",
     },
@@ -9533,7 +9533,7 @@ export const securityAndComplianceQuestions: Question[] = [
   {
     id: "sec228",
     domain: "security-and-compliance",
-    text: "A company in Singapore runs its production database on Amazon RDS and its file servers on EC2 with EBS volumes, all in ap-southeast-1. A data-protection officer asks whether the automated RDS backups and the EBS snapshots the company takes are stored somewhere outside Singapore. Which answer is correct?",
+    text: "A company in the United Arab Emirates runs its production database on Amazon RDS and its file servers on EC2 with EBS volumes, all in me-central-1. A data-protection officer asks whether the automated RDS backups and the EBS snapshots the company takes are stored somewhere outside the UAE. Which answer is correct?",
     options: [
       { id: "a", text: "Backups and snapshots are automatically copied to the nearest US Region for durability" },
       { id: "b", text: "Backups and snapshots remain in the same Region where they were created (stored on Amazon S3 within that Region) unless the customer explicitly copies or replicates them to another Region" },
@@ -9561,12 +9561,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/compliance/data-privacy-faq/",
     referenceLabel: "AWS Data Privacy FAQ",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/rds/home?region=ap-southeast-1#backups:",
+    consoleUrl: "https://me-central-1.console.aws.amazon.com/rds/home?region=me-central-1#backups:",
     consoleLabel: "Amazon RDS > Automated backups",
-    diagram: "flowchart LR\n  RDS[RDS instance\nap-southeast-1] --> B[Automated backups\nstored in ap-southeast-1]\n  EBS[EBS volume\nap-southeast-1] --> S[Snapshots\nstored in ap-southeast-1]\n  B -. customer opt-in copy only .-> DR[Another Region]",
+    diagram: "flowchart LR\n  RDS[RDS instance\nme-central-1] --> B[Automated backups\nstored in me-central-1]\n  EBS[EBS volume\nme-central-1] --> S[Snapshots\nstored in me-central-1]\n  B -. customer opt-in copy only .-> DR[Another Region]",
     cliExample: {
       description: "Confirm the Region and availability zone of an EBS snapshot's source volume",
-      command: "aws ec2 describe-snapshots --region ap-southeast-1 --owner-ids 123456789012 --query 'Snapshots[0].{Id:SnapshotId,Volume:VolumeId,Encrypted:Encrypted,Start:StartTime}'",
+      command: "aws ec2 describe-snapshots --region me-central-1 --owner-ids 123456789012 --query 'Snapshots[0].{Id:SnapshotId,Volume:VolumeId,Encrypted:Encrypted,Start:StartTime}'",
       sampleOutput:
         "{\n  \"Id\": \"snap-0a1b2c3d4e5f67890\",\n  \"Volume\": \"vol-0123456789abcdef0\",\n  \"Encrypted\": true,\n  \"Start\": \"2026-09-18T18:00:07.000Z\"\n}",
     },
@@ -9602,12 +9602,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html",
     referenceLabel: "What is AWS Client VPN?",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#ClientVPNEndpoints:",
+    consoleUrl: "https://sa-east-1.console.aws.amazon.com/vpcconsole/home?region=sa-east-1#ClientVPNEndpoints:",
     consoleLabel: "VPC > Client VPN endpoints",
     diagram: "flowchart LR\n  User[Remote DBA laptop] -->|SAML + MFA via corporate IdP| CVPN[AWS Client VPN endpoint]\n  CVPN -->|TLS OpenVPN tunnel| VPC[VPC private subnets]\n  VPC --> EC2[EC2 port 22]\n  VPC --> RDS[RDS port 5432]",
     cliExample: {
       description: "Show the authentication type configured on a Client VPN endpoint",
-      command: "aws ec2 describe-client-vpn-endpoints --region ap-southeast-1 --query 'ClientVpnEndpoints[0].{Id:ClientVpnEndpointId,Auth:AuthenticationOptions[0].Type,Status:Status.Code}'",
+      command: "aws ec2 describe-client-vpn-endpoints --region sa-east-1 --query 'ClientVpnEndpoints[0].{Id:ClientVpnEndpointId,Auth:AuthenticationOptions[0].Type,Status:Status.Code}'",
       sampleOutput:
         "{\n  \"Id\": \"cvpn-endpoint-0123456789abcdef0\",\n  \"Auth\": \"federated-authentication\",\n  \"Status\": \"available\"\n}",
     },
@@ -9643,12 +9643,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_exportfindings.html",
     referenceLabel: "Exporting generated findings to Amazon S3",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/guardduty/home?region=ap-southeast-1#/settings",
+    consoleUrl: "https://eu-north-1.console.aws.amazon.com/guardduty/home?region=eu-north-1#/settings",
     consoleLabel: "Amazon GuardDuty > Settings > Findings export options",
     diagram: "flowchart LR\n  GD[GuardDuty findings\n90-day retention] -->|export within minutes| S3[S3 bucket\nSSE-KMS]\n  S3 -->|Lifecycle / Object Lock| Ret[3-year retention]\n  GD --> EB[EventBridge / Security Hub]",
     cliExample: {
       description: "List the S3 publishing destination configured for a GuardDuty detector",
-      command: "aws guardduty list-publishing-destinations --region ap-southeast-1 --detector-id 12abc34d567e8fa901bc2d34e56789f0 --query 'Destinations[].{Id:DestinationId,Type:DestinationType,Status:Status}'",
+      command: "aws guardduty list-publishing-destinations --region eu-north-1 --detector-id 12abc34d567e8fa901bc2d34e56789f0 --query 'Destinations[].{Id:DestinationId,Type:DestinationType,Status:Status}'",
       sampleOutput:
         "[\n  {\n    \"Id\": \"a1b2c3d4e5f60718293a4b5c6d7e8f90\",\n    \"Type\": \"S3\",\n    \"Status\": \"PUBLISHING\"\n  }\n]",
     },
@@ -9725,12 +9725,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html",
     referenceLabel: "Rotate AWS Secrets Manager secrets",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/secretsmanager/listsecrets?region=ap-southeast-1",
+    consoleUrl: "https://ap-southeast-2.console.aws.amazon.com/secretsmanager/listsecrets?region=ap-southeast-2",
     consoleLabel: "AWS Secrets Manager > Secrets",
     diagram: "flowchart LR\n  SM[Secrets Manager\nschedule: every 30 days] -->|invoke| L[Lambda rotation function]\n  L -->|createSecret / setSecret| PG[Payment gateway API]\n  L -->|testSecret / finishSecret| SM\n  SM --> Cur[New version labeled AWSCURRENT]",
     cliExample: {
       description: "Enable rotation on the API key secret using a custom Lambda rotation function",
-      command: "aws secretsmanager rotate-secret --region ap-southeast-1 --secret-id prod/payments/api-key --rotation-lambda-arn arn:aws:lambda:ap-southeast-1:123456789012:function:rotate-payment-api-key --rotation-rules AutomaticallyAfterDays=30 --query '{Name:Name,VersionId:VersionId}'",
+      command: "aws secretsmanager rotate-secret --region ap-southeast-2 --secret-id prod/payments/api-key --rotation-lambda-arn arn:aws:lambda:ap-southeast-2:123456789012:function:rotate-payment-api-key --rotation-rules AutomaticallyAfterDays=30 --query '{Name:Name,VersionId:VersionId}'",
       sampleOutput:
         "{\n  \"Name\": \"prod/payments/api-key\",\n  \"VersionId\": \"6f1c2d3e-4a5b-4c6d-8e9f-0a1b2c3d4e5f\"\n}",
     },
@@ -9853,9 +9853,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  CT[CloudTrail] -->|log files| S3[(S3 bucket)]\n  CT -->|hourly signed digest| S3\n  V[validate-logs] --> S3\n  V --> R[Valid / Invalid / Missing]",
     cliExample: {
       description: "Validate CloudTrail log files delivered in the last day",
-      command: "aws cloudtrail validate-logs --trail-arn arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/org-trail --start-time 2026-09-18T00:00:00Z --region ap-southeast-1",
+      command: "aws cloudtrail validate-logs --trail-arn arn:aws:cloudtrail:ap-northeast-2:123456789012:trail/org-trail --start-time 2026-09-18T00:00:00Z --region ap-northeast-2",
       sampleOutput:
-        "Validating log files for trail arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/org-trail between 2026-09-18T00:00:00Z and 2026-09-19T06:12:41Z\n\nResults requested for 2026-09-18T00:00:00Z to 2026-09-19T06:12:41Z\nResults found for 2026-09-18T00:04:12Z to 2026-09-19T06:04:11Z:\n\n30/30 digest files valid\n412/412 log files valid",
+        "Validating log files for trail arn:aws:cloudtrail:ap-northeast-2:123456789012:trail/org-trail between 2026-09-18T00:00:00Z and 2026-09-19T06:12:41Z\n\nResults requested for 2026-09-18T00:00:00Z to 2026-09-19T06:12:41Z\nResults found for 2026-09-18T00:04:12Z to 2026-09-19T06:04:11Z:\n\n30/30 digest files valid\n412/412 log files valid",
     },
   },
   {
@@ -9935,7 +9935,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TB\n  FM[Firewall Manager policy] --> A1[Account 1: WAF web ACL]\n  FM --> A2[Account 2: WAF web ACL]\n  FM --> AN[New account: auto-applied]\n  FM --> SH[Security Hub: non-compliance findings]",
     cliExample: {
       description: "List Firewall Manager policies in the administrator account",
-      command: "aws fms list-policies --region ap-southeast-1 --query 'PolicyList[].{Name:PolicyName,Type:SecurityServiceType,Remediate:RemediationEnabled}'",
+      command: "aws fms list-policies --region us-east-1 --query 'PolicyList[].{Name:PolicyName,Type:SecurityServiceType,Remediate:RemediationEnabled}'",
       sampleOutput:
         "[\n  {\n    \"Name\": \"org-baseline-waf\",\n    \"Type\": \"WAFV2\",\n    \"Remediate\": true\n  },\n  {\n    \"Name\": \"org-sg-baseline\",\n    \"Type\": \"SECURITY_GROUPS_COMMON\",\n    \"Remediate\": true\n  }\n]",
     },
@@ -9976,7 +9976,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  C[Client IP] --> WAF[WAF web ACL: rate-based rule limit 500 / 5 min]\n  WAF -->|under limit| ALB[Application Load Balancer]\n  WAF -->|over limit| B[403 Blocked]",
     cliExample: {
       description: "List web ACLs scoped to regional resources such as ALBs",
-      command: "aws wafv2 list-web-acls --scope REGIONAL --region ap-southeast-1 --query 'WebACLs[].{Name:Name,Id:Id}'",
+      command: "aws wafv2 list-web-acls --scope REGIONAL --region us-east-2 --query 'WebACLs[].{Name:Name,Id:Id}'",
       sampleOutput:
         "[\n  {\n    \"Name\": \"login-protect\",\n    \"Id\": \"3f4a1c2e-7b8d-4e9f-a0b1-c2d3e4f5a6b7\"\n  }\n]",
     },
@@ -10017,7 +10017,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  B[(S3 bucket: versioning off)] --> CFG[Config rule s3-bucket-versioning-enabled]\n  CFG -->|NON_COMPLIANT| REM[Remediation: AWS-ConfigureS3BucketVersioning]\n  REM --> B2[(Bucket: versioning on)]",
     cliExample: {
       description: "Show the remediation configuration attached to a Config rule",
-      command: "aws configservice describe-remediation-configurations --config-rule-names s3-bucket-versioning-enabled --region ap-southeast-1 --query 'RemediationConfigurations[].{Target:TargetId,Auto:Automatic,Retries:MaximumAutomaticAttempts}'",
+      command: "aws configservice describe-remediation-configurations --config-rule-names s3-bucket-versioning-enabled --region us-west-2 --query 'RemediationConfigurations[].{Target:TargetId,Auto:Automatic,Retries:MaximumAutomaticAttempts}'",
       sampleOutput:
         "[\n  {\n    \"Target\": \"AWS-ConfigureS3BucketVersioning\",\n    \"Auto\": true,\n    \"Retries\": 5\n  }\n]",
     },
@@ -10058,7 +10058,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  U[Root user + MFA code] -->|DeleteObject versionId| S3[(Versioned bucket, MFA Delete on)]\n  N[User without MFA code] -->|DeleteObject versionId| S3\n  S3 -->|allowed| OK[Version removed]\n  S3 -->|denied| ERR[403 AccessDenied]",
     cliExample: {
       description: "Enable versioning with MFA Delete as the root user",
-      command: "aws s3api put-bucket-versioning --bucket contracts-sg --versioning-configuration Status=Enabled,MFADelete=Enabled --mfa \"arn:aws:iam::123456789012:mfa/root-account-mfa-device 123456\" --region ap-southeast-1 && aws s3api get-bucket-versioning --bucket contracts-sg",
+      command: "aws s3api put-bucket-versioning --bucket contracts-sg --versioning-configuration Status=Enabled,MFADelete=Enabled --mfa \"arn:aws:iam::123456789012:mfa/root-account-mfa-device 123456\" --region ap-northeast-2 && aws s3api get-bucket-versioning --bucket contracts-sg",
       sampleOutput:
         "{\n  \"Status\": \"Enabled\",\n  \"MFADelete\": \"Enabled\"\n}",
     },
@@ -10140,7 +10140,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  P[Resource policies: S3, KMS, IAM roles, SQS] --> AA[Access Analyzer: zone of trust = organization]\n  AA -->|principal outside org| F[Finding: external access]\n  F --> SH[Security Hub / EventBridge alert]",
     cliExample: {
       description: "List active external-access findings for an analyzer",
-      command: "aws accessanalyzer list-findings-v2 --analyzer-arn arn:aws:access-analyzer:ap-southeast-1:123456789012:analyzer/org-analyzer --filter '{\"status\":{\"eq\":[\"ACTIVE\"]}}' --region ap-southeast-1 --query 'findings[].{Resource:resource,Type:resourceType}'",
+      command: "aws accessanalyzer list-findings-v2 --analyzer-arn arn:aws:access-analyzer:us-east-1:123456789012:analyzer/org-analyzer --filter '{\"status\":{\"eq\":[\"ACTIVE\"]}}' --region us-east-1 --query 'findings[].{Resource:resource,Type:resourceType}'",
       sampleOutput:
         "[\n  {\n    \"Resource\": \"arn:aws:s3:::partner-exports\",\n    \"Type\": \"AWS::S3::Bucket\"\n  }\n]",
     },
@@ -10181,9 +10181,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  GD[GuardDuty finding] --> DET[Detective behavior graph]\n  VPC[VPC Flow Logs] --> DET\n  CT[CloudTrail] --> DET\n  DET --> V[Entity profiles: role, IP, instance, timeline]",
     cliExample: {
       description: "List Detective behavior graphs in the Region",
-      command: "aws detective list-graphs --region ap-southeast-1 --query 'GraphList[].{Arn:Arn,Created:CreatedTime}'",
+      command: "aws detective list-graphs --region us-east-2 --query 'GraphList[].{Arn:Arn,Created:CreatedTime}'",
       sampleOutput:
-        "[\n  {\n    \"Arn\": \"arn:aws:detective:ap-southeast-1:123456789012:graph:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d\",\n    \"Created\": \"2026-03-02T08:15:30.000Z\"\n  }\n]",
+        "[\n  {\n    \"Arn\": \"arn:aws:detective:us-east-2:123456789012:graph:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d\",\n    \"Created\": \"2026-03-02T08:15:30.000Z\"\n  }\n]",
     },
   },
   {
@@ -10222,9 +10222,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  R[Private root CA] --> S[Subordinate CA]\n  S -->|issue| C1[svc-a.internal cert]\n  S -->|issue| C2[svc-b.internal cert]\n  S --> ACM[ACM: attach to internal ALB]",
     cliExample: {
       description: "List private certificate authorities in the Region",
-      command: "aws acm-pca list-certificate-authorities --region ap-southeast-1 --query 'CertificateAuthorities[].{Arn:Arn,Type:Type,Status:Status}'",
+      command: "aws acm-pca list-certificate-authorities --region us-west-2 --query 'CertificateAuthorities[].{Arn:Arn,Type:Type,Status:Status}'",
       sampleOutput:
-        "[\n  {\n    \"Arn\": \"arn:aws:acm-pca:ap-southeast-1:123456789012:certificate-authority/0f1e2d3c-4b5a-6978-8a9b-0c1d2e3f4a5b\",\n    \"Type\": \"SUBORDINATE\",\n    \"Status\": \"ACTIVE\"\n  }\n]",
+        "[\n  {\n    \"Arn\": \"arn:aws:acm-pca:us-west-2:123456789012:certificate-authority/0f1e2d3c-4b5a-6978-8a9b-0c1d2e3f4a5b\",\n    \"Type\": \"SUBORDINATE\",\n    \"Status\": \"ACTIVE\"\n  }\n]",
     },
   },
   {
@@ -10263,7 +10263,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  APP[Bank application in VPC] --> C[CloudHSM cluster: dedicated HSMs]\n  CO[Crypto officer: bank staff only] --> C\n  AWS[AWS: hardware & firmware only] -.-> C",
     cliExample: {
       description: "Describe CloudHSM clusters and their HSM state",
-      command: "aws cloudhsmv2 describe-clusters --region ap-southeast-1 --query 'Clusters[].{Id:ClusterId,State:State,Hsms:length(Hsms),Mode:Mode}'",
+      command: "aws cloudhsmv2 describe-clusters --region eu-west-1 --query 'Clusters[].{Id:ClusterId,State:State,Hsms:length(Hsms),Mode:Mode}'",
       sampleOutput:
         "[\n  {\n    \"Id\": \"cluster-abc123def45\",\n    \"State\": \"ACTIVE\",\n    \"Hsms\": 2,\n    \"Mode\": \"FIPS\"\n  }\n]",
     },
@@ -10304,9 +10304,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  T1[Analytics team] --> AP1[Access point: analytics-ap, policy: prefix analytics/*]\n  T2[Finance team] --> AP2[Access point: finance-ap, VPC-only]\n  AP1 --> B[(datalake bucket)]\n  AP2 --> B",
     cliExample: {
       description: "Create an access point restricted to a VPC for the finance team",
-      command: "aws s3control create-access-point --account-id 123456789012 --name finance-ap --bucket datalake-sg --vpc-configuration VpcId=vpc-0a1b2c3d4e5f67890 --region ap-southeast-1",
+      command: "aws s3control create-access-point --account-id 123456789012 --name finance-ap --bucket datalake-sg --vpc-configuration VpcId=vpc-0a1b2c3d4e5f67890 --region eu-west-2",
       sampleOutput:
-        "{\n  \"AccessPointArn\": \"arn:aws:s3:ap-southeast-1:123456789012:accesspoint/finance-ap\",\n  \"Alias\": \"finance-ap-8k2j3l4m5n6o7p8q9r-s3alias\"\n}",
+        "{\n  \"AccessPointArn\": \"arn:aws:s3:eu-west-2:123456789012:accesspoint/finance-ap\",\n  \"Alias\": \"finance-ap-8k2j3l4m5n6o7p8q9r-s3alias\"\n}",
     },
   },
   {
@@ -10345,7 +10345,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  RP[Role policy: DynamoDB full access] --> I[Intersection]\n  SP[Session policy: dynamodb:GetItem on Orders table] --> I\n  I --> TC[Temporary credentials: read-only on Orders]",
     cliExample: {
       description: "Assume a role with a session policy that restricts it to reading one table",
-      command: "aws sts assume-role --role-arn arn:aws:iam::123456789012:role/data-role --role-session-name batch-readonly --policy '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Resource\":\"arn:aws:dynamodb:ap-southeast-1:123456789012:table/Orders\"}]}' --query 'Credentials.Expiration'",
+      command: "aws sts assume-role --role-arn arn:aws:iam::123456789012:role/data-role --role-session-name batch-readonly --policy '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Resource\":\"arn:aws:dynamodb:eu-central-1:123456789012:table/Orders\"}]}' --query 'Credentials.Expiration'",
       sampleOutput:
         "\"2026-09-19T08:12:04+00:00\"",
     },
@@ -10386,7 +10386,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  PUT[PutObject] --> S3[(S3: SSE-KMS)]\n  S3 -->|GenerateDataKey| KMS[KMS customer managed key]\n  KMS --> CT[CloudTrail: key usage event]\n  ADM[Admin disables key] --> KMS\n  KMS -.->|Decrypt fails| GET[GetObject denied]",
     cliExample: {
       description: "Set SSE-KMS with a customer managed key as the bucket default encryption",
-      command: "aws s3api put-bucket-encryption --bucket records-sg --region ap-southeast-1 --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"aws:kms\",\"KMSMasterKeyID\":\"alias/records-key\"},\"BucketKeyEnabled\":true}]}' && aws s3api get-bucket-encryption --bucket records-sg --query 'ServerSideEncryptionConfiguration.Rules[0]'",
+      command: "aws s3api put-bucket-encryption --bucket records-sg --region eu-north-1 --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"aws:kms\",\"KMSMasterKeyID\":\"alias/records-key\"},\"BucketKeyEnabled\":true}]}' && aws s3api get-bucket-encryption --bucket records-sg --query 'ServerSideEncryptionConfiguration.Rules[0]'",
       sampleOutput:
         "{\n  \"ApplyServerSideEncryptionByDefault\": {\n    \"SSEAlgorithm\": \"aws:kms\",\n    \"KMSMasterKeyID\": \"alias/records-key\"\n  },\n  \"BucketKeyEnabled\": true\n}",
     },
@@ -10427,9 +10427,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  U[Mobile user] -->|Google token| IP[Cognito identity pool]\n  IP -->|AssumeRoleWithWebIdentity| STS[STS]\n  STS --> TC[Temporary credentials: authenticated role]\n  TC --> S3[(S3 photo bucket)]",
     cliExample: {
       description: "List identity pools in the Region",
-      command: "aws cognito-identity list-identity-pools --max-results 10 --region ap-southeast-1 --query 'IdentityPools[].{Id:IdentityPoolId,Name:IdentityPoolName}'",
+      command: "aws cognito-identity list-identity-pools --max-results 10 --region eu-west-3 --query 'IdentityPools[].{Id:IdentityPoolId,Name:IdentityPoolName}'",
       sampleOutput:
-        "[\n  {\n    \"Id\": \"ap-southeast-1:1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d\",\n    \"Name\": \"photoapp_identities\"\n  }\n]",
+        "[\n  {\n    \"Id\": \"eu-west-3:1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d\",\n    \"Name\": \"photoapp_identities\"\n  }\n]",
     },
   },
   {
@@ -10470,7 +10470,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  R[IAM role: S3 read, trust ec2.amazonaws.com] --> IP[Instance profile]\n  IP --> EC2[EC2 instance]\n  EC2 -->|IMDSv2 token| CR[Temporary credentials, auto-rotated]\n  CR --> S3[(S3 bucket)]",
     cliExample: {
       description: "Associate an instance profile with a running instance",
-      command: "aws ec2 associate-iam-instance-profile --instance-id i-0abc123def456789a --iam-instance-profile Name=s3-reader-profile --region ap-southeast-1 --query 'IamInstanceProfileAssociation.{Instance:InstanceId,State:State}'",
+      command: "aws ec2 associate-iam-instance-profile --instance-id i-0abc123def456789a --iam-instance-profile Name=s3-reader-profile --region eu-west-1 --query 'IamInstanceProfileAssociation.{Instance:InstanceId,State:State}'",
       sampleOutput:
         "{\n  \"Instance\": \"i-0abc123def456789a\",\n  \"State\": \"associating\"\n}",
     },
@@ -10513,7 +10513,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  ADM[Admin: IAM ssm:StartSession] --> SSM[Systems Manager endpoints]\n  EC2[Private EC2 with SSM Agent] -->|outbound 443| SSM\n  SSM --> S3[(S3 / CloudWatch Logs: session transcript)]",
     cliExample: {
       description: "Start a Session Manager session to a private instance",
-      command: "aws ssm start-session --target i-0abc123def456789a --region ap-southeast-1",
+      command: "aws ssm start-session --target i-0abc123def456789a --region eu-west-2",
       sampleOutput:
         "Starting session with SessionId: alice-0f1e2d3c4b5a69788\nsh-5.2$ ",
     },
@@ -10556,9 +10556,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  V[Vendor account role] -->|identity policy allows s3:GetObject| B[(S3 bucket)]\n  BP[Bucket policy: Principal = vendor account] --> B\n  V -->|lambda:InvokeFunction| L[Lambda function]\n  LP[Function policy: Principal = vendor account] --> L",
     cliExample: {
       description: "Grant a vendor account permission to invoke a Lambda function",
-      command: "aws lambda add-permission --function-name order-webhook --statement-id vendor-invoke --action lambda:InvokeFunction --principal 210987654321 --region ap-southeast-1 --query Statement --output text",
+      command: "aws lambda add-permission --function-name order-webhook --statement-id vendor-invoke --action lambda:InvokeFunction --principal 210987654321 --region eu-central-1 --query Statement --output text",
       sampleOutput:
-        "{\"Sid\":\"vendor-invoke\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::210987654321:root\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:ap-southeast-1:123456789012:function:order-webhook\"}",
+        "{\"Sid\":\"vendor-invoke\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::210987654321:root\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:eu-central-1:123456789012:function:order-webhook\"}",
     },
   },
   {
@@ -10597,7 +10597,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  AA[IAM Access Analyzer] -->|analyzes policies| B[(S3 bucket)]\n  AA --> R[IAM role trust policy]\n  AA --> K[KMS key policy]\n  B -->|shared with external account| F[Finding: external access]",
     cliExample: {
       description: "List active external access findings for an analyzer",
-      command: "aws accessanalyzer list-findings-v2 --analyzer-arn arn:aws:access-analyzer:ap-southeast-1:123456789012:analyzer/org-analyzer --filter '{\"status\":{\"eq\":[\"ACTIVE\"]}}' --region ap-southeast-1",
+      command: "aws accessanalyzer list-findings-v2 --analyzer-arn arn:aws:access-analyzer:eu-north-1:123456789012:analyzer/org-analyzer --filter '{\"status\":{\"eq\":[\"ACTIVE\"]}}' --region eu-north-1",
       sampleOutput:
         "{\n    \"findings\": [\n        {\n            \"id\": \"6f1c8a2b-1a2b-4c3d-9e8f-0a1b2c3d4e5f\",\n            \"resourceType\": \"AWS::S3::Bucket\",\n            \"resource\": \"arn:aws:s3:::finance-exports\",\n            \"status\": \"ACTIVE\",\n            \"findingType\": \"ExternalAccess\",\n            \"analyzedAt\": \"2026-09-18T02:10:44+00:00\"\n        }\n    ]\n}",
     },
@@ -10678,10 +10678,10 @@ export const securityAndComplianceQuestions: Question[] = [
     consoleLabel: "AWS CloudHSM",
     diagram: "flowchart LR\n  APP[Application in VPC] -->|PKCS11 or JCE client| H[CloudHSM cluster: single-tenant HSMs]\n  CU[Crypto user managed by customer] --> H\n  AWS[AWS operators] -. no access to keys .-> H",
     cliExample: {
-      description: "Describe CloudHSM clusters in the Singapore Region",
-      command: "aws cloudhsmv2 describe-clusters --region ap-southeast-1",
+      description: "Describe CloudHSM clusters in the Sydney Region",
+      command: "aws cloudhsmv2 describe-clusters --region ap-southeast-2",
       sampleOutput:
-        "{\n    \"Clusters\": [\n        {\n            \"ClusterId\": \"cluster-abcdefghijk\",\n            \"HsmType\": \"hsm2m.medium\",\n            \"State\": \"ACTIVE\",\n            \"VpcId\": \"vpc-0123456789abcdef0\",\n            \"Hsms\": [\n                {\n                    \"HsmId\": \"hsm-0a1b2c3d4e5f67890\",\n                    \"AvailabilityZone\": \"ap-southeast-1a\",\n                    \"State\": \"ACTIVE\"\n                }\n            ]\n        }\n    ]\n}",
+        "{\n    \"Clusters\": [\n        {\n            \"ClusterId\": \"cluster-abcdefghijk\",\n            \"HsmType\": \"hsm2m.medium\",\n            \"State\": \"ACTIVE\",\n            \"VpcId\": \"vpc-0123456789abcdef0\",\n            \"Hsms\": [\n                {\n                    \"HsmId\": \"hsm-0a1b2c3d4e5f67890\",\n                    \"AvailabilityZone\": \"ap-southeast-2a\",\n                    \"State\": \"ACTIVE\"\n                }\n            ]\n        }\n    ]\n}",
     },
   },
   {
@@ -10720,7 +10720,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  U[Remote employee] --> VA[Verified Access endpoint]\n  IdP[Identity provider signal] --> VA\n  DEV[Device posture signal] --> VA\n  VA -->|policy allows| APP[Internal app in private subnet]",
     cliExample: {
       description: "List Verified Access endpoints",
-      command: "aws ec2 describe-verified-access-endpoints --region ap-southeast-1",
+      command: "aws ec2 describe-verified-access-endpoints --region ap-south-1",
       sampleOutput:
         "{\n    \"VerifiedAccessEndpoints\": [\n        {\n            \"VerifiedAccessEndpointId\": \"vae-0123456789abcdef0\",\n            \"VerifiedAccessGroupId\": \"vagr-0abcdef1234567890\",\n            \"EndpointType\": \"load-balancer\",\n            \"ApplicationDomain\": \"hr.internal.example.com\",\n            \"Status\": {\n                \"Code\": \"active\"\n            }\n        }\n    ]\n}",
     },
@@ -10761,7 +10761,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TB\n  ACC[Account-level Block Public Access: all four settings on] --> B1[(Bucket with public ACL)]\n  ACC --> B2[(Bucket with public policy)]\n  ACC --> B3[(Future buckets)]\n  ANON[Anonymous user] -. denied .-> B1",
     cliExample: {
       description: "Turn on all four Block Public Access settings for the account",
-      command: "aws s3control put-public-access-block --account-id 123456789012 --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true --region ap-southeast-1 && aws s3control get-public-access-block --account-id 123456789012 --region ap-southeast-1",
+      command: "aws s3control put-public-access-block --account-id 123456789012 --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true --region sa-east-1 && aws s3control get-public-access-block --account-id 123456789012 --region sa-east-1",
       sampleOutput:
         "{\n    \"PublicAccessBlockConfiguration\": {\n        \"BlockPublicAcls\": true,\n        \"IgnorePublicAcls\": true,\n        \"BlockPublicPolicy\": true,\n        \"RestrictPublicBuckets\": true\n    }\n}",
     },
@@ -10810,7 +10810,7 @@ export const securityAndComplianceQuestions: Question[] = [
   {
     id: "sec259",
     domain: "security-and-compliance",
-    text: "A company's policy requires that every new Amazon EBS volume and snapshot created in the ap-southeast-1 Region be encrypted, even when a developer forgets to select encryption while launching an EC2 instance. Which action enforces this with the LEAST ongoing effort?",
+    text: "A company's policy requires that every new Amazon EBS volume and snapshot created in the eu-north-1 Region be encrypted, even when a developer forgets to select encryption while launching an EC2 instance. Which action enforces this with the LEAST ongoing effort?",
     options: [
       { id: "a", text: "Enable Amazon GuardDuty to alert on unencrypted volumes" },
       { id: "b", text: "Ask developers to encrypt volumes manually after creation" },
@@ -10838,12 +10838,12 @@ export const securityAndComplianceQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/ebs/latest/userguide/encryption-by-default.html",
     referenceLabel: "Enable Amazon EBS encryption by default",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Settings:",
+    consoleUrl: "https://eu-north-1.console.aws.amazon.com/ec2/home?region=eu-north-1#Settings:",
     consoleLabel: "EC2 > Settings > EBS encryption",
-    diagram: "flowchart LR\n  S[Account setting: EBS encryption by default in ap-southeast-1] --> V1[New volume: encrypted]\n  S --> V2[Snapshot copy: encrypted]\n  S --> K[KMS key: aws/ebs or customer managed]\n  D[Developer launches instance without choosing encryption] --> V1",
+    diagram: "flowchart LR\n  S[Account setting: EBS encryption by default in eu-north-1] --> V1[New volume: encrypted]\n  S --> V2[Snapshot copy: encrypted]\n  S --> K[KMS key: aws/ebs or customer managed]\n  D[Developer launches instance without choosing encryption] --> V1",
     cliExample: {
       description: "Enable EBS encryption by default and confirm the setting",
-      command: "aws ec2 enable-ebs-encryption-by-default --region ap-southeast-1 && aws ec2 get-ebs-default-kms-key-id --region ap-southeast-1",
+      command: "aws ec2 enable-ebs-encryption-by-default --region eu-north-1 && aws ec2 get-ebs-default-kms-key-id --region eu-north-1",
       sampleOutput:
         "{\n    \"EbsEncryptionByDefault\": true\n}\n{\n    \"KmsKeyId\": \"alias/aws/ebs\"\n}",
     },
@@ -10884,9 +10884,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TB\n  ORG[Organizations management or delegated admin] --> FM[Firewall Manager policy: WAF rule group plus SG baseline]\n  FM --> A1[Account 1 ALBs and VPCs]\n  FM --> A2[Account 2 ALBs and VPCs]\n  FM --> AN[New account: auto-applied]",
     cliExample: {
       description: "List Firewall Manager policies in the administrator account",
-      command: "aws fms list-policies --region ap-southeast-1",
+      command: "aws fms list-policies --region ap-southeast-2",
       sampleOutput:
-        "{\n    \"PolicyList\": [\n        {\n            \"PolicyArn\": \"arn:aws:fms:ap-southeast-1:123456789012:policy/6a1b2c3d-4e5f-6789-abcd-ef0123456789\",\n            \"PolicyId\": \"6a1b2c3d-4e5f-6789-abcd-ef0123456789\",\n            \"PolicyName\": \"org-baseline-waf\",\n            \"ResourceType\": \"AWS::ElasticLoadBalancingV2::LoadBalancer\",\n            \"SecurityServiceType\": \"WAFV2\",\n            \"RemediationEnabled\": true,\n            \"PolicyStatus\": \"ACTIVE\"\n        }\n    ]\n}",
+        "{\n    \"PolicyList\": [\n        {\n            \"PolicyArn\": \"arn:aws:fms:ap-southeast-2:123456789012:policy/6a1b2c3d-4e5f-6789-abcd-ef0123456789\",\n            \"PolicyId\": \"6a1b2c3d-4e5f-6789-abcd-ef0123456789\",\n            \"PolicyName\": \"org-baseline-waf\",\n            \"ResourceType\": \"AWS::ElasticLoadBalancingV2::LoadBalancer\",\n            \"SecurityServiceType\": \"WAFV2\",\n            \"RemediationEnabled\": true,\n            \"PolicyStatus\": \"ACTIVE\"\n        }\n    ]\n}",
     },
   },
   {
@@ -10925,7 +10925,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  CFG[AWS Config and Security Hub] --> AM[Audit Manager assessment]\n  CT[CloudTrail API activity] --> AM\n  AM -->|maps to controls| FW[PCI DSS framework]\n  FW --> RPT[Assessment report for auditor]",
     cliExample: {
       description: "List active Audit Manager assessments",
-      command: "aws auditmanager list-assessments --status ACTIVE --region ap-southeast-1",
+      command: "aws auditmanager list-assessments --status ACTIVE --region ap-south-1",
       sampleOutput:
         "{\n    \"assessmentMetadata\": [\n        {\n            \"name\": \"pci-dss-q3-2026\",\n            \"id\": \"11111111-2222-3333-4444-555555555555\",\n            \"complianceType\": \"PCI DSS v4.0\",\n            \"status\": \"ACTIVE\",\n            \"creationTime\": \"2026-07-01T00:00:00+00:00\"\n        }\n    ]\n}",
     },
@@ -11009,7 +11009,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  T[Conformance pack YAML template] --> CP[Deployed conformance pack]\n  CP --> R1[Rule: root MFA enabled]\n  CP --> R2[Rule: S3 bucket public read prohibited]\n  CP --> R3[Rule plus remediation: EBS encryption]\n  CP --> SC[Compliance score]",
     cliExample: {
       description: "Show compliance status of deployed conformance packs",
-      command: "aws configservice describe-conformance-pack-compliance-summary --region ap-southeast-1",
+      command: "aws configservice describe-conformance-pack-compliance-summary --region ap-northeast-2",
       sampleOutput:
         "{\n    \"ConformancePackComplianceSummaryList\": [\n        {\n            \"ConformancePackName\": \"cis-aws-foundations-benchmark\",\n            \"ConformancePackComplianceStatus\": \"NON_COMPLIANT\"\n        }\n    ]\n}",
     },
@@ -11091,15 +11091,15 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  CT[CloudTrail and VPC Flow Logs] --> SL[Security Lake: OCSF normalization]\n  SH[Security Hub findings] --> SL\n  TP[Third-party firewall logs] --> SL\n  SL --> S3[(S3 data lake with lifecycle)]\n  S3 --> AN[Athena or SIEM subscriber]",
     cliExample: {
       description: "List the log sources enabled in Security Lake",
-      command: "aws securitylake list-log-sources --region ap-southeast-1",
+      command: "aws securitylake list-log-sources --region us-east-1",
       sampleOutput:
-        "{\n    \"sources\": [\n        {\n            \"account\": \"123456789012\",\n            \"region\": \"ap-southeast-1\",\n            \"sources\": [\n                {\n                    \"awsLogSource\": {\n                        \"sourceName\": \"VPC_FLOW\",\n                        \"sourceVersion\": \"2.0\"\n                    }\n                },\n                {\n                    \"awsLogSource\": {\n                        \"sourceName\": \"SH_FINDINGS\",\n                        \"sourceVersion\": \"2.0\"\n                    }\n                }\n            ]\n        }\n    ]\n}",
+        "{\n    \"sources\": [\n        {\n            \"account\": \"123456789012\",\n            \"region\": \"us-east-1\",\n            \"sources\": [\n                {\n                    \"awsLogSource\": {\n                        \"sourceName\": \"VPC_FLOW\",\n                        \"sourceVersion\": \"2.0\"\n                    }\n                },\n                {\n                    \"awsLogSource\": {\n                        \"sourceName\": \"SH_FINDINGS\",\n                        \"sourceVersion\": \"2.0\"\n                    }\n                }\n            ]\n        }\n    ]\n}",
     },
   },
   {
     id: "sec266",
     domain: "security-and-compliance",
-    text: "A company encrypts data with a customer managed KMS key in ap-southeast-1 and replicates the data to ap-northeast-1 for disaster recovery. During a failover, the application in ap-northeast-1 must decrypt the replicated data locally without making cross-Region calls to KMS in Singapore. Which KMS feature supports this?",
+    text: "A company encrypts data with a customer managed KMS key in us-east-1 and replicates the data to ap-northeast-1 for disaster recovery. During a failover, the application in ap-northeast-1 must decrypt the replicated data locally without making cross-Region calls to KMS in N. Virginia. Which KMS feature supports this?",
     options: [
       { id: "a", text: "KMS key aliases" },
       { id: "b", text: "KMS grants" },
@@ -11120,7 +11120,7 @@ export const securityAndComplianceQuestions: Question[] = [
       c: "Correct. Multi-Region keys replicate key material so replica keys can decrypt locally in another Region.",
       d: "AWS managed keys are Region-specific and cannot be replicated.",
       e: "Rotation generates new backing key material but does not create keys in other Regions.",
-      f: "A key policy grants permissions but KMS keys remain Regional resources; the key would still be called in Singapore.",
+      f: "A key policy grants permissions but KMS keys remain Regional resources; the key would still be called in N. Virginia.",
       g: "Asymmetric keys have separate public and private parts but are still single-Region unless created as multi-Region keys.",
       h: "Imported key material can be uploaded to several keys manually, but multi-Region keys are the built-in feature.",
       i: "Correct. A replica key is a multi-Region key copied from the primary into another Region, sharing its key ID and key material so it can decrypt locally.",
@@ -11129,12 +11129,12 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "Multi-Region keys in AWS KMS",
     consoleUrl: "https://console.aws.amazon.com/kms/home#/kms/keys",
     consoleLabel: "KMS > Customer managed keys",
-    diagram: "flowchart LR\n  P[Primary key mrk-abc in ap-southeast-1] -->|replicate| R[Replica key mrk-abc in ap-northeast-1]\n  D1[Data encrypted in Singapore] -->|S3 replication| D2[Replicated data in Tokyo]\n  R -->|decrypt locally| D2",
+    diagram: "flowchart LR\n  P[Primary key mrk-abc in us-east-1] -->|replicate| R[Replica key mrk-abc in ap-northeast-1]\n  D1[Data encrypted in N. Virginia] -->|S3 replication| D2[Replicated data in Tokyo]\n  R -->|decrypt locally| D2",
     cliExample: {
       description: "Replicate a multi-Region primary key into the Tokyo Region",
-      command: "aws kms replicate-key --key-id mrk-1234abcd12ab34cd56ef1234567890ab --replica-region ap-northeast-1 --region ap-southeast-1",
+      command: "aws kms replicate-key --key-id mrk-1234abcd12ab34cd56ef1234567890ab --replica-region ap-northeast-1 --region us-east-1",
       sampleOutput:
-        "{\n    \"ReplicaKeyMetadata\": {\n        \"KeyId\": \"mrk-1234abcd12ab34cd56ef1234567890ab\",\n        \"Arn\": \"arn:aws:kms:ap-northeast-1:123456789012:key/mrk-1234abcd12ab34cd56ef1234567890ab\",\n        \"KeyState\": \"Creating\",\n        \"MultiRegion\": true,\n        \"MultiRegionConfiguration\": {\n            \"MultiRegionKeyType\": \"REPLICA\",\n            \"PrimaryKey\": {\n                \"Arn\": \"arn:aws:kms:ap-southeast-1:123456789012:key/mrk-1234abcd12ab34cd56ef1234567890ab\",\n                \"Region\": \"ap-southeast-1\"\n            }\n        }\n    }\n}",
+        "{\n    \"ReplicaKeyMetadata\": {\n        \"KeyId\": \"mrk-1234abcd12ab34cd56ef1234567890ab\",\n        \"Arn\": \"arn:aws:kms:ap-northeast-1:123456789012:key/mrk-1234abcd12ab34cd56ef1234567890ab\",\n        \"KeyState\": \"Creating\",\n        \"MultiRegion\": true,\n        \"MultiRegionConfiguration\": {\n            \"MultiRegionKeyType\": \"REPLICA\",\n            \"PrimaryKey\": {\n                \"Arn\": \"arn:aws:kms:us-east-1:123456789012:key/mrk-1234abcd12ab34cd56ef1234567890ab\",\n                \"Region\": \"us-east-1\"\n            }\n        }\n    }\n}",
     },
   },
   {
@@ -11173,9 +11173,9 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  EC2[Compromised EC2] -->|DNS query for evil.example| RES[Route 53 Resolver]\n  RES --> FW[DNS Firewall rule group: block managed malware list]\n  FW -->|BLOCK| X[NXDOMAIN or override]\n  FW --> LOG[Query log to CloudWatch or S3]",
     cliExample: {
       description: "List DNS Firewall rule groups in the Region",
-      command: "aws route53resolver list-firewall-rule-groups --region ap-southeast-1",
+      command: "aws route53resolver list-firewall-rule-groups --region us-west-2",
       sampleOutput:
-        "{\n    \"FirewallRuleGroups\": [\n        {\n            \"Id\": \"rslvr-frg-0123456789abcdef0\",\n            \"Arn\": \"arn:aws:route53resolver:ap-southeast-1:123456789012:firewall-rule-group/rslvr-frg-0123456789abcdef0\",\n            \"Name\": \"block-malware-domains\",\n            \"OwnerId\": \"123456789012\",\n            \"Status\": \"COMPLETE\",\n            \"ShareStatus\": \"NOT_SHARED\"\n        }\n    ]\n}",
+        "{\n    \"FirewallRuleGroups\": [\n        {\n            \"Id\": \"rslvr-frg-0123456789abcdef0\",\n            \"Arn\": \"arn:aws:route53resolver:us-west-2:123456789012:firewall-rule-group/rslvr-frg-0123456789abcdef0\",\n            \"Name\": \"block-malware-domains\",\n            \"OwnerId\": \"123456789012\",\n            \"Status\": \"COMPLETE\",\n            \"ShareStatus\": \"NOT_SHARED\"\n        }\n    ]\n}",
     },
   },
   {
@@ -11214,7 +11214,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  ORG[All accounts and Regions] --> EDS[CloudTrail Lake event data store: 7 year retention]\n  INV[Investigator] -->|SQL query| EDS\n  EDS --> RES[Result: principals that called DeleteBucket]",
     cliExample: {
       description: "Run a SQL query against a CloudTrail Lake event data store",
-      command: "aws cloudtrail start-query --query-statement \"SELECT userIdentity.arn, eventTime FROM 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d WHERE eventName = 'DeleteBucket' AND eventTime > '2023-09-01 00:00:00'\" --region ap-southeast-1",
+      command: "aws cloudtrail start-query --query-statement \"SELECT userIdentity.arn, eventTime FROM 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d WHERE eventName = 'DeleteBucket' AND eventTime > '2023-09-01 00:00:00'\" --region eu-west-1",
       sampleOutput:
         "{\n    \"QueryId\": \"9f8e7d6c-5b4a-3c2d-1e0f-a1b2c3d4e5f6\"\n}",
     },
@@ -11257,7 +11257,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TB\n  MGMT[Management account] -->|register delegated admin| SEC[Security tooling account]\n  SEC -->|manages GuardDuty, Security Hub, Inspector| M1[Member account 1]\n  SEC --> M2[Member account 2]\n  SEC -->|auto-enable| NEW[New member account]",
     cliExample: {
       description: "Register the security account as GuardDuty delegated administrator",
-      command: "aws guardduty enable-organization-admin-account --admin-account-id 210987654321 --region ap-southeast-1 && aws guardduty list-organization-admin-accounts --region ap-southeast-1",
+      command: "aws guardduty enable-organization-admin-account --admin-account-id 210987654321 --region eu-west-2 && aws guardduty list-organization-admin-accounts --region eu-west-2",
       sampleOutput:
         "{\n    \"AdminAccounts\": [\n        {\n            \"AdminAccountId\": \"210987654321\",\n            \"AdminStatus\": \"ENABLED\"\n        }\n    ]\n}",
     },
@@ -11339,7 +11339,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  F[GuardDuty finding: C2 communication] --> MP[Malware Protection for EC2]\n  MP -->|snapshot EBS volumes| SNAP[Encrypted replica snapshot]\n  SNAP -->|agentless scan| SCAN[Malware scan]\n  SCAN --> MF[Malware finding in GuardDuty]",
     cliExample: {
       description: "Check whether Malware Protection for EC2 is enabled on the detector",
-      command: "aws guardduty get-detector --detector-id 12abc34d567e8fa901bc2d34e56789f0 --region ap-southeast-1 --query 'Features[?Name==`EBS_MALWARE_PROTECTION`]'",
+      command: "aws guardduty get-detector --detector-id 12abc34d567e8fa901bc2d34e56789f0 --region us-east-2 --query 'Features[?Name==`EBS_MALWARE_PROTECTION`]'",
       sampleOutput:
         "[\n    {\n        \"Name\": \"EBS_MALWARE_PROTECTION\",\n        \"Status\": \"ENABLED\",\n        \"UpdatedAt\": \"2026-09-10T06:30:00+00:00\"\n    }\n]",
     },
@@ -11460,7 +11460,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  R[IAM role with S3 read policy] --> IP[Instance profile]\n  IP --> EC2[EC2 instance]\n  EC2 --> MD[Instance metadata service]\n  MD --> T[Temporary credentials auto rotated]\n  T --> S3[Amazon S3]",
     cliExample: {
       description: "Attach an IAM instance profile to a running EC2 instance",
-      command: "aws ec2 associate-iam-instance-profile --region ap-southeast-1 --instance-id i-0f3c2a9b7d6e5c4a1 --iam-instance-profile Name=app-s3-reader-profile --query 'IamInstanceProfileAssociation.{Id:AssociationId,State:State}'",
+      command: "aws ec2 associate-iam-instance-profile --region eu-west-2 --instance-id i-0f3c2a9b7d6e5c4a1 --iam-instance-profile Name=app-s3-reader-profile --query 'IamInstanceProfileAssociation.{Id:AssociationId,State:State}'",
       sampleOutput: "{\n  \"Id\": \"iip-assoc-0a1b2c3d4e5f67890\",\n  \"State\": \"associating\"\n}",
     },
   },
@@ -11540,7 +11540,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  E[CloudTrail events all Regions] --> DS[Event data store 7 year retention]\n  DS --> Q[SQL query]\n  Q --> R[Who called DeleteBucket]",
     cliExample: {
       description: "List CloudTrail Lake event data stores and their retention period in days",
-      command: "aws cloudtrail list-event-data-stores --region ap-southeast-1 --query 'EventDataStores[].{Name:Name,Status:Status,RetentionDays:RetentionPeriod}'",
+      command: "aws cloudtrail list-event-data-stores --region eu-north-1 --query 'EventDataStores[].{Name:Name,Status:Status,RetentionDays:RetentionPeriod}'",
       sampleOutput: "[\n  {\n    \"Name\": \"org-audit-store\",\n    \"Status\": \"ENABLED\",\n    \"RetentionDays\": 2557\n  }\n]",
     },
   },
@@ -11580,8 +11580,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  T[CloudTrail trail] --> L[Log files in S3]\n  T --> D[Hourly signed digest files]\n  D --> V[validate-logs command]\n  L --> V\n  V --> P[Proof logs are unmodified]",
     cliExample: {
       description: "Validate the integrity of CloudTrail log files delivered during a time window",
-      command: "aws cloudtrail validate-logs --region ap-southeast-1 --trail-arn arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/prod-trail --start-time 2026-09-01T00:00:00Z --end-time 2026-09-02T00:00:00Z",
-      sampleOutput: "Validating log files for trail arn:aws:cloudtrail:ap-southeast-1:123456789012:trail/prod-trail between 2026-09-01T00:00:00Z and 2026-09-02T00:00:00Z\n\nResults requested for 2026-09-01T00:00:00Z to 2026-09-02T00:00:00Z\nResults found for 2026-09-01T00:04:12Z to 2026-09-01T23:58:47Z:\n\n24/24 digest files valid\n312/312 log files valid",
+      command: "aws cloudtrail validate-logs --region eu-west-3 --trail-arn arn:aws:cloudtrail:eu-west-3:123456789012:trail/prod-trail --start-time 2026-09-01T00:00:00Z --end-time 2026-09-02T00:00:00Z",
+      sampleOutput: "Validating log files for trail arn:aws:cloudtrail:eu-west-3:123456789012:trail/prod-trail between 2026-09-01T00:00:00Z and 2026-09-02T00:00:00Z\n\nResults requested for 2026-09-01T00:00:00Z to 2026-09-02T00:00:00Z\nResults found for 2026-09-01T00:04:12Z to 2026-09-01T23:58:47Z:\n\n24/24 digest files valid\n312/312 log files valid",
     },
   },
   {
@@ -11620,7 +11620,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TD\n  AWS[AWS responsibility] --> CP[EKS control plane API server etcd scheduler]\n  C[Customer responsibility] --> N[Self managed node OS patches]\n  C --> I[Container images]\n  C --> R[IAM and Kubernetes RBAC]",
     cliExample: {
       description: "Show the Kubernetes version and platform version of an EKS cluster whose control plane AWS maintains",
-      command: "aws eks describe-cluster --region ap-southeast-1 --name prod-cluster --query 'cluster.{Name:name,Version:version,PlatformVersion:platformVersion,Status:status}'",
+      command: "aws eks describe-cluster --region ap-southeast-2 --name prod-cluster --query 'cluster.{Name:name,Version:version,PlatformVersion:platformVersion,Status:status}'",
       sampleOutput: "{\n  \"Name\": \"prod-cluster\",\n  \"Version\": \"1.31\",\n  \"PlatformVersion\": \"eks.12\",\n  \"Status\": \"ACTIVE\"\n}",
     },
   },
@@ -11662,7 +11662,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  I[Internet] --> N[Network ACL subnet level stateless allow or deny]\n  N --> S[Security group instance level stateful allow only]\n  S --> W[Web server]",
     cliExample: {
       description: "Add a network ACL rule that denies all traffic from a single malicious IP address before the allow rules",
-      command: "aws ec2 create-network-acl-entry --region ap-southeast-1 --network-acl-id acl-0a1b2c3d4e5f67890 --rule-number 50 --protocol -1 --rule-action deny --ingress --cidr-block 203.0.113.25/32",
+      command: "aws ec2 create-network-acl-entry --region ap-south-1 --network-acl-id acl-0a1b2c3d4e5f67890 --rule-number 50 --protocol -1 --rule-action deny --ingress --cidr-block 203.0.113.25/32",
       sampleOutput: "",
     },
   },
@@ -11702,8 +11702,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  O[Network account owns VPC] --> RAM[Resource share via AWS RAM]\n  RAM --> A[App account A launches EC2 in shared subnet]\n  RAM --> B[App account B launches EC2 in shared subnet]",
     cliExample: {
       description: "Create a RAM resource share that shares a subnet with another account in the organization",
-      command: "aws ram create-resource-share --region ap-southeast-1 --name shared-app-subnets --resource-arns arn:aws:ec2:ap-southeast-1:111122223333:subnet/subnet-0a1b2c3d4e5f67890 --principals 444455556666 --query 'resourceShare.{Name:name,Status:status,Arn:resourceShareArn}'",
-      sampleOutput: "{\n  \"Name\": \"shared-app-subnets\",\n  \"Status\": \"ACTIVE\",\n  \"Arn\": \"arn:aws:ram:ap-southeast-1:111122223333:resource-share/7d3e1f2a-9b8c-4d5e-a6f7-0123456789ab\"\n}",
+      command: "aws ram create-resource-share --region eu-central-1 --name shared-app-subnets --resource-arns arn:aws:ec2:eu-central-1:111122223333:subnet/subnet-0a1b2c3d4e5f67890 --principals 444455556666 --query 'resourceShare.{Name:name,Status:status,Arn:resourceShareArn}'",
+      sampleOutput: "{\n  \"Name\": \"shared-app-subnets\",\n  \"Status\": \"ACTIVE\",\n  \"Arn\": \"arn:aws:ram:eu-central-1:111122223333:resource-share/7d3e1f2a-9b8c-4d5e-a6f7-0123456789ab\"\n}",
     },
   },
   {
@@ -11742,7 +11742,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  A[Administrator with IAM permission] --> SM[Session Manager]\n  SM --> AG[SSM Agent outbound connection]\n  AG --> EC2[EC2 instance no inbound port 22]\n  SM --> L[Session logs in CloudWatch Logs or S3]",
     cliExample: {
       description: "Start an interactive shell session to an instance without SSH",
-      command: "aws ssm start-session --region ap-southeast-1 --target i-0f3c2a9b7d6e5c4a1",
+      command: "aws ssm start-session --region eu-north-1 --target i-0f3c2a9b7d6e5c4a1",
       sampleOutput: "Starting session with SessionId: admin-0c4e9f8a7b6d5e3f2\nsh-5.2$",
     },
   },
@@ -11862,8 +11862,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TD\n  CT[Control Tower controls] --> P[Preventive via SCP blocks action]\n  CT --> D[Detective via Config rule reports drift]\n  CT --> PR[Proactive via CloudFormation hooks checks before deploy]",
     cliExample: {
       description: "List the controls enabled on an organizational unit managed by Control Tower",
-      command: "aws controltower list-enabled-controls --region ap-southeast-1 --target-identifier arn:aws:organizations::123456789012:ou/o-a1b2c3d4e5/ou-ab12-11111111 --query 'enabledControls[].{Control:controlIdentifier,Status:statusSummary.status}'",
-      sampleOutput: "[\n  {\n    \"Control\": \"arn:aws:controltower:ap-southeast-1::control/AWS-GR_CLOUDTRAIL_ENABLED\",\n    \"Status\": \"SUCCEEDED\"\n  },\n  {\n    \"Control\": \"arn:aws:controltower:ap-southeast-1::control/AWS-GR_S3_VERSIONING_ENABLED\",\n    \"Status\": \"SUCCEEDED\"\n  }\n]",
+      command: "aws controltower list-enabled-controls --region ap-south-1 --target-identifier arn:aws:organizations::123456789012:ou/o-a1b2c3d4e5/ou-ab12-11111111 --query 'enabledControls[].{Control:controlIdentifier,Status:statusSummary.status}'",
+      sampleOutput: "[\n  {\n    \"Control\": \"arn:aws:controltower:ap-south-1::control/AWS-GR_CLOUDTRAIL_ENABLED\",\n    \"Status\": \"SUCCEEDED\"\n  },\n  {\n    \"Control\": \"arn:aws:controltower:ap-south-1::control/AWS-GR_S3_VERSIONING_ENABLED\",\n    \"Status\": \"SUCCEEDED\"\n  }\n]",
     },
   },
   {
@@ -11902,7 +11902,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  U[User signs in via Cognito] --> APP[Document app]\n  APP --> AVP[Verified Permissions IsAuthorized]\n  PS[Cedar policy store] --> AVP\n  AVP --> D[Allow or Deny decision]",
     cliExample: {
       description: "Ask Verified Permissions whether a principal may approve a document",
-      command: "aws verifiedpermissions is-authorized --region ap-southeast-1 --policy-store-id PSEXAMPLEabcdefg111111 --principal entityType=User,entityId=alice --action actionType=Action,actionId=approve --resource entityType=Document,entityId=doc-2049 --query '{Decision:decision,Policies:determiningPolicies[].policyId}'",
+      command: "aws verifiedpermissions is-authorized --region sa-east-1 --policy-store-id PSEXAMPLEabcdefg111111 --principal entityType=User,entityId=alice --action actionType=Action,actionId=approve --resource entityType=Document,entityId=doc-2049 --query '{Decision:decision,Policies:determiningPolicies[].policyId}'",
       sampleOutput: "{\n  \"Decision\": \"ALLOW\",\n  \"Policies\": [\n    \"SPEXAMPLEabcdefg111111\"\n  ]\n}",
     },
   },
@@ -11942,8 +11942,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  S3[S3 buckets with millions of objects] --> M[Macie ML and managed data identifiers]\n  M --> F[Findings PII PHI credentials]\n  F --> SH[Security Hub and EventBridge]",
     cliExample: {
       description: "Create a one-time Macie classification job for a bucket",
-      command: "aws macie2 create-classification-job --region ap-southeast-1 --job-type ONE_TIME --name phi-scan --s3-job-definition 'bucketDefinitions=[{accountId=123456789012,buckets=[patient-records]}]' --query '{JobId:jobId,Arn:jobArn}'",
-      sampleOutput: "{\n  \"JobId\": \"3ce05dbb7ec5505def334104bexample\",\n  \"Arn\": \"arn:aws:macie2:ap-southeast-1:123456789012:classification-job/3ce05dbb7ec5505def334104bexample\"\n}",
+      command: "aws macie2 create-classification-job --region ap-northeast-2 --job-type ONE_TIME --name phi-scan --s3-job-definition 'bucketDefinitions=[{accountId=123456789012,buckets=[patient-records]}]' --query '{JobId:jobId,Arn:jobArn}'",
+      sampleOutput: "{\n  \"JobId\": \"3ce05dbb7ec5505def334104bexample\",\n  \"Arn\": \"arn:aws:macie2:ap-northeast-2:123456789012:classification-job/3ce05dbb7ec5505def334104bexample\"\n}",
     },
   },
   {
@@ -12022,8 +12022,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  G[Guest player] --> IP[Cognito identity pool]\n  L[Logged in player] --> IP\n  IP --> UR[Unauthenticated role read only]\n  IP --> AR[Authenticated role read and write]\n  UR --> DDB[DynamoDB leaderboard]\n  AR --> DDB",
     cliExample: {
       description: "Create an identity pool that allows unauthenticated guest identities",
-      command: "aws cognito-identity create-identity-pool --region ap-southeast-1 --identity-pool-name game-leaderboard --allow-unauthenticated-identities --query '{Id:IdentityPoolId,Guests:AllowUnauthenticatedIdentities}'",
-      sampleOutput: "{\n  \"Id\": \"ap-southeast-1:8f2b1c3d-4e5f-4a6b-9c7d-0e1f2a3b4c5d\",\n  \"Guests\": true\n}",
+      command: "aws cognito-identity create-identity-pool --region us-east-1 --identity-pool-name game-leaderboard --allow-unauthenticated-identities --query '{Id:IdentityPoolId,Guests:AllowUnauthenticatedIdentities}'",
+      sampleOutput: "{\n  \"Id\": \"us-east-1:8f2b1c3d-4e5f-4a6b-9c7d-0e1f2a3b4c5d\",\n  \"Guests\": true\n}",
     },
   },
   {
@@ -12104,7 +12104,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  L[Lambda functions] --> I[Amazon Inspector continuous scanning]\n  E[ECR container images] --> I\n  I --> F[Findings with risk score]\n  F --> SH[Security Hub]",
     cliExample: {
       description: "Check which Inspector scan types are enabled for the account",
-      command: "aws inspector2 batch-get-account-status --region ap-southeast-1 --query 'accounts[0].resourceState.{EC2:ec2.status,ECR:ecr.status,Lambda:lambda.status,LambdaCode:lambdaCode.status}'",
+      command: "aws inspector2 batch-get-account-status --region sa-east-1 --query 'accounts[0].resourceState.{EC2:ec2.status,ECR:ecr.status,Lambda:lambda.status,LambdaCode:lambdaCode.status}'",
       sampleOutput: "{\n  \"EC2\": \"ENABLED\",\n  \"ECR\": \"ENABLED\",\n  \"Lambda\": \"ENABLED\",\n  \"LambdaCode\": \"ENABLED\"\n}",
     },
   },
@@ -12146,8 +12146,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  E[New engineer] --> B[AWS Security Blog]\n  E --> K[re:Post Knowledge Center]\n  B --> G[Best practices and new features]\n  K --> H[How-to articles and expert answers]",
     cliExample: {
       description: "Check which AWS security standards are enabled in Security Hub after reading the blog guidance on enabling them",
-      command: "aws securityhub get-enabled-standards --region ap-southeast-1 --query 'StandardsSubscriptions[].{Standard:StandardsArn,Status:StandardsStatus}'",
-      sampleOutput: "[\n  {\n    \"Standard\": \"arn:aws:securityhub:ap-southeast-1::standards/aws-foundational-security-best-practices/v/1.0.0\",\n    \"Status\": \"READY\"\n  }\n]",
+      command: "aws securityhub get-enabled-standards --region ap-northeast-2 --query 'StandardsSubscriptions[].{Standard:StandardsArn,Status:StandardsStatus}'",
+      sampleOutput: "[\n  {\n    \"Standard\": \"arn:aws:securityhub:ap-northeast-2::standards/aws-foundational-security-best-practices/v/1.0.0\",\n    \"Status\": \"READY\"\n  }\n]",
     },
   },
   {
@@ -12226,7 +12226,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  T[Security team] --> M[AWS Marketplace]\n  M --> F[Third party firewall AMI]\n  M --> S[SIEM SaaS subscription]\n  F --> I[Consolidated AWS invoice]\n  S --> I",
     cliExample: {
       description: "Search the public AMI catalog for a Marketplace firewall appliance image",
-      command: "aws ec2 describe-images --region ap-southeast-1 --owners aws-marketplace --filters 'Name=name,Values=*firewall*' --query 'Images[0:2].{Name:Name,ImageId:ImageId}'",
+      command: "aws ec2 describe-images --region us-east-1 --owners aws-marketplace --filters 'Name=name,Values=*firewall*' --query 'Images[0:2].{Name:Name,ImageId:ImageId}'",
       sampleOutput: "[\n  {\n    \"Name\": \"vendor-ngfw-11.1-2024-01-15\",\n    \"ImageId\": \"ami-0123456789abcdef0\"\n  },\n  {\n    \"Name\": \"vendor-ngfw-11.0-2023-11-02\",\n    \"ImageId\": \"ami-0fedcba9876543210\"\n  }\n]",
     },
   },
@@ -12470,14 +12470,14 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  I[Initiate vault lock] --> T[24 hour test window]\n  T --> C[Complete vault lock]\n  C --> L[Policy immutable forever]\n  T --> A[Abort and fix policy]",
     cliExample: {
       description: "Complete a Glacier vault lock using the lock ID returned by the initiate call, making the policy immutable",
-      command: "aws glacier complete-vault-lock --region ap-southeast-1 --account-id - --vault-name trade-archives --lock-id AE863rKkWZU53SLW5be4DUcW && aws glacier get-vault-lock --region ap-southeast-1 --account-id - --vault-name trade-archives --query '{State:State,Created:CreationDate}'",
+      command: "aws glacier complete-vault-lock --region eu-north-1 --account-id - --vault-name trade-archives --lock-id AE863rKkWZU53SLW5be4DUcW && aws glacier get-vault-lock --region eu-north-1 --account-id - --vault-name trade-archives --query '{State:State,Created:CreationDate}'",
       sampleOutput: "{\n  \"State\": \"Locked\",\n  \"Created\": \"2026-09-19T08:00:00.000Z\"\n}",
     },
   },
   {
     id: "sec300",
     domain: "security-and-compliance",
-    text: "An application runs actively in ap-southeast-1 and has a warm standby in ap-northeast-1. Its database password is stored in AWS Secrets Manager in ap-southeast-1 and is rotated automatically. During a disaster recovery test, the standby application fails to retrieve the secret because Secrets Manager is a Regional service. The team wants the secret to be available in both Regions and kept in sync automatically whenever it rotates. What should they do?",
+    text: "An application runs actively in ap-south-1 and has a warm standby in ap-northeast-1. Its database password is stored in AWS Secrets Manager in ap-south-1 and is rotated automatically. During a disaster recovery test, the standby application fails to retrieve the secret because Secrets Manager is a Regional service. The team wants the secret to be available in both Regions and kept in sync automatically whenever it rotates. What should they do?",
     options: [
       { id: "a", text: "Enable multi-Region replication of the secret to ap-northeast-1 in Secrets Manager" },
       { id: "b", text: "Copy the password into a Lambda environment variable in ap-northeast-1" },
@@ -12507,11 +12507,11 @@ export const securityAndComplianceQuestions: Question[] = [
     referenceLabel: "Replicate a secret to other Regions",
     consoleUrl: "https://console.aws.amazon.com/secretsmanager/listsecrets",
     consoleLabel: "Secrets Manager secrets",
-    diagram: "flowchart LR\n  P[Primary secret ap-southeast-1] -->|rotation| P\n  P -->|replicates| R[Replica secret ap-northeast-1]\n  A[Active app] --> P\n  S[Standby app] --> R",
+    diagram: "flowchart LR\n  P[Primary secret ap-south-1] -->|rotation| P\n  P -->|replicates| R[Replica secret ap-northeast-1]\n  A[Active app] --> P\n  S[Standby app] --> R",
     cliExample: {
       description: "Replicate an existing secret to a second Region so the standby application can read it",
-      command: "aws secretsmanager replicate-secret-to-regions --region ap-southeast-1 --secret-id prod/db/password --add-replica-regions Region=ap-northeast-1 --query '{Arn:ARN,Replicas:ReplicationStatus[].{Region:Region,Status:Status}}'",
-      sampleOutput: "{\n  \"Arn\": \"arn:aws:secretsmanager:ap-southeast-1:123456789012:secret:prod/db/password-AbCdEf\",\n  \"Replicas\": [\n    {\n      \"Region\": \"ap-northeast-1\",\n      \"Status\": \"InSync\"\n    }\n  ]\n}",
+      command: "aws secretsmanager replicate-secret-to-regions --region ap-south-1 --secret-id prod/db/password --add-replica-regions Region=ap-northeast-1 --query '{Arn:ARN,Replicas:ReplicationStatus[].{Region:Region,Status:Status}}'",
+      sampleOutput: "{\n  \"Arn\": \"arn:aws:secretsmanager:ap-south-1:123456789012:secret:prod/db/password-AbCdEf\",\n  \"Replicas\": [\n    {\n      \"Region\": \"ap-northeast-1\",\n      \"Status\": \"InSync\"\n    }\n  ]\n}",
     },
   },
   {
@@ -12550,7 +12550,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TD\n  C[ACM certificate] --> R[Renewal attempt]\n  R --> Q{Validation CNAME present}\n  Q -->|yes| S[Certificate renewed]\n  Q -->|no| F[Renewal fails and cert expires]",
     cliExample: {
       description: "Inspect a certificate's renewal eligibility and the DNS validation record that must remain in place",
-      command: "aws acm describe-certificate --region ap-southeast-1 --certificate-arn arn:aws:acm:ap-southeast-1:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab --query 'Certificate.{Renewal:RenewalEligibility,Status:Status,Record:DomainValidationOptions[0].ResourceRecord.Name}'",
+      command: "aws acm describe-certificate --region eu-west-2 --certificate-arn arn:aws:acm:eu-west-2:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab --query 'Certificate.{Renewal:RenewalEligibility,Status:Status,Record:DomainValidationOptions[0].ResourceRecord.Name}'",
       sampleOutput: "{\n  \"Renewal\": \"ELIGIBLE\",\n  \"Status\": \"ISSUED\",\n  \"Record\": \"_a79865eb4cd1a6ab990a45779b4e0b96.example.com.\"\n}",
     },
   },
@@ -12590,7 +12590,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  K[KMS customer managed key] -->|one call| B[S3 Bucket Key]\n  B --> O1[Object key 1]\n  B --> O2[Object key 2]\n  B --> O3[Object key N]",
     cliExample: {
       description: "Enable SSE-KMS default encryption with an S3 Bucket Key on a bucket",
-      command: "aws s3api put-bucket-encryption --region ap-southeast-1 --bucket media-assets --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"aws:kms\",\"KMSMasterKeyID\":\"alias/media-key\"},\"BucketKeyEnabled\":true}]}' && aws s3api get-bucket-encryption --region ap-southeast-1 --bucket media-assets --query 'ServerSideEncryptionConfiguration.Rules[0]'",
+      command: "aws s3api put-bucket-encryption --region eu-central-1 --bucket media-assets --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"aws:kms\",\"KMSMasterKeyID\":\"alias/media-key\"},\"BucketKeyEnabled\":true}]}' && aws s3api get-bucket-encryption --region eu-central-1 --bucket media-assets --query 'ServerSideEncryptionConfiguration.Rules[0]'",
       sampleOutput: "{\n  \"ApplyServerSideEncryptionByDefault\": {\n    \"SSEAlgorithm\": \"aws:kms\",\n    \"KMSMasterKeyID\": \"alias/media-key\"\n  },\n  \"BucketKeyEnabled\": true\n}",
     },
   },
@@ -12670,8 +12670,8 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  T[CloudTrail] -->|SSE-KMS| B[S3 log bucket]\n  K[Customer managed KMS key] --> B\n  A[Security analyst] -->|kms Decrypt allowed| B\n  O[Other team] -->|kms Decrypt denied| B",
     cliExample: {
       description: "Update a trail to encrypt delivered log files with a customer managed KMS key",
-      command: "aws cloudtrail update-trail --region ap-southeast-1 --name org-audit-trail --kms-key-id alias/cloudtrail-logs --query '{Name:Name,Bucket:S3BucketName,KmsKey:KmsKeyId}'",
-      sampleOutput: "{\n  \"Name\": \"org-audit-trail\",\n  \"Bucket\": \"company-cloudtrail-logs\",\n  \"KmsKey\": \"arn:aws:kms:ap-southeast-1:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
+      command: "aws cloudtrail update-trail --region eu-west-3 --name org-audit-trail --kms-key-id alias/cloudtrail-logs --query '{Name:Name,Bucket:S3BucketName,KmsKey:KmsKeyId}'",
+      sampleOutput: "{\n  \"Name\": \"org-audit-trail\",\n  \"Bucket\": \"company-cloudtrail-logs\",\n  \"KmsKey\": \"arn:aws:kms:eu-west-3:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab\"\n}",
     },
   },
   {
@@ -12710,7 +12710,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart TD\n  A1[Account 1 all Regions] --> G[Config aggregator]\n  A2[Account 2 all Regions] --> G\n  A3[Account 25 all Regions] --> G\n  G --> V[Single compliance dashboard]",
     cliExample: {
       description: "Create an organization-wide Config aggregator that collects data from all member accounts and Regions",
-      command: "aws configservice put-configuration-aggregator --region ap-southeast-1 --configuration-aggregator-name org-aggregator --organization-aggregation-source RoleArn=arn:aws:iam::123456789012:role/ConfigAggregatorRole,AllAwsRegions=true --query 'ConfigurationAggregator.{Name:ConfigurationAggregatorName,AllRegions:OrganizationAggregationSource.AllAwsRegions}'",
+      command: "aws configservice put-configuration-aggregator --region ap-southeast-2 --configuration-aggregator-name org-aggregator --organization-aggregation-source RoleArn=arn:aws:iam::123456789012:role/ConfigAggregatorRole,AllAwsRegions=true --query 'ConfigurationAggregator.{Name:ConfigurationAggregatorName,AllRegions:OrganizationAggregationSource.AllAwsRegions}'",
       sampleOutput: "{\n  \"Name\": \"org-aggregator\",\n  \"AllRegions\": true\n}",
     },
   },
@@ -12750,7 +12750,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  C[CloudTrail] --> L[CloudWatch Logs group]\n  L --> F[Metric filter ConsoleLogin failure]\n  F --> A[Alarm more than 10 in 5 min]\n  A --> S[SNS email to security team]",
     cliExample: {
       description: "Create a metric filter that counts failed console sign-in events in the CloudTrail log group",
-      command: "aws logs put-metric-filter --region ap-southeast-1 --log-group-name CloudTrail/DefaultLogGroup --filter-name ConsoleLoginFailures --filter-pattern '{ ($.eventName = ConsoleLogin) && ($.errorMessage = \"Failed authentication\") }' --metric-transformations metricName=ConsoleLoginFailureCount,metricNamespace=CloudTrailMetrics,metricValue=1 && aws logs describe-metric-filters --region ap-southeast-1 --log-group-name CloudTrail/DefaultLogGroup --query 'metricFilters[].{Name:filterName,Metric:metricTransformations[0].metricName}'",
+      command: "aws logs put-metric-filter --region ap-south-1 --log-group-name CloudTrail/DefaultLogGroup --filter-name ConsoleLoginFailures --filter-pattern '{ ($.eventName = ConsoleLogin) && ($.errorMessage = \"Failed authentication\") }' --metric-transformations metricName=ConsoleLoginFailureCount,metricNamespace=CloudTrailMetrics,metricValue=1 && aws logs describe-metric-filters --region ap-south-1 --log-group-name CloudTrail/DefaultLogGroup --query 'metricFilters[].{Name:filterName,Metric:metricTransformations[0].metricName}'",
       sampleOutput: "[\n  {\n    \"Name\": \"ConsoleLoginFailures\",\n    \"Metric\": \"ConsoleLoginFailureCount\"\n  }\n]",
     },
   },
@@ -12790,7 +12790,7 @@ export const securityAndComplianceQuestions: Question[] = [
     diagram: "flowchart LR\n  E[EC2 instance] -->|mount helper tls| T[TLS tunnel]\n  T --> M[EFS mount target]\n  M --> F[EFS file system encrypted at rest]\n  P[File system policy requires SecureTransport] --> M",
     cliExample: {
       description: "Apply a file system policy that denies any client connection not using TLS",
-      command: "aws efs put-file-system-policy --region ap-southeast-1 --file-system-id fs-0123456789abcdef0 --policy '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Deny\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"*\",\"Resource\":\"arn:aws:elasticfilesystem:ap-southeast-1:123456789012:file-system/fs-0123456789abcdef0\",\"Condition\":{\"Bool\":{\"aws:SecureTransport\":\"false\"}}}]}' --query 'FileSystemId'",
+      command: "aws efs put-file-system-policy --region sa-east-1 --file-system-id fs-0123456789abcdef0 --policy '{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Deny\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"*\",\"Resource\":\"arn:aws:elasticfilesystem:sa-east-1:123456789012:file-system/fs-0123456789abcdef0\",\"Condition\":{\"Bool\":{\"aws:SecureTransport\":\"false\"}}}]}' --query 'FileSystemId'",
       sampleOutput: "\"fs-0123456789abcdef0\"",
     },
   },

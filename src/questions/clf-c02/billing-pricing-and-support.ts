@@ -39,7 +39,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "List running EC2 instances using standard (on-demand) lifecycle",
       command: "aws ec2 describe-instances --filters Name=instance-lifecycle,Values=normal",
       sampleOutput:
-        "{\n  \"Reservations\": [\n    {\n      \"ReservationId\": \"r-0a1b2c3d4e5f67890\",\n      \"OwnerId\": \"123456789012\",\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abcd1234efgh5678\",\n          \"InstanceType\": \"t3.micro\",\n          \"State\": {\n            \"Code\": 16,\n            \"Name\": \"running\"\n          },\n          \"LaunchTime\": \"2026-03-14T08:21:05+00:00\",\n          \"Placement\": {\n            \"AvailabilityZone\": \"ap-southeast-1a\",\n            \"Tenancy\": \"default\"\n          },\n          \"Tags\": [\n            {\n              \"Key\": \"Name\",\n              \"Value\": \"web-1\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+        "{\n  \"Reservations\": [\n    {\n      \"ReservationId\": \"r-0a1b2c3d4e5f67890\",\n      \"OwnerId\": \"123456789012\",\n      \"Instances\": [\n        {\n          \"InstanceId\": \"i-0abcd1234efgh5678\",\n          \"InstanceType\": \"t3.micro\",\n          \"State\": {\n            \"Code\": 16,\n            \"Name\": \"running\"\n          },\n          \"LaunchTime\": \"2026-03-14T08:21:05+00:00\",\n          \"Placement\": {\n            \"AvailabilityZone\": \"ap-northeast-2a\",\n            \"Tenancy\": \"default\"\n          },\n          \"Tags\": [\n            {\n              \"Key\": \"Name\",\n              \"Value\": \"web-1\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
     },
   },
   {
@@ -121,7 +121,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "List available Reserved Instance offerings for an instance type",
       command: "aws ec2 describe-reserved-instances-offerings --instance-type t3.micro --product-description Linux/UNIX --max-results 5",
       sampleOutput:
-        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a6ce8269-7b8c-42cd-a7f5-0cd78f5f0b37\",\n      \"InstanceType\": \"t3.micro\",\n      \"AvailabilityZone\": \"ap-southeast-1a\",\n      \"Duration\": 94608000,\n      \"FixedPrice\": 140.0,\n      \"UsagePrice\": 0.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
+        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a6ce8269-7b8c-42cd-a7f5-0cd78f5f0b37\",\n      \"InstanceType\": \"t3.micro\",\n      \"AvailabilityZone\": \"us-east-1a\",\n      \"Duration\": 94608000,\n      \"FixedPrice\": 140.0,\n      \"UsagePrice\": 0.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ],\n  \"NextToken\": \"eyJ2IjoiMiIsImMiOiJ...\"\n}",
     },
   },
   {
@@ -402,7 +402,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Get EC2 right-sizing recommendations to help cut costs",
       command: "aws compute-optimizer get-ec2-instance-recommendations",
       sampleOutput:
-        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abcd1234efgh5678\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"web-1\",\n      \"currentInstanceType\": \"m5.xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"utilizationMetrics\": [\n        {\n          \"name\": \"CPU\",\n          \"statistic\": \"MAXIMUM\",\n          \"value\": 11.4\n        }\n      ],\n      \"lookBackPeriodInDays\": 14.0,\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        },\n        {\n          \"instanceType\": \"t3.large\",\n          \"performanceRisk\": 2.0,\n          \"rank\": 2\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-03-14T06:30:00+00:00\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
+        "{\n  \"instanceRecommendations\": [\n    {\n      \"instanceArn\": \"arn:aws:ec2:eu-west-3:123456789012:instance/i-0abcd1234efgh5678\",\n      \"accountId\": \"123456789012\",\n      \"instanceName\": \"web-1\",\n      \"currentInstanceType\": \"m5.xlarge\",\n      \"finding\": \"OVER_PROVISIONED\",\n      \"findingReasonCodes\": [\n        \"CPUOverprovisioned\",\n        \"MemoryOverprovisioned\"\n      ],\n      \"utilizationMetrics\": [\n        {\n          \"name\": \"CPU\",\n          \"statistic\": \"MAXIMUM\",\n          \"value\": 11.4\n        }\n      ],\n      \"lookBackPeriodInDays\": 14.0,\n      \"recommendationOptions\": [\n        {\n          \"instanceType\": \"m5.large\",\n          \"performanceRisk\": 1.0,\n          \"rank\": 1\n        },\n        {\n          \"instanceType\": \"t3.large\",\n          \"performanceRisk\": 2.0,\n          \"rank\": 2\n        }\n      ],\n      \"lastRefreshTimestamp\": \"2026-03-14T06:30:00+00:00\",\n      \"currentPerformanceRisk\": \"VeryLow\"\n    }\n  ],\n  \"errors\": []\n}",
     },
   },
   {
@@ -1024,7 +1024,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Search for one-year All Upfront Standard Reserved Instance offerings for a given instance type",
       command: "aws ec2 describe-reserved-instances-offerings --instance-type m5.large --offering-class standard --offering-type \"All Upfront\" --product-description \"Linux/UNIX\" --min-duration 31536000 --max-duration 31536000 --max-results 1",
       sampleOutput:
-        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"InstanceType\": \"m5.large\",\n      \"AvailabilityZone\": \"ap-southeast-1a\",\n      \"Duration\": 31536000,\n      \"UsagePrice\": 0.0,\n      \"FixedPrice\": 496.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [\n        {\n          \"Amount\": 0.0,\n          \"Frequency\": \"Hourly\"\n        }\n      ],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ]\n}",
+        "{\n  \"ReservedInstancesOfferings\": [\n    {\n      \"ReservedInstancesOfferingId\": \"a1b2c3d4-5678-90ab-cdef-EXAMPLE11111\",\n      \"InstanceType\": \"m5.large\",\n      \"AvailabilityZone\": \"eu-west-1a\",\n      \"Duration\": 31536000,\n      \"UsagePrice\": 0.0,\n      \"FixedPrice\": 496.0,\n      \"ProductDescription\": \"Linux/UNIX\",\n      \"InstanceTenancy\": \"default\",\n      \"CurrencyCode\": \"USD\",\n      \"OfferingClass\": \"standard\",\n      \"OfferingType\": \"All Upfront\",\n      \"RecurringCharges\": [\n        {\n          \"Amount\": 0.0,\n          \"Frequency\": \"Hourly\"\n        }\n      ],\n      \"Marketplace\": false,\n      \"Scope\": \"Availability Zone\"\n    }\n  ]\n}",
     },
   },
   {
@@ -1115,7 +1115,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Launch an instance with dedicated tenancy so it runs on single-tenant hardware",
       command: "aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type m5.large --placement Tenancy=dedicated --subnet-id subnet-0abc123def4567890",
       sampleOutput:
-        "{\n  \"Groups\": [],\n  \"Instances\": [\n    {\n      \"AmiLaunchIndex\": 0,\n      \"ImageId\": \"ami-0abcdef1234567890\",\n      \"InstanceId\": \"i-0fedcba9876543210\",\n      \"InstanceType\": \"m5.large\",\n      \"LaunchTime\": \"2026-04-08T09:12:44+00:00\",\n      \"Placement\": {\n        \"AvailabilityZone\": \"ap-southeast-1b\",\n        \"GroupName\": \"\",\n        \"Tenancy\": \"dedicated\"\n      },\n      \"State\": {\n        \"Code\": 0,\n        \"Name\": \"pending\"\n      },\n      \"SubnetId\": \"subnet-0abc123def4567890\",\n      \"VpcId\": \"vpc-0123abcd4567efgh8\"\n    }\n  ],\n  \"OwnerId\": \"123456789012\",\n  \"ReservationId\": \"r-0a1b2c3d4e5f67890\"\n}",
+        "{\n  \"Groups\": [],\n  \"Instances\": [\n    {\n      \"AmiLaunchIndex\": 0,\n      \"ImageId\": \"ami-0abcdef1234567890\",\n      \"InstanceId\": \"i-0fedcba9876543210\",\n      \"InstanceType\": \"m5.large\",\n      \"LaunchTime\": \"2026-04-08T09:12:44+00:00\",\n      \"Placement\": {\n        \"AvailabilityZone\": \"eu-central-1b\",\n        \"GroupName\": \"\",\n        \"Tenancy\": \"dedicated\"\n      },\n      \"State\": {\n        \"Code\": 0,\n        \"Name\": \"pending\"\n      },\n      \"SubnetId\": \"subnet-0abc123def4567890\",\n      \"VpcId\": \"vpc-0123abcd4567efgh8\"\n    }\n  ],\n  \"OwnerId\": \"123456789012\",\n  \"ReservationId\": \"r-0a1b2c3d4e5f67890\"\n}",
     },
   },
   {
@@ -1789,7 +1789,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  CW[CloudWatch metrics] --> CO[Compute Optimizer ML analysis]\n  CO --> Rec[\"Recommendation: m5.2xlarge to m6g.xlarge\"]\n  Rec --> Save[Projected monthly savings]",
     cliExample: {
       description: "Retrieve rightsizing recommendations for an EC2 instance",
-      command: "aws compute-optimizer get-ec2-instance-recommendations --instance-arns arn:aws:ec2:ap-southeast-1:123456789012:instance/i-0abcd1234efgh5678 --query \"instanceRecommendations[0].{Current:currentInstanceType,Finding:finding,Recommended:recommendationOptions[0].instanceType}\"",
+      command: "aws compute-optimizer get-ec2-instance-recommendations --instance-arns arn:aws:ec2:ap-northeast-2:123456789012:instance/i-0abcd1234efgh5678 --query \"instanceRecommendations[0].{Current:currentInstanceType,Finding:finding,Recommended:recommendationOptions[0].instanceType}\"",
       sampleOutput: "{\n  \"Current\": \"m5.2xlarge\",\n  \"Finding\": \"OVER_PROVISIONED\",\n  \"Recommended\": \"m6g.xlarge\"\n}",
     },
   },
@@ -2031,7 +2031,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  Need[\"Need: guaranteed capacity, short term\"] --> CR[On-Demand Capacity Reservation]\n  CR --> AZ[\"Capacity held in one AZ\"]\n  AZ --> Bill[\"Billed at On-Demand rate, no discount\"]",
     cliExample: {
       description: "Reserve capacity for 200 instances in one Availability Zone",
-      command: "aws ec2 create-capacity-reservation --instance-type c6i.large --instance-platform Linux/UNIX --availability-zone ap-southeast-1a --instance-count 200 --end-date-type limited --end-date 2026-11-08T00:00:00Z --query \"CapacityReservation.{Id:CapacityReservationId,State:State,Count:TotalInstanceCount}\"",
+      command: "aws ec2 create-capacity-reservation --instance-type c6i.large --instance-platform Linux/UNIX --availability-zone eu-west-2a --instance-count 200 --end-date-type limited --end-date 2026-11-08T00:00:00Z --query \"CapacityReservation.{Id:CapacityReservationId,State:State,Count:TotalInstanceCount}\"",
       sampleOutput: "{\n  \"Id\": \"cr-0123456789abcdef0\",\n  \"State\": \"active\",\n  \"Count\": 200\n}",
     },
   },
@@ -2275,7 +2275,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  Term[\"1 or 3 year commitment\"] --> RDS[RDS Reserved DB Instances]\n  Term --> DDB[DynamoDB reserved capacity]\n  Term --> Cache[ElastiCache reserved nodes]\n  Term --> RS[Redshift reserved nodes]",
     cliExample: {
       description: "Find Reserved DB Instance offerings for a PostgreSQL instance class",
-      command: "aws rds describe-reserved-db-instances-offerings --db-instance-class db.r6g.large --product-description postgresql --duration 31536000 --region ap-southeast-1 --query \"ReservedDBInstancesOfferings[].{Offering:OfferingType,FixedPrice:FixedPrice,MultiAZ:MultiAZ}\"",
+      command: "aws rds describe-reserved-db-instances-offerings --db-instance-class db.r6g.large --product-description postgresql --duration 31536000 --region eu-central-1 --query \"ReservedDBInstancesOfferings[].{Offering:OfferingType,FixedPrice:FixedPrice,MultiAZ:MultiAZ}\"",
       sampleOutput: "[\n  {\n    \"Offering\": \"All Upfront\",\n    \"FixedPrice\": 1098.0,\n    \"MultiAZ\": false\n  },\n  {\n    \"Offering\": \"No Upfront\",\n    \"FixedPrice\": 0.0,\n    \"MultiAZ\": false\n  }\n]",
     },
   },
@@ -2652,7 +2652,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill64",
     domain: "billing-pricing-and-support",
-    text: "A small company wants a simple Amazon CloudWatch alarm that sends an email when the account's month-to-date estimated charges exceed 500 USD. An engineer working in the ap-southeast-1 Region cannot find the EstimatedCharges metric. Which TWO statements explain how billing metrics work in CloudWatch? (Select TWO.)",
+    text: "A small company wants a simple Amazon CloudWatch alarm that sends an email when the account's month-to-date estimated charges exceed 500 USD. An engineer working in the us-west-2 Region cannot find the EstimatedCharges metric. Which TWO statements explain how billing metrics work in CloudWatch? (Select TWO.)",
     options: [
       { id: "a", text: "Billing metric data is published only to the us-east-1 Region, so the alarm must be created there" },
       { id: "b", text: "The account must first turn on the Receive CloudWatch Billing Alerts preference in the Billing console before the metric is published" },
@@ -2661,7 +2661,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       { id: "e", text: "The metric is updated once per month when the invoice is finalized" },
       { id: "f", text: "Billing metrics are only published for accounts using consolidated billing" },
       { id: "g", text: "The EstimatedCharges metric must be enabled per Region in the CloudWatch console" },
-      { id: "h", text: "The alarm must be created with an SNS topic in ap-southeast-1" },
+      { id: "h", text: "The alarm must be created with an SNS topic in us-west-2" },
       { id: "i", text: "Billing metric data is stored in the AWS/Billing namespace" },
       { id: "j", text: "Estimated charges can be tracked per service as well as for the account total" },
     ],
@@ -2902,7 +2902,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill70",
     domain: "billing-pricing-and-support",
-    text: "A Singapore company manages 12 member accounts in an AWS Organization. Its finance team has entered the company's GST registration number only on the management account and notices that tax invoices for member accounts do not show it. Which TWO statements about tax settings in AWS Billing are correct? (Select TWO.)",
+    text: "A UK company manages 12 member accounts in an AWS Organization. Its finance team has entered the company's VAT registration number only on the management account and notices that tax invoices for member accounts do not show it. Which TWO statements about tax settings in AWS Billing are correct? (Select TWO.)",
     options: [
       { id: "a", text: "Turning on tax settings inheritance from the management account applies its tax registration information to all member accounts" },
       { id: "b", text: "Tax registration numbers can only be set by opening an AWS Support case" },
@@ -2910,14 +2910,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
       { id: "d", text: "With consistent tax information across the organization, usage from member accounts consolidates into a single tax invoice" },
       { id: "e", text: "AWS does not charge taxes such as GST or VAT in any country, so the registration number has no effect" },
       { id: "f", text: "Tax registration numbers must be re-entered every month before the invoice is generated" },
-      { id: "g", text: "GST can only be applied if all accounts are billed in Singapore dollars" },
+      { id: "g", text: "VAT can only be applied if all accounts are billed in British pounds" },
       { id: "h", text: "Only the root user of each member account can view tax invoices" },
       { id: "i", text: "The management account can view and edit the tax registration numbers of member accounts from its Tax settings page" },
       { id: "j", text: "Adding a tax registration number identifies the account as a business customer for tax purposes" },
     ],
     correctOptionIds: ["a", "d", "i", "j"],
     answerType: "multi",
-    explanation: "The Tax settings page stores each account's legal name, tax address, and tax registration number (TRN), which identifies the account as a business customer, and the management account can edit member TRNs directly or turn on tax settings inheritance to copy its own to every member. With consistent tax information, member usage consolidates into one tax invoice, and AWS charges applicable taxes such as GST based on each account's registration and address.",
+    explanation: "The Tax settings page stores each account's legal name, tax address, and tax registration number (TRN), which identifies the account as a business customer, and the management account can edit member TRNs directly or turn on tax settings inheritance to copy its own to every member. With consistent tax information, member usage consolidates into one tax invoice, and AWS charges applicable taxes such as VAT based on each account's registration and address.",
     optionRationale: {
       a: "Correct. Tax settings inheritance propagates the management account's TRN, legal name, and tax address to member accounts.",
       b: "Tax registration numbers are entered and edited self-service on the Tax settings page; no support case is required.",
@@ -2939,7 +2939,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       description: "Check the tax registration recorded for a member account",
       command: "aws taxsettings list-tax-registrations --region us-east-1 --max-results 1",
       sampleOutput:
-        "{\n  \"accountDetails\": [\n    {\n      \"accountId\": \"123456789012\",\n      \"accountMetaData\": {\n        \"accountName\": \"payments-prod\",\n        \"address\": {\n          \"addressLine1\": \"10 Anson Road\",\n          \"city\": \"Singapore\",\n          \"countryCode\": \"SG\",\n          \"postalCode\": \"079903\"\n        }\n      },\n      \"taxInheritanceDetails\": {\n        \"inheritanceObtainedReason\": \"Inherited from the management account\",\n        \"parentEntityId\": \"111111111111\"\n      },\n      \"taxRegistration\": {\n        \"legalName\": \"Example Retail Pte Ltd\",\n        \"registrationId\": \"200012345M\",\n        \"registrationType\": \"GST\",\n        \"status\": \"Verified\",\n        \"taxDocumentMetadatas\": []\n      }\n    }\n  ]\n}",
+        "{\n  \"accountDetails\": [\n    {\n      \"accountId\": \"123456789012\",\n      \"accountMetaData\": {\n        \"accountName\": \"payments-prod\",\n        \"address\": {\n          \"addressLine1\": \"10 Queen Street Place\",\n          \"city\": \"London\",\n          \"countryCode\": \"GB\",\n          \"postalCode\": \"EC4R 1AG\"\n        }\n      },\n      \"taxInheritanceDetails\": {\n        \"inheritanceObtainedReason\": \"Inherited from the management account\",\n        \"parentEntityId\": \"111111111111\"\n      },\n      \"taxRegistration\": {\n        \"legalName\": \"Example Retail Ltd\",\n        \"registrationId\": \"GB123456789\",\n        \"registrationType\": \"VAT\",\n        \"status\": \"Verified\",\n        \"taxDocumentMetadatas\": []\n      }\n    }\n  ]\n}",
     },
   },
   {
@@ -3059,7 +3059,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart TD\n  SP[Compute Savings Plans] --> Util{Utilization below 90%?}\n  SP --> Cov{Coverage below 80%?}\n  Util -->|Yes| A1[Alert: commitment being wasted]\n  Cov -->|Yes| A2[Alert: consider more commitment]",
     cliExample: {
       description: "Create a Savings Plans utilization budget that alerts below 90%",
-      command: "aws budgets create-budget --region us-east-1 --account-id 123456789012 --budget '{\"BudgetName\":\"sp-utilization\",\"BudgetType\":\"SAVINGS_PLANS_UTILIZATION\",\"TimeUnit\":\"MONTHLY\",\"BudgetLimit\":{\"Amount\":\"90\",\"Unit\":\"PERCENTAGE\"}}' --notifications-with-subscribers '[{\"Notification\":{\"NotificationType\":\"ACTUAL\",\"ComparisonOperator\":\"LESS_THAN\",\"Threshold\":90,\"ThresholdType\":\"PERCENTAGE\"},\"Subscribers\":[{\"SubscriptionType\":\"EMAIL\",\"Address\":\"finops@example.sg\"}]}]'",
+      command: "aws budgets create-budget --region us-east-1 --account-id 123456789012 --budget '{\"BudgetName\":\"sp-utilization\",\"BudgetType\":\"SAVINGS_PLANS_UTILIZATION\",\"TimeUnit\":\"MONTHLY\",\"BudgetLimit\":{\"Amount\":\"90\",\"Unit\":\"PERCENTAGE\"}}' --notifications-with-subscribers '[{\"Notification\":{\"NotificationType\":\"ACTUAL\",\"ComparisonOperator\":\"LESS_THAN\",\"Threshold\":90,\"ThresholdType\":\"PERCENTAGE\"},\"Subscribers\":[{\"SubscriptionType\":\"EMAIL\",\"Address\":\"finops@example.fr\"}]}]'",
       sampleOutput: "",
     },
   },
@@ -3107,37 +3107,37 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill75",
     domain: "billing-pricing-and-support",
-    text: "A Singapore company's finance team is tired of exchange rate surprises when its AWS invoice, denominated in US dollars, is charged to the corporate credit card. It wants AWS to bill in Singapore dollars. What should it do?",
+    text: "A Swedish company's finance team is tired of exchange rate surprises when its AWS invoice, denominated in US dollars, is charged to the corporate credit card. It wants AWS to bill in Swedish kronor. What should it do?",
     options: [
-      { id: "a", text: "Change the account's payment currency preference to SGD in the Billing console; AWS then converts the USD invoice and charges the card in SGD" },
+      { id: "a", text: "Change the account's payment currency preference to SEK in the Billing console; AWS then converts the USD invoice and charges the card in SEK" },
       { id: "b", text: "Open a Support case; only AWS Support can change invoice currency" },
       { id: "c", text: "Nothing can be done; AWS bills exclusively in US dollars" },
-      { id: "d", text: "Move all resources to the ap-southeast-1 Region, which is automatically billed in SGD" },
-      { id: "e", text: "Enable AWS Billing Conductor with SGD as the pro forma currency" },
+      { id: "d", text: "Move all resources to the eu-north-1 Region, which is automatically billed in SEK" },
+      { id: "e", text: "Enable AWS Billing Conductor with SEK as the pro forma currency" },
       { id: "f", text: "Pay through AWS Marketplace, which invoices in local currency" },
       { id: "g", text: "Ask the credit card issuer to enable the AWS currency conversion feature" },
-      { id: "h", text: "Switch to invoice-based payment; only invoiced customers can choose SGD" },
-      { id: "i", text: "Select SGD as the preferred payment currency under Payment preferences in the Billing console" },
+      { id: "h", text: "Switch to invoice-based payment; only invoiced customers can choose SEK" },
+      { id: "i", text: "Select SEK as the preferred payment currency under Payment preferences in the Billing console" },
     ],
     correctOptionIds: ["a", "i"],
     answerType: "single",
-    explanation: "AWS pricing is published in US dollars, but eligible accounts paying by Visa or Mastercard can choose a preferred payment currency from a list that includes Singapore dollars. AWS converts the USD amount at its published rate on the invoice date and charges the card in the chosen currency, which removes the card issuer's foreign-exchange uncertainty. The setting is self-service under Payment preferences.",
+    explanation: "AWS pricing is published in US dollars, but eligible accounts paying by Visa or Mastercard can choose a preferred payment currency from a list that includes Swedish kronor. AWS converts the USD amount at its published rate on the invoice date and charges the card in the chosen currency, which removes the card issuer's foreign-exchange uncertainty. The setting is self-service under Payment preferences.",
     optionRationale: {
       a: "Correct. Payment currency is a self-service setting in Billing and Cost Management > Payment preferences.",
       b: "No support case is required.",
-      c: "AWS supports payment in many local currencies, including SGD.",
+      c: "AWS supports payment in many local currencies, including SEK.",
       d: "The Region where resources run has no effect on invoice currency.",
       e: "Billing Conductor produces internal pro forma data; it does not change the actual invoice currency.",
       f: "Marketplace purchases do not change how AWS usage is invoiced.",
       g: "Currency preference is set in the AWS Billing console, not by the card issuer.",
-      h: "Card-paying customers can select SGD as their preferred currency.",
+      h: "Card-paying customers can select SEK as their preferred currency.",
       i: "Correct. Choosing a preferred payment currency is self-service, and AWS then charges the card in that currency at its published exchange rate.",
     },
     referenceUrl: "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/manage-payment-method.html",
     referenceLabel: "Paying for AWS in local currencies - AWS Billing",
     consoleUrl: "https://console.aws.amazon.com/billing/home#/paymentpreferences",
     consoleLabel: "Billing and Cost Management > Payment preferences",
-    diagram: "flowchart LR\n  USD[Invoice priced in USD] --> Pref{Payment currency = SGD?}\n  Pref -->|Yes| Conv[AWS converts at published rate]\n  Conv --> Card[Card charged in SGD]\n  Pref -->|No| CardUSD[Card charged in USD, issuer applies FX]",
+    diagram: "flowchart LR\n  USD[Invoice priced in USD] --> Pref{Payment currency = SEK?}\n  Pref -->|Yes| Conv[AWS converts at published rate]\n  Conv --> Card[Card charged in SEK]\n  Pref -->|No| CardUSD[Card charged in USD, issuer applies FX]",
     cliExample: {
       description: "Read the account's preferred payment currency using the Billing API",
       command: "aws billing get-billing-view --region us-east-1 --arn arn:aws:billing::123456789012:billingview/primary --query 'billingView.{Name:name,Type:billingViewType}'",
@@ -3302,12 +3302,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/lambda/pricing/",
     referenceLabel: "AWS Lambda Pricing",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/lambda/home?region=ap-southeast-1#/functions",
+    consoleUrl: "https://eu-west-3.console.aws.amazon.com/lambda/home?region=eu-west-3#/functions",
     consoleLabel: "Lambda > Functions",
     diagram: "flowchart LR\n  Req[3M requests] --> Bill[Monthly Lambda charge]\n  Dur[800 ms x 512 MB = 0.4 GB-s per run] --> GBs[1.2M GB-seconds]\n  GBs --> Bill\n  Free[Free tier: 1M requests + 400K GB-s] -.deducted.-> Bill",
     cliExample: {
       description: "Check the memory allocation and timeout that drive the GB-seconds charge for a function",
-      command: "aws lambda get-function-configuration --region ap-southeast-1 --function-name image-resizer --query '{Memory:MemorySize,Timeout:Timeout,Arch:Architectures}'",
+      command: "aws lambda get-function-configuration --region eu-west-3 --function-name image-resizer --query '{Memory:MemorySize,Timeout:Timeout,Arch:Architectures}'",
       sampleOutput:
         "{\n  \"Memory\": 512,\n  \"Timeout\": 30,\n  \"Arch\": [\n    \"arm64\"\n  ]\n}",
     },
@@ -3315,7 +3315,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill80",
     domain: "billing-pricing-and-support",
-    text: "An analytics workload on EC2 instances in private subnets in ap-southeast-1 reads several terabytes per day from an Amazon S3 bucket in the same Region. The traffic currently goes through a NAT gateway, and the bill shows large NAT gateway data-processing charges. Which change would eliminate those charges with the LEAST cost?",
+    text: "An analytics workload on EC2 instances in private subnets in ap-southeast-2 reads several terabytes per day from an Amazon S3 bucket in the same Region. The traffic currently goes through a NAT gateway, and the bill shows large NAT gateway data-processing charges. Which change would eliminate those charges with the LEAST cost?",
     options: [
       { id: "a", text: "Replace the NAT gateway with a NAT instance on a large EC2 instance" },
       { id: "b", text: "Move the EC2 instances to public subnets and attach Elastic IP addresses" },
@@ -3343,12 +3343,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html",
     referenceLabel: "Gateway endpoints - AWS PrivateLink",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#Endpoints:",
+    consoleUrl: "https://ap-southeast-2.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-2#Endpoints:",
     consoleLabel: "VPC > Endpoints",
     diagram: "flowchart LR\n  EC2[EC2 in private subnet] -->|Before| NAT[NAT gateway: $/hour + $/GB]\n  NAT --> S3[(Amazon S3)]\n  EC2 -->|After| GW[Gateway endpoint: free]\n  GW --> S3",
     cliExample: {
       description: "Create a free gateway endpoint for S3 and add it to the private route table",
-      command: "aws ec2 create-vpc-endpoint --region ap-southeast-1 --vpc-id vpc-0a1b2c3d4e5f67890 --service-name com.amazonaws.ap-southeast-1.s3 --vpc-endpoint-type Gateway --route-table-ids rtb-0123456789abcdef0 --query 'VpcEndpoint.{Id:VpcEndpointId,Type:VpcEndpointType,State:State}'",
+      command: "aws ec2 create-vpc-endpoint --region ap-southeast-2 --vpc-id vpc-0a1b2c3d4e5f67890 --service-name com.amazonaws.ap-southeast-2.s3 --vpc-endpoint-type Gateway --route-table-ids rtb-0123456789abcdef0 --query 'VpcEndpoint.{Id:VpcEndpointId,Type:VpcEndpointType,State:State}'",
       sampleOutput:
         "{\n  \"Id\": \"vpce-0f1e2d3c4b5a69788\",\n  \"Type\": \"Gateway\",\n  \"State\": \"available\"\n}",
     },
@@ -3386,12 +3386,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/ebs/pricing/",
     referenceLabel: "Amazon EBS pricing",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#Volumes:",
+    consoleUrl: "https://eu-west-2.console.aws.amazon.com/ec2/home?region=eu-west-2#Volumes:",
     consoleLabel: "EC2 > Elastic Block Store > Volumes",
     diagram: "flowchart LR\n  Vol[1 TB gp3 volume, 100 GB used] -->|billed| GB[1,024 GB-month]\n  Vol --> S1[Snapshot 1: all written blocks]\n  S1 --> S2[Snapshot 2: changed blocks only]\n  S2 --> S3[Snapshot 3: changed blocks only]",
     cliExample: {
       description: "List provisioned volume sizes, which is what EBS bills for, regardless of data written",
-      command: "aws ec2 describe-volumes --region ap-southeast-1 --query 'Volumes[].{Id:VolumeId,SizeGiB:Size,Type:VolumeType,State:State}'",
+      command: "aws ec2 describe-volumes --region eu-west-2 --query 'Volumes[].{Id:VolumeId,SizeGiB:Size,Type:VolumeType,State:State}'",
       sampleOutput:
         "[\n  {\n    \"Id\": \"vol-0abc123def4567890\",\n    \"SizeGiB\": 1024,\n    \"Type\": \"gp3\",\n    \"State\": \"in-use\"\n  }\n]",
     },
@@ -3399,7 +3399,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill82",
     domain: "billing-pricing-and-support",
-    text: "A batch-processing team runs fault-tolerant jobs on EC2 Spot Instances in ap-southeast-1 and sets a maximum price of $0.10 per hour. The current Spot price for the instance type is $0.04 per hour. Which statement correctly describes how the team is charged and how interruptions work?",
+    text: "A batch-processing team runs fault-tolerant jobs on EC2 Spot Instances in eu-north-1 and sets a maximum price of $0.10 per hour. The current Spot price for the instance type is $0.04 per hour. Which statement correctly describes how the team is charged and how interruptions work?",
     options: [
       { id: "a", text: "The team pays its $0.10 maximum price for every hour the instance runs" },
       { id: "b", text: "The team bids against other customers, and the highest bidder wins the capacity" },
@@ -3427,14 +3427,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html",
     referenceLabel: "Spot Instance interruptions - Amazon EC2",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#SpotInstances:",
+    consoleUrl: "https://eu-north-1.console.aws.amazon.com/ec2/home?region=eu-north-1#SpotInstances:",
     consoleLabel: "EC2 > Spot Requests",
     diagram: "flowchart LR\n  Max[Max price $0.10] --> Cap{Spot price <= max?}\n  Cap -->|Yes| Run[Runs, billed at Spot price $0.04]\n  Cap -->|No| Int[Interruption]\n  Need[AWS needs capacity] --> Int\n  Int --> Warn[2-minute notice via instance metadata and EventBridge]",
     cliExample: {
-      description: "Look up the current Spot price history for an instance type in Singapore",
-      command: "aws ec2 describe-spot-price-history --region ap-southeast-1 --instance-types m5.large --product-descriptions \"Linux/UNIX\" --max-items 2 --query 'SpotPriceHistory[].{AZ:AvailabilityZone,Price:SpotPrice,Time:Timestamp}'",
+      description: "Look up the current Spot price history for an instance type in Stockholm",
+      command: "aws ec2 describe-spot-price-history --region eu-north-1 --instance-types m5.large --product-descriptions \"Linux/UNIX\" --max-items 2 --query 'SpotPriceHistory[].{AZ:AvailabilityZone,Price:SpotPrice,Time:Timestamp}'",
       sampleOutput:
-        "[\n  {\n    \"AZ\": \"ap-southeast-1a\",\n    \"Price\": \"0.041200\",\n    \"Time\": \"2026-09-19T02:14:33+00:00\"\n  },\n  {\n    \"AZ\": \"ap-southeast-1b\",\n    \"Price\": \"0.039800\",\n    \"Time\": \"2026-09-19T01:52:10+00:00\"\n  }\n]",
+        "[\n  {\n    \"AZ\": \"eu-north-1a\",\n    \"Price\": \"0.041200\",\n    \"Time\": \"2026-09-19T02:14:33+00:00\"\n  },\n  {\n    \"AZ\": \"eu-north-1b\",\n    \"Price\": \"0.039800\",\n    \"Time\": \"2026-09-19T01:52:10+00:00\"\n  }\n]",
     },
   },
   {
@@ -3513,16 +3513,16 @@ export const billingPricingAndSupportQuestions: Question[] = [
     consoleLabel: "AWS Pricing Calculator",
     diagram: "flowchart LR\n  Tool[Internal FinOps tool] --> Q[Price List Query API: filter by attributes]\n  Tool --> B[Price List Bulk API: full JSON/CSV files]\n  Q --> Price[On-Demand price per instance type and Region]\n  B --> Price",
     cliExample: {
-      description: "Query the On-Demand price of a t3.medium Linux instance in Singapore using the Price List Query API",
-      command: "aws pricing get-products --region us-east-1 --service-code AmazonEC2 --filters Type=TERM_MATCH,Field=instanceType,Value=t3.medium Type=TERM_MATCH,Field=regionCode,Value=ap-southeast-1 Type=TERM_MATCH,Field=operatingSystem,Value=Linux Type=TERM_MATCH,Field=tenancy,Value=Shared Type=TERM_MATCH,Field=preInstalledSw,Value=NA Type=TERM_MATCH,Field=capacitystatus,Value=Used --max-items 1 --query 'PriceList[0]' --output text | jq '.terms.OnDemand[].priceDimensions[] | {description, pricePerUnit}'",
+      description: "Query the On-Demand price of a t3.medium Linux instance in the US West (Oregon) Region using the Price List Query API",
+      command: "aws pricing get-products --region us-east-1 --service-code AmazonEC2 --filters Type=TERM_MATCH,Field=instanceType,Value=t3.medium Type=TERM_MATCH,Field=regionCode,Value=us-west-2 Type=TERM_MATCH,Field=operatingSystem,Value=Linux Type=TERM_MATCH,Field=tenancy,Value=Shared Type=TERM_MATCH,Field=preInstalledSw,Value=NA Type=TERM_MATCH,Field=capacitystatus,Value=Used --max-items 1 --query 'PriceList[0]' --output text | jq '.terms.OnDemand[].priceDimensions[] | {description, pricePerUnit}'",
       sampleOutput:
-        "{\n  \"description\": \"$0.0528 per On Demand Linux t3.medium Instance Hour\",\n  \"pricePerUnit\": {\n    \"USD\": \"0.0528000000\"\n  }\n}",
+        "{\n  \"description\": \"$0.0416 per On Demand Linux t3.medium Instance Hour\",\n  \"pricePerUnit\": {\n    \"USD\": \"0.0416000000\"\n  }\n}",
     },
   },
   {
     id: "bill85",
     domain: "billing-pricing-and-support",
-    text: "A company runs a critical application on m5.large instances in ap-southeast-1 and plans to buy Standard Reserved Instances. It wants the reservation to also guarantee that capacity will be available in a specific Availability Zone during peak periods. Which Reserved Instance scope should the company choose, and what is the trade-off?",
+    text: "A company runs a critical application on m5.large instances in ap-south-1 and plans to buy Standard Reserved Instances. It wants the reservation to also guarantee that capacity will be available in a specific Availability Zone during peak periods. Which Reserved Instance scope should the company choose, and what is the trade-off?",
     options: [
       { id: "a", text: "Regional scope, because it reserves capacity in every Availability Zone in the Region" },
       { id: "b", text: "Convertible scope, because only Convertible RIs include a capacity reservation" },
@@ -3550,14 +3550,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/reserved-instances-scope.html",
     referenceLabel: "Regional and zonal Reserved Instances (scope)",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/ec2/home?region=ap-southeast-1#ReservedInstances:",
+    consoleUrl: "https://ap-south-1.console.aws.amazon.com/ec2/home?region=ap-south-1#ReservedInstances:",
     consoleLabel: "EC2 > Reserved Instances",
     diagram: "flowchart LR\n  RI[Standard RI purchase] --> Scope{Scope?}\n  Scope -->|Regional| R[Discount in any AZ + size flexibility, no capacity reservation]\n  Scope -->|Zonal| Z[Capacity reserved in one AZ, exact type and size only]",
     cliExample: {
-      description: "Find zonal Standard RI offerings for m5.large in ap-southeast-1a, which include a capacity reservation",
-      command: "aws ec2 describe-reserved-instances-offerings --region ap-southeast-1 --instance-type m5.large --offering-class standard --product-description \"Linux/UNIX\" --availability-zone ap-southeast-1a --max-items 1 --query 'ReservedInstancesOfferings[].{Id:ReservedInstancesOfferingId,Scope:Scope,AZ:AvailabilityZone,Term:Duration,Payment:OfferingType,Fixed:FixedPrice}'",
+      description: "Find zonal Standard RI offerings for m5.large in ap-south-1a, which include a capacity reservation",
+      command: "aws ec2 describe-reserved-instances-offerings --region ap-south-1 --instance-type m5.large --offering-class standard --product-description \"Linux/UNIX\" --availability-zone ap-south-1a --max-items 1 --query 'ReservedInstancesOfferings[].{Id:ReservedInstancesOfferingId,Scope:Scope,AZ:AvailabilityZone,Term:Duration,Payment:OfferingType,Fixed:FixedPrice}'",
       sampleOutput:
-        "[\n  {\n    \"Id\": \"4b2c0a4e-3f1d-4c8e-9a7b-2d6f1e0c5a11\",\n    \"Scope\": \"Availability Zone\",\n    \"AZ\": \"ap-southeast-1a\",\n    \"Term\": 31536000,\n    \"Payment\": \"All Upfront\",\n    \"Fixed\": 611.0\n  }\n]",
+        "[\n  {\n    \"Id\": \"4b2c0a4e-3f1d-4c8e-9a7b-2d6f1e0c5a11\",\n    \"Scope\": \"Availability Zone\",\n    \"AZ\": \"ap-south-1a\",\n    \"Term\": 31536000,\n    \"Payment\": \"All Upfront\",\n    \"Fixed\": 520.0\n  }\n]",
     },
   },
   {
@@ -3591,12 +3591,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/dynamodb/pricing/",
     referenceLabel: "Amazon DynamoDB pricing for on-demand capacity",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/dynamodbv2/home?region=ap-southeast-1#tables",
+    consoleUrl: "https://ap-south-1.console.aws.amazon.com/dynamodbv2/home?region=ap-south-1#tables",
     consoleLabel: "DynamoDB > Tables",
     diagram: "flowchart LR\n  T[DynamoDB table] --> Mode{Capacity mode}\n  Mode -->|On-demand| OD[Pay per request unit, scales instantly]\n  Mode -->|Provisioned| P[Pay per RCU/WCU-hour configured, optional reserved capacity]\n  Spiky[Unpredictable 50x spikes] --> OD",
     cliExample: {
       description: "Switch an existing table to on-demand (pay-per-request) billing",
-      command: "aws dynamodb update-table --region ap-southeast-1 --table-name Orders --billing-mode PAY_PER_REQUEST --query 'TableDescription.{Name:TableName,Status:TableStatus,Mode:BillingModeSummary.BillingMode}'",
+      command: "aws dynamodb update-table --region ap-south-1 --table-name Orders --billing-mode PAY_PER_REQUEST --query 'TableDescription.{Name:TableName,Status:TableStatus,Mode:BillingModeSummary.BillingMode}'",
       sampleOutput:
         "{\n  \"Name\": \"Orders\",\n  \"Status\": \"UPDATING\",\n  \"Mode\": \"PAY_PER_REQUEST\"\n}",
     },
@@ -3632,14 +3632,14 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/blogs/aws/new-aws-public-ipv4-address-charge-public-ip-insights/",
     referenceLabel: "New AWS public IPv4 address charge and Public IP Insights",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-1#PublicIpInsights:",
+    consoleUrl: "https://sa-east-1.console.aws.amazon.com/vpcconsole/home?region=sa-east-1#PublicIpInsights:",
     consoleLabel: "VPC > IP Address Manager > Public IP insights",
     diagram: "flowchart LR\n  EIP[Attached Elastic IP] --> Charge[Hourly public IPv4 charge]\n  Auto[Auto-assigned public IPv4] --> Charge\n  NAT[NAT gateway / load balancer public IP] --> Charge\n  IPv6[IPv6 address] --> Free[No address charge]",
     cliExample: {
-      description: "List Elastic IP addresses in ap-southeast-1 and whether each is attached, to find addresses that can be released",
-      command: "aws ec2 describe-addresses --region ap-southeast-1 --query 'Addresses[].{Ip:PublicIp,AllocationId:AllocationId,Instance:InstanceId,Association:AssociationId}'",
+      description: "List Elastic IP addresses in sa-east-1 and whether each is attached, to find addresses that can be released",
+      command: "aws ec2 describe-addresses --region sa-east-1 --query 'Addresses[].{Ip:PublicIp,AllocationId:AllocationId,Instance:InstanceId,Association:AssociationId}'",
       sampleOutput:
-        "[\n  {\n    \"Ip\": \"13.212.45.101\",\n    \"AllocationId\": \"eipalloc-0a1b2c3d4e5f60718\",\n    \"Instance\": \"i-0f3a9c2d7b6e51a04\",\n    \"Association\": \"eipassoc-07d4c2b1a9e8f6035\"\n  },\n  {\n    \"Ip\": \"18.140.77.22\",\n    \"AllocationId\": \"eipalloc-0b2c3d4e5f6071829\",\n    \"Instance\": null,\n    \"Association\": null\n  }\n]",
+        "[\n  {\n    \"Ip\": \"13.212.45.101\",\n    \"AllocationId\": \"eipalloc-0a1b2c3d4e5f60718\",\n    \"Instance\": \"i-0f3a9c2d7b6e51a04\",\n    \"Association\": \"eipassoc-07d4c2b1a9e8f6035\"\n  },\n  {\n    \"Ip\": \"18.228.77.22\",\n    \"AllocationId\": \"eipalloc-0b2c3d4e5f6071829\",\n    \"Instance\": null,\n    \"Association\": null\n  }\n]",
     },
   },
   {
@@ -3673,12 +3673,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/rds/postgresql/pricing/",
     referenceLabel: "Amazon RDS for PostgreSQL pricing (backup storage)",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/rds/home?region=ap-southeast-1#databases:",
+    consoleUrl: "https://ap-northeast-2.console.aws.amazon.com/rds/home?region=ap-northeast-2#databases:",
     consoleLabel: "RDS > Databases",
     diagram: "flowchart LR\n  DB[RDS instance 500 GB provisioned] --> Free[Backup storage up to 500 GB in Region: free]\n  Free --> Over[Backup storage above 500 GB: billed per GB-month]\n  Auto[Automated backups] --> Free\n  Manual[Manual snapshots] --> Free",
     cliExample: {
-      description: "Show allocated storage and backup retention for RDS instances in ap-southeast-1",
-      command: "aws rds describe-db-instances --region ap-southeast-1 --query 'DBInstances[].{Id:DBInstanceIdentifier,Engine:Engine,StorageGB:AllocatedStorage,RetentionDays:BackupRetentionPeriod,MultiAZ:MultiAZ}'",
+      description: "Show allocated storage and backup retention for RDS instances in ap-northeast-2",
+      command: "aws rds describe-db-instances --region ap-northeast-2 --query 'DBInstances[].{Id:DBInstanceIdentifier,Engine:Engine,StorageGB:AllocatedStorage,RetentionDays:BackupRetentionPeriod,MultiAZ:MultiAZ}'",
       sampleOutput:
         "[\n  {\n    \"Id\": \"orders-postgres\",\n    \"Engine\": \"postgres\",\n    \"StorageGB\": 500,\n    \"RetentionDays\": 7,\n    \"MultiAZ\": false\n  }\n]",
     },
@@ -3727,13 +3727,13 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill90",
     domain: "billing-pricing-and-support",
-    text: "A Singapore media startup serves video thumbnails through an Amazon CloudFront distribution. Nearly all of its viewers are in Southeast Asia, but the distribution currently uses all edge locations worldwide, and the team notices that a small amount of traffic served from South America and Australia is billed at higher per-GB rates. What is the simplest way to lower the CloudFront cost?",
+    text: "A South African media startup serves video thumbnails through an Amazon CloudFront distribution. Nearly all of its viewers are in southern Africa, but the distribution currently uses all edge locations worldwide, and the team notices that a small amount of traffic served from South America and Australia is billed at higher per-GB rates. What is the simplest way to lower the CloudFront cost?",
     options: [
       { id: "a", text: "Enable CloudFront Origin Shield, which reduces edge data transfer prices" },
       { id: "b", text: "Buy a CloudFront Reserved Instance to lock in the lowest per-GB rate" },
       { id: "c", text: "Change the distribution's price class to a cheaper class that excludes the most expensive edge locations" },
-      { id: "d", text: "Move the distribution to the ap-southeast-1 Region so that only Singapore edges are used" },
-      { id: "e", text: "Add a geo restriction that blocks all countries outside Singapore" },
+      { id: "d", text: "Move the distribution to the af-south-1 Region so that only South African edges are used" },
+      { id: "e", text: "Add a geo restriction that blocks all countries outside South Africa" },
       { id: "f", text: "Switch the origin from Amazon S3 to an EC2 instance, because S3 origins cost more" },
       { id: "g", text: "Disable HTTPS, because TLS termination is billed per GB" },
       { id: "h", text: "Enable AWS Shield Advanced, which includes free CloudFront data transfer" },
@@ -3751,7 +3751,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
       f: "Data transfer from S3 or EC2 origins to CloudFront is free either way; the origin type does not change edge pricing.",
       g: "CloudFront does not charge extra per GB for HTTPS, and disabling TLS would harm security.",
       h: "Shield Advanced is a paid DDoS protection subscription; it does not make CloudFront data transfer free.",
-      i: "Correct. Price Class 200 keeps the Southeast Asian edge locations but excludes the most expensive edge regions, lowering the per-GB rates paid.",
+      i: "Correct. Price Class 200 keeps the South African edge locations but excludes the most expensive edge regions, lowering the per-GB rates paid.",
     },
     referenceUrl: "https://aws.amazon.com/cloudfront/pricing/",
     referenceLabel: "Choosing the price class for a CloudFront distribution",
@@ -3811,7 +3811,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill92",
     domain: "billing-pricing-and-support",
-    text: "A startup on the Basic Support plan tries to launch its 6th large EC2 instance in ap-southeast-1 and receives a VcpuLimitExceeded error because its On-Demand vCPU quota is too low. The founder believes a paid support plan is required to ask AWS to raise the limit. What should the founder do?",
+    text: "A startup on the Basic Support plan tries to launch its 6th large EC2 instance in ap-northeast-1 and receives a VcpuLimitExceeded error because its On-Demand vCPU quota is too low. The founder believes a paid support plan is required to ask AWS to raise the limit. What should the founder do?",
     options: [
       { id: "a", text: "Upgrade to Business Support, because quota increase requests are only accepted from paid plans" },
       { id: "b", text: "Request the quota increase through the Service Quotas console or a service limit increase support case, which is available on every support plan including Basic at no charge" },
@@ -3839,12 +3839,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html",
     referenceLabel: "Requesting a quota increase - Service Quotas",
-    consoleUrl: "https://ap-southeast-1.console.aws.amazon.com/servicequotas/home/services/ec2/quotas?region=ap-southeast-1",
+    consoleUrl: "https://ap-northeast-1.console.aws.amazon.com/servicequotas/home/services/ec2/quotas?region=ap-northeast-1",
     consoleLabel: "Service Quotas > Amazon EC2 quotas",
     diagram: "flowchart LR\n  Err[VcpuLimitExceeded] --> SQ[Service Quotas console / CLI]\n  Err --> Case[Support case: Service limit increase]\n  SQ --> AWS[AWS reviews request, free on Basic Support]\n  Case --> AWS\n  AWS --> Raised[Quota raised]",
     cliExample: {
-      description: "Request an increase of the Running On-Demand Standard instances vCPU quota in ap-southeast-1",
-      command: "aws service-quotas request-service-quota-increase --region ap-southeast-1 --service-code ec2 --quota-code L-1216C47A --desired-value 64 --query 'RequestedQuota.{Id:Id,Quota:QuotaName,Desired:DesiredValue,Status:Status}'",
+      description: "Request an increase of the Running On-Demand Standard instances vCPU quota in ap-northeast-1",
+      command: "aws service-quotas request-service-quota-increase --region ap-northeast-1 --service-code ec2 --quota-code L-1216C47A --desired-value 64 --query 'RequestedQuota.{Id:Id,Quota:QuotaName,Desired:DesiredValue,Status:Status}'",
       sampleOutput:
         "{\n  \"Id\": \"3f2a9c1e6b7d4e0f8a5c2b1d9e7f6a4c\",\n  \"Quota\": \"Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances\",\n  \"Desired\": 64.0,\n  \"Status\": \"PENDING\"\n}",
     },
@@ -4217,7 +4217,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart TB\n  Dev[Developer: 12 h system impaired] --> Bus[Business: 1 h production down]\n  Bus --> OnRamp[Enterprise On-Ramp: 30 min business-critical]\n  OnRamp --> Ent[Enterprise: 15 min business-critical]",
     cliExample: {
       description: "Open a critical severity support case (requires Enterprise or Enterprise On-Ramp)",
-      command: "aws support create-case --subject \"Production checkout API down\" --service-code amazon-elastic-compute-cloud-linux --severity-code critical --category-code other --communication-body \"All instances in ap-southeast-1 ASG failing health checks since 09:15 SGT\" --region us-east-1",
+      command: "aws support create-case --subject \"Production checkout API down\" --service-code amazon-elastic-compute-cloud-linux --severity-code critical --category-code other --communication-body \"All instances in eu-central-1 ASG failing health checks since 09:15 KST\" --region us-east-1",
       sampleOutput:
         "{\n  \"caseId\": \"case-123456789012-muen-2026-1a2b3c4d5e6f7g8h\"\n}",
     },
@@ -4383,9 +4383,9 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  EC2[EC2 needs capacity back] --> Notice[2-minute interruption notice]\n  Notice --> IMDS[Instance metadata]\n  Notice --> EB[EventBridge event]\n  IMDS --> App[App checkpoints work]\n  EB --> App",
     cliExample: {
       description: "Create an EventBridge rule that reacts to Spot Instance interruption warnings",
-      command: "aws events put-rule --name spot-interruption-warning --event-pattern '{\"source\":[\"aws.ec2\"],\"detail-type\":[\"EC2 Spot Instance Interruption Warning\"]}' --region ap-southeast-1",
+      command: "aws events put-rule --name spot-interruption-warning --event-pattern '{\"source\":[\"aws.ec2\"],\"detail-type\":[\"EC2 Spot Instance Interruption Warning\"]}' --region ap-south-1",
       sampleOutput:
-        "{\n  \"RuleArn\": \"arn:aws:events:ap-southeast-1:123456789012:rule/spot-interruption-warning\"\n}",
+        "{\n  \"RuleArn\": \"arn:aws:events:ap-south-1:123456789012:rule/spot-interruption-warning\"\n}",
     },
   },
   {
@@ -4758,9 +4758,9 @@ export const billingPricingAndSupportQuestions: Question[] = [
   {
     id: "bill115",
     domain: "billing-pricing-and-support",
-    text: "A data science team runs EC2 instances in the ap-southeast-1 Region that repeatedly read a 5 TB training dataset from an Amazon S3 bucket located in the us-east-1 Region. Each training run downloads the full dataset. The team's bill now shows a large S3 data transfer line item. Which change would eliminate this charge?",
+    text: "A data science team runs EC2 instances in the sa-east-1 Region that repeatedly read a 5 TB training dataset from an Amazon S3 bucket located in the us-east-1 Region. Each training run downloads the full dataset. The team's bill now shows a large S3 data transfer line item. Which change would eliminate this charge?",
     options: [
-      { id: "a", text: "Copy the dataset to an S3 bucket in ap-southeast-1 so the instances read from a bucket in the same Region" },
+      { id: "a", text: "Copy the dataset to an S3 bucket in sa-east-1 so the instances read from a bucket in the same Region" },
       { id: "b", text: "Move the EC2 instances into the same Availability Zone as the S3 bucket" },
       { id: "c", text: "Enable S3 Transfer Acceleration on the us-east-1 bucket" },
       { id: "d", text: "Change the storage class of the dataset to S3 Standard-IA" },
@@ -4768,11 +4768,11 @@ export const billingPricingAndSupportQuestions: Question[] = [
       { id: "f", text: "Enable S3 Requester Pays on the bucket" },
       { id: "g", text: "Purchase a Compute Savings Plan for the training instances" },
       { id: "h", text: "Compress the dataset with S3 Object Lambda before each download" },
-      { id: "i", text: "Use S3 Batch Replication to copy the dataset to an ap-southeast-1 bucket for training" },
+      { id: "i", text: "Use S3 Batch Replication to copy the dataset to an sa-east-1 bucket for training" },
     ],
     correctOptionIds: ["a", "i"],
     answerType: "single",
-    explanation: "Data transferred from Amazon S3 to Amazon EC2 within the same Region is free, but data transferred out of S3 to another AWS Region is charged per GB. Placing the dataset in a bucket in ap-southeast-1, the same Region as the instances, removes the inter-Region transfer charge entirely (a one-time replication cost aside). S3 buckets are Regional, so there is no Availability Zone to co-locate with.",
+    explanation: "Data transferred from Amazon S3 to Amazon EC2 within the same Region is free, but data transferred out of S3 to another AWS Region is charged per GB. Placing the dataset in a bucket in sa-east-1, the same Region as the instances, removes the inter-Region transfer charge entirely (a one-time replication cost aside). S3 buckets are Regional, so there is no Availability Zone to co-locate with.",
     optionRationale: {
       a: "Correct. S3-to-EC2 transfer within the same Region is free, so a same-Region bucket eliminates the charge.",
       b: "S3 buckets are Regional resources and are not tied to an Availability Zone; the instances are in a different Region entirely.",
@@ -4788,11 +4788,11 @@ export const billingPricingAndSupportQuestions: Question[] = [
     referenceLabel: "Amazon S3 pricing: data transfer",
     consoleUrl: "https://console.aws.amazon.com/s3/home",
     consoleLabel: "Amazon S3 console",
-    diagram: "flowchart LR\n  B1[S3 bucket us-east-1] -->|inter-Region transfer charged per GB| E[EC2 ap-southeast-1]\n  B2[S3 bucket ap-southeast-1] -->|same Region transfer free| E",
+    diagram: "flowchart LR\n  B1[S3 bucket us-east-1] -->|inter-Region transfer charged per GB| E[EC2 sa-east-1]\n  B2[S3 bucket sa-east-1] -->|same Region transfer free| E",
     cliExample: {
-      description: "Create a bucket in ap-southeast-1 and copy the dataset into it",
-      command: "aws s3api create-bucket --region ap-southeast-1 --bucket example-training-data-sg --create-bucket-configuration LocationConstraint=ap-southeast-1 && aws s3 sync s3://example-training-data-use1/dataset/ s3://example-training-data-sg/dataset/ --source-region us-east-1 --region ap-southeast-1",
-      sampleOutput: "{\n  \"Location\": \"http://example-training-data-sg.s3.amazonaws.com/\"\n}\ncopy: s3://example-training-data-use1/dataset/part-0001.parquet to s3://example-training-data-sg/dataset/part-0001.parquet\ncopy: s3://example-training-data-use1/dataset/part-0002.parquet to s3://example-training-data-sg/dataset/part-0002.parquet",
+      description: "Create a bucket in sa-east-1 and copy the dataset into it",
+      command: "aws s3api create-bucket --region sa-east-1 --bucket example-training-data-br --create-bucket-configuration LocationConstraint=sa-east-1 && aws s3 sync s3://example-training-data-use1/dataset/ s3://example-training-data-br/dataset/ --source-region us-east-1 --region sa-east-1",
+      sampleOutput: "{\n  \"Location\": \"http://example-training-data-br.s3.amazonaws.com/\"\n}\ncopy: s3://example-training-data-use1/dataset/part-0001.parquet to s3://example-training-data-br/dataset/part-0001.parquet\ncopy: s3://example-training-data-use1/dataset/part-0002.parquet to s3://example-training-data-br/dataset/part-0002.parquet",
     },
   },
   {
@@ -4873,7 +4873,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  S[Instance stopped overnight] --> C[Compute hours billing stops]\n  S --> E[EBS 200 GB still billed per GB-month]\n  S --> P[Elastic IP still billed per hour]",
     cliExample: {
       description: "Stop an instance and confirm its state and attached resources that still bill",
-      command: "aws ec2 stop-instances --region ap-southeast-1 --instance-ids i-0a1b2c3d4e5f67890 && aws ec2 describe-instances --region ap-southeast-1 --instance-ids i-0a1b2c3d4e5f67890 --query 'Reservations[0].Instances[0].{State:State.Name,Volumes:BlockDeviceMappings[].Ebs.VolumeId,PublicIp:PublicIpAddress}'",
+      command: "aws ec2 stop-instances --region eu-west-1 --instance-ids i-0a1b2c3d4e5f67890 && aws ec2 describe-instances --region eu-west-1 --instance-ids i-0a1b2c3d4e5f67890 --query 'Reservations[0].Instances[0].{State:State.Name,Volumes:BlockDeviceMappings[].Ebs.VolumeId,PublicIp:PublicIpAddress}'",
       sampleOutput: "{\n  \"StoppingInstances\": [\n    {\n      \"InstanceId\": \"i-0a1b2c3d4e5f67890\",\n      \"CurrentState\": {\"Code\": 64, \"Name\": \"stopping\"},\n      \"PreviousState\": {\"Code\": 16, \"Name\": \"running\"}\n    }\n  ]\n}\n{\n  \"State\": \"stopped\",\n  \"Volumes\": [\"vol-0f9e8d7c6b5a43210\"],\n  \"PublicIp\": \"13.212.45.67\"\n}",
     },
   },
@@ -4908,12 +4908,12 @@ export const billingPricingAndSupportQuestions: Question[] = [
     },
     referenceUrl: "https://aws.amazon.com/rds/reserved-instances/",
     referenceLabel: "Amazon RDS Reserved Instances",
-    consoleUrl: "https://console.aws.amazon.com/rds/home?region=ap-southeast-1#reserved-instances:",
+    consoleUrl: "https://console.aws.amazon.com/rds/home?region=eu-west-2#reserved-instances:",
     consoleLabel: "RDS Reserved Instances",
     diagram: "flowchart LR\n  SP[Compute Savings Plan] --> EC2[EC2 Fargate Lambda]\n  SP -.-x RDS[Amazon RDS]\n  RI[RDS Reserved Instance 3 year] --> RDS",
     cliExample: {
       description: "Find three-year RDS Reserved Instance offerings for the current DB instance class and engine",
-      command: "aws rds describe-reserved-db-instances-offerings --region ap-southeast-1 --db-instance-class db.r6g.xlarge --product-description mysql --duration 94608000 --query 'ReservedDBInstancesOfferings[].{OfferingId:ReservedDBInstancesOfferingId,Payment:OfferingType,Fixed:FixedPrice,Hourly:RecurringCharges[0].RecurringChargeAmount}'",
+      command: "aws rds describe-reserved-db-instances-offerings --region eu-west-2 --db-instance-class db.r6g.xlarge --product-description mysql --duration 94608000 --query 'ReservedDBInstancesOfferings[].{OfferingId:ReservedDBInstancesOfferingId,Payment:OfferingType,Fixed:FixedPrice,Hourly:RecurringCharges[0].RecurringChargeAmount}'",
       sampleOutput: "[\n  {\n    \"OfferingId\": \"3a1b2c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d\",\n    \"Payment\": \"All Upfront\",\n    \"Fixed\": 6842.0,\n    \"Hourly\": 0.0\n  },\n  {\n    \"OfferingId\": \"9f8e7d6c-5b4a-4321-8765-4321fedcba98\",\n    \"Payment\": \"Partial Upfront\",\n    \"Fixed\": 3540.0,\n    \"Hourly\": 0.135\n  },\n  {\n    \"OfferingId\": \"1122aabb-ccdd-4eef-9900-aabbccddeeff\",\n    \"Payment\": \"No Upfront\",\n    \"Fixed\": 0.0,\n    \"Hourly\": 0.283\n  }\n]",
     },
   },
@@ -4953,7 +4953,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  R[IAM role] --> P[IAM policy with support actions]\n  P --> S[Support Center]\n  S --> C[Support case created]\n  N[Role without support permissions] --> D[Access denied]",
     cliExample: {
       description: "Open a technical support case from the CLI, which requires the caller to have support:CreateCase permission",
-      command: "aws support create-case --region us-east-1 --subject \"EC2 instance unreachable\" --service-code amazon-elastic-compute-cloud-linux --category-code instance-issue --severity-code high --communication-body \"Instance i-0abc123 stopped responding at 09:00 SGT\" --language en",
+      command: "aws support create-case --region us-east-1 --subject \"EC2 instance unreachable\" --service-code amazon-elastic-compute-cloud-linux --category-code instance-issue --severity-code high --communication-body \"Instance i-0abc123 stopped responding at 09:00 CET\" --language en",
       sampleOutput: "{\n  \"caseId\": \"case-123456789012-muen-2026-1a2b3c4d5e6f7g8h\"\n}",
     },
   },
@@ -5034,9 +5034,9 @@ export const billingPricingAndSupportQuestions: Question[] = [
     consoleLabel: "AWS Direct Connect",
     diagram: "flowchart LR\n  A[AWS Region] -->|Internet egress high per GB| D[Data center]\n  A -->|Direct Connect lower per GB plus port hours| D",
     cliExample: {
-      description: "List the Direct Connect connections in the Singapore Region along with their bandwidth, which drives the port-hour rate",
-      command: "aws directconnect describe-connections --region ap-southeast-1 --query 'connections[].{Name:connectionName,Bandwidth:bandwidth,State:connectionState,Location:location}'",
-      sampleOutput: "[\n  {\n    \"Name\": \"bank-dc-primary\",\n    \"Bandwidth\": \"1Gbps\",\n    \"State\": \"available\",\n    \"Location\": \"EqSG2\"\n  }\n]",
+      description: "List the Direct Connect connections in the Frankfurt Region along with their bandwidth, which drives the port-hour rate",
+      command: "aws directconnect describe-connections --region eu-central-1 --query 'connections[].{Name:connectionName,Bandwidth:bandwidth,State:connectionState,Location:location}'",
+      sampleOutput: "[\n  {\n    \"Name\": \"bank-dc-primary\",\n    \"Bandwidth\": \"1Gbps\",\n    \"State\": \"available\",\n    \"Location\": \"EqFA5\"\n  }\n]",
     },
   },
   {
@@ -5077,7 +5077,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart TD\n  L[Small log file 4 KB] --> IA[Standard IA]\n  IA --> M[Billed as 128 KB]\n  IA --> T[Billed for 30 days minimum]\n  L --> S[S3 Standard]\n  S --> P[Billed for actual size and days]",
     cliExample: {
       description: "Upload an object directly into the Standard-IA storage class; the object becomes subject to the 30-day and 128 KB minimums",
-      command: "aws s3api put-object --region ap-southeast-1 --bucket logistics-app-logs --key 2026/09/20/app.log --body app.log --storage-class STANDARD_IA",
+      command: "aws s3api put-object --region eu-west-1 --bucket logistics-app-logs --key 2026/09/20/app.log --body app.log --storage-class STANDARD_IA",
       sampleOutput: "{\n  \"ETag\": \"\\\"9b2cf535f27731c974343645a3985328\\\"\",\n  \"ServerSideEncryption\": \"AES256\"\n}",
     },
   },
@@ -5117,7 +5117,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     diagram: "flowchart LR\n  E[EventBridge schedule] --> L[Lambda or Instance Scheduler]\n  L -->|evening| S[Stop dev instances]\n  L -->|morning| R[Start dev instances]\n  S --> B[No compute charge while stopped]",
     cliExample: {
       description: "Stop a development instance at the end of the day so On-Demand compute charges pause until it is started again",
-      command: "aws ec2 stop-instances --region ap-southeast-1 --instance-ids i-0dev1234567890abc",
+      command: "aws ec2 stop-instances --region eu-west-2 --instance-ids i-0dev1234567890abc",
       sampleOutput: "{\n  \"StoppingInstances\": [\n    {\n      \"InstanceId\": \"i-0dev1234567890abc\",\n      \"CurrentState\": {\n        \"Code\": 64,\n        \"Name\": \"stopping\"\n      },\n      \"PreviousState\": {\n        \"Code\": 16,\n        \"Name\": \"running\"\n      }\n    }\n  ]\n}",
     },
   },
@@ -5198,7 +5198,7 @@ export const billingPricingAndSupportQuestions: Question[] = [
     cliExample: {
       description: "List CloudFront distributions and their S3 origins to confirm images are served through the CDN rather than directly from S3",
       command: "aws cloudfront list-distributions --region us-east-1 --query 'DistributionList.Items[].{Id:Id,Domain:DomainName,Origin:Origins.Items[0].DomainName}'",
-      sampleOutput: "[\n  {\n    \"Id\": \"E1A2B3C4D5E6F7\",\n    \"Domain\": \"d111111abcdef8.cloudfront.net\",\n    \"Origin\": \"media-images-prod.s3.ap-southeast-1.amazonaws.com\"\n  }\n]",
+      sampleOutput: "[\n  {\n    \"Id\": \"E1A2B3C4D5E6F7\",\n    \"Domain\": \"d111111abcdef8.cloudfront.net\",\n    \"Origin\": \"media-images-prod.s3.eu-north-1.amazonaws.com\"\n  }\n]",
     },
   },
   {
