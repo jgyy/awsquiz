@@ -1,7 +1,7 @@
 import { Question } from "./types.js";
 import { clfQuestions } from "./questions/clf-c02/index.js";
 import { aifQuestions } from "./questions/aif-c01/index.js";
-import { displayedOptionCount, isMultiAnswer, requiredCorrectCount } from "./scoring.js";
+import { MIN_DISTRACTOR_POOL, isMultiAnswer, minCorrectPoolSize } from "./scoring.js";
 
 export type CertificationId = "clf-c02" | "aif-c01";
 
@@ -102,19 +102,32 @@ export function allQuestions(): Question[] {
 }
 
 /**
- * A multi-answer question needs at least 2 correct ids to pick its 2 shown answers from; a
- * single-answer question needs at least 1. The option pool must also be large enough to fill
- * the remaining slots with distractors once the shown correct answers are set aside.
+ * Structural checks: option ids are unique, every correct id names a real option, and every
+ * option carries a rationale (any of them may be the one revealed after answering).
  */
 function validateQuestion(q: Question): void {
-  const needed = requiredCorrectCount(q);
-  if (q.correctOptionIds.length < needed) {
-    throw new Error(
-      `question ${q.id}: ${isMultiAnswer(q) ? "multi" : "single"}-answer but only ${q.correctOptionIds.length} correct option id(s), needs at least ${needed}`
-    );
+  const ids = q.options.map((o) => o.id);
+  if (new Set(ids).size !== ids.length) throw new Error(`question ${q.id}: duplicate option ids`);
+  const unknown = q.correctOptionIds.filter((id) => !ids.includes(id));
+  if (unknown.length) throw new Error(`question ${q.id}: correct id(s) ${unknown.join(", ")} match no option`);
+  const bare = ids.filter((id) => !q.optionRationale?.[id]);
+  if (bare.length) throw new Error(`question ${q.id}: option(s) ${bare.join(", ")} have no rationale`);
+  validatePoolSizes(q);
+}
+
+/**
+ * The correct pool must hold at least minCorrectPoolSize(q) answers and the distractor pool at
+ * least MIN_DISTRACTOR_POOL, so every attempt can rotate which options appear.
+ */
+function validatePoolSizes(q: Question): void {
+  const correct = q.correctOptionIds.length;
+  const distractors = q.options.length - correct;
+  const kind = isMultiAnswer(q) ? "multi" : "single";
+  if (correct < minCorrectPoolSize(q)) {
+    throw new Error(`question ${q.id}: ${kind}-answer with ${correct} correct option(s), needs at least ${minCorrectPoolSize(q)}`);
   }
-  if (q.options.length < displayedOptionCount(q)) {
-    throw new Error(`question ${q.id}: only ${q.options.length} options, needs at least ${displayedOptionCount(q)}`);
+  if (distractors < MIN_DISTRACTOR_POOL) {
+    throw new Error(`question ${q.id}: ${distractors} distractor(s), needs at least ${MIN_DISTRACTOR_POOL}`);
   }
 }
 

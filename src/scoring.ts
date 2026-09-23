@@ -21,15 +21,21 @@ export function sampleFullExam(cert: Certification): Question[] {
   return shuffle(picked);
 }
 
-/**
- * Whether a question takes one or two selections. Falls back to inferring from
- * correctOptionIds.length so existing questions (which never store more correct ids than they
- * need) require no changes; answerType is only needed when correctOptionIds holds a larger pool
- * of acceptable answers than are ever shown at once.
- */
+/** Whether a question takes one selection or two ("Select TWO"). */
 export function isMultiAnswer(question: Question): boolean {
-  return question.answerType ? question.answerType === "multi" : question.correctOptionIds.length > 1;
+  return question.answerType === "multi";
 }
+
+/**
+ * Smallest correct-answer pool a question may store: twice what's shown (2 for single-answer,
+ * 4 for "Select TWO"), so repeat attempts rotate which correct answer(s) appear.
+ */
+export function minCorrectPoolSize(question: Question): number {
+  return requiredCorrectCount(question) * 2;
+}
+
+/** Smallest distractor pool a question may store, so the 3 shown wrong answers also rotate. */
+export const MIN_DISTRACTOR_POOL = 6;
 
 /** Number of correct options shown per question: 1 for single-answer, 2 for "Select TWO". */
 export function requiredCorrectCount(question: Question): number {
@@ -42,13 +48,13 @@ export function displayedOptionCount(question: Question): number {
 }
 
 /**
- * Each question stores a pool of options (up to 8) and, potentially, a pool of correct answers
- * larger than what's ever shown at once. Every time it's shown: pick a random subset of the
- * correct pool sized to requiredCorrectCount, draw a random subset of the distractors to fill
- * the rest of the displayed count, and shuffle the result. Unpicked correct-pool members are
- * left out of this render entirely — never shown marked as wrong. correctOptionIds on the
- * returned question is trimmed to just the picked subset, so scoring and review naturally
- * operate on what was actually shown.
+ * Each question stores a pool of options: a correct pool larger than what's ever shown at once
+ * (see minCorrectPoolSize) plus at least MIN_DISTRACTOR_POOL distractors. Every time it's
+ * shown: pick a random subset of the correct pool sized to requiredCorrectCount, draw a random
+ * subset of the distractors to fill the rest of the displayed count, and shuffle the result.
+ * Unpicked correct-pool members are left out of this render entirely — never shown marked as
+ * wrong. correctOptionIds on the returned question is trimmed to just the picked subset, so
+ * scoring and review naturally operate on what was actually shown.
  */
 export function sampleQuestionOptions(question: Question): Question {
   const correctPool = shuffle(question.options.filter((opt) => question.correctOptionIds.includes(opt.id)));

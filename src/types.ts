@@ -20,12 +20,11 @@ export interface Question {
   options: Option[];
   correctOptionIds: string[];
   /**
-   * Whether this question accepts one or two correct selections. Defaults to inferring from
-   * correctOptionIds.length when omitted. Set explicitly when correctOptionIds holds a pool of
-   * more acceptable answers than are ever shown at once (e.g. 3 valid single answers to rotate
-   * between, or 3 valid options for a select-two question) — see isMultiAnswer in scoring.ts.
+   * Whether this question accepts one or two correct selections. Always explicit: correctOptionIds
+   * is a pool of acceptable answers (at least 2 for single, 4 for multi) that is larger than what
+   * is ever shown at once, so its length can't tell the two apart — see scoring.ts.
    */
-  answerType?: "single" | "multi";
+  answerType: "single" | "multi";
   explanation: string;
   /** Per-option explanation, keyed by Option.id, covering why each option is right or wrong. */
   optionRationale?: Record<string, string>;
