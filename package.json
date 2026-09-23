@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc && node -e \"import('./dist/certifications.js')\" && node scripts/vendor.mts && node scripts/build-sw.mts",
     "watch": "tsc --watch",
+    "test": "tsc && node --test \"tests/**/*.test.mts\"",
     "dev": "node scripts/dev.mts",
     "videos:assign": "tsc && node scripts/assign-videos.mts && tsc"
   },
