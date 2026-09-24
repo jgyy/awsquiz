@@ -4,12 +4,14 @@ import {
   MAX_VIDEO_SECONDS,
   OFFICIAL_AWS_CHANNEL_ID,
   OFFICIAL_BONUS,
+  domainFallbackFor,
   isOfficialAws,
   officialPreference,
   videoCatalog,
   videoCatalogProblems,
 } from "../dist/videos.js";
 import { videoCheckProblems } from "../scripts/lib/video-check.mts";
+import { certifications } from "../dist/certifications.js";
 
 const THIRD_PARTY = "UCaCZnknpM1TpUnJHl0fv0OA";
 const video = (id: string, over: object = {}) => ({ id, label: id, keywords: [], cert: "clf-c02", seconds: 100, channelId: THIRD_PARTY, ...over });
@@ -89,4 +91,8 @@ test("official videos get the bonus on service questions only", () => {
   assert.equal(officialPreference(official, concept), 1);
   assert.equal(officialPreference(video("t"), service), 1);
   assert.equal(OFFICIAL_BONUS, 1.35);
+});
+
+test("the real catalog passes every rule", () => {
+  assert.deepEqual(videoCatalogProblems(videoCatalog, domainFallbackFor, certifications), []);
 });
