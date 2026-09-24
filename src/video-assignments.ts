@@ -845,7 +845,7 @@ export const videoAssignments: Record<string, string> = {
   "tech280": "DOH37VVadlc",
   "tech281": "GoNsuTqeMto",
   "tech282": "wLpDM0IlYmo",
-  "tech283": "a4dhoTQCyRA",
+  "tech283": "W1zGjrH3BJI",
   "tech284": "nMvJzJlhqws",
   "tech285": "bFaRQAkQIok",
   "tech286": "buVvQMCu2ow",
