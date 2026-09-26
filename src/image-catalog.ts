@@ -32,7 +32,7 @@ export const imageCatalog: ImageEntry[] = [
   },
   {
     id: "aws-global-infrastructure-map",
-    url: "https://docs.aws.amazon.com/global-infrastructure/latest/regions/images/availability-zones.png",
+    url: "https://docs.aws.amazon.com/images/global-infrastructure/latest/regions/images/availability-zones.png",
     alt: "Diagram of an AWS Region containing three Availability Zones, each shown as a separate dashed box nested inside the Region to illustrate their physical isolation",
     caption: "An AWS Region and its Availability Zones",
     credit: "AWS Documentation",
