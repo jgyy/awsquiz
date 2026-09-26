@@ -10,7 +10,9 @@
     "dev": "node scripts/dev.mts",
     "videos:assign": "tsc && node scripts/assign-videos.mts && tsc",
     "videos:check": "tsc && node scripts/check-videos.mts",
-    "youtube": "tsc && node scripts/youtube.mts"
+    "youtube": "tsc && node scripts/youtube.mts",
+    "images:assign": "tsc && node scripts/assign-images.mts && tsc",
+    "images:check": "tsc && node scripts/check-images.mts"
   },
   "devDependencies": {
     "mermaid": "^12.0.0",

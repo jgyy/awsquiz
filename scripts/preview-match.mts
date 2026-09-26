@@ -2,15 +2,18 @@
  * Shows how one question would be matched: its top candidates, scored exactly as the assign
  * scripts score them (per-cert IDF, answer bonus, official preference), optionally including
  * unmerged entries from sourcing batches. Use it to tune keywords before merging.
- *   node scripts/preview-match.mts videos <questionId> [batch.json ...]
+ *   node scripts/preview-match.mts videos|images <questionId> [batch.json ...]
  * Run after `tsc`.
  */
 import { readFile } from "node:fs/promises";
 import { certifications } from "../dist/certifications.js";
+import { imageAssignments } from "../dist/image-assignments.js";
+import type { ImageEntry } from "../dist/image-catalog.js";
 import { namesAwsService } from "../dist/matching.js";
 import { videoAssignments } from "../dist/video-assignments.js";
 import { isOfficialAws, type VideoEntry } from "../dist/videos.js";
 import { rankCandidates } from "./lib/assign-media.mts";
+import { imageAssignConfig } from "./lib/image-config.mts";
 import { videoAssignConfig } from "./lib/video-config.mts";
 
 const kinds = {
@@ -18,6 +21,11 @@ const kinds = {
     config: videoAssignConfig,
     assigned: videoAssignments,
     describe: (v: VideoEntry) => `${v.id}  ${v.label}  [${isOfficialAws(v) ? "official" : "third-party"}, ${v.seconds}s]`,
+  },
+  images: {
+    config: imageAssignConfig,
+    assigned: imageAssignments,
+    describe: (e: ImageEntry) => `${e.id}  ${e.caption}  [${e.certs.join(", ")}]`,
   },
 };
 
