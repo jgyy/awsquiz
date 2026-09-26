@@ -4,4 +4,5 @@
  */
 await import("../dist/certifications.js");
 await import("../dist/videos.js");
-console.log("question bank and video catalog are valid");
+await import("../dist/images.js");
+console.log("question bank, video catalog and image catalog are valid");
