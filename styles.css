@@ -20,6 +20,7 @@
   --console-link-soft: #fbeedd;
   --video-link: #b8302a;
   --video-link-soft: #fae5e3;
+  --image-backdrop: #ffffff;
   --font-serif: "Lora", Georgia, serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   color-scheme: light;
@@ -48,6 +49,7 @@
     --console-link-soft: #3a2712;
     --video-link: #f07b74;
     --video-link-soft: #3b1f1d;
+    --image-backdrop: #e4e9e4;
     color-scheme: dark;
   }
 }
@@ -660,6 +662,46 @@ body.is-offline .course-link {
   background: var(--accent-soft);
 }
 
+/* ---------- Question image ---------- */
+
+/* Diagrams are often black lines on a transparent background, so every image sits on a light
+   backdrop in both themes; the card border and caption keep it inside the dark palette. */
+.question-image {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-sunken);
+}
+
+.question-image a {
+  display: block;
+  background: var(--image-backdrop);
+  padding: 0.5rem;
+}
+
+.question-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: contain;
+}
+
+.question-image figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.image-credit {
+  display: block;
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+}
+
 .mermaid-target {
   display: flex;
   justify-content: center;
@@ -865,6 +907,10 @@ body.is-offline .reference-link {
   display: none;
 }
 
+body.is-offline .question-image {
+  display: none;
+}
+
 /* ---------- Touch and mobile ---------- */
 
 html {
@@ -967,6 +1013,10 @@ select {
 
   .cli-card > .cli-card-header:first-child::before {
     margin-right: 1.6rem;
+  }
+
+  .question-image img {
+    max-height: 220px;
   }
 
   .cli-command,

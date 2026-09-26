@@ -5,6 +5,9 @@ const CERT_STORAGE_KEY = "awsquiz.cert";
 let currentCert: Certification | null = null;
 import { icons } from "./icons.js";
 import { resolveVideo, videoUrlFor } from "./videos.js";
+import { escapeHtml } from "./html.js";
+import { renderImageFigure } from "./image-figure.js";
+import { resolveImage } from "./images.js";
 import { Domain, Mode, Question, SessionResult, PerQuestionResult } from "./types.js";
 import {
   sampleFullExam,
@@ -41,15 +44,6 @@ const app = document.getElementById("app") as HTMLElement;
 let diagramCounter = 0;
 let pendingDiagrams: { id: string; source: string }[] = [];
 let mermaidModulePromise: Promise<any> | null = null;
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 function loadMermaid(): Promise<any> {
   if (!mermaidModulePromise) {
@@ -149,6 +143,17 @@ function wireCopyButtons(): void {
         })
         .catch(() => {});
     });
+  });
+}
+
+/**
+ * A hotlinked image can disappear or be blocked by its host; drop the whole figure rather than
+ * show a broken-image icon under an orphaned caption. Listeners are attached in the same task
+ * that inserted the markup, so no error event can fire before them.
+ */
+function wireQuestionImages(): void {
+  document.querySelectorAll<HTMLImageElement>(".question-image img").forEach((img) => {
+    img.addEventListener("error", () => img.closest("figure")?.remove(), { once: true });
   });
 }
 
@@ -563,6 +568,7 @@ function renderFeedbackPanel(question: Question, selected: string[]): string {
       <span>${correct ? "Correct" : "Not quite"}</span>
     </div>
     <p class="explanation">${escapeHtml(question.explanation)}</p>
+    ${renderImageFigure(resolveImage(question, currentCert!.id))}
     ${renderFeedbackExtras(question, question.id)}
   `;
 }
@@ -644,6 +650,7 @@ function renderQuestionScreen(): void {
 
   wireCopyButtons();
   wireDiagramExpand();
+  wireQuestionImages();
   if (revealed) void renderMermaidDiagrams(pendingDiagrams);
 }
 
