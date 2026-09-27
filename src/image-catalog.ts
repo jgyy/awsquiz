@@ -27,7 +27,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "The AWS shared responsibility model",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/compliance/shared-responsibility-model/",
-    keywords: ["shared responsibility", "shared responsibility model", "security of the cloud", "security in the cloud", "customer is responsible", "aws is responsible", "amazon managed streaming for apache kafka", "provisioning broker servers and installing kafka on them", "patching and upgrading the kafka broker software", "running the cluster's apache zookeeper or kraft controller nodes", "responsibilities shift from the company to aws"],
+    keywords: ["shared responsibility", "shared responsibility model", "security of the cloud", "security in the cloud", "customer is responsible", "aws is responsible", "amazon managed streaming for apache kafka", "provisioning broker servers and installing kafka on them", "patching and upgrading the kafka broker software", "running the cluster's apache zookeeper or kraft controller nodes", "responsibilities shift from the company to aws", "physical security and compliance controls"],
     certs: ["clf-c02", "aif-c01"],
   },
   {
@@ -57,7 +57,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "The AWS Cost Explorer console",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/blogs/aws-cloud-financial-management/introducing-intelligent-cost-explanations-in-aws-cost-explorer/",
-    keywords: ["cost explorer", "cost and usage report", "billing console", "cost management console"],
+    keywords: ["cost explorer", "cost and usage report"],
     certs: ["clf-c02"],
   },
   {
@@ -447,8 +447,8 @@ export const imageCatalog: ImageEntry[] = [
     caption: "A human-in-the-loop review workflow combining SageMaker predictions, SHAP explanations and human reviewers",
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/machine-learning/human-in-the-loop-review-of-model-explanations-with-amazon-sagemaker-clarify-and-amazon-a2i/",
-    keywords: ["human reviewer", "monitor and steer", "human able to disagree", "human oversight", "similar past cases", "keep the final decision with the clinician"],
-    certs: ["aif-c01"],
+    keywords: ["human reviewer", "monitor and steer", "human able to disagree", "human oversight", "similar past cases", "keep the final decision with the clinician", "amazon augmented ai", "amazon a2i", "human review workflows"],
+    certs: ["clf-c02", "aif-c01"],
   },
   {
     id: "aws-ai-service-cards-intro",
@@ -517,7 +517,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS pay-as-you-go pricing follows demand instead of fixed capacity",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/pricing/services/",
-    keywords: ["pay-as-you-go", "pay as you go", "no upfront payment", "no long-term contracts", "pay only for the individual services", "volume-based tiered pricing", "committing to steady usage"],
+    keywords: ["pay-as-you-go", "pay as you go", "no upfront payment", "no long-term contracts", "pay only for the individual services", "volume-based tiered pricing", "committing to steady usage", "trade capital expense for variable expense", "variable expense", "on-demand price"],
     certs: ["clf-c02"],
   },
   {
@@ -637,7 +637,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Support plan severity levels determine the guaranteed response time and available contact channels",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/awssupport/latest/user/case-management.html",
-    keywords: ["production system down", "business-critical system down", "initial response time", "system impaired", "designated technical account manager", "response time of one hour", "tam-led architecture reviews"],
+    keywords: ["production system down", "business-critical system down", "initial response time", "system impaired", "designated technical account manager", "response time of one hour", "tam-led architecture reviews", "business support+"],
     certs: ["clf-c02"],
   },
   {
@@ -677,7 +677,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Pricing Calculator models the cost of a workload before it is built",
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/aws-cloud-financial-management/create-your-personalized-cost-estimate-with-aws-pricing-calculator/",
-    keywords: ["pricing calculator", "migration evaluator", "price list api", "12-month total costs", "varies by region", "estimate the monthly cost", "has not yet been built"],
+    keywords: ["pricing calculator", "migration evaluator", "12-month total costs", "varies by region", "estimate the monthly cost", "has not yet been built"],
     certs: ["clf-c02"],
   },
   {
@@ -687,7 +687,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Organizations centrally manages accounts, policies, and consolidated billing",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html",
-    keywords: ["aws organizations", "consolidated billing", "management account", "shared-services account", "aws billing conductor", "billing groups", "reserved instance discount sharing", "share reserved instance and savings plans discounts", "credit sharing", "aggregated across all accounts in the organization", "pro forma invoices", "declarative policies", "preventive control", "preventive controls", "detective control", "detective controls", "alternate contacts", "aws health"],
+    keywords: ["aws organizations", "consolidated billing", "management account", "shared-services account", "reserved instance discount sharing", "share reserved instance and savings plans discounts", "credit sharing", "aggregated across all accounts in the organization", "declarative policies", "preventive control", "preventive controls", "detective control", "detective controls", "alternate contacts", "aws health", "multi-account strategy"],
     certs: ["clf-c02"],
   },
   {
@@ -717,7 +717,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Amazon S3 storage classes and the lifecycle transitions between them",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html",
-    keywords: ["glacier flexible retrieval", "s3 intelligent-tiering", "monitoring and automation fee", "deleted early", "minimum storage duration", "128 kb", "data lifecycle policies", "lower-energy storage tiers", "storage grows automatically as objects are added", "no capacity to provision", "s3 standard-infrequent access", "s3 one zone-infrequent access", "s3 glacier deep archive", "s3 glacier flexible retrieval", "lifecycle configuration", "transitions objects to a colder storage class", "lowest total cost for this access pattern", "intelligent-tiering", "viewed constantly for months", "never opened again", "automatically based on how often"],
+    keywords: ["glacier flexible retrieval", "s3 intelligent-tiering", "monitoring and automation fee", "deleted early", "minimum storage duration", "128 kb", "data lifecycle policies", "lower-energy storage tiers", "storage grows automatically as objects are added", "no capacity to provision", "s3 standard-infrequent access", "s3 one zone-infrequent access", "s3 glacier deep archive", "s3 glacier flexible retrieval", "lifecycle configuration", "transitions objects to a colder storage class", "lowest total cost for this access pattern", "intelligent-tiering", "viewed constantly for months", "never opened again", "automatically based on how often", "s3 glacier instant retrieval", "glacier instant retrieval", "s3 standard"],
     certs: ["clf-c02"],
   },
   {
@@ -737,7 +737,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "S3 Bucket Keys cut AWS KMS request costs for SSE-KMS encrypted objects",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html",
-    keywords: ["s3 bucket key", "s3 bucket keys", "sse-kms", "large aws kms charge", "every object upload and download makes a kms api request", "no change to the encryption at rest", "server-side encryption", "sse-s3", "sse-c", "encrypted at rest", "default encryption", "customer-provided key", "audit trail", "decrypted objects", "dsse-kms", "copy the snapshot with encryption enabled", "ebs encryption by default"],
+    keywords: ["s3 bucket key", "s3 bucket keys", "sse-kms", "large aws kms charge", "every object upload and download makes a kms api request", "no change to the encryption at rest", "sse-s3", "default encryption", "audit trail", "decrypted objects", "dsse-kms"],
     certs: ["clf-c02"],
   },
   {
@@ -767,7 +767,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Data transfer charges depend on both the source and destination of the traffic",
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/networking-and-content-delivery/understand-aws-data-transfer-details-in-depth-from-cost-and-usage-report-using-athena-query-and-quicksight/",
-    keywords: ["data transferred out", "cross-az traffic", "between availability zones in the same region", "free dto", "gateway vpc endpoint", "s3 batch replication", "direct connect pricing", "port-hour charge", "nat gateway data-processing charges"],
+    keywords: ["data transferred out", "cross-az traffic", "between availability zones in the same region", "free dto", "gateway vpc endpoint", "s3 batch replication", "direct connect pricing", "port-hour charge", "nat gateway data-processing charges", "data transfer bill", "pay for its own data transfer", "data transfer charges", "data transfer pricing"],
     certs: ["clf-c02"],
   },
   {
@@ -787,7 +787,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Paid AWS Support plans let you open technical cases at different severity levels",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/awssupport/latest/user/case-management.html",
-    keywords: ["developer support plan", "open technical support cases with aws engineers", "replaced developer and business support", "third-party software guidance", "common third-party applications", "troubleshoot configuration issues in the operating system"],
+    keywords: ["developer support plan", "open technical support cases with aws engineers", "replaced developer and business support", "third-party software guidance", "common third-party applications", "troubleshoot configuration issues in the operating system", "service limit increase"],
     certs: ["clf-c02"],
   },
   {
@@ -847,7 +847,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Outposts extends a VPC into an on-premises hybrid environment",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/outposts/latest/userguide/how-outposts-works.html",
-    keywords: ["outposts", "outposts racks", "data center plus cloud", "on-premises infrastructure is connected to cloud resources", "remaining on-premises and integrated with applications running on aws", "does not access or use customer content", "remain in the same region", "aws outposts", "aws china", "icp filing", "keep certain workloads on-premises for data residency", "same aws apis, tools, and services"],
+    keywords: ["outposts", "outposts racks", "data center plus cloud", "on-premises infrastructure is connected to cloud resources", "remaining on-premises and integrated with applications running on aws", "does not access or use customer content", "remain in the same region", "aws outposts", "keep certain workloads on-premises for data residency", "same aws apis, tools, and services"],
     certs: ["clf-c02"],
   },
   {
@@ -857,7 +857,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Direct Connect: a dedicated private link between a data center and AWS",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html",
-    keywords: ["direct connect", "direct connect hosted connection", "does not traverse the public internet", "private, consistent, high-bandwidth network connection", "site-to-site vpn", "hybrid connectivity", "data center", "virtual interface", "verified access", "zero trust", "without a vpn", "dedicated, private network connection", "bypassing the public internet", "on-premises data center"],
+    keywords: ["direct connect", "direct connect hosted connection", "does not traverse the public internet", "private, consistent, high-bandwidth network connection", "hybrid connectivity", "virtual interface", "dedicated, private network connection", "bypassing the public internet"],
     certs: ["clf-c02"],
   },
   {
@@ -1007,7 +1007,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Amazon Elastic Beanstalk automatically manages the load balancer, Auto Scaling group and platform for a deployed app",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html",
-    keywords: ["elastic beanstalk", "automatically handles capacity provisioning, load balancing, and patching", "platform as a service (paas)", "supplies only application code", "ecs express mode", "without manually configuring the underlying infrastructure", "simplest way to deploy a web application", "aws elastic beanstalk", "uploading a war file", "platform as a service", "blue/green deployment", "rolling and immutable deployment"],
+    keywords: ["elastic beanstalk", "automatically handles capacity provisioning, load balancing, and patching", "platform as a service (paas)", "supplies only application code", "without manually configuring the underlying infrastructure", "simplest way to deploy a web application", "aws elastic beanstalk", "uploading a war file", "platform as a service", "blue/green deployment", "rolling and immutable deployment"],
     certs: ["clf-c02"],
   },
   {
@@ -1177,7 +1177,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Storage Gateway connects on-premises applications to AWS storage",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/filegateway/latest/files3/file-gateway-concepts.html",
-    keywords: ["s3 file gateway", "nfs or smb share backed by s3", "site-to-site vpn", "ipsec vpn to a virtual private gateway", "cloud connected to on-premises systems"],
+    keywords: ["s3 file gateway", "nfs or smb share backed by s3", "cloud connected to on-premises systems"],
     certs: ["clf-c02"],
   },
   {
@@ -1217,7 +1217,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Moderating uploaded content with pre-trained AWS AI services such as Amazon Rekognition",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/reference-architecture-diagrams/latest/content-moderation-compliance/content-moderation-compliance.html",
-    keywords: ["pre-trained image analysis api", "managed image analysis service", "democratize advanced technologies", "delegate complex tasks to your cloud vendor"],
+    keywords: ["pre-trained image analysis api", "managed image analysis service", "image moderation"],
     certs: ["clf-c02"],
   },
   {
@@ -1367,7 +1367,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Trusted Advisor, checking accounts against best-practice categories",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/premiumsupport/technology/trusted-advisor/",
-    keywords: ["trusted advisor", "security checks", "service limit", "security blog", "security bulletins", "aws marketplace", "in scope by compliance program"],
+    keywords: ["trusted advisor", "security checks"],
     certs: ["clf-c02"],
   },
   {
@@ -1427,7 +1427,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS compliance programs and data residency, mapped across the world",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/compliance/programs/",
-    keywords: ["aws artifact", "compliance reports", "pci dss", "fedramp", "data residency", "gdpr", "remains physically within", "customer data never leaves", "compliance and governance requirements", "soc 3", "cccs", "iso/iec 27018", "iso/iec 27701", "soc 2 type ii report", "iso 27001 certificate", "reports page of aws artifact", "iso/iec 42001", "keep the customer personal data used by its generative ai application inside the european union"],
+    keywords: ["aws artifact", "compliance reports", "pci dss", "fedramp", "data residency", "gdpr", "remains physically within", "customer data never leaves", "compliance and governance requirements", "soc 3", "cccs", "iso/iec 27018", "iso/iec 27701", "soc 2 type ii report", "iso 27001 certificate", "reports page of aws artifact", "iso/iec 42001", "keep the customer personal data used by its generative ai application inside the european union", "in scope by compliance program", "services in scope", "soc reports", "iso certifications"],
     certs: ["clf-c02", "aif-c01"],
   },
   {
@@ -1467,7 +1467,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS KMS rotating a key's cryptographic material without changing its key ID",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html",
-    keywords: ["kms key rotation", "automatic key rotation", "key policy", "customer managed keys", "cloudhsm", "fips 140-3", "dedicated hardware security module", "key material", "waiting period", "schedule key deletion", "aws key management service", "aws kms", "kms", "cryptographic keys"],
+    keywords: ["kms key rotation", "automatic key rotation", "key policy", "customer managed keys", "key material", "waiting period", "schedule key deletion", "aws key management service", "aws kms", "kms", "cryptographic keys"],
     certs: ["clf-c02"],
   },
   {
@@ -1477,7 +1477,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "How AWS KMS layers keys to protect data, down to individual data keys",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html",
-    keywords: ["envelope encryption", "data key", "encrypt large", "4 kb", "client-side encryption", "before it leaves", "aws never has access", "copy the snapshot", "re-encrypt", "encrypt an existing", "unencrypted", "encrypt this existing", "encrypt an existing instance", "copy the snapshot with encryption enabled"],
+    keywords: ["envelope encryption", "data key", "encrypt large", "4 kb"],
     certs: ["clf-c02"],
   },
   {
@@ -1497,7 +1497,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "One CloudTrail organization trail logging every account into a central S3 bucket",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/creating-trail-organization.html",
-    keywords: ["cloudtrail", "trail", "management events", "who made a request", "log file validation", "cloudtrail insights", "event history", "organization trail", "terminated an ec2 instance"],
+    keywords: ["cloudtrail", "trail", "management events", "who made a request", "log file validation", "cloudtrail insights", "event history", "organization trail", "terminated an ec2 instance", "traceability"],
     certs: ["clf-c02"],
   },
   {
@@ -1517,7 +1517,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Config aggregating resource configuration and compliance data",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/config/latest/developerguide/aggregate-data.html",
-    keywords: ["aws config", "config rule", "conformance pack", "non_compliant", "assess compliance", "unencrypted ebs volume", "encryption by default", "automatic remediation"],
+    keywords: ["aws config", "config rule", "conformance pack", "non_compliant", "assess compliance", "unencrypted ebs volume", "automatic remediation"],
     certs: ["clf-c02"],
   },
   {
@@ -1547,7 +1547,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS PrivateLink: reaching a service privately through a VPC endpoint",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html",
-    keywords: ["privatelink", "vpc endpoint", "interface endpoint", "gateway endpoint", "endpoint service", "without vpc peering", "without a nat gateway", "network load balancer", "vpc sharing", "share subnets", "resource access manager", "aws ram", "call amazon bedrock without the traffic traversing the public internet", "no internet gateway and no nat gateway", "a private ip entry point to the bedrock api"],
+    keywords: ["privatelink", "vpc endpoint", "interface endpoint", "gateway endpoint", "endpoint service", "without vpc peering", "without a nat gateway", "network load balancer", "call amazon bedrock without the traffic traversing the public internet", "no internet gateway and no nat gateway", "a private ip entry point to the bedrock api"],
     certs: ["clf-c02", "aif-c01"],
   },
   {
@@ -1567,7 +1567,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Network Firewall inspecting traffic between subnets and the internet",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/network-firewall/latest/developerguide/arch-igw-ngw.html",
-    keywords: ["aws network firewall", "intrusion prevention", "domain filtering", "deep packet inspection", "stateful", "suricata rules", "route 53 resolver dns firewall", "vpc flow logs", "malicious domains"],
+    keywords: ["aws network firewall", "intrusion prevention", "domain filtering", "deep packet inspection", "stateful", "suricata rules", "malicious domains"],
     certs: ["clf-c02"],
   },
   {
@@ -1577,7 +1577,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Security Incident Response, for triaging and coordinating a response to active threats",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/security-incident-response/",
-    keywords: ["security incident response", "aws cirt", "ransomware", "credential leak", "triages findings", "coordinates a response", "24/7"],
+    keywords: ["security incident response", "aws cirt", "ransomware", "credential leak", "triages findings", "coordinates a response"],
     certs: ["clf-c02"],
   },
   {
@@ -1597,7 +1597,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Effective permissions sit at the overlap of SCPs, boundaries, and identity policies",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html",
-    keywords: ["service control policy", "permissions boundary", "management account", "administratoraccess", "payer account", "restrict the root user"],
+    keywords: ["service control policy", "permissions boundary", "administratoraccess", "payer account", "restrict the root user"],
     certs: ["clf-c02"],
   },
   {
@@ -1617,7 +1617,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS KMS key store options compared",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/kms/latest/developerguide/key-store-overview.html",
-    keywords: ["multi-region key", "multi-region keys", "replica key", "replica keys", "custom key store", "external key store", "cloudhsm"],
+    keywords: ["multi-region key", "multi-region keys", "replica key", "replica keys", "custom key store", "external key store"],
     certs: ["clf-c02"],
   },
   {
@@ -1637,7 +1637,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "How Amazon GuardDuty continuously monitors for threats",
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/guardduty/",
-    keywords: ["cloudtrail management events", "vpc flow logs", "suppression rule", "malware protection", "runtime monitoring", "export findings", "guardduty detector", "regional service"],
+    keywords: ["cloudtrail management events", "suppression rule", "malware protection", "runtime monitoring", "export findings", "guardduty detector", "regional service"],
     certs: ["clf-c02"],
   },
   {
@@ -1657,7 +1657,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "A security group controlling traffic to an instance in a VPC",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html",
-    keywords: ["traffic mirroring", "chain the security groups", "default security group", "explicit deny rules", "resource access manager", "flow log"],
+    keywords: ["traffic mirroring", "chain the security groups", "default security group", "explicit deny rules", "flow log"],
     certs: ["clf-c02"],
   },
   {
@@ -1667,7 +1667,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "VPC endpoint types connecting privately to AWS and partner services",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
-    keywords: ["aws:sourcevpce", "privatelink", "session manager", "ssm agent", "client vpn", "verified access", "aws privatelink", "endpoint service", "network load balancer in its own vpc", "without exposing", "interface vpc endpoints"],
+    keywords: ["aws:sourcevpce", "privatelink", "session manager", "ssm agent", "aws privatelink", "endpoint service", "network load balancer in its own vpc", "without exposing", "interface vpc endpoints"],
     certs: ["clf-c02"],
   },
   {
@@ -1677,7 +1677,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Route 53 Resolver endpoints routing DNS queries between a VPC and an on-premises network",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html",
-    keywords: ["dns firewall", "trust and safety", "zone walking", "elastic ip addresses", "hosted zones", "route 53 resolver", "resolver inbound and outbound endpoints", "resolve the private dns names", "hybrid dns", "site-to-site vpn", "direct connect"],
+    keywords: ["dns firewall", "trust and safety", "zone walking", "elastic ip addresses", "hosted zones", "route 53 resolver", "resolver inbound and outbound endpoints", "resolve the private dns names", "hybrid dns"],
     certs: ["clf-c02"],
   },
   {
@@ -1807,7 +1807,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Creating a trust anchor in IAM Roles Anywhere",
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/security/extend-aws-iam-roles-to-workloads-outside-of-aws-with-iam-roles-anywhere/",
-    keywords: ["roles anywhere", "imdsv2", "httptokens", "openid connect", "database authentication"],
+    keywords: ["roles anywhere", "openid connect"],
     certs: ["clf-c02"],
   },
   {
@@ -1867,8 +1867,8 @@ export const imageCatalog: ImageEntry[] = [
     caption: "An AWS Step Functions visual workflow with a choice state",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html",
-    keywords: ["step functions", "visual state machines", "serverless workflows", "coordinate multiple aws lambda functions", "aws step functions", "standard workflows", "express workflows", "loan-approval process", "human review step"],
-    certs: ["clf-c02"],
+    keywords: ["step functions", "visual state machines", "serverless workflows", "coordinate multiple aws lambda functions", "aws step functions", "standard workflows", "express workflows", "loan-approval process"],
+    certs: ["clf-c02", "aif-c01"],
   },
   {
     id: "eventbridge-scheduled-lambda",
@@ -2097,7 +2097,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "An AWS CodePipeline made of stages and actions",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts.html",
-    keywords: ["codepipeline", "orchestrates these stages into a release pipeline", "fully managed ci/cd workflow"],
+    keywords: ["codepipeline", "orchestrates these stages into a release pipeline", "fully managed ci/cd workflow", "continuous integration", "continuous delivery"],
     certs: ["clf-c02"],
   },
   {
@@ -2147,7 +2147,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "AWS Systems Manager Inventory across managed instances",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html",
-    keywords: ["aws backup", "centrally automates and monitors backups", "patching instances or backing up data", "visibility into, and lets you automate, routine operational work across your aws resources", "systems manager inventory", "every application, package version", "500 managed ec2 instances", "up-to-date list"],
+    keywords: ["visibility into, and lets you automate, routine operational work across your aws resources", "systems manager inventory", "every application, package version", "500 managed ec2 instances", "up-to-date list"],
     certs: ["clf-c02"],
   },
   {
@@ -2298,7 +2298,7 @@ export const imageCatalog: ImageEntry[] = [
     credit: "AWS",
     sourceUrl: "https://aws.amazon.com/sagemaker/canvas/",
     keywords: ["sagemaker canvas", "amazon sagemaker canvas", "no coding or machine learning experience", "predict customer churn", "business analysts", "csv export"],
-    certs: ["clf-c02"],
+    certs: ["clf-c02", "aif-c01"],
   },
   {
     id: "amazon-location-service-overview",
@@ -2587,7 +2587,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "A well-constructed prompt, with its context, reference text, instructions, and output format labeled",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/design-a-prompt.html",
-    keywords: ["output indicator", "the form of output is specifically described", "contextual information about the task", "simple, clear and complete instructions", "instructions placed at the end of the prompt", "state the specific task and the output format", "a statement of the reply format"],
+    keywords: ["output indicator", "the form of output is specifically described", "contextual information about the task", "simple, clear and complete instructions", "instructions placed at the end of the prompt", "state the specific task and the output format", "a statement of the reply format", "zero-shot prompting", "instruction-only prompt"],
     certs: ["aif-c01"],
   },
   {
@@ -2778,7 +2778,7 @@ export const imageCatalog: ImageEntry[] = [
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/machine-learning/customize-amazon-translate-output-to-meet-your-domain-and-organization-specific-vocabulary/",
     keywords: ["custom terminology", "amazon translate", "product names keep coming back translated literally", "terminology file", "render each product name the way the company specifies"],
-    certs: ["aif-c01"],
+    certs: ["clf-c02", "aif-c01"],
   },
   {
     id: "sagemaker-automatic-model-tuning-architecture",
@@ -2897,7 +2897,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "The AWS Cloud Value Framework's pillars",
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/migration-and-modernization/unleashing-the-power-of-the-cloud-with-the-aws-cloud-value-framework-cvf-introduction-1-7/",
-    keywords: ["cloud value framework", "quantify the business value of moving to aws", "staff productivity, operational resilience, and business agility", "cost savings (tco)", "operational resilience", "business-case model"],
+    keywords: ["cloud value framework", "quantify the business value of moving to aws", "staff productivity, operational resilience, and business agility", "cost savings (tco)", "operational resilience", "business-case model", "agility"],
     certs: ["clf-c02"],
   },
   {
@@ -3287,7 +3287,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "The Well-Architected Tool reviews a workload across six pillars and reports high- and medium-risk issues",
     credit: "AWS Blog",
     sourceUrl: "https://aws.amazon.com/blogs/mt/how-to-perform-a-well-architected-framework-review-part3/",
-    keywords: ["review a production workload against aws best practices", "structured set of questions across the six pillars", "list of high-risk issues with improvement plans", "main purpose of the aws well-architected framework", "consistent approach for evaluating and improving cloud architectures", "help architects build secure, resilient, and efficient workloads", "design principle of the security pillar of the aws well-architected framework", "reviewing a workload against the aws well-architected framework cost optimization pillar", "design principles of that pillar"],
+    keywords: ["review a production workload against aws best practices", "structured set of questions across the six pillars", "list of high-risk issues with improvement plans", "main purpose of the aws well-architected framework", "consistent approach for evaluating and improving cloud architectures", "help architects build secure, resilient, and efficient workloads", "design principle of the security pillar of the aws well-architected framework", "reviewing a workload against the aws well-architected framework cost optimization pillar", "design principles of that pillar", "well-architected"],
     certs: ["clf-c02"],
   },
   {
@@ -3347,7 +3347,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Availability measures the percentage of time a service is accessible",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html",
-    keywords: ["percentage of time the service can be accessed", "designed for 99.99% availability and 99.99% durability", "an object can be briefly unreachable without being lost", "high availability minimizes but doesn't guarantee zero downtime", "differentiates fault tolerance from high availability"],
+    keywords: ["percentage of time the service can be accessed", "designed for 99.99% availability and 99.99% durability", "an object can be briefly unreachable without being lost", "high availability minimizes but doesn't guarantee zero downtime", "differentiates fault tolerance from high availability", "downtime per year", "availability targets"],
     certs: ["clf-c02"],
   },
   {
@@ -3430,17 +3430,67 @@ export const imageCatalog: ImageEntry[] = [
     keywords: ["make the operation idempotent", "unique client token", "repeating the same request has no additional effect", "record each unique request id and return the original result for repeats", "customers were charged twice", "retries requests automatically when a downstream call times out"],
     certs: ["clf-c02"],
   },
+  {
+    id: "cloud-computing-overview",
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Cloud_computing.svg/960px-Cloud_computing.svg.png",
+    alt: "Diagram of a cloud holding three layers of services: Application (monitoring, content, collaboration, communication, finance), Platform (object storage, identity, runtime, queue, database) and Infrastructure (compute, block storage, network), reached by servers, laptops, desktops, phones and tablets around it",
+    caption: "Cloud computing: application, platform and infrastructure services delivered over the network to any device",
+    credit: "Wikimedia Commons / Sam Johnston, CC BY-SA 3.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Cloud_computing.svg",
+    keywords: [],
+    certs: ["clf-c02"],
+  },
+  {
+    id: "ecs-anywhere-how-it-works",
+    url: "https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/product-categories/compute/approved/images/f3afd61c-d50d-480a-9d25-8ac9fa3c1473.2253be69e95f99489dae3d7aeabe9fde1ea87050.png",
+    alt: "Amazon ECS Anywhere in four steps: create an activation key to register virtual machines or bare-metal servers, install the SSM Agent and ECS agent on the on-premises servers, define the application's container images and resources, then let Amazon ECS deploy, manage and scale the containers",
+    caption: "Amazon ECS Anywhere runs ECS-managed containers on your own on-premises servers",
+    credit: "AWS",
+    sourceUrl: "https://aws.amazon.com/ecs/anywhere/",
+    keywords: ["ecs anywhere", "amazon ecs anywhere", "external launch type", "external instances", "ssm and ecs agents"],
+    certs: ["clf-c02"],
+  },
+  {
+    id: "billing-conductor-console",
+    url: "https://d2908q01vomqb2.cloudfront.net/2e01e17467891f7c933dbaa00e1459d23db3fe4f/2022/03/16/ABC_LP.jpg",
+    alt: "AWS Billing Conductor console landing page with a How it works diagram: an AWS Organizations consolidated billing family feeds Billing Conductor, which assigns accounts to billing groups with pricing rules, computes pro forma billing per group, and reports it in the Cost and Usage Report and Bills page; a Create billing group button sits on the right",
+    caption: "AWS Billing Conductor computes a pro forma bill for each billing group with its own pricing",
+    credit: "AWS Blog",
+    sourceUrl: "https://aws.amazon.com/blogs/aws-cloud-financial-management/getting-started-with-aws-billing-conductor/",
+    keywords: ["billing conductor", "aws billing conductor", "billing groups", "pro forma invoices", "pro forma", "custom pricing plans"],
+    certs: ["clf-c02"],
+  },
+  {
+    id: "verified-access-components",
+    url: "https://docs.aws.amazon.com/images/verified-access/latest/ug/images/verified-access-components.png",
+    alt: "AWS Verified Access diagram: a user's laptop or phone connects to Verified Access, where trust providers (fed by trust data providers) and a Verified Access instance with a Verified Access group evaluate each request before it reaches a load balancer and applications in a private subnet of a VPC",
+    caption: "AWS Verified Access checks identity and device trust on every request to a private application",
+    credit: "AWS Documentation",
+    sourceUrl: "https://docs.aws.amazon.com/verified-access/latest/ug/how-it-works.html",
+    keywords: ["verified access", "aws verified access", "zero trust", "trust providers", "device trust"],
+    certs: ["clf-c02"],
+  },
+  {
+    id: "aws-backup-reference-architecture",
+    url: "https://docs.aws.amazon.com/images/reference-architecture-diagrams/latest/data-protection-aws-backup/images/data-protection-aws-backup-1.png",
+    alt: "AWS Backup reference architecture: a backup plan deployed with CloudFormation runs backup jobs across AWS compute, database and storage services, storing recovery points in an AWS Backup vault protected by a KMS key and access policies, with AWS Backup Audit Manager producing compliance reports and CloudTrail, CloudWatch and EventBridge monitoring the service",
+    caption: "AWS Backup applies one backup plan across compute, database and storage services and keeps recovery points in a backup vault",
+    credit: "AWS Documentation",
+    sourceUrl: "https://docs.aws.amazon.com/reference-architecture-diagrams/latest/data-protection-aws-backup/data-protection-cloud-native.html",
+    keywords: ["aws backup", "backup plan", "backup plans", "backup vault", "backup audit manager", "centrally automates and monitors backups"],
+    certs: ["clf-c02"],
+  },
 ];
 
 /** Image used when no keyword matches, keyed by domain id across all certs. */
 export const domainImageFallback: Record<string, string> = {
-  "cloud-concepts": "aws-global-infrastructure-map",
+  "cloud-concepts": "cloud-computing-overview",
   "security-and-compliance": "shared-responsibility-model",
   "cloud-technology-and-services": "data-centre-server-racks",
-  "billing-pricing-and-support": "cost-explorer-console",
+  "billing-pricing-and-support": "ec2-pricing-payasyougo",
   "ai-ml-fundamentals": "ai-ml-deep-learning",
   "genai-fundamentals": "transformer-architecture",
-  "foundation-model-applications": "bedrock-knowledge-base-rag",
+  "foundation-model-applications": "bedrock-model-catalog-providers",
   "responsible-ai": "responsible-ai-dimensions",
   "ai-security-governance": "genai-security-scoping-matrix",
 };
