@@ -12,7 +12,7 @@ For a one-off production build without the dev server:
     npm run build
     npx http-server .   # or: python3 -m http.server
 
-`npm run build` compiles the TypeScript, copies the Mermaid bundle into `vendor/`, and generates `sw.js` with a precache list of every asset. Both `vendor/` and `sw.js` are build outputs and are not committed.
+`npm run build` compiles the TypeScript, copies the Mermaid bundle into `vendor/`, and generates `sw.js` with a precache list of every asset. Both `vendor/` and `sw.js` are build outputs and are not committed. `npm test` compiles the TypeScript and runs the unit tests in `tests/` with Node's built-in test runner; it needs no network.
 
     npm run videos:assign
 
@@ -35,7 +35,7 @@ After each practice answer the app shows one image that illustrates the question
     npm run images:check
     node scripts/preview-match.mts images <questionId> [batch.json]
 
-`images:assign` matches each question to its most relevant image, the same way videos are matched, and writes `src/image-assignments.ts`. Questions with no match use their domain's fallback image. `images:check` confirms every URL still returns an image of 1.5 MB or less. Run it after editing the catalog and before a release, since hotlinked images can move.
+`images:assign` matches each question to its most relevant image, the same way videos are matched, and writes `src/image-assignments.ts`. An image is only matched through its keywords in the question stem or a correct answer, never through the explanation alone, since explanations often name a wrong option. Questions with no match use their domain's fallback image. The report also lists any image whose caption names a service found only in a wrong option. `images:check` confirms every URL still returns an image of 1.5 MB or less. Run it after editing the catalog and before a release, since hotlinked images can move.
 
 ## Offline and PWA
 
