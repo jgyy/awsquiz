@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mapLimit } from "../scripts/lib/map-limit.mts";
-import { parseClock, parsePlayerResponse, parseSearchResponse, parseWatchPage } from "../scripts/lib/youtube.mts";
+import { oembedStatus, parseClock, parsePlayerResponse, parseSearchResponse, parseWatchPage } from "../scripts/lib/youtube.mts";
 
 test("mapLimit keeps input order and never exceeds the limit", async () => {
   let inFlight = 0;
@@ -74,4 +74,23 @@ test("parseSearchResponse walks nested renderers in page order", () => {
     { id: "v1", title: "AWS IAM Roles", seconds: 267, channelId: "UCd6MoB9NC6uYN2grvUNT-Zg", channelName: "Amazon Web Services" },
     { id: "v2", title: "Live now", seconds: null, channelId: "UCx", channelName: "Someone" },
   ]);
+});
+
+test("oembedStatus retries a network error once, then reports status 0 instead of throwing", async (t) => {
+  let calls = 0;
+  t.mock.method(globalThis, "fetch", async () => {
+    calls++;
+    throw new TypeError("fetch failed: ECONNRESET");
+  });
+  assert.equal(await oembedStatus("abc", 0), 0);
+  assert.equal(calls, 2);
+});
+
+test("oembedStatus returns the status after one failed attempt", async (t) => {
+  let calls = 0;
+  t.mock.method(globalThis, "fetch", async () => {
+    if (++calls === 1) throw new TypeError("fetch failed");
+    return new Response(null, { status: 404 });
+  });
+  assert.equal(await oembedStatus("abc", 0), 404);
 });

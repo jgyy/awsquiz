@@ -10,6 +10,7 @@ export function videoCheckProblems(entry: VideoEntry, oembed: number, meta: Vide
   const problems: string[] = [];
   if (oembed === 401) problems.push("embedding is disabled");
   else if (oembed === 404) problems.push("video is private or removed");
+  else if (oembed === 0) problems.push("oEmbed request failed (network error); retry later");
   else if (oembed !== 200) problems.push(`oEmbed returned HTTP ${oembed}; retry later`);
   if (!meta) {
     if (oembed === 200) problems.push("could not read length and channel (likely throttled); retry later");

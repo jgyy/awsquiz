@@ -75,6 +75,7 @@ test("videoCheckProblems tells removed videos apart from throttling", () => {
   assert.deepEqual(videoCheckProblems(entry, 200, null), ["could not read length and channel (likely throttled); retry later"]);
   assert.deepEqual(videoCheckProblems(entry, 401, meta), ["embedding is disabled"]);
   assert.deepEqual(videoCheckProblems(entry, 429, meta), ["oEmbed returned HTTP 429; retry later"]);
+  assert.deepEqual(videoCheckProblems(entry, 0, meta), ["oEmbed request failed (network error); retry later"]);
 });
 
 test("videoCheckProblems reports changed metadata and the length rule", () => {

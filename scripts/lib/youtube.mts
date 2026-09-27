@@ -114,12 +114,25 @@ export async function fetchVideoMeta(id: string, attempts = 3): Promise<VideoMet
   return null;
 }
 
-/** HTTP status of YouTube's oEmbed endpoint: 200 public and embeddable, 401 embedding disabled, 404 private or removed. */
-export async function oembedStatus(id: string): Promise<number> {
+/**
+ * HTTP status of YouTube's oEmbed endpoint: 200 public and embeddable, 401 embedding disabled,
+ * 404 private or removed. A network error (a reset connection, say) is retried once after
+ * `retryDelayMs`; if it fails again the status is 0, which the check reports as "retry later"
+ * instead of aborting a run of hundreds of videos.
+ */
+export async function oembedStatus(id: string, retryDelayMs = 2000): Promise<number> {
   const watchUrl = `https://www.youtube.com/watch?v=${id}`;
-  const res = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(watchUrl)}`);
-  await res.body?.cancel();
-  return res.status;
+  const url = `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(watchUrl)}`;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url);
+      await res.body?.cancel();
+      return res.status;
+    } catch {
+      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, retryDelayMs));
+    }
+  }
+  return 0;
 }
 
 export async function searchVideos(query: string): Promise<SearchHit[]> {
