@@ -18,3 +18,10 @@ test("oversized images fail", () => {
   assert.equal(MAX_IMAGE_BYTES, 1_500_000);
   assert.match(imageResponseProblem(200, "image/jpeg", 4_200_000)!, /4\.2 MB is over the 1\.5 MB limit/);
 });
+
+test("a Cross-Origin-Resource-Policy other than cross-origin fails", () => {
+  assert.equal(imageResponseProblem(200, "image/png", 1_000, null), null);
+  assert.equal(imageResponseProblem(200, "image/png", 1_000, "cross-origin"), null);
+  assert.match(imageResponseProblem(200, "image/png", 1_000, "same-origin")!, /Cross-Origin-Resource-Policy is same-origin/);
+  assert.match(imageResponseProblem(200, "image/png", 1_000, " Same-Site ")!, /Cross-Origin-Resource-Policy is same-site/);
+});
