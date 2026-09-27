@@ -680,11 +680,12 @@ body.is-offline .course-link {
   padding: 0.5rem;
 }
 
+/* A fixed height reserves the image's space before the lazy load finishes, so the links
+   below do not jump; object-fit letterboxes any shape onto the backdrop. */
 .question-image img {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 320px;
+  height: 320px;
   object-fit: contain;
 }
 
@@ -1016,7 +1017,7 @@ select {
   }
 
   .question-image img {
-    max-height: 220px;
+    height: 220px;
   }
 
   .cli-command,
