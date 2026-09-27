@@ -27,6 +27,8 @@ export function videoAssignConfig(extra: VideoEntry[] = []): AssignConfig<VideoE
     weakScore: WEAK_SCORE,
     answerHitBonus: ANSWER_HIT_BONUS,
     bonus: officialPreference,
+    // The spec: when two videos fit equally well, the shorter one is chosen.
+    tieBreak: (a, b) => a.seconds - b.seconds,
     outPath: path.join(root, "src", "video-assignments.ts"),
     constName: "videoAssignments",
     header: [

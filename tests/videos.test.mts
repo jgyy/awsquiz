@@ -12,6 +12,8 @@ import {
 } from "../dist/videos.js";
 import { videoCheckProblems } from "../scripts/lib/video-check.mts";
 import { certifications } from "../dist/certifications.js";
+import { rankCandidates } from "../scripts/lib/assign-media.mts";
+import { videoAssignConfig } from "../scripts/lib/video-config.mts";
 
 const THIRD_PARTY = "UCaCZnknpM1TpUnJHl0fv0OA";
 const video = (id: string, over: object = {}) => ({ id, label: id, keywords: [], cert: "clf-c02", seconds: 100, channelId: THIRD_PARTY, ...over });
@@ -95,4 +97,21 @@ test("official videos get the bonus on service questions only", () => {
 
 test("the real catalog passes every rule", () => {
   assert.deepEqual(videoCatalogProblems(videoCatalog, domainFallbackFor, certifications), []);
+});
+
+test("videos:assign picks the shorter of two equally good videos", () => {
+  const q = {
+    id: "t1",
+    domain: "cloud-concepts",
+    text: "Which framework guides a cloud adoption journey?",
+    options: [{ id: "a", text: "The Cloud Adoption Framework" }, { id: "b", text: "Something else" }],
+    correctOptionIds: ["a"],
+    answerType: "single",
+    explanation: "",
+  };
+  const twins = [video("long", { keywords: ["cloud adoption framework"], seconds: 170 }), video("short", { keywords: ["cloud adoption framework"], seconds: 90 })];
+  const config = { ...videoAssignConfig(), catalog: twins, catalogFor: () => twins };
+  const ranked = rankCandidates(config, [{ id: "clf-c02", questions: [q] }]).get(q)!;
+  assert.deepEqual(ranked.map((c) => c.entry.id), ["short", "long"]);
+  assert.equal(ranked[0].score, ranked[1].score);
 });

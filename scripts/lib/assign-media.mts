@@ -45,6 +45,11 @@ export interface AssignConfig<E extends KeywordEntry> {
    */
   eligible?: (entry: E, h: Haystacks, question: Question) => boolean;
   /**
+   * Optional order for entries that score exactly the same, negative when `a` should win.
+   * Without it, ties keep catalog order.
+   */
+  tieBreak?: (a: E, b: E) => number;
+  /**
    * Optional id of the entry an unassigned question shows at runtime (its domain fallback). The
    * report counts that use in the most-shared list and the over-cap figure, since the learner
    * sees the fallback just as often as an assigned entry.
@@ -100,6 +105,7 @@ function idfForCert(catalog: KeywordEntry[], bank: Haystacks[]): (keyword: strin
 export function rankCandidates<E extends KeywordEntry>(config: AssignConfig<E>, certs: CertLike[] = certifications): Map<Question, Candidate<E>[]> {
   const bonus = config.bonus ?? (() => 1);
   const eligible = config.eligible ?? (() => true);
+  const tieBreak = config.tieBreak ?? (() => 0);
   const candidates = new Map<Question, Candidate<E>[]>();
   for (const cert of certs) {
     const catalog = config.catalogFor(cert.id);
@@ -116,7 +122,7 @@ export function rankCandidates<E extends KeywordEntry>(config: AssignConfig<E>, 
         score *= bonus(entry, q);
         scored.push({ entry, score });
       }
-      scored.sort((a, b) => b.score - a.score);
+      scored.sort((a, b) => b.score - a.score || tieBreak(a.entry, b.entry));
       candidates.set(q, scored.slice(0, CANDIDATES_PER_QUESTION));
     }
   }
@@ -126,6 +132,7 @@ export function rankCandidates<E extends KeywordEntry>(config: AssignConfig<E>, 
 /** Assigns every question its best entry, spreads over-used entries, writes the module and prints the report. */
 export async function assignMedia<E extends KeywordEntry>(config: AssignConfig<E>): Promise<AssignResult<E>> {
   const candidates = rankCandidates(config);
+  const tieBreak = config.tieBreak ?? (() => 0);
   const questionBank: Question[] = certifications.flatMap((c) => c.questions);
 
   const assignment = new Map<Question, Candidate<E>>();
@@ -152,7 +159,7 @@ export async function assignMedia<E extends KeywordEntry>(config: AssignConfig<E
         .get(q)!
         .filter((c) => c.entry.id !== current.entry.id && c.score >= best * config.runnerUpRatio)
         .filter((c) => (load.get(c.entry.id) ?? 0) < config.maxPerEntry)
-        .sort((a, b) => (load.get(a.entry.id) ?? 0) - (load.get(b.entry.id) ?? 0) || b.score - a.score);
+        .sort((a, b) => (load.get(a.entry.id) ?? 0) - (load.get(b.entry.id) ?? 0) || b.score - a.score || tieBreak(a.entry, b.entry));
       const target = alternatives[0];
       if (!target) continue;
       bump(current.entry.id, -1);
