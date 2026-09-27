@@ -27,8 +27,18 @@ Every per-question video is at most 3 minutes long unless it comes from the offi
 
 `videos:check` confirms every catalog video is still public and embeddable, and that its stored length and channel are current. It reads YouTube's public player data without an API key, so run it occasionally rather than in CI, and rerun anything reported as "retry later". The `youtube` helper looks up a video's length and channel, or searches YouTube (`--official` for the AWS channel only, `--short` for 3 minutes or less). `preview-match` shows how a question would be matched, including entries not yet merged into the catalog.
 
+## Question images
+
+After each practice answer the app shows one image that illustrates the question: an AWS diagram, a product image, or a Wikimedia Commons picture for general concepts. Images are hotlinked. `src/image-catalog.ts` stores only each image's URL, alt text, caption, credit and source page, and the image loads from the publisher's own server with a link back to that page. Nothing is copied into this repo. Images are hidden offline, and an image that fails to load is removed rather than shown broken.
+
+    npm run images:assign
+    npm run images:check
+    node scripts/preview-match.mts images <questionId> [batch.json]
+
+`images:assign` matches each question to its most relevant image, the same way videos are matched, and writes `src/image-assignments.ts`. Questions with no match use their domain's fallback image. `images:check` confirms every URL still returns an image of 1.5 MB or less. Run it after editing the catalog and before a release, since hotlinked images can move.
+
 ## Offline and PWA
 
-The app is an installable Progressive Web App. On first visit the service worker caches the app shell, all question modules, the self-hosted fonts in `fonts/`, and the vendored Mermaid bundle, so every screen, diagram, and CLI example works with no network. While offline the docs, console, and YouTube links are hidden and replaced with a short note, since they cannot be opened anyway.
+The app is an installable Progressive Web App. On first visit the service worker caches the app shell, all question modules, the self-hosted fonts in `fonts/`, and the vendored Mermaid bundle, so every screen, diagram, and CLI example works with no network. While offline the docs, console, and YouTube links and the question images are hidden and replaced with a short note, since they cannot be loaded anyway.
 
 The service worker must be served over HTTPS or from localhost. When you change any asset, rebuild so `sw.js` gets a new cache name; the old cache is evicted on the next activation.
