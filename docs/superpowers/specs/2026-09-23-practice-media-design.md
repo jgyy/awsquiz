@@ -180,7 +180,7 @@ export interface ImageEntry extends KeywordEntry {
   url: string;          // direct https URL of the image file
   alt: string;          // what the image shows, for screen readers
   caption: string;      // one short line under the image
-  credit: string;       // e.g. "AWS Documentation", "Wikimedia Commons, CC BY-SA 4.0"
+  credit: string;       // e.g. "AWS Documentation", "Wikimedia Commons / Jane Doe, CC BY-SA 4.0"
   sourceUrl: string;    // page the image appears on; the figure links here
   keywords: string[];
   certs: CertificationId[];   // an image can serve both certs (IAM, S3, KMS...)
@@ -263,8 +263,9 @@ Rules for every entry:
 - No images of people's faces unless they are incidental to a public
   product photo, no logos of non-AWS companies as the main subject, and
   nothing that reveals a different, wrong answer.
-- `credit` names the publisher, and the licence where one applies
-  (Commons).
+- `credit` names the publisher, and for Commons the author named on the file
+  page and the licence: "Wikimedia Commons / <author>, <licence>", with
+  "Public domain" and "CC0" spelled that way.
 
 The work is split across about 6 parallel subagents, one per topic cluster:
 CLF cloud concepts; CLF security and compliance; CLF compute, networking and
