@@ -1,6 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { imageCatalog, type ImageEntry } from "../../dist/image-catalog.js";
+import { domainImageFallback, imageCatalog, type ImageEntry } from "../../dist/image-catalog.js";
+import { hitsStemOrAnswer } from "../../dist/matching.js";
 import type { AssignConfig } from "./assign-media.mts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -17,6 +18,11 @@ export function imageAssignConfig(extra: ImageEntry[] = []): AssignConfig<ImageE
     runnerUpRatio: 0.75,
     weakScore: 30,
     answerHitBonus: 1.5,
+    // An image shows its caption's service on screen, so one that matches only through the
+    // explanation (often a wrong option it name-drops) must not win. The runtime path in
+    // src/images.ts applies the same rule.
+    eligible: (entry, h) => hitsStemOrAnswer(entry, h),
+    fallbackFor: (q) => domainImageFallback[q.domain],
     outPath: path.join(root, "src", "image-assignments.ts"),
     constName: "imageAssignments",
     header: [

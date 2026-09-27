@@ -85,6 +85,19 @@ export function entryScore(entry: KeywordEntry, h: Haystacks, weightFor: (keywor
   return score;
 }
 
+/**
+ * True when at least one of the entry's keywords appears in the question stem or a correct
+ * answer. An entry that matches only through the explanation is usually a neighbouring service
+ * the explanation name-drops ("unlike Aurora, ..."), often a wrong option, so image matching
+ * treats such entries as ineligible.
+ */
+export function hitsStemOrAnswer(entry: KeywordEntry, h: Haystacks): boolean {
+  return entry.keywords.some((keyword) => {
+    const k = keyword.toLowerCase();
+    return countHits(k, h.stem) + countHits(k, h.answers) > 0;
+  });
+}
+
 /** A capitalised name straight after "Amazon" or "AWS", as in "Amazon S3" or "AWS Shield". */
 const AWS_SERVICE_NAME = /\b(?:Amazon|AWS)\s+[A-Z]/;
 

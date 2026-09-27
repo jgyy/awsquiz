@@ -39,6 +39,17 @@ export interface AssignConfig<E extends KeywordEntry> {
   answerHitBonus: number;
   /** Optional extra multiplier for one entry on one question. Defaults to 1. */
   bonus?: (entry: E, question: Question) => number;
+  /**
+   * Optional rule that drops a scoring entry before ranking, for example one that matches only
+   * through the explanation. Defaults to every scoring entry being eligible.
+   */
+  eligible?: (entry: E, h: Haystacks, question: Question) => boolean;
+  /**
+   * Optional id of the entry an unassigned question shows at runtime (its domain fallback). The
+   * report counts that use in the most-shared list and the over-cap figure, since the learner
+   * sees the fallback just as often as an assigned entry.
+   */
+  fallbackFor?: (question: Question) => string | undefined;
   /** Where the generated module is written. */
   outPath: string;
   /** Name of the exported Record<questionId, entryId>. */
@@ -46,6 +57,9 @@ export interface AssignConfig<E extends KeywordEntry> {
   /** Lines of the generated file's doc comment. */
   header: string[];
 }
+
+/** The parts of a certification the ranking reads; tests pass small fixtures. */
+export type CertLike = { id: string; questions: Question[] };
 
 export interface Candidate<E> {
   entry: E;
@@ -83,10 +97,11 @@ function idfForCert(catalog: KeywordEntry[], bank: Haystacks[]): (keyword: strin
 }
 
 /** Every question's best matches, strongest first, scored with per-cert IDF and the bonuses. */
-export function rankCandidates<E extends KeywordEntry>(config: AssignConfig<E>): Map<Question, Candidate<E>[]> {
+export function rankCandidates<E extends KeywordEntry>(config: AssignConfig<E>, certs: CertLike[] = certifications): Map<Question, Candidate<E>[]> {
   const bonus = config.bonus ?? (() => 1);
+  const eligible = config.eligible ?? (() => true);
   const candidates = new Map<Question, Candidate<E>[]>();
-  for (const cert of certifications) {
+  for (const cert of certs) {
     const catalog = config.catalogFor(cert.id);
     const haystacks = new Map<Question, Haystacks>(cert.questions.map((q) => [q, haystacksFor(q)]));
     const idf = idfForCert(catalog, [...haystacks.values()]);
@@ -95,7 +110,7 @@ export function rankCandidates<E extends KeywordEntry>(config: AssignConfig<E>):
       const scored: Candidate<E>[] = [];
       for (const entry of catalog) {
         let score = entryScore(entry, h, idf);
-        if (score <= 0) continue;
+        if (score <= 0 || !eligible(entry, h, q)) continue;
         const hitsAnswer = entry.keywords.some((k) => countHits(k.toLowerCase(), h.answers) > 0);
         if (hitsAnswer) score *= config.answerHitBonus;
         score *= bonus(entry, q);
@@ -174,20 +189,37 @@ function printReport<E extends KeywordEntry>(config: AssignConfig<E>, { question
   const label = (id: string) => config.label(config.catalog.find((e) => e.id === id)!);
   const unmatched = questionBank.filter((q) => !assignment.has(q));
   const weak = questionBank.filter((q) => assignment.has(q) && assignment.get(q)!.score < config.weakScore);
-  const unused = config.catalog.filter((e) => !byEntry.has(e.id));
-  const overCap = [...byEntry.values()].filter((qs) => qs.length > config.maxPerEntry).length;
+  // What the learner sees: assignments plus the fallback shown for each unmatched question.
+  const fallbackUse = new Map<string, Question[]>();
+  for (const q of unmatched) {
+    const id = config.fallbackFor?.(q);
+    if (id === undefined) continue;
+    fallbackUse.set(id, [...(fallbackUse.get(id) ?? []), q]);
+  }
+  const shown = [...new Set([...byEntry.keys(), ...fallbackUse.keys()])].map((id) => ({
+    id,
+    assigned: byEntry.get(id) ?? [],
+    fallback: fallbackUse.get(id) ?? [],
+  }));
+  const total = (s: { assigned: Question[]; fallback: Question[] }) => s.assigned.length + s.fallback.length;
+  const unused = config.catalog.filter((e) => !byEntry.has(e.id) && !fallbackUse.has(e.id));
+  const overCap = shown.filter((s) => total(s) > config.maxPerEntry).length;
+  const withFallback = fallbackUse.size > 0 ? ", including domain fallbacks" : "";
 
   console.log(`questions ${questionBank.length}, catalog ${config.catalog.length}, ${noun}s used ${byEntry.size}, moved ${moved}`);
   console.log(`unique (1 question): ${[...byEntry.values()].filter((l) => l.length === 1).length}`);
-  console.log(`over ${config.maxPerEntry} questions: ${overCap}`);
+  console.log(`over ${config.maxPerEntry} questions${withFallback}: ${overCap}`);
   for (const cert of certifications) {
     const done = cert.questions.filter((q) => assignment.has(q)).length;
     console.log(`${cert.id}: ${done}/${cert.questions.length} assigned`);
   }
-  console.log(`\nMost shared ${noun}s:`);
-  for (const [id, qs] of [...byEntry.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 25)) {
-    console.log(`  ${String(qs.length).padStart(3)}  ${label(id)}  [${qs.map((q) => q.id).join(" ")}]`);
+  console.log(`\nMost shared ${noun}s${withFallback}:`);
+  for (const s of shown.sort((a, b) => total(b) - total(a)).slice(0, 25)) {
+    const split = s.fallback.length > 0 ? ` (${s.assigned.length} assigned + ${s.fallback.length} fallback)` : "";
+    const ids = [...s.assigned.map((q) => q.id), ...s.fallback.map((q) => `${q.id}*`)];
+    console.log(`  ${String(total(s)).padStart(3)}${split}  ${label(s.id)}  [${ids.join(" ")}]`);
   }
+  if (fallbackUse.size > 0) console.log("  (* = shown as the domain fallback)");
   console.log(`\nUnused catalog entries (${unused.length}):`);
   for (const e of unused) console.log(`  ${config.label(e)}`);
   console.log(`\nWeak matches (${weak.length}):`);
@@ -195,5 +227,8 @@ function printReport<E extends KeywordEntry>(config: AssignConfig<E>, { question
     console.log(`  ${q.id}  ${Math.round(assignment.get(q)!.score)}  ${label(assignment.get(q)!.entry.id)}  |  ${q.text.slice(0, 110)}`);
   }
   console.log(`\nUnmatched (${unmatched.length}):`);
-  for (const q of unmatched) console.log(`  ${q.id}  ${q.text.slice(0, 110)}`);
+  for (const q of unmatched) {
+    const fallback = config.fallbackFor?.(q);
+    console.log(`  ${q.id}  ${fallback === undefined ? "" : `-> ${fallback}  `}${q.text.slice(0, 110)}`);
+  }
 }

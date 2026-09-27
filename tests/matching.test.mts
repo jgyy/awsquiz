@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { countHits, entryScore, haystacksFor, keywordScore, namesAwsService } from "../dist/matching.js";
+import { countHits, entryScore, haystacksFor, hitsStemOrAnswer, keywordScore, namesAwsService } from "../dist/matching.js";
 
 const question = {
   id: "t1",
@@ -53,4 +53,11 @@ test("namesAwsService reads only the correct answers", () => {
   assert.equal(namesAwsService(withAnswers(["Pay-as-you-go pricing", "Amazon S3"])), false);
   assert.equal(namesAwsService(withAnswers(["It is AWS's responsibility"])), false);
   assert.equal(namesAwsService(withAnswers(["AWS manages the hardware"])), false);
+});
+
+test("hitsStemOrAnswer ignores keywords found only in the explanation", () => {
+  const h = haystacksFor(question);
+  assert.equal(hitsStemOrAnswer({ id: "ebs", keywords: ["EBS"] }, h), false);
+  assert.equal(hitsStemOrAnswer({ id: "s3", keywords: ["ebs", "S3"] }, h), true);
+  assert.equal(hitsStemOrAnswer({ id: "objects", keywords: ["objects"] }, h), true);
 });

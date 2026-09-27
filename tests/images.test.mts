@@ -2,6 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { certifications } from "../dist/certifications.js";
 import { imageCatalogProblems, pickImage, resolveImage } from "../dist/images.js";
+import { rankCandidates } from "../scripts/lib/assign-media.mts";
+import { imageAssignConfig } from "../scripts/lib/image-config.mts";
 
 const img = (id: string, over: object = {}) => ({
   id,
@@ -14,14 +16,14 @@ const img = (id: string, over: object = {}) => ({
   certs: ["clf-c02"],
   ...over,
 });
-const question = (text: string) => ({
+const question = (text: string, explanation = "", answer = "An answer") => ({
   id: "q1",
   domain: "security-and-compliance",
   text,
-  options: [{ id: "a", text: "An answer" }],
+  options: [{ id: "a", text: answer }, { id: "b", text: "Amazon Aurora" }],
   correctOptionIds: ["a"],
   answerType: "single",
-  explanation: "",
+  explanation,
 });
 const catalog = [img("srm", { keywords: ["shared responsibility"] }), img("kms", { keywords: ["kms"] }), img("fallback")];
 
@@ -30,6 +32,24 @@ test("pickImage prefers the assignment, then keywords, then the fallback", () =>
   assert.equal(pickImage(q, catalog, "kms", "fallback")!.id, "kms");
   assert.equal(pickImage(q, catalog, "gone", "fallback")!.id, "srm");
   assert.equal(pickImage(question("Which pricing model fits?"), catalog, undefined, "fallback")!.id, "fallback");
+});
+
+// The explanation name-drops a wrong option; an image of it must not be shown.
+const explained = question("Which service stores ledger data?", "Unlike Amazon Aurora, a ledger is immutable. Aurora is relational.", "Amazon Managed Blockchain");
+const ledgerCatalog = [img("aurora", { keywords: ["aurora", "amazon aurora"] }), img("blockchain", { keywords: ["managed blockchain"] }), img("fallback")];
+
+test("pickImage never picks an image matched only through the explanation", () => {
+  assert.equal(pickImage(explained, [ledgerCatalog[0], ledgerCatalog[2]], undefined, "fallback")!.id, "fallback");
+  assert.equal(pickImage(explained, ledgerCatalog, undefined, "fallback")!.id, "blockchain");
+});
+
+test("images:assign drops explanation-only candidates and keeps stem or answer hits", () => {
+  const config = { ...imageAssignConfig(), catalog: ledgerCatalog, catalogFor: () => ledgerCatalog };
+  const ranked = rankCandidates(config, [{ id: "clf-c02", questions: [explained] }]).get(explained)!;
+  assert.deepEqual(ranked.map((c) => c.entry.id), ["blockchain"]);
+  const inStem = question("How does Amazon Aurora store data?", "Aurora uses shared storage.");
+  const rankedStem = rankCandidates(config, [{ id: "clf-c02", questions: [inStem] }]).get(inStem)!;
+  assert.deepEqual(rankedStem.map((c) => c.entry.id), ["aurora"]);
 });
 
 const certsFixture = [{ id: "clf-c02", domains: [{ id: "security-and-compliance" }], questions: [{ id: "q1" }] }];
