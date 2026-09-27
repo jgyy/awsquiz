@@ -1837,7 +1837,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "Amazon RDS Multi-AZ synchronous replication to a standby",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html",
-    keywords: ["amazon rds", "fully managed relational database", "multi-az deployment", "minimal downtime", "synchronous replication", "standby replica", "engines such as mysql and postgresql", "rds multi-az", "synchronously replicates", "standby instance in another availability zone", "automatically fails over", "read replicas use asynchronous replication"],
+    keywords: ["multi-az deployment", "multi-az failover", "synchronous replication", "standby replica", "rds multi-az", "synchronously replicates", "standby instance in another availability zone", "automatically fails over", "read replicas use asynchronous replication"],
     certs: ["clf-c02"],
   },
   {
@@ -1887,7 +1887,7 @@ export const imageCatalog: ImageEntry[] = [
     caption: "How AWS CloudFormation creates a stack from a template",
     credit: "AWS Documentation",
     sourceUrl: "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html",
-    keywords: ["cloudformation", "declarative templates", "infrastructure as code", "change sets", "stacksets", "cloud development kit", "construct library"],
+    keywords: ["aws cloudformation", "cloudformation stack", "cloudformation template", "declarative templates", "infrastructure as code", "change sets", "stacksets", "cloud development kit", "construct library"],
     certs: ["clf-c02"],
   },
   {
